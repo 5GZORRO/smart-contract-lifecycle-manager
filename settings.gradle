@@ -1,0 +1,10 @@
+
+rootProject.name = 'lifecycle-manager'
+include 'app'
+include 'dlt-driver-api'
+
+include 'corda-driver'
+include 'corda-driver:contracts'
+include 'corda-driver:workflows'
+include 'corda-driver:driver-impl'
+include 'corda-driver:did-oracle'
