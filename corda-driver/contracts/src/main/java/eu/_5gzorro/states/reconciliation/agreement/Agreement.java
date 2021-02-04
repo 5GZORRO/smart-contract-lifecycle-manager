@@ -2,7 +2,6 @@ package eu._5gzorro.states.reconciliation.agreement;
 
 import eu._5gzorro.contracts.EstablishAgreementContract;
 import eu._5gzorro.models.types.AgreementStatus;
-import eu._5gzorro.models.types.ReconciliationType;
 import java.util.List;
 import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.BelongsToContract;
@@ -13,19 +12,18 @@ import net.corda.core.identity.Party;
 import org.jetbrains.annotations.NotNull;
 
 @BelongsToContract(EstablishAgreementContract.class)
-public class ReconciliationAgreement implements LinearState {
+public class Agreement implements LinearState {
   private AgreementStatus status;
-  private ReconciliationType reconciliationType;
-  private Party hlrOracle;
   private UniqueIdentifier linearId;
   private Party proposer;
   private Party proposee;
 
-  public ReconciliationAgreement(AgreementStatus status,
-      ReconciliationType reconciliationType, UniqueIdentifier linearId, Party proposer,
+  public Agreement(
+      AgreementStatus status,
+      UniqueIdentifier linearId,
+      Party proposer,
       Party proposee) {
     this.status = status;
-    this.reconciliationType = reconciliationType;
     this.linearId = linearId;
     this.proposer = proposer;
     this.proposee = proposee;
@@ -47,10 +45,6 @@ public class ReconciliationAgreement implements LinearState {
     return status;
   }
 
-  public ReconciliationType getReconciliationType() {
-    return reconciliationType;
-  }
-
   public Party getProposer() {
     return proposer;
   }
@@ -60,9 +54,7 @@ public class ReconciliationAgreement implements LinearState {
   }
 
   public static final class ReconciliationAgreementBuilder {
-
     private AgreementStatus status;
-    private ReconciliationType reconciliationType;
     private UniqueIdentifier linerId;
     private Party proposer;
     private Party proposee;
@@ -73,9 +65,8 @@ public class ReconciliationAgreement implements LinearState {
       return new ReconciliationAgreementBuilder();
     }
 
-    public ReconciliationAgreementBuilder copy(ReconciliationAgreement agreement) {
+    public ReconciliationAgreementBuilder copy(Agreement agreement) {
       this.status = agreement.status;
-      this.reconciliationType = agreement.reconciliationType;
       this.linerId = agreement.linearId;
       this.proposer = agreement.proposer;
       this.proposee = agreement.proposee;
@@ -84,11 +75,6 @@ public class ReconciliationAgreement implements LinearState {
 
     public ReconciliationAgreementBuilder setStatus(AgreementStatus status) {
       this.status = status;
-      return this;
-    }
-
-    public ReconciliationAgreementBuilder setReconciliationType(ReconciliationType reconciliationType) {
-      this.reconciliationType = reconciliationType;
       return this;
     }
 
@@ -107,8 +93,8 @@ public class ReconciliationAgreement implements LinearState {
       return this;
     }
 
-    public ReconciliationAgreement build() {
-      return new ReconciliationAgreement(status, reconciliationType, linerId, proposer, proposee);
+    public Agreement build() {
+      return new Agreement(status, linerId, proposer, proposee);
     }
   }
 }

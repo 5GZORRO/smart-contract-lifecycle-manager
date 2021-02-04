@@ -3,6 +3,7 @@ package eu._5gzorro.lifecycle.manager.service;
 import eu._5gzorro.lifecycle.manager.domain.Invitation;
 import eu._5gzorro.lifecycle.manager.domain.ProductOffering;
 import eu._5gzorro.lifecycle.manager.domain.VerifiableCredential;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public interface ProductOfferingDriver {
   void publishProductOffering(
       ProductOffering offer,
       Map<String, Invitation> invitations,
-      VerifiableCredential verifiableCredentials,
+      Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential
   );
 

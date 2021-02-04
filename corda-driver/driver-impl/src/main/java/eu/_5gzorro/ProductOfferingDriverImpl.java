@@ -4,6 +4,7 @@ import eu._5gzorro.lifecycle.manager.domain.Invitation;
 import eu._5gzorro.lifecycle.manager.domain.ProductOffering;
 import eu._5gzorro.lifecycle.manager.domain.VerifiableCredential;
 import eu._5gzorro.lifecycle.manager.service.ProductOfferingDriver;
+import java.util.Collection;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,11 @@ import org.springframework.stereotype.Service;
 public class ProductOfferingDriverImpl implements ProductOfferingDriver {
 
   @Override
-  public void publishProductOffering(ProductOffering offer, Map<String, Invitation> invitations,
-      VerifiableCredential verifiableCredentials, VerifiableCredential identityCredential) {
+  public void publishProductOffering(
+      ProductOffering offer,
+      Map<String, Invitation> invitations,
+      Collection<VerifiableCredential> verifiableCredentials,
+      VerifiableCredential identityCredential) {
     // Stub
   }
 

@@ -17,5 +17,4 @@ public class EstablishAgreementContract implements Contract {
   public void verify(@NotNull LedgerTransaction tx) {
 
   }
-
 }

@@ -3,6 +3,7 @@ package eu._5gzorro.controller.dto;
 import eu._5gzorro.lifecycle.manager.domain.Invitation;
 import eu._5gzorro.lifecycle.manager.domain.ProductOffering;
 import eu._5gzorro.lifecycle.manager.domain.VerifiableCredential;
+import java.util.Collection;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +11,7 @@ public class PublishProductOfferingRequest {
   @NotNull
   private ProductOffering productOffering;
   private Map<String, Invitation> invitations;
-  private VerifiableCredential verifiableCredentials;
+  private Collection<VerifiableCredential> verifiableCredentials;
 
   public ProductOffering getProductOffering() {
     return productOffering;
@@ -32,12 +33,12 @@ public class PublishProductOfferingRequest {
     return this;
   }
 
-  public VerifiableCredential getVerifiableCredentials() {
+  public Collection<VerifiableCredential> getVerifiableCredentials() {
     return verifiableCredentials;
   }
 
   public PublishProductOfferingRequest setVerifiableCredentials(
-      VerifiableCredential verifiableCredentials) {
+      Collection<VerifiableCredential> verifiableCredentials) {
     this.verifiableCredentials = verifiableCredentials;
     return this;
   }
