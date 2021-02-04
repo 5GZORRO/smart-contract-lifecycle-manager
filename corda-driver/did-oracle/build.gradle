@@ -1,0 +1,62 @@
+apply plugin: 'net.corda.plugins.cordapp'
+apply plugin: 'net.corda.plugins.cordformation'
+apply plugin: 'net.corda.plugins.quasar-utils'
+
+group 'eu.5gzorro'
+version '0.1'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            java.outputDir = file('bin/main')
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir rootProject.file("config/dev")
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+            java.outputDir = file('bin/main')
+        }
+        resources {
+            srcDir rootProject.file("config/test")
+        }
+    }
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integrationTest/java')
+        }
+    }
+}
+
+cordapp {
+    targetPlatformVersion corda_platform_version.toInteger()
+    minimumPlatformVersion corda_platform_version.toInteger()
+    workflow {
+        name "DID Oracle"
+        vendor "Bartr Technologies"
+        versionId 1
+    }
+}
+
+dependencies {
+    testImplementation "junit:junit:$junit_version"
+
+    // Corda dependencies.
+    cordaCompile "$corda_core_release_group:corda-core:$corda_core_release_version"
+    cordaCompile "$corda_release_group:corda-jackson:$corda_release_version"
+    cordaCompile "$corda_release_group:corda-rpc:$corda_release_version"
+    cordaCompile "$corda_release_group:corda-node-api:$corda_release_version"
+
+    testImplementation "$corda_release_group:corda-node-driver:$corda_release_version"
+
+    // CorDapp dependencies.
+    cordapp project(":corda-driver:workflows")
+    cordapp project(":corda-driver:contracts")
+}
+
