@@ -46,10 +46,14 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.adarshr.test-logger' version '2.1.1' apply false
+}
 
 allprojects {
     apply from: "${rootProject.projectDir}/repositories.gradle"
     apply plugin: 'java'
+    apply plugin: 'com.adarshr.test-logger'
 
     repositories {
         mavenLocal()
@@ -57,5 +61,12 @@ allprojects {
         mavenCentral()
         maven { url 'https://software.r3.com/artifactory/corda' }
         maven { url 'https://jitpack.io' }
+    }
+
+    test {
+        useJUnitPlatform()
+        testlogger {
+            theme 'standard-parallel' // task level
+        }
     }
 }
