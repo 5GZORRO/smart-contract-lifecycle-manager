@@ -18,19 +18,29 @@ import net.corda.testing.node.StartedMockNode;
 import net.corda.testing.node.TestCordapp;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class TwoOperatorTestCase {
 
-  public StartedMockNode telstra;
-  public StartedMockNode telefonica;
-  public StartedMockNode hlrOracle;
+  public StartedMockNode operator1;
+  public StartedMockNode operator2;
+  public StartedMockNode governanceNode;
+  public StartedMockNode didOracle;
   public MockNetwork network;
   public Party notary;
 
-  @Before
+  public Party operator1Party;
+  public Party operator2Party;
+  public Party governanceParty;
+
+  @BeforeAll
   public void setup() {
     Map<String, String> map = Stream.of(new String[][]{
-        {"cdrApiUrl", "http://localhost:8082"},
+        {"apiUrl", "http://localhost:8082"},
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
     List<NotaryInfo> notaryinfo = Arrays.asList();
@@ -40,19 +50,23 @@ public class TwoOperatorTestCase {
     network = new MockNetwork(
         new MockNetworkParameters(
           ImmutableList.of(
-            TestCordapp.findCordapp("tech.bartr.contracts"),
-            TestCordapp.findCordapp("tech.bartr.flows").withConfig(map)
+            TestCordapp.findCordapp("eu._5gzorro.contracts"),
+            TestCordapp.findCordapp("eu._5gzorro.flows").withConfig(map)
           )
         ).withNetworkParameters(myNetworkParameters));
 
-    telstra = network.createNode(CordaX500Name.parse("O=Telstra,L=Sydney,C=AU"));
-    telefonica = network.createNode(CordaX500Name.parse("O=Telefonica,L=Madrid,C=ES"));
+    operator1 = network.createNode(CordaX500Name.parse("O=Operator1,L=Sydney,C=AU"));
+    operator2 = network.createNode(CordaX500Name.parse("O=Operator2,L=Madrid,C=ES"));
+    governanceNode = network.createNode(CordaX500Name.parse("O=Governance,L=London,C=GB"));
 
     notary = network.getDefaultNotaryIdentity();
+    operator1Party = operator1.getInfo().getLegalIdentities().get(0);
+    operator2Party = operator2.getInfo().getLegalIdentities().get(0);
+    governanceParty = governanceNode.getInfo().getLegalIdentities().get(0);
     network.runNetwork();
   }
 
-  @After
+  @AfterAll
   public void tearDown() {
     network.stopNodes();
   }
