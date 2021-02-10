@@ -66,6 +66,8 @@ dependencies {
     // CorDapp dependencies.
     cordapp project(":corda-driver:contracts")
 
+    implementation project(":dlt-driver-api")
+
     // OkHTTP: A simple HTTP library.
     implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
     testImplementation("com.squareup.okhttp3:mockwebserver:$okhttp_version")

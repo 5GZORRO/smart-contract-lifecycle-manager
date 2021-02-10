@@ -1,15 +1,16 @@
 package eu._5gzorro.flows.product_offer;
 
 import co.paralleluniverse.fibers.Suspendable;
-import eu._5gzorro.contracts.ProductOfferingContract.ProductOfferingCommand.Publish;
-import eu._5gzorro.flows.governance.GatherGovernanceSignatureFlow;
+import eu._5gzorro.contracts.ProductOfferingContract.ProductOfferingCommand.Retire;
 import eu._5gzorro.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.states.ProductOffering;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.corda.core.contracts.Command;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FinalityFlow;
 import net.corda.core.flows.FlowException;
@@ -23,47 +24,45 @@ import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 
 @InitiatingFlow
-public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> {
-  private final ProductOffering productOffering;
+public class RetireProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> {
+  private final StateAndRef<ProductOffering> prevStateAndRef;
   private final Set<FlowSession> otherParties;
 
-  public PublishProductOfferFlow(ProductOffering productOffering,
+  public RetireProductOfferFlow(
+      StateAndRef<ProductOffering> prevStateAndRef,
       Set<FlowSession> otherParties) {
-    this.productOffering = productOffering;
+    this.prevStateAndRef = prevStateAndRef;
     this.otherParties = otherParties;
   }
 
   @Suspendable
   @Override
   public UniqueIdentifier call() throws FlowException {
-    List<PublicKey> requiredSigners = productOffering.getRequiredSigners();
+    List<PublicKey> requiredSigners = Arrays.asList(getOurIdentity().getOwningKey());
 
-    Command<Publish> command = new Command<>(new Publish(), requiredSigners);
+    Command<Retire> command = new Command<>(new Retire(), requiredSigners);
 
     TransactionBuilder txBuilder = new TransactionBuilder(firstNotary())
         .addCommand(command)
-        .addOutputState(productOffering);
+        .addInputState(prevStateAndRef);
 
     txBuilder.verify(getServiceHub());
 
     // Signing the transaction.
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
-    // TODO gather regulator signatures
-    SignedTransaction fullySignedTx
-        = subFlow(new GatherGovernanceSignatureFlow(signedTx, productOffering.getGovernanceParty()));
 
-    subFlow(new FinalityFlow(fullySignedTx, otherParties));
+    subFlow(new FinalityFlow(signedTx, otherParties));
 
-    return productOffering.getLinearId();
+    return prevStateAndRef.getState().getData().getLinearId();
   }
 
   @InitiatingFlow
   @StartableByRPC
-  public static class PublishProductOfferInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final ProductOffering productOffering;
+  public static class RetireProductOfferInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
+    private final UniqueIdentifier productOfferingId;
 
-    public PublishProductOfferInitiator(ProductOffering productOffering) {
-      this.productOffering = productOffering;
+    public RetireProductOfferInitiator(UniqueIdentifier productOfferingId) {
+      this.productOfferingId = productOfferingId;
     }
 
     @Suspendable
@@ -80,15 +79,18 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
               .collect(Collectors.toList())
       );
 
-      return subFlow(new PublishProductOfferFlow(productOffering, allOtherParties));
+      StateAndRef<ProductOffering> prevStateAndRef
+          = findStateWithLinearId(ProductOffering.class, productOfferingId);
+
+      return subFlow(new RetireProductOfferFlow(prevStateAndRef, allOtherParties));
     }
   }
 
-  @InitiatedBy(PublishProductOfferInitiator.class)
-  public static class PublishProductOfferResponder extends ExtendedFlowLogic<SignedTransaction> {
+  @InitiatedBy(RetireProductOfferInitiator.class)
+  public static class RetireProductOfferResponder extends ExtendedFlowLogic<SignedTransaction> {
     private final FlowSession counterParty;
 
-    public PublishProductOfferResponder(FlowSession counterParty) {
+    public RetireProductOfferResponder(FlowSession counterParty) {
       this.counterParty = counterParty;
     }
 
@@ -98,4 +100,5 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
       return subFlow(new ReceiveFinalityFlow(counterParty, null, StatesToRecord.ALL_VISIBLE));
     }
   }
+
 }

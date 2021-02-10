@@ -1,7 +1,7 @@
 package eu._5gzorro.flows.product_offer;
 
 import co.paralleluniverse.fibers.Suspendable;
-import eu._5gzorro.contracts.ProductOfferingContract.ProductOfferingCommand.Publish;
+import eu._5gzorro.contracts.ProductOfferingContract.ProductOfferingCommand.Update;
 import eu._5gzorro.flows.governance.GatherGovernanceSignatureFlow;
 import eu._5gzorro.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.states.ProductOffering;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.corda.core.contracts.Command;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FinalityFlow;
 import net.corda.core.flows.FlowException;
@@ -23,13 +24,16 @@ import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 
 @InitiatingFlow
-public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> {
+public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> {
   private final ProductOffering productOffering;
+  private final StateAndRef<ProductOffering> prevStateAndRef;
   private final Set<FlowSession> otherParties;
 
-  public PublishProductOfferFlow(ProductOffering productOffering,
+  public UpdateProductOfferFlow(ProductOffering productOffering,
+      StateAndRef<ProductOffering> prevStateAndRef,
       Set<FlowSession> otherParties) {
     this.productOffering = productOffering;
+    this.prevStateAndRef = prevStateAndRef;
     this.otherParties = otherParties;
   }
 
@@ -38,19 +42,22 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
   public UniqueIdentifier call() throws FlowException {
     List<PublicKey> requiredSigners = productOffering.getRequiredSigners();
 
-    Command<Publish> command = new Command<>(new Publish(), requiredSigners);
+    Command<Update> command = new Command<>(new Update(), requiredSigners);
 
     TransactionBuilder txBuilder = new TransactionBuilder(firstNotary())
         .addCommand(command)
+        .addInputState(prevStateAndRef)
         .addOutputState(productOffering);
 
     txBuilder.verify(getServiceHub());
 
     // Signing the transaction.
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
-    // TODO gather regulator signatures
+
+    // TODO consider if governance is the one we want to sign this?
     SignedTransaction fullySignedTx
         = subFlow(new GatherGovernanceSignatureFlow(signedTx, productOffering.getGovernanceParty()));
+    // TODO gather regulator signature if needed
 
     subFlow(new FinalityFlow(fullySignedTx, otherParties));
 
@@ -59,10 +66,10 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
 
   @InitiatingFlow
   @StartableByRPC
-  public static class PublishProductOfferInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
+  public static class UpdateProductOfferInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
     private final ProductOffering productOffering;
 
-    public PublishProductOfferInitiator(ProductOffering productOffering) {
+    public UpdateProductOfferInitiator(ProductOffering productOffering) {
       this.productOffering = productOffering;
     }
 
@@ -80,15 +87,18 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
               .collect(Collectors.toList())
       );
 
-      return subFlow(new PublishProductOfferFlow(productOffering, allOtherParties));
+      StateAndRef<ProductOffering> prevStateAndRef
+          = findStateWithLinearId(ProductOffering.class, productOffering.getLinearId());
+
+      return subFlow(new UpdateProductOfferFlow(productOffering, prevStateAndRef, allOtherParties));
     }
   }
 
-  @InitiatedBy(PublishProductOfferInitiator.class)
-  public static class PublishProductOfferResponder extends ExtendedFlowLogic<SignedTransaction> {
+  @InitiatedBy(UpdateProductOfferInitiator.class)
+  public static class UpdateProductOfferResponder extends ExtendedFlowLogic<SignedTransaction> {
     private final FlowSession counterParty;
 
-    public PublishProductOfferResponder(FlowSession counterParty) {
+    public UpdateProductOfferResponder(FlowSession counterParty) {
       this.counterParty = counterParty;
     }
 
@@ -98,4 +108,5 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
       return subFlow(new ReceiveFinalityFlow(counterParty, null, StatesToRecord.ALL_VISIBLE));
     }
   }
+
 }

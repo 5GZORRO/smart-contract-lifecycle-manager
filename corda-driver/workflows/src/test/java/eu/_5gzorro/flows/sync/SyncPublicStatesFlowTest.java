@@ -1,9 +1,8 @@
 package eu._5gzorro.flows.sync;
 
-import static eu._5gzorro.flows.product_offer.ProductOfferingTestUtils.generateProductOffering;
+import static eu._5gzorro.flows.product_offer.ProductOfferingTestUtils.publishProductOffering;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import eu._5gzorro.models.types.OfferStatus;
 import eu._5gzorro.models.types.OfferType;
 import eu._5gzorro.states.ProductOffering;
 import eu._5gzorro.utils.TwoOperatorTestCase;
@@ -23,7 +22,6 @@ public class SyncPublicStatesFlowTest extends TwoOperatorTestCase {
 
     ProductOffering offering = new ProductOffering(
         new UniqueIdentifier("233"),
-        OfferStatus.ISSUED,
         OfferType.GENERAL,
         "testName",
         operator1Party,
@@ -38,7 +36,7 @@ public class SyncPublicStatesFlowTest extends TwoOperatorTestCase {
 
     network.runNetwork();
     UniqueIdentifier offeringId =
-        generateProductOffering(operator1, network, offering);
+        publishProductOffering(operator1, network, offering);
 
     StartedMockNode operator3 = network.createNode();
     network.runNetwork();

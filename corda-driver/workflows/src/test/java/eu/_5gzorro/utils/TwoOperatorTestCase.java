@@ -1,13 +1,18 @@
 package eu._5gzorro.utils;
 
+import static eu._5gzorro.flows.product_offer.ProductOfferingTestUtils.publishProductOffering;
 import static net.corda.testing.common.internal.ParametersUtilitiesKt.testNetworkParameters;
 
 import com.google.common.collect.ImmutableList;
+import eu._5gzorro.models.types.OfferType;
+import eu._5gzorro.states.ProductOffering;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.node.NetworkParameters;
@@ -20,6 +25,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 
@@ -70,4 +76,5 @@ public class TwoOperatorTestCase {
   public void tearDown() {
     network.stopNodes();
   }
+
 }
