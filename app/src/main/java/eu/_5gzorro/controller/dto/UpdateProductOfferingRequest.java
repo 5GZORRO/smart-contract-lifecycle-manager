@@ -1,8 +1,8 @@
 package eu._5gzorro.controller.dto;
 
-import eu._5gzorro.lifecycle.manager.domain.Invitation;
-import eu._5gzorro.lifecycle.manager.domain.ProductOffering;
-import eu._5gzorro.lifecycle.manager.domain.VerifiableCredential;
+import eu._5gzorro.manager.domain.Invitation;
+import eu._5gzorro.manager.domain.ProductOffering;
+import eu._5gzorro.manager.domain.VerifiableCredential;
 import java.util.Map;
 import javax.validation.constraints.NotNull;
 
