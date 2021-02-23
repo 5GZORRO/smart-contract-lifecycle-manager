@@ -3,10 +3,10 @@ plugins {
     id("java")
     id("com.github.johnrengelman.processes") version "0.5.0"
     id("org.springdoc.openapi-gradle-plugin") version "1.3.0"
+    id("com.google.cloud.tools.jib")
 }
 
 group = "eu._5gzorro"
-version = "0.0.1-SNAPSHOT"
 sourceCompatibility = "1.8"
 
 dependencies {
@@ -37,4 +37,13 @@ openApi {
     outputFileName = "openapi.yaml"
     waitTimeInSeconds = 10
     apiDocsUrl = "http://localhost:8087/api-docs"
+}
+
+jib {
+    to {
+        image = "docker.pkg.github.com/5gzorro/smart-contract-lifecycle-manager/lifecycle-manager-api:${version}"
+    }
+    container {
+        mainClass = 'eu._5gzorro.manager.api.ManagerApplication'
+    }
 }

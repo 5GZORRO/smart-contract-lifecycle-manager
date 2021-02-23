@@ -48,6 +48,7 @@ buildscript {
 
 plugins {
     id 'com.adarshr.test-logger' version '2.1.1' apply false
+    id 'com.google.cloud.tools.jib' version '2.7.1' apply false
 }
 
 allprojects {
