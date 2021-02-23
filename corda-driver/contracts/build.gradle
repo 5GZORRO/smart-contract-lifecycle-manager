@@ -1,5 +1,12 @@
 apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
+apply plugin: 'maven-publish'
+
+group 'eu._5gzorro'
+
+jar {
+    baseName '5gzorro-contracts'
+}
 
 repositories {
     mavenLocal()
@@ -26,6 +33,9 @@ sourceSets {
             srcDirs('src/main/java')
             java.outputDir = file('bin/main')
         }
+        resources {
+            include 'META-INF/services/**'
+        }
     }
     test {
         java{
@@ -42,8 +52,29 @@ dependencies {
     testImplementation "$corda_release_group:corda-node-driver:$corda_release_version"
 
     cordaCompile "$corda_release_group:corda-jackson:$corda_release_version"
+
+    implementation project(":dlt-driver-api")
 }
 
 test {
     useJUnitPlatform()
 }
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/5GZORRO/smart-contract-lifecycle-manager"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+

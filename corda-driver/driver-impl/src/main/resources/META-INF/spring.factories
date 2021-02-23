@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+eu._5gzorro.manager.dlt.corda.autoconfigure.DriverConfiguration
