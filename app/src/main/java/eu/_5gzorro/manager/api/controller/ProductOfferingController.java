@@ -1,7 +1,7 @@
-package eu._5gzorro.controller;
+package eu._5gzorro.manager.api.controller;
 
-import eu._5gzorro.controller.dto.PublishProductOfferingRequest;
-import eu._5gzorro.controller.dto.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.PublishProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.UpdateProductOfferingRequest;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -17,10 +17,10 @@ import net.corda.core.messaging.CordaRPCOps;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductOfferingDriverImpl implements ProductOfferingDriver {
+public class CordaProductOfferingDriver implements ProductOfferingDriver {
   private final CordaRPCOps rpcClient;
 
-  public ProductOfferingDriverImpl(NodeRPC nodeRPC) {
+  public CordaProductOfferingDriver(NodeRPC nodeRPC) {
     this.rpcClient = nodeRPC.getClient();
   }
 

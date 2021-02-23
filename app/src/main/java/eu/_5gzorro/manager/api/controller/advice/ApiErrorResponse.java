@@ -1,4 +1,4 @@
-package eu._5gzorro.controller.advice;
+package eu._5gzorro.manager.api.controller.advice;
 
 import java.util.HashMap;
 

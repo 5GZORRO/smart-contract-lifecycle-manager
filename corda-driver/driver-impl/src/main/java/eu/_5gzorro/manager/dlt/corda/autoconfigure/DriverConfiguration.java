@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.autoconfigure;
 
 import eu._5gzorro.manager.service.ProductOfferingDriver;
-import eu._5gzorro.manager.dlt.corda.service.product_offering.ProductOfferingDriverImpl;
+import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferingDriver;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +15,6 @@ public class DriverConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public ProductOfferingDriver productOfferingDriver(NodeRPC rpc) {
-    return new ProductOfferingDriverImpl(rpc);
+    return new CordaProductOfferingDriver(rpc);
   }
 }

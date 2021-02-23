@@ -97,6 +97,11 @@ public class ProductOfferingContract implements Contract {
       );
 
       requirements.using(
+          "Id of offering has not changed",
+          oldOffering.getLinearId().equals(newOffering.getLinearId())
+      );
+
+      requirements.using(
           "All required signers must sign",
           signers.containsAll(oldOffering.getRequiredSigners())
       );

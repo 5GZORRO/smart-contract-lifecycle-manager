@@ -1,4 +1,4 @@
-package eu._5gzorro.controller;
+package eu._5gzorro.manager.api.controller;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import eu._5gzorro.controller.dto.PublishProductOfferingRequest;
-import eu._5gzorro.controller.dto.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.PublishProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.UpdateProductOfferingRequest;
 import eu._5gzorro.manager.domain.ProductOffering;
 import java.util.Collections;
 import org.hamcrest.Matchers;
