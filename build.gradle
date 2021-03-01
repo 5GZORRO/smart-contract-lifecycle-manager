@@ -24,6 +24,9 @@ buildscript {
         // okhttp
         okhttp_version = '3.5.0'
         awaitility_version = '4.0.3'
+
+        // rx java
+        rxjava3_version = '3.0.10'
     }
 
     repositories {
