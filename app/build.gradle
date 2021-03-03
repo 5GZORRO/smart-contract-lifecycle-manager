@@ -29,7 +29,7 @@ dependencies {
 }
 
 springBoot {
-    mainClassName = "eu._5gzorro.ManagerApplication"
+    mainClassName = "eu._5gzorro.manager.api.ManagerApplication"
 }
 
 openApi {

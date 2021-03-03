@@ -21,5 +21,5 @@ jobs:
         with:
           add: 'docs/swagger-ui'
           message: 'Github Action: update OpenAPI YAML commit'
-          push: false
+          push: true
           branch: $GITHUB_REF
