@@ -4,8 +4,37 @@
       "VerifiableCredential": {
         "type": "object"
       },
-      "ProductOffering": {
+      "ServiceCandidate": {
         "type": "object"
+      },
+      "ProductOffering": {
+        "type": "object",
+        "properties": {
+          "places": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Place"
+            }
+          },
+          "serviceCandidate": {
+            "$ref": "#/components/schemas/ServiceCandidate"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productOfferTerms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferTerm"
+            }
+          },
+          "serviceLevelAgreements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceLevelAgreement"
+            }
+          }
+        }
       },
       "Invitation": {
         "type": "object"
@@ -27,6 +56,15 @@
             "type": "integer"
           }
         }
+      },
+      "ServiceLevelAgreement": {
+        "type": "object"
+      },
+      "ProductOfferTerm": {
+        "type": "object"
+      },
+      "Place": {
+        "type": "object"
       },
       "UpdateProductOfferingRequest": {
         "type": "object",
@@ -64,7 +102,10 @@
             "type": "object"
           },
           "verifiableCredentials": {
-            "$ref": "#/components/schemas/VerifiableCredential"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            }
           }
         }
       }
