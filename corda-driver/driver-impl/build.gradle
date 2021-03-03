@@ -1,0 +1,79 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'net.corda.plugins.quasar-utils'
+
+sourceSets {
+    main {
+        resources {
+            srcDir rootProject.file("config/dev")
+        }
+    }
+}
+
+dependencies {
+    // Corda dependencies.
+    implementation("$corda_release_group:corda-rpc:$corda_release_version")
+
+    implementation("org.apache.activemq:artemis-jms-server:2.6.2")
+    implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
+
+
+    implementation project(":dlt-driver-api")
+
+    // CorDapp dependencies.
+    implementation project(":corda-driver:contracts")
+    implementation project(":corda-driver:workflows")
+
+    testImplementation project(":corda-driver:did-oracle")
+
+    implementation("org.springframework.boot:spring-boot-starter-websocket:$spring_boot_version") {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+
+    implementation("org.springframework.boot:spring-boot-starter-test:$spring_boot_version") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'org.junit.jupiter', module: 'junit-jupiter-engine'
+    }
+    testImplementation("com.github.manosbatsis.corbeans:corbeans-spring-boot-starter-test:$corbeans_version") {
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    }
+
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
+    implementation "org.apache.logging.log4j:log4j-web:${log4j_version}"
+    implementation "org.slf4j:jul-to-slf4j:$slf4j_version"
+
+    testImplementation "$corda_release_group:corda-node-driver:$corda_release_version"
+
+    testImplementation "org.awaitility:awaitility:$awaitility_version"
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+
+    implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
+}
+
+test {
+    testClassesDirs = layout.files { file("src/test/java").listFiles() }
+    description = "Runs tests using a NodeDriver-based Corda network"
+    // Use jupiter
+    useJUnitPlatform {
+        maxHeapSize = "3g"
+        includeEngines 'junit-jupiter'
+        if (project.hasProperty('enableTestLogging') && project.enableTestLogging) {
+            testLogging.showStandardStreams = true
+            testLogging.exceptionFormat = 'full'
+        }
+        else {
+            testLogging.showStandardStreams = false
+        }
+    }
+}
+
+springBoot {
+    mainClassName = "tech.bartr.Starter"
+}
+
+task runServer(type: JavaExec, dependsOn: assemble) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'tech.bartr.Starter'
+    args '--server.port=10050', '--config.rpc.host=localhost', '--config.rpc.port=10006', '--config.rpc.username=user1', '--config.rpc.password=test'
+}

@@ -1,0 +1,76 @@
+buildscript {
+    Properties constants = new Properties()
+    file("$projectDir/./constants.properties").withInputStream { constants.load(it) }
+
+    ext {
+        corda_release_group = constants.getProperty("cordaReleaseGroup")
+        corda_core_release_group =  constants.getProperty("cordaCoreReleaseGroup")
+        corda_release_version = constants.getProperty("cordaVersion")
+        corda_core_release_version = constants.getProperty("cordaCoreVersion")
+        corda_gradle_plugins_version = constants.getProperty("gradlePluginsVersion")
+        kotlin_version = constants.getProperty("kotlinVersion")
+        junit_version = constants.getProperty("junitVersion")
+        junit5_version = constants.getProperty("junit5Version")
+        quasar_version = constants.getProperty("quasarVersion")
+        log4j_version = constants.getProperty("log4jVersion")
+        slf4j_version = constants.getProperty("slf4jVersion")
+        corda_platform_version = constants.getProperty("platformVersion").toInteger()
+        corbeans_version = constants.getProperty("corbeansVersion")
+
+        //springboot
+        spring_boot_version = '2.1.18.RELEASE'
+        spring_boot_gradle_plugin_version = '2.1.18.RELEASE'
+
+        // okhttp
+        okhttp_version = '3.5.0'
+        awaitility_version = '4.0.3'
+
+        // rx java
+        rxjava3_version = '3.0.10'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-releases' }
+        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib' }
+        maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib-dev' }
+    }
+
+    dependencies {
+        classpath "com.google.code.gson:gson:2.8.5"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "net.corda.plugins:cordapp:$corda_gradle_plugins_version"
+        classpath "net.corda.plugins:publish-utils:$corda_gradle_plugins_version"
+        classpath "net.corda.plugins:cordformation:$corda_gradle_plugins_version"
+        classpath "net.corda.plugins:quasar-utils:$corda_gradle_plugins_version"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_gradle_plugin_version"
+    }
+}
+
+plugins {
+    id 'com.adarshr.test-logger' version '2.1.1' apply false
+    id 'com.google.cloud.tools.jib' version '2.7.1' apply false
+}
+
+allprojects {
+    apply from: "${rootProject.projectDir}/repositories.gradle"
+    apply plugin: 'java'
+    apply plugin: 'com.adarshr.test-logger'
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven { url 'https://software.r3.com/artifactory/corda' }
+        maven { url 'https://jitpack.io' }
+    }
+
+    test {
+        useJUnitPlatform()
+        testlogger {
+            theme 'standard-parallel' // task level
+        }
+    }
+}

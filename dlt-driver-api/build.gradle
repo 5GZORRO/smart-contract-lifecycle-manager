@@ -1,0 +1,6 @@
+apply plugin: "java-library"
+
+dependencies {
+    implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
+    implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
+}

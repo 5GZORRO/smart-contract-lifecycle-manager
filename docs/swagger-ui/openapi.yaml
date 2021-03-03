@@ -1,0 +1,255 @@
+{
+  "components": {
+    "schemas": {
+      "VerifiableCredential": {
+        "type": "object"
+      },
+      "ServiceCandidate": {
+        "type": "object"
+      },
+      "ProductOffering": {
+        "type": "object",
+        "properties": {
+          "places": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Place"
+            }
+          },
+          "serviceCandidate": {
+            "$ref": "#/components/schemas/ServiceCandidate"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productOfferTerms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferTerm"
+            }
+          },
+          "serviceLevelAgreements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceLevelAgreement"
+            }
+          }
+        }
+      },
+      "Invitation": {
+        "type": "object"
+      },
+      "ApiErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "status": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "ServiceLevelAgreement": {
+        "type": "object"
+      },
+      "ProductOfferTerm": {
+        "type": "object"
+      },
+      "Place": {
+        "type": "object"
+      },
+      "UpdateProductOfferingRequest": {
+        "type": "object",
+        "required": [
+          "productOffering"
+        ],
+        "properties": {
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOffering"
+          },
+          "invitations": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Invitation"
+            },
+            "type": "object"
+          },
+          "verifiableCredentials": {
+            "$ref": "#/components/schemas/VerifiableCredential"
+          }
+        }
+      },
+      "PublishProductOfferingRequest": {
+        "type": "object",
+        "required": [
+          "productOffering"
+        ],
+        "properties": {
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOffering"
+          },
+          "invitations": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Invitation"
+            },
+            "type": "object"
+          },
+          "verifiableCredentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Generated server url",
+      "url": "http://localhost:8087"
+    }
+  ],
+  "openapi": "3.0.1",
+  "paths": {
+    "/product-offer/{offerId}": {
+      "delete": {
+        "operationId": "removeProductOffering",
+        "responses": {
+          "200": {
+            "description": "Product offering removed",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "offerId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product Offer"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "updateProductOffering",
+        "responses": {
+          "200": {
+            "description": "Product offering updated",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "offerId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product Offer"
+        ]
+      }
+    },
+    "/product-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOffering",
+        "responses": {
+          "200": {
+            "description": "Published product offering",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Product Offer"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  }
+}
