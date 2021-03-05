@@ -2,10 +2,6 @@ package eu._5gzorro.manager.dlt.corda.states;
 
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract;
 import eu._5gzorro.manager.domain.Invitation;
-import eu._5gzorro.manager.domain.Place;
-import eu._5gzorro.manager.domain.ProductOfferTerm;
-import eu._5gzorro.manager.domain.ServiceCandidate;
-import eu._5gzorro.manager.domain.ServiceLevelAgreement;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import java.security.PublicKey;
 import java.util.Arrays;
@@ -17,7 +13,6 @@ import net.corda.core.contracts.BelongsToContract;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
-import net.corda.core.serialization.ConstructorForDeserialization;
 import net.corda.core.serialization.CordaSerializable;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,10 +21,6 @@ import org.jetbrains.annotations.NotNull;
 public class ProductOffering extends PublicState {
   private OfferType offerType;
   private String name;
-//  private List<Place> places;
-//  private List<ProductOfferTerm> productOfferTerms;
-//  private ServiceCandidate serviceCandidate;
-//  private List<ServiceLevelAgreement> serviceLevelAgreements;
   private it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering;
   private Map<String, Invitation> didInvitations;
 
@@ -49,43 +40,11 @@ public class ProductOffering extends PublicState {
     super(id, owner);
     this.offerType = offerType;
     this.name = name;
-//    this.places = productOffering.getPlace();
-//    this.productOfferTerms = productOffering.getProductOfferingTerm();
-//    this.serviceCandidate = productOffering.getServiceCandidate();
-//    this.serviceLevelAgreements = productOffering.getServiceLevelAgreement();
     this.productOffering = productOffering;
     this.didInvitations = didInvitations;
     this.governanceParty = governanceParty;
     this.spectrumOracle = spectrumOracle;
   }
-
-//  @ConstructorForDeserialization
-//  public ProductOffering(
-//      @NotNull UniqueIdentifier id,
-//      @NotNull OfferType offerType,
-//      @NotNull String name,
-//      @NotNull Party owner,
-//      @NotNull it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering,
-////      List<Place> places,
-////      List<ProductOfferTerm> productOfferTerms,
-////      ServiceCandidate serviceCandidate,
-////      List<ServiceLevelAgreement> serviceLevelAgreements,
-//      Map<String, Invitation> didInvitations,
-//      @NotNull Party governanceParty,
-//      Party spectrumOracle
-//  ) {
-//    super(id, owner);
-//    this.offerType = offerType;
-//    this.name = name;
-////    this.places = places;
-////    this.productOfferTerms = productOfferTerms;
-////    this.serviceCandidate = serviceCandidate;
-////    this.serviceLevelAgreements = serviceLevelAgreements;
-//    this.productOffering = productOffering;
-//    this.didInvitations = didInvitations;
-//    this.governanceParty = governanceParty;
-//    this.spectrumOracle = spectrumOracle;
-//  }
 
   public OfferType getOfferType() {
     return offerType;
@@ -94,23 +53,6 @@ public class ProductOffering extends PublicState {
   public String getName() {
     return name;
   }
-
-//  public List<Place> getPlaces() {
-//    return places;
-//  }
-//
-//  public List<ProductOfferTerm> getProductOfferTerms() {
-//    return productOfferTerms;
-//  }
-//
-//  public ServiceCandidate getServiceCandidate() {
-//    return serviceCandidate;
-//  }
-//
-//  public List<ServiceLevelAgreement> getServiceLevelAgreements() {
-//    return serviceLevelAgreements;
-//  }
-
 
   public it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering getProductOffering() {
     return productOffering;
@@ -143,26 +85,6 @@ public class ProductOffering extends PublicState {
     this.name = name;
     return this;
   }
-
-//  public ProductOffering setPlaces(List<Place> places) {
-//    this.places = places;
-//    return this;
-//  }
-//
-//  public ProductOffering setProductOfferTerms(List<ProductOfferTerm> productOfferTerms) {
-//    this.productOfferTerms = productOfferTerms;
-//    return this;
-//  }
-//
-//  public ProductOffering setServiceCandidate(ServiceCandidate serviceCandidate) {
-//    this.serviceCandidate = serviceCandidate;
-//    return this;
-//  }
-//
-//  public ProductOffering setServiceLevelAgreements(List<ServiceLevelAgreement> serviceLevelAgreements) {
-//    this.serviceLevelAgreements = serviceLevelAgreements;
-//    return this;
-//  }
 
   public ProductOffering setDidInvitations(Map<String, Invitation> didInvitations) {
     this.didInvitations = didInvitations;
