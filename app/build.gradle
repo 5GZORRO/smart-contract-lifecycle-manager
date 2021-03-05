@@ -45,8 +45,9 @@ springBoot {
 openApi {
     outputDir = file("$projectDir/../docs/swagger-ui/")
     outputFileName = "openapi.yaml"
-    waitTimeInSeconds = 10
+    waitTimeInSeconds = 60
     apiDocsUrl = "http://localhost:8087/api-docs"
+    forkProperties = "-Dspring.profiles.active=openapi-generate"
 }
 
 jib {
