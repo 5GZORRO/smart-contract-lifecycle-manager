@@ -129,9 +129,6 @@ public class ProductOfferingContractTest extends ContractTestHarness {
         owner,
         null,
         null,
-        null,
-        null,
-        null,
         governanceParty,
         null
     );

@@ -26,10 +26,11 @@ import org.jetbrains.annotations.NotNull;
 public class ProductOffering extends PublicState {
   private OfferType offerType;
   private String name;
-  private List<Place> places;
-  private List<ProductOfferTerm> productOfferTerms;
-  private ServiceCandidate serviceCandidate;
-  private List<ServiceLevelAgreement> serviceLevelAgreements;
+//  private List<Place> places;
+//  private List<ProductOfferTerm> productOfferTerms;
+//  private ServiceCandidate serviceCandidate;
+//  private List<ServiceLevelAgreement> serviceLevelAgreements;
+  private it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering;
   private Map<String, Invitation> didInvitations;
 
   private final Party governanceParty;
@@ -40,33 +41,7 @@ public class ProductOffering extends PublicState {
       @NotNull OfferType offerType,
       @NotNull String name,
       @NotNull Party owner,
-      @NotNull eu._5gzorro.manager.domain.ProductOffering productOffering,
-      @NotNull Map<String, Invitation> didInvitations,
-      @NotNull Party governanceParty,
-      Party spectrumOracle
-  ) {
-    super(id, owner);
-    this.offerType = offerType;
-    this.name = name;
-    this.places = productOffering.getPlaces();
-    this.productOfferTerms = productOffering.getProductOfferTerms();
-    this.serviceCandidate = productOffering.getServiceCandidate();
-    this.serviceLevelAgreements = productOffering.getServiceLevelAgreements();
-    this.didInvitations = didInvitations;
-    this.governanceParty = governanceParty;
-    this.spectrumOracle = spectrumOracle;
-  }
-
-  @ConstructorForDeserialization
-  public ProductOffering(
-      @NotNull UniqueIdentifier id,
-      @NotNull OfferType offerType,
-      @NotNull String name,
-      @NotNull Party owner,
-      List<Place> places,
-      List<ProductOfferTerm> productOfferTerms,
-      ServiceCandidate serviceCandidate,
-      List<ServiceLevelAgreement> serviceLevelAgreements,
+      @NotNull it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering,
       Map<String, Invitation> didInvitations,
       @NotNull Party governanceParty,
       Party spectrumOracle
@@ -74,14 +49,43 @@ public class ProductOffering extends PublicState {
     super(id, owner);
     this.offerType = offerType;
     this.name = name;
-    this.places = places;
-    this.productOfferTerms = productOfferTerms;
-    this.serviceCandidate = serviceCandidate;
-    this.serviceLevelAgreements = serviceLevelAgreements;
+//    this.places = productOffering.getPlace();
+//    this.productOfferTerms = productOffering.getProductOfferingTerm();
+//    this.serviceCandidate = productOffering.getServiceCandidate();
+//    this.serviceLevelAgreements = productOffering.getServiceLevelAgreement();
+    this.productOffering = productOffering;
     this.didInvitations = didInvitations;
     this.governanceParty = governanceParty;
     this.spectrumOracle = spectrumOracle;
   }
+
+//  @ConstructorForDeserialization
+//  public ProductOffering(
+//      @NotNull UniqueIdentifier id,
+//      @NotNull OfferType offerType,
+//      @NotNull String name,
+//      @NotNull Party owner,
+//      @NotNull it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering,
+////      List<Place> places,
+////      List<ProductOfferTerm> productOfferTerms,
+////      ServiceCandidate serviceCandidate,
+////      List<ServiceLevelAgreement> serviceLevelAgreements,
+//      Map<String, Invitation> didInvitations,
+//      @NotNull Party governanceParty,
+//      Party spectrumOracle
+//  ) {
+//    super(id, owner);
+//    this.offerType = offerType;
+//    this.name = name;
+////    this.places = places;
+////    this.productOfferTerms = productOfferTerms;
+////    this.serviceCandidate = serviceCandidate;
+////    this.serviceLevelAgreements = serviceLevelAgreements;
+//    this.productOffering = productOffering;
+//    this.didInvitations = didInvitations;
+//    this.governanceParty = governanceParty;
+//    this.spectrumOracle = spectrumOracle;
+//  }
 
   public OfferType getOfferType() {
     return offerType;
@@ -91,20 +95,31 @@ public class ProductOffering extends PublicState {
     return name;
   }
 
-  public List<Place> getPlaces() {
-    return places;
+//  public List<Place> getPlaces() {
+//    return places;
+//  }
+//
+//  public List<ProductOfferTerm> getProductOfferTerms() {
+//    return productOfferTerms;
+//  }
+//
+//  public ServiceCandidate getServiceCandidate() {
+//    return serviceCandidate;
+//  }
+//
+//  public List<ServiceLevelAgreement> getServiceLevelAgreements() {
+//    return serviceLevelAgreements;
+//  }
+
+
+  public it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering getProductOffering() {
+    return productOffering;
   }
 
-  public List<ProductOfferTerm> getProductOfferTerms() {
-    return productOfferTerms;
-  }
-
-  public ServiceCandidate getServiceCandidate() {
-    return serviceCandidate;
-  }
-
-  public List<ServiceLevelAgreement> getServiceLevelAgreements() {
-    return serviceLevelAgreements;
+  public ProductOffering setProductOffering(
+      it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering) {
+    this.productOffering = productOffering;
+    return this;
   }
 
   public Map<String, Invitation> getDidInvitations() {
@@ -129,25 +144,25 @@ public class ProductOffering extends PublicState {
     return this;
   }
 
-  public ProductOffering setPlaces(List<Place> places) {
-    this.places = places;
-    return this;
-  }
-
-  public ProductOffering setProductOfferTerms(List<ProductOfferTerm> productOfferTerms) {
-    this.productOfferTerms = productOfferTerms;
-    return this;
-  }
-
-  public ProductOffering setServiceCandidate(ServiceCandidate serviceCandidate) {
-    this.serviceCandidate = serviceCandidate;
-    return this;
-  }
-
-  public ProductOffering setServiceLevelAgreements(List<ServiceLevelAgreement> serviceLevelAgreements) {
-    this.serviceLevelAgreements = serviceLevelAgreements;
-    return this;
-  }
+//  public ProductOffering setPlaces(List<Place> places) {
+//    this.places = places;
+//    return this;
+//  }
+//
+//  public ProductOffering setProductOfferTerms(List<ProductOfferTerm> productOfferTerms) {
+//    this.productOfferTerms = productOfferTerms;
+//    return this;
+//  }
+//
+//  public ProductOffering setServiceCandidate(ServiceCandidate serviceCandidate) {
+//    this.serviceCandidate = serviceCandidate;
+//    return this;
+//  }
+//
+//  public ProductOffering setServiceLevelAgreements(List<ServiceLevelAgreement> serviceLevelAgreements) {
+//    this.serviceLevelAgreements = serviceLevelAgreements;
+//    return this;
+//  }
 
   public ProductOffering setDidInvitations(Map<String, Invitation> didInvitations) {
     this.didInvitations = didInvitations;
@@ -203,10 +218,7 @@ public class ProductOffering extends PublicState {
         offerType,
         name,
         getOwner(),
-        places,
-        productOfferTerms,
-        serviceCandidate,
-        serviceLevelAgreements,
+        productOffering,
         didInvitations,
         governanceParty,
         spectrumOracle

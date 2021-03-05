@@ -13,23 +13,27 @@ import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.TransactionState;
 import net.corda.core.contracts.UniqueIdentifier;
+import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.messaging.CordaRPCOps;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
-@Service
 public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> implements
     ProductOfferingDriver {
   private final CordaRPCOps rpcClient;
-  PublishSubject<ProductOffering> subject = PublishSubject.create();
+  private final PublishSubject<ProductOffering> subject = PublishSubject.create();
+
+  @Value("${corda.governanceNodeNames}")
+  private List<String> governanceNodeNames;
 
   public CordaProductOfferingDriver(NodeRPC nodeRPC) {
     super(nodeRPC, ProductOffering.class);
@@ -59,7 +63,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
 
   @Override
   public void publishProductOffering(
-      eu._5gzorro.manager.domain.ProductOffering offer,
+      it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering offer,
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential) {
@@ -81,9 +85,8 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
 
   @Override
   public void updateProductOffer(
-      eu._5gzorro.manager.domain.ProductOffering offer,
+      it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering offer,
       VerifiableCredential identityCredential) {
-    // Stub
     Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 
     ProductOffering productOfferingState = new ProductOffering(
@@ -106,18 +109,16 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
   }
 
   @Override
-  public Observable<eu._5gzorro.manager.domain.ProductOffering> productOfferObservable() {
+  public Observable<it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering> productOfferObservable() {
     return subject
-        .map(offerState -> new eu._5gzorro.manager.domain.ProductOffering()
-            .setName(offerState.getName())
-            .setProductOfferTerms(offerState.getProductOfferTerms())
-            .setPlaces(offerState.getPlaces())
-            .setServiceCandidate(offerState.getServiceCandidate())
-            .setServiceLevelAgreements(offerState.getServiceLevelAgreements())
-    );
+        .map(ProductOffering::getProductOffering);
   }
 
   private Party findGovernanceNode() {
-    return null; // TODO add method to obtain a governance node party
+    return governanceNodeNames.stream()
+        .map(CordaX500Name::parse)
+        .map(rpcClient::wellKnownPartyFromX500Name)
+        .findAny()
+        .orElseThrow(() -> new RuntimeException("No governance node was found"));
   }
 }

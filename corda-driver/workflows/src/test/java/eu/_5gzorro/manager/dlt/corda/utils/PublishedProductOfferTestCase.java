@@ -23,9 +23,6 @@ public class PublishedProductOfferTestCase extends TwoOperatorTestCase {
         "testName",
         operator1Party,
         null,
-        null,
-        null,
-        null,
         mapOf(new Pair<>("something", new Invitation())),
         governanceParty,
         null

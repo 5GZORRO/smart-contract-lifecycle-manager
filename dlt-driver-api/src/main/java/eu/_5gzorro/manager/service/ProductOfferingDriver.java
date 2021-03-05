@@ -1,9 +1,9 @@
 package eu._5gzorro.manager.service;
 
 import eu._5gzorro.manager.domain.Invitation;
-import eu._5gzorro.manager.domain.ProductOffering;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import io.reactivex.rxjava3.core.Observable;
+import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
 import java.util.Collection;
 import java.util.Map;
 
