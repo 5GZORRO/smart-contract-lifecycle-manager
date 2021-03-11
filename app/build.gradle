@@ -9,6 +9,13 @@ plugins {
 group = "eu._5gzorro"
 sourceCompatibility = "1.8"
 
+configurations {
+    // corda logging (log4j) clashes with spring so just exclude the starter as quick fix
+    compile.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    implementation.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+    runtime.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
+}
+
 dependencies {
     implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
 
@@ -23,9 +30,12 @@ dependencies {
     testImplementation("org.awaitility:awaitility:$awaitility_version")
 
     implementation project(":dlt-driver-api")
+    implementation project(":corda-driver:driver-impl")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5_version")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit5_version")
+
+    runtimeOnly("com.h2database:h2:1.4.200")
 }
 
 springBoot {
@@ -35,8 +45,9 @@ springBoot {
 openApi {
     outputDir = file("$projectDir/../docs/swagger-ui/")
     outputFileName = "openapi.yaml"
-    waitTimeInSeconds = 10
+    waitTimeInSeconds = 60
     apiDocsUrl = "http://localhost:8087/api-docs"
+    forkProperties = "-Dspring.profiles.active=openapi-generate"
 }
 
 jib {

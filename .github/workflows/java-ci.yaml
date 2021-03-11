@@ -19,3 +19,6 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Test
         run: ./gradlew test
+        env:
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets._5GZORRO_PAF }}

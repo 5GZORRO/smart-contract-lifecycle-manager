@@ -17,6 +17,7 @@ jobs:
       - name: Publish package
         run: gradle -Pversion=${{ env.RELEASE_VERSION }} publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets._5GZORRO_PAF }}
       - name: Publish Spring API
         run: gradle -Pversion=${{ env.RELEASE_VERSION }} jib -Djib.to.auth.username=${{ github_actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}

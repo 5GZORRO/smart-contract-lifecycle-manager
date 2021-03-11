@@ -16,6 +16,9 @@ jobs:
           java-version: 1.8
       - name: Generate openapi.yaml
         run: ./gradlew clean generateOpenApiDocs
+        env:
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets._5GZORRO_PAF }}
       - name: Add & Commit
         uses: EndBug/add-and-commit@v7 # You can change this to use a specific version
         with:

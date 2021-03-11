@@ -1,6 +1,17 @@
 server:
   port: 8087
 
+corda:
+  rpc:
+    host: ${CORDA_RPC_HOST:localhost}
+    rpcPort: ${CORDA_RPC_PORT:10002}
+    username: ${CORDA_RPC_USERNAME:username}
+    password: ${CORDA_RPC_PASSWORD:username}
+
+  governanceNodeNames: # Corda X500 names of valid governance nodes
+    - ""
+    - ""
+
 springdoc:
   api-docs:
     path: /api-docs
@@ -8,3 +19,25 @@ springdoc:
   swagger-ui:
     path: /swagger-ui
     enabled: true
+
+spring:
+  application:
+    name: smart-contract-lifecycle-manager
+  h2:
+    console:
+      enabled: true
+  database: h2
+  console: true
+  path: /h2
+  liquibase:
+    enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+datasource:
+  platform: h2
+  url: jdbc:h2://localhost:${server.port}/h2
+  username: sa
+  password: 1234
+  driverClassName: org.h2.Driver

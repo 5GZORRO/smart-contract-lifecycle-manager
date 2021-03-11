@@ -18,7 +18,6 @@ import net.corda.core.node.services.vault.SortAttribute;
 import net.corda.core.utilities.NetworkHostAndPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,19 +25,24 @@ public class NodeRPC {
 
   private static final Logger log = LoggerFactory.getLogger(NodeRPC.class);
 
-  @Value("${config.rpc.host}")
-  private String host;
-  @Value("${config.rpc.port}")
-  private int rpcPort;
-  @Value("${config.rpc.username}")
-  private String username;
-  @Value("${config.rpc.password}")
-  private String password;
+  private final String host;
+  private final int rpcPort;
+  private final String username;
+  private final String password;
 
   private CordaRPCConnection rpcConnection;
   private CordaRPCOps client;
 
-  public NodeRPC() {}
+  public NodeRPC(
+      String host,
+      int rpcPort,
+      String username,
+      String password) {
+    this.host = host;
+    this.rpcPort = rpcPort;
+    this.username = username;
+    this.password = password;
+  }
 
   @PostConstruct
   public void initialiseNodeRPCConnection() {

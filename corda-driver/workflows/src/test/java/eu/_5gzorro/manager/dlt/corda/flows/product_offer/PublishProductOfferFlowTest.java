@@ -48,8 +48,6 @@ public class PublishProductOfferFlowTest extends PublishedProductOfferTestCase {
     assertThat(productOffering.getParticipants(), is(
         CollectionsKt.listOf(operator1Party, governanceParty)));
     assertThat(productOffering.getGovernanceParty(), is(governanceParty));
-    assertThat(productOffering.getPlaces(), is(nullValue()));
     assertThat(productOffering.getName(), is("testName"));
-    assertThat(productOffering.getProductOfferTerms(), is(nullValue()));
   }
 }

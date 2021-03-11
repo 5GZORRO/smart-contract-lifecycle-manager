@@ -2,6 +2,7 @@ package eu._5gzorro.manager.api.controller;
 
 import eu._5gzorro.manager.api.controller.dto.PublishProductOfferingRequest;
 import eu._5gzorro.manager.api.controller.dto.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/product-offer")
 public class ProductOfferingController {
+  private final ProductOfferingDriver driver;
+
+  public ProductOfferingController(ProductOfferingDriver driver) {
+    this.driver = driver;
+  }
 
   @ApiResponses(value = {
       @ApiResponse(
@@ -29,6 +35,13 @@ public class ProductOfferingController {
   @PostMapping
   public ResponseEntity<Boolean> publishProductOffering(
       @RequestBody @NotNull PublishProductOfferingRequest request) {
+    driver
+        .publishProductOffering(
+            request.getProductOffering(),
+            request.getInvitations(),
+            request.getVerifiableCredentials(),
+            null
+        );
     return ResponseEntity.ok().body(true);
   }
 
@@ -40,6 +53,11 @@ public class ProductOfferingController {
   })
   @DeleteMapping("/{offerId}")
   public ResponseEntity<Boolean> removeProductOffering(@PathVariable("offerId") String offerId) {
+    driver
+        .removeProductOffer(
+            offerId,
+            null
+        );
     return ResponseEntity.ok().body(true);
   }
 
@@ -54,6 +72,11 @@ public class ProductOfferingController {
       @PathVariable("offerId") String offerId,
       @RequestBody UpdateProductOfferingRequest request
   ) {
+    driver
+        .updateProductOffer(
+            request.getProductOffering(),
+            null
+        );
     return ResponseEntity.ok().body(true);
   }
 
