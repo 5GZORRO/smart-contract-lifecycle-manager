@@ -53,7 +53,9 @@ dependencies {
 
     cordaCompile "$corda_release_group:corda-jackson:$corda_release_version"
 
-    implementation project(":dlt-driver-api")
+    compile (project(":dlt-driver-api")) {
+        exclude group: "junit", module: "junit"
+    }
 }
 
 test {

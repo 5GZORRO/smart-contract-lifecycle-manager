@@ -25,17 +25,19 @@ dependencies {
         exclude group: "junit", module: "junit"
     }
 
+    implementation('org.springframework.kafka:spring-kafka:2.6.6')
+
     implementation('org.springdoc:springdoc-openapi-ui:1.5.3')
 
     testImplementation("org.awaitility:awaitility:$awaitility_version")
 
     implementation project(":dlt-driver-api")
-    implementation project(":corda-driver:driver-impl")
+    compile (project(":corda-driver:driver-impl"))
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5_version")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit5_version")
 
-    runtimeOnly("com.h2database:h2:1.4.200")
+    implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
 }
 
 springBoot {
@@ -53,6 +55,7 @@ openApi {
 jib {
     to {
         image = "docker.pkg.github.com/5gzorro/smart-contract-lifecycle-manager/lifecycle-manager-api:${version}"
+//        image = "lifecycle-manager-api"
     }
     container {
         mainClass = 'eu._5gzorro.manager.api.ManagerApplication'

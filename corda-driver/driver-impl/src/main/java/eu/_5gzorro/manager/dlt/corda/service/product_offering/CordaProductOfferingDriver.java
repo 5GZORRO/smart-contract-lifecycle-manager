@@ -9,9 +9,10 @@ import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.VerifiableCredential;
+import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subjects.ReplaySubject;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +26,19 @@ import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 
 public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> implements
     ProductOfferingDriver {
   private final CordaRPCOps rpcClient;
-  private final PublishSubject<ProductOffering> subject = PublishSubject.create();
+  private final ReplaySubject<ProductOffering> subject = ReplaySubject.create();
 
-  @Value("${corda.governanceNodeNames}")
-  private List<String> governanceNodeNames;
+  private final List<String> governanceNodeNames;
 
-  public CordaProductOfferingDriver(NodeRPC nodeRPC) {
+  public CordaProductOfferingDriver(NodeRPC nodeRPC, List<String> governanceNodeNames) {
     super(nodeRPC, ProductOffering.class);
     this.rpcClient = nodeRPC.getClient();
+    this.governanceNodeNames = governanceNodeNames;
+    setup();
   }
 
   @Override
@@ -47,9 +48,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
     this.beginTracking(
         criteria,
         this::handleUpdate,
-        productOfferingStateAndRef -> {
-          subject.onNext(productOfferingStateAndRef.getState().getData());
-        }
+        productOfferingStateAndRef -> subject.onNext(productOfferingStateAndRef.getState().getData())
     );
   }
 
@@ -58,7 +57,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
         .stream()
         .map(StateAndRef::getState)
         .map(TransactionState::getData)
-        .forEach(offer -> subject.onNext(offer));
+        .forEach(subject::onNext);
   }
 
   @Override
@@ -109,9 +108,13 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
   }
 
   @Override
-  public Observable<it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering> productOfferObservable() {
+  public Observable<ProductOfferingUpdateEvent> productOfferObservable() {
     return subject
-        .map(ProductOffering::getProductOffering);
+        .map(state -> new ProductOfferingUpdateEvent()
+            .setProductOffering(state.getProductOffering())
+            .setDidInvitations(state.getDidInvitations())
+            .setIdentifier(state.getLinearId().getId().toString())
+        );
   }
 
   private Party findGovernanceNode() {

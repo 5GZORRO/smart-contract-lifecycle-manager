@@ -1,12 +1,17 @@
 apply plugin: "java-library"
 
 dependencies {
-    implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
-    implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
+    implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final") {
+        exclude group: "javax.annotation"
+    }
+    implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version") {
+        exclude group: "javax.annotation"
+    }
     compile("it.nextworks.tmf_offering_catalog:information_models:1.0-SNAPSHOT") {
         exclude group: "org.springframework.boot", module: "spring-boot-starter-test"
         exclude group: "io.springfox", module: "springfox-boot-starter"
         exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
-//        exclude group: "", module: "log4j-to-slf4j"
+        exclude group: "javax.annotation"
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-data-jpa"
     }
 }

@@ -1,4 +1,3 @@
-apply plugin: 'org.springframework.boot'
 apply plugin: 'net.corda.plugins.quasar-utils'
 
 sourceSets {
@@ -68,9 +67,6 @@ test {
     }
 }
 
-springBoot {
-    mainClassName = "tech.bartr.Starter"
-}
 
 task runServer(type: JavaExec, dependsOn: assemble) {
     classpath = sourceSets.main.runtimeClasspath

@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+  company1-api:
+    image: lifecycle-manager-api
+    ports:
+      - "8087:8087"
+    environment:
+      - CORDA_NODE_HOST=localhost
+      - CORDA_NODE_PORT=10006
+    networks:
+      - 5gzorro
+  company2-api:
+    image: lifecycle-manager-api
+    ports:
+      - "8086:8087"
+    environment:
+      - CORDA_NODE_HOST=localhost
+      - CORDA_NODE_PORT=10009
+    networks:
+      - 5gzorro
+  governanceNode-api:
+    image: lifecycle-manager-api
+    ports:
+      - "8089:8087"
+    environment:
+      - CORDA_NODE_HOST=localhost
+      - CORDA_NODE_PORT=10012
+    networks:
+      - 5gzorro
+networks:
+  5gzorro:
+    driver: bridge
