@@ -1,6 +1,9 @@
 server:
   port: ${SERVER_PORT:8087}
 
+dlt:
+  driver: corda
+
 corda:
   rpc:
     host: ${CORDA_RPC_HOST:localhost}
