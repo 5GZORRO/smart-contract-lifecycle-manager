@@ -64,7 +64,6 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         }
         cordapp project(':corda-driver:workflows')
     }
-
     node {
         name "O=Notary,L=London,C=GB"
         notary = [validating : false]
@@ -73,6 +72,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
             address("localhost:10003")
             adminAddress("localhost:10043")
         }
+        cordapp(project(':corda-driver:contracts'))
     }
     node {
         name "O=Company1,L=New York,C=US"
@@ -83,7 +83,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         }
         cordapp(project(':corda-driver:contracts')) {
             config '''
-                apiUrl=localhost:8082
+                apiUrl=localhost:8087
             '''
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
@@ -97,26 +97,40 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         }
         cordapp(project(':corda-driver:contracts')) {
             config '''
-                apiUrl=localhost:8082
+                apiUrl=localhost:8086
             '''
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
     node {
-        name "O=Oracle,L=London,C=GB"
-        p2pPort 10020
+        name "O=GovernanceNode,L=Madrid,C=ES"
+        p2pPort 10011
         rpcSettings {
-            address("localhost:10021")
-            adminAddress("localhost:10061")
+            address("localhost:10012")
+            adminAddress("localhost:10052")
         }
-        cordapp(project(':corda-driver:did-oracle'))
         cordapp(project(':corda-driver:contracts')) {
             config '''
-                apiUrl=localhost:8082
+                apiUrl=localhost:8089
             '''
         }
         rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
+//    node {
+//        name "O=Oracle,L=London,C=GB"
+//        p2pPort 10020
+//        rpcSettings {
+//            address("localhost:10021")
+//            adminAddress("localhost:10061")
+//        }
+//        cordapp(project(':corda-driver:did-oracle'))
+//        cordapp(project(':corda-driver:contracts')) {
+//            config '''
+//                apiUrl=localhost:8082
+//            '''
+//        }
+//        rpcUsers = [[ user: "user1", "password": "test", "permissions": ["ALL"]]]
+//    }
 }
 
 task installQuasar(type: Copy) {

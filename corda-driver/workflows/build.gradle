@@ -18,6 +18,11 @@ jar {
     baseName '5gzorro-workflows'
 }
 
+test {
+    minHeapSize = "512m"
+    maxHeapSize = "2048m"
+}
+
 cordapp {
     targetPlatformVersion corda_platform_version
     minimumPlatformVersion corda_platform_version

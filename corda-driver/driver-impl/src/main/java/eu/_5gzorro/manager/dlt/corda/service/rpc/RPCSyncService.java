@@ -9,9 +9,7 @@ import net.corda.core.node.services.Vault.Update;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rx.Observable;
 import rx.functions.Action1;
-import rx.functions.FuncN;
 
 public abstract class RPCSyncService<T extends ContractState> {
   private static final Logger log = LoggerFactory.getLogger(RPCSyncService.class);

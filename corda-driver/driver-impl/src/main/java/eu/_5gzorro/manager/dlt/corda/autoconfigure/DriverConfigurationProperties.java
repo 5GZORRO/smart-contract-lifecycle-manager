@@ -1,8 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.autoconfigure;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-@ConfigurationProperties(prefix = "corda.rpc")
 public class DriverConfigurationProperties {
   private String host;
   private int rpcPort;

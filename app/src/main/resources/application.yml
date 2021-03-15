@@ -1,16 +1,18 @@
 server:
-  port: 8087
+  port: ${SERVER_PORT:8087}
+
+dlt:
+  driver: corda
 
 corda:
   rpc:
     host: ${CORDA_RPC_HOST:localhost}
-    rpcPort: ${CORDA_RPC_PORT:10002}
-    username: ${CORDA_RPC_USERNAME:username}
-    password: ${CORDA_RPC_PASSWORD:username}
+    rpcPort: ${CORDA_RPC_PORT:10006}
+    username: ${CORDA_RPC_USERNAME:user1}
+    password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
-    - ""
-    - ""
+    - "O=GovernanceNode,L=Madrid,C=ES"
 
 springdoc:
   api-docs:
@@ -34,6 +36,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  kafka:
+    enabled: false
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
 
 datasource:
   platform: h2

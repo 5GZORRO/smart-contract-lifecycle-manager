@@ -4,19 +4,21 @@ import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferi
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+@ConditionalOnProperty(prefix = "dlt", name = "driver", havingValue = "corda")
 @Configuration
-@EnableConfigurationProperties(DriverConfigurationProperties.class)
+@EnableConfigurationProperties({CordaConfigurationProperties.class})
 public class DriverConfiguration {
 
-  private final DriverConfigurationProperties props;
+  private final CordaConfigurationProperties cordaProps;
 
-  public DriverConfiguration(DriverConfigurationProperties props) {
-    this.props = props;
+  public DriverConfiguration(CordaConfigurationProperties cordaProps) {
+    this.cordaProps = cordaProps;
   }
 
   @Primary
@@ -24,10 +26,10 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public NodeRPC nodeRPC() {
     return new NodeRPC(
-        props.getHost(),
-        props.getRpcPort(),
-        props.getUsername(),
-        props.getPassword()
+        cordaProps.getRpc().getHost(),
+        cordaProps.getRpc().getRpcPort(),
+        cordaProps.getRpc().getUsername(),
+        cordaProps.getRpc().getPassword()
     );
   }
 
@@ -35,6 +37,6 @@ public class DriverConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public ProductOfferingDriver productOfferingDriver(NodeRPC rpc) {
-    return new CordaProductOfferingDriver(rpc);
+    return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames());
   }
 }

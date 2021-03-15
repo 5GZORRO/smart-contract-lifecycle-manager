@@ -2,6 +2,7 @@ package eu._5gzorro.manager.service;
 
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.VerifiableCredential;
+import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
 import io.reactivex.rxjava3.core.Observable;
 import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
 import java.util.Collection;
@@ -50,5 +51,5 @@ public interface ProductOfferingDriver {
       VerifiableCredential identityCredential
   );
 
-  Observable<ProductOffering> productOfferObservable();
+  Observable<ProductOfferingUpdateEvent> productOfferObservable();
 }

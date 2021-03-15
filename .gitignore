@@ -10,6 +10,9 @@ tags
 
 .gradle
 
+.vscode/*
+*/.vscode/*
+
 # General build files
 **/build/*
 **/bin/*

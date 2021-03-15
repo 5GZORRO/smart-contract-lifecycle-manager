@@ -1,0 +1,9 @@
+dlt:
+  driver: nothing
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active:
+      - default
+      - openapi-generate

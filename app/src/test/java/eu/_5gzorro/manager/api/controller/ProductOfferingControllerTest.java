@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import eu._5gzorro.manager.api.controller.dto.PublishProductOfferingRequest;
 import eu._5gzorro.manager.api.controller.dto.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.api.service.ProductOfferingService;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
 import java.util.Collections;
@@ -26,9 +27,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-@EnableAutoConfiguration(exclude= ArtemisAutoConfiguration.class)
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = { "dlt.driver=nothing" })
 @AutoConfigureMockMvc
 public class ProductOfferingControllerTest {
 
@@ -37,6 +37,9 @@ public class ProductOfferingControllerTest {
 
   @MockBean
   private ProductOfferingDriver productOfferingDriver;
+
+  @MockBean
+  private ProductOfferingService productOfferingService;
 
   private ObjectMapper objectMapper = new ObjectMapper()
       .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
