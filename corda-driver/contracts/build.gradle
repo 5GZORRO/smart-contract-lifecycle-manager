@@ -1,8 +1,10 @@
 apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
 apply plugin: 'maven-publish'
+apply plugin: "java-library"
 
 group 'eu._5gzorro'
+
 
 jar {
     baseName '5gzorro-contracts'
