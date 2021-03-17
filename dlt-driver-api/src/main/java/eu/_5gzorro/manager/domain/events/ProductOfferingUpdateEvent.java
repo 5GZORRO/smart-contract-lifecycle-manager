@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.domain.events;
 
 import eu._5gzorro.manager.domain.Invitation;
+import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ public class ProductOfferingUpdateEvent {
   private String identifier;
   private ProductOffering productOffering;
   private Map<String, Invitation> didInvitations;
+  private UpdateType updateType;
+  private String deduplicationId;
 
   public String getIdentifier() {
     return identifier;
@@ -38,12 +41,32 @@ public class ProductOfferingUpdateEvent {
     return this;
   }
 
+  public UpdateType getUpdateType() {
+    return updateType;
+  }
+
+  public ProductOfferingUpdateEvent setUpdateType(UpdateType updateType) {
+    this.updateType = updateType;
+    return this;
+  }
+
+  public String getDeduplicationId() {
+    return deduplicationId;
+  }
+
+  public ProductOfferingUpdateEvent setDeduplicationId(String deduplicationId) {
+    this.deduplicationId = deduplicationId;
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ProductOfferingUpdateEvent{" +
-        "identifier='" + identifier + '\'' +
-        ", productOffering=" + productOffering +
-        ", didInvitations=" + didInvitations +
-        '}';
+            "identifier='" + identifier + '\'' +
+            ", productOffering=" + productOffering +
+            ", didInvitations=" + didInvitations +
+            ", updateType=" + updateType +
+            ", deduplicationId='" + deduplicationId + '\'' +
+            '}';
   }
 }

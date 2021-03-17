@@ -12,4 +12,8 @@ public class AbstractProducer<T> {
   public void send(String topic, T message) {
     kafkaTemplate.send(topic, message);
   }
+
+  public void send(String topic, String deDupKey, T message) {
+    kafkaTemplate.send(topic, deDupKey, message);
+  }
 }
