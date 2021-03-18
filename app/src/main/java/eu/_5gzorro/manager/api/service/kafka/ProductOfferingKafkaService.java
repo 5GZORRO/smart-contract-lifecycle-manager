@@ -15,7 +15,7 @@ import javax.annotation.PreDestroy;
 @Service
 public class ProductOfferingKafkaService extends AbstractProducer<ProductOfferingUpdateEvent> {
   @Value("${spring.kafka.update-topics.product-offering}")
-  private static String productOfferTopic;
+  private String productOfferTopic;
 
   private final ProductOfferingDriver driver;
 
