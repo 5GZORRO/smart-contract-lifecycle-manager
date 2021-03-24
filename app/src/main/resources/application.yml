@@ -39,6 +39,8 @@ spring:
   kafka:
     enabled: false
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    update-topics:
+      product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 
 datasource:
   platform: h2

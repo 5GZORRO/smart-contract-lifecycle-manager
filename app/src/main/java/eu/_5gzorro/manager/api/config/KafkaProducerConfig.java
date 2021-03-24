@@ -1,10 +1,13 @@
 package eu._5gzorro.manager.api.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +17,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @ConditionalOnProperty("spring.kafka.enabled")
 @Configuration
 public class KafkaProducerConfig {
+  private static final Logger log = LoggerFactory.getLogger(KafkaProducerConfig.class);
+
   @Value("${spring.kafka.bootstrap-servers}")
   private String bootstrapServers;
 
@@ -30,9 +38,19 @@ public class KafkaProducerConfig {
     return props;
   }
 
+  public JsonSerializer<ProductOfferingUpdateEvent> jsonSerializer() {
+    ObjectMapper objectMapper = new ObjectMapper()
+            .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    objectMapper.registerModule(new JavaTimeModule());
+    return new JsonSerializer<>(objectMapper);
+  }
+
   @Bean
   public ProducerFactory<String, ProductOfferingUpdateEvent> producerFactory() {
-    return new DefaultKafkaProducerFactory<>(producerConfigs());
+    DefaultKafkaProducerFactory<String, ProductOfferingUpdateEvent> factory
+            = new DefaultKafkaProducerFactory<>(producerConfigs());
+    factory.setValueSerializer(jsonSerializer());
+    return factory;
   }
 
   @Bean
