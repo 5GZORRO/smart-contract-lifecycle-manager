@@ -1,172 +1,160 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.PlaceRef;
+import eu._5gzorro.tm_forum.models.ResourceCandidateRef;
+import eu._5gzorro.tm_forum.models.ServiceCandidateRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.PlaceRef;
-import it.nextworks.tmf_offering_catalog.information_models.ResourceCandidateRef;
-import it.nextworks.tmf_offering_catalog.information_models.ServiceCandidateRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.*;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * Represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
  */
-@ApiModel(description = "Represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "product_offerings")
+
+
+
+
+
 public class ProductOffering {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("agreement")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<AgreementRef> agreement = null;
 
-  @JsonProperty("attachment")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<AttachmentRefOrValue> attachment = null;
 
-  @JsonProperty("bundledProductOffering")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<BundledProductOffering> bundledProductOffering = null;
 
-  @JsonProperty("category")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<CategoryRef> category = null;
 
-  @JsonProperty("channel")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ChannelRef> channel = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isBundle")
-  @Column(name = "is_bundle")
+ 
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("isSellable")
-  @Column(name = "is_sellable")
+ 
+ 
   private Boolean isSellable = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+ 
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+ 
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("marketSegment")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<MarketSegmentRef> marketSegment = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("place")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<PlaceRef> place = null;
 
-  @JsonProperty("prodSpecCharValueUse")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
 
-  @JsonProperty("productOfferingPrice")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductOfferingPriceRef> productOfferingPrice = null;
 
-  @JsonProperty("productOfferingTerm")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_offering_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductOfferingTerm> productOfferingTerm = null;
 
-  @JsonProperty("productSpecification")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private ProductSpecificationRef productSpecification = null;
 
-  @JsonProperty("resourceCandidate")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_candidate_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private ResourceCandidateRef resourceCandidate = null;
 
-  @JsonProperty("serviceCandidate")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_candidate_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private ServiceCandidateRef serviceCandidate = null;
 
-  @JsonProperty("serviceLevelAgreement")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_level_agreement_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private SLARef serviceLevelAgreement = null;
 
-  @JsonProperty("statusReason")
-  @Column(name = "status_reason")
+ 
+ 
   private String statusReason = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ProductOffering baseType(String baseType) {
@@ -176,9 +164,9 @@ public class ProductOffering {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -196,9 +184,9 @@ public class ProductOffering {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -216,9 +204,9 @@ public class ProductOffering {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -244,11 +232,11 @@ public class ProductOffering {
 
   /**
    * An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.
-   * @return agreement
+   *
   **/
-  @ApiModelProperty(value = "An agreement represents a contract or arrangement, either written or verbal and sometimes enforceable by law, such as a service level agreement or a customer price agreement. An agreement involves a number of other business entities, such as products, services, and resources and/or their specifications.")
+ 
 
-  @Valid
+ 
 
   public List<AgreementRef> getAgreement() {
     return agreement;
@@ -273,11 +261,11 @@ public class ProductOffering {
 
   /**
    * Complements the description of an element (for instance a product) through video, pictures...
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "Complements the description of an element (for instance a product) through video, pictures...")
+ 
 
-  @Valid
+ 
 
   public List<AttachmentRefOrValue> getAttachment() {
     return attachment;
@@ -302,11 +290,11 @@ public class ProductOffering {
 
   /**
    * A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.
-   * @return bundledProductOffering
+   *
   **/
-  @ApiModelProperty(value = "A type of ProductOffering that belongs to a grouping of ProductOfferings made available to the market. It inherits of all attributes of ProductOffering.")
+ 
 
-  @Valid
+ 
 
   public List<BundledProductOffering> getBundledProductOffering() {
     return bundledProductOffering;
@@ -331,11 +319,11 @@ public class ProductOffering {
 
   /**
    * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
+ 
 
-  @Valid
+ 
 
   public List<CategoryRef> getCategory() {
     return category;
@@ -360,11 +348,11 @@ public class ProductOffering {
 
   /**
    * The channel defines the channel for selling product offerings.
-   * @return channel
+   *
   **/
-  @ApiModelProperty(value = "The channel defines the channel for selling product offerings.")
+ 
 
-  @Valid
+ 
 
   public List<ChannelRef> getChannel() {
     return channel;
@@ -381,9 +369,9 @@ public class ProductOffering {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -401,9 +389,9 @@ public class ProductOffering {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -421,9 +409,9 @@ public class ProductOffering {
 
   /**
    * Unique identifier of the productOffering
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the productOffering")
+ 
 
 
   public String getId() {
@@ -441,9 +429,9 @@ public class ProductOffering {
 
   /**
    * isBundle determines whether a productOffering represents a single productOffering (false), or a bundle of productOfferings (true).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "isBundle determines whether a productOffering represents a single productOffering (false), or a bundle of productOfferings (true).")
+ 
 
 
   public Boolean isIsBundle() {
@@ -461,9 +449,9 @@ public class ProductOffering {
 
   /**
    * A flag indicating if this product offer can be sold stand-alone for sale or not. If this flag is false it indicates that the offer can only be sold within a bundle.
-   * @return isSellable
+   *
   **/
-  @ApiModelProperty(value = "A flag indicating if this product offer can be sold stand-alone for sale or not. If this flag is false it indicates that the offer can only be sold within a bundle.")
+ 
 
 
   public Boolean isIsSellable() {
@@ -481,9 +469,9 @@ public class ProductOffering {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -501,9 +489,9 @@ public class ProductOffering {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -529,11 +517,11 @@ public class ProductOffering {
 
   /**
    * provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.
-   * @return marketSegment
+   *
   **/
-  @ApiModelProperty(value = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
+ 
 
-  @Valid
+ 
 
   public List<MarketSegmentRef> getMarketSegment() {
     return marketSegment;
@@ -550,9 +538,9 @@ public class ProductOffering {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -578,11 +566,11 @@ public class ProductOffering {
 
   /**
    * Place defines the places where the products are sold or delivered.
-   * @return place
+   *
   **/
-  @ApiModelProperty(value = "Place defines the places where the products are sold or delivered.")
+ 
 
-  @Valid
+ 
 
   public List<PlaceRef> getPlace() {
     return place;
@@ -607,11 +595,11 @@ public class ProductOffering {
 
   /**
    * A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.
-   * @return prodSpecCharValueUse
+   *
   **/
-  @ApiModelProperty(value = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+ 
 
-  @Valid
+ 
 
   public List<ProductSpecificationCharacteristicValueUse> getProdSpecCharValueUse() {
     return prodSpecCharValueUse;
@@ -636,11 +624,11 @@ public class ProductOffering {
 
   /**
    * An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.
-   * @return productOfferingPrice
+   *
   **/
-  @ApiModelProperty(value = "An amount, usually of money, that is asked for or allowed when a ProductOffering is bought, rented, or leased. The price is valid for a defined period of time and may not represent the actual price paid by a customer.")
+ 
 
-  @Valid
+ 
 
   public List<ProductOfferingPriceRef> getProductOfferingPrice() {
     return productOfferingPrice;
@@ -665,11 +653,11 @@ public class ProductOffering {
 
   /**
    * A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.
-   * @return productOfferingTerm
+   *
   **/
-  @ApiModelProperty(value = "A condition under which a ProductOffering is made available to Customers. For instance, a productOffering can be offered with multiple commitment periods.")
+ 
 
-  @Valid
+ 
 
   public List<ProductOfferingTerm> getProductOfferingTerm() {
     return productOfferingTerm;
@@ -686,11 +674,11 @@ public class ProductOffering {
 
   /**
    * A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
-   * @return productSpecification
+   *
   **/
-  @ApiModelProperty(value = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
+ 
 
-  @Valid
+ 
 
   public ProductSpecificationRef getProductSpecification() {
     return productSpecification;
@@ -707,11 +695,11 @@ public class ProductOffering {
 
   /**
    * A resource candidate is an entity that makes a ResourceSpecification available to a catalog.
-   * @return resourceCandidate
+   *
   **/
-  @ApiModelProperty(value = "A resource candidate is an entity that makes a ResourceSpecification available to a catalog.")
+ 
 
-  @Valid
+ 
 
   public ResourceCandidateRef getResourceCandidate() {
     return resourceCandidate;
@@ -728,11 +716,11 @@ public class ProductOffering {
 
   /**
    * ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.
-   * @return serviceCandidate
+   *
   **/
-  @ApiModelProperty(value = "ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog.")
+ 
 
-  @Valid
+ 
 
   public ServiceCandidateRef getServiceCandidate() {
     return serviceCandidate;
@@ -749,11 +737,11 @@ public class ProductOffering {
 
   /**
    * A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.
-   * @return serviceLevelAgreement
+   *
   **/
-  @ApiModelProperty(value = "A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.")
+ 
 
-  @Valid
+ 
 
   public SLARef getServiceLevelAgreement() {
     return serviceLevelAgreement;
@@ -770,9 +758,9 @@ public class ProductOffering {
 
   /**
    * A string providing a complementary information on the value of the lifecycle status attribute.
-   * @return statusReason
+   *
   **/
-  @ApiModelProperty(value = "A string providing a complementary information on the value of the lifecycle status attribute.")
+ 
 
 
   public String getStatusReason() {
@@ -790,9 +778,9 @@ public class ProductOffering {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -810,11 +798,11 @@ public class ProductOffering {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -831,9 +819,9 @@ public class ProductOffering {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -845,7 +833,7 @@ public class ProductOffering {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -885,12 +873,12 @@ public class ProductOffering {
         Objects.equals(this.version, productOffering.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, agreement, attachment, bundledProductOffering, category, channel, description, href, id, isBundle, isSellable, lastUpdate, lifecycleStatus, marketSegment, name, place, prodSpecCharValueUse, productOfferingPrice, productOfferingTerm, productSpecification, resourceCandidate, serviceCandidate, serviceLevelAgreement, statusReason, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductOffering {\n");

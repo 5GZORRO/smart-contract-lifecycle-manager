@@ -2,53 +2,44 @@ package eu._5gzorro.tm_forum.models.resource;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
  */
-@ApiModel(description = "Category reference. The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_category_refs")
+
+
+
+
+
 public class ResourceCategoryRef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ResourceCategoryRef baseType(String baseType) {
@@ -58,9 +49,9 @@ public class ResourceCategoryRef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -78,9 +69,9 @@ public class ResourceCategoryRef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -98,9 +89,9 @@ public class ResourceCategoryRef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -118,9 +109,9 @@ public class ResourceCategoryRef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -138,9 +129,9 @@ public class ResourceCategoryRef {
 
   /**
    * Unique reference of the category
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the category")
+ 
 
 
   public String getId() {
@@ -158,9 +149,9 @@ public class ResourceCategoryRef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -178,9 +169,9 @@ public class ResourceCategoryRef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -198,9 +189,9 @@ public class ResourceCategoryRef {
 
   /**
    * Category version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Category version")
+ 
 
 
   public String getVersion() {
@@ -211,7 +202,7 @@ public class ResourceCategoryRef {
     this.version = version;
   }
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -230,12 +221,12 @@ public class ResourceCategoryRef {
         Objects.equals(this.version, resourceCategoryRef.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, id, name, uuid, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceCategoryRef {\n");

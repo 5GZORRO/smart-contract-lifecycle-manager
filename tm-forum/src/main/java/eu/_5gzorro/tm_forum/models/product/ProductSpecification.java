@@ -1,140 +1,126 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.ResourceSpecificationRef;
+import eu._5gzorro.tm_forum.models.ServiceSpecificationRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.ResourceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.ServiceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.BundledProductSpecification;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristic;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationRelationship;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
  */
-@ApiModel(description = "Is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "product_specifications")
+
+
+
+
+
 public class ProductSpecification {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<AttachmentRefOrValue> attachment = null;
 
-  @JsonProperty("brand")
+ 
   private String brand = null;
 
-  @JsonProperty("bundledProductSpecification")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<BundledProductSpecification> bundledProductSpecification = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isBundle")
-  @Column(name = "is_bundle")
+ 
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+ 
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+ 
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("productNumber")
-  @Column(name = "product_number")
+ 
+ 
   private String productNumber = null;
 
-  @JsonProperty("productSpecCharacteristic")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductSpecificationCharacteristic> productSpecCharacteristic = null;
 
-  @JsonProperty("productSpecificationRelationship")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductSpecificationRelationship> productSpecificationRelationship = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecification")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ResourceSpecificationRef> resourceSpecification = null;
 
-  @JsonProperty("serviceSpecification")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ServiceSpecificationRef> serviceSpecification = null;
 
-  @JsonProperty("targetProductSchema")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "target_product_schema_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private TargetProductSchema targetProductSchema = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ProductSpecification baseType(String baseType) {
@@ -144,9 +130,9 @@ public class ProductSpecification {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -164,9 +150,9 @@ public class ProductSpecification {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -184,9 +170,9 @@ public class ProductSpecification {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -212,11 +198,11 @@ public class ProductSpecification {
 
   /**
    * Complements the description of an element (for instance a product) through video, pictures...
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "Complements the description of an element (for instance a product) through video, pictures...")
+ 
 
-  @Valid
+ 
 
   public List<AttachmentRefOrValue> getAttachment() {
     return attachment;
@@ -233,9 +219,9 @@ public class ProductSpecification {
 
   /**
    * The manufacturer or trademark of the specification
-   * @return brand
+   *
   **/
-  @ApiModelProperty(value = "The manufacturer or trademark of the specification")
+ 
 
 
   public String getBrand() {
@@ -261,11 +247,11 @@ public class ProductSpecification {
 
   /**
    * A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.
-   * @return bundledProductSpecification
+   *
   **/
-  @ApiModelProperty(value = "A type of ProductSpecification that belongs to a grouping of ProductSpecifications made available to the market. It inherits of all attributes of ProductSpecification.")
+ 
 
-  @Valid
+ 
 
   public List<BundledProductSpecification> getBundledProductSpecification() {
     return bundledProductSpecification;
@@ -282,9 +268,9 @@ public class ProductSpecification {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -302,9 +288,9 @@ public class ProductSpecification {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -322,9 +308,9 @@ public class ProductSpecification {
 
   /**
    * Unique identifier of the product specification
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the product specification")
+ 
 
 
   public String getId() {
@@ -342,9 +328,9 @@ public class ProductSpecification {
 
   /**
    * isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "isBundle determines whether a productSpecification represents a single productSpecification (false), or a bundle of productSpecification (true).")
+ 
 
 
   public Boolean isIsBundle() {
@@ -362,9 +348,9 @@ public class ProductSpecification {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -382,9 +368,9 @@ public class ProductSpecification {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -402,9 +388,9 @@ public class ProductSpecification {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -422,9 +408,9 @@ public class ProductSpecification {
 
   /**
    * An identification number assigned to uniquely identity the specification
-   * @return productNumber
+   *
   **/
-  @ApiModelProperty(value = "An identification number assigned to uniquely identity the specification")
+ 
 
 
   public String getProductNumber() {
@@ -450,11 +436,11 @@ public class ProductSpecification {
 
   /**
    * A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.
-   * @return productSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "A characteristic quality or distinctive feature of a ProductSpecification.  The characteristic can be take on a discrete value, such as color, can take on a range of values, (for example, sensitivity of 100-240 mV), or can be derived from a formula (for example, usage time (hrs) = 30 - talk time *3). Certain characteristics, such as color, may be configured during the ordering or some other process.")
+ 
 
-  @Valid
+ 
 
   public List<ProductSpecificationCharacteristic> getProductSpecCharacteristic() {
     return productSpecCharacteristic;
@@ -479,11 +465,11 @@ public class ProductSpecification {
 
   /**
    * A migration, substitution, dependency or exclusivity relationship between/among product specifications.
-   * @return productSpecificationRelationship
+   *
   **/
-  @ApiModelProperty(value = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
+ 
 
-  @Valid
+ 
 
   public List<ProductSpecificationRelationship> getProductSpecificationRelationship() {
     return productSpecificationRelationship;
@@ -508,11 +494,11 @@ public class ProductSpecification {
 
   /**
    * A related party defines party or party role linked to a specific entity.
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "A related party defines party or party role linked to a specific entity.")
+ 
 
-  @Valid
+ 
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -537,11 +523,11 @@ public class ProductSpecification {
 
   /**
    * The ResourceSpecification is required to realize a ProductSpecification.
-   * @return resourceSpecification
+   *
   **/
-  @ApiModelProperty(value = "The ResourceSpecification is required to realize a ProductSpecification.")
+ 
 
-  @Valid
+ 
 
   public List<ResourceSpecificationRef> getResourceSpecification() {
     return resourceSpecification;
@@ -566,11 +552,11 @@ public class ProductSpecification {
 
   /**
    * ServiceSpecification(s) required to realize a ProductSpecification.
-   * @return serviceSpecification
+   *
   **/
-  @ApiModelProperty(value = "ServiceSpecification(s) required to realize a ProductSpecification.")
+ 
 
-  @Valid
+ 
 
   public List<ServiceSpecificationRef> getServiceSpecification() {
     return serviceSpecification;
@@ -587,11 +573,11 @@ public class ProductSpecification {
 
   /**
    * A target product schema reference. The reference object to the schema and type of target product which is described by product specification.
-   * @return targetProductSchema
+   *
   **/
-  @ApiModelProperty(value = "A target product schema reference. The reference object to the schema and type of target product which is described by product specification.")
+ 
 
-  @Valid
+ 
 
   public TargetProductSchema getTargetProductSchema() {
     return targetProductSchema;
@@ -608,9 +594,9 @@ public class ProductSpecification {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -628,11 +614,11 @@ public class ProductSpecification {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -649,9 +635,9 @@ public class ProductSpecification {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -663,7 +649,7 @@ public class ProductSpecification {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -697,12 +683,12 @@ public class ProductSpecification {
         Objects.equals(this.version, productSpecification.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, brand, bundledProductSpecification, description, href, id, isBundle, lastUpdate, lifecycleStatus, name, productNumber, productSpecCharacteristic, productSpecificationRelationship, relatedParty, resourceSpecification, serviceSpecification, targetProductSchema, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductSpecification {\n");

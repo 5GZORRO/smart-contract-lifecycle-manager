@@ -1,31 +1,25 @@
 package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.*;
 
 /**
  * Sets the communication endpoint address the service instance must use to deliver notification information
  */
-@ApiModel(description = "Sets the communication endpoint address the service instance must use to deliver notification information")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class EventSubscription   {
-  @JsonProperty("callback")
+ 
   private String callback = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("query")
+ 
   private String query = null;
 
   public EventSubscription callback(String callback) {
@@ -35,10 +29,10 @@ public class EventSubscription   {
 
   /**
    * The callback being registered.
-   * @return callback
+   *
   **/
-  @ApiModelProperty(required = true, value = "The callback being registered.")
-  @NotNull
+ 
+ 
 
 
   public String getCallback() {
@@ -56,10 +50,10 @@ public class EventSubscription   {
 
   /**
    * Id of the listener
-   * @return id
+   *
   **/
-  @ApiModelProperty(required = true, value = "Id of the listener")
-  @NotNull
+ 
+ 
 
 
   public String getId() {
@@ -77,9 +71,9 @@ public class EventSubscription   {
 
   /**
    * additional data to be passed
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "additional data to be passed")
+ 
 
 
   public String getQuery() {
@@ -91,7 +85,7 @@ public class EventSubscription   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -105,12 +99,12 @@ public class EventSubscription   {
         Objects.equals(this.query, eventSubscription.query);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(callback, id, query);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventSubscription {\n");

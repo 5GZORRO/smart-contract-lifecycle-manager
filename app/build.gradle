@@ -31,13 +31,18 @@ dependencies {
 
     testImplementation("org.awaitility:awaitility:$awaitility_version")
 
-    implementation project(":dlt-driver-api")
-    compile (project(":corda-driver:driver-impl"))
+    implementation(project(":dlt-driver-api"))
+    compile(project(":corda-driver:driver-impl"))
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit5_version")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit5_version")
 
     implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
+
+    implementation(project(":tm-forum"))
+
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot_version")
+
 }
 
 springBoot {

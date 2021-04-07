@@ -48,6 +48,9 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine:$junit_version")
 
     implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
+
+
+    implementation(project(":tm-forum"))
 }
 
 test {

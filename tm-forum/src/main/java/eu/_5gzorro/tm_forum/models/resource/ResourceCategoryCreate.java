@@ -1,74 +1,68 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.ResourceCandidateRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.ResourceCandidateRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href
  */
-@ApiModel(description = "The (resource) category resource is used to group resource candidates in logical containers. Categories can contain other categories. Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class ResourceCategoryCreate   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemalLocation")
+
   private String schemalLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+
+
   private List<ResourceCategoryRef> category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("isRoot")
+
   private Boolean isRoot = null;
 
-  @JsonProperty("lastUpdate")
+
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("parentId")
+
   private String parentId = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceCandidate")
-  @Valid
+
+
   private List<ResourceCandidateRef> resourceCandidate = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ResourceCategoryCreate baseType(String baseType) {
@@ -78,9 +72,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Immediate base class type of this category
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "Immediate base class type of this category")
+
 
 
   public String getBaseType() {
@@ -98,9 +92,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * This field provides a link to the schema describing this REST resource
-   * @return schemalLocation
+   *
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+
 
 
   public String getSchemalLocation() {
@@ -118,9 +112,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * The (class) type of this category
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "The (class) type of this category")
+
 
 
   public String getType() {
@@ -146,11 +140,11 @@ public class ResourceCategoryCreate   {
 
   /**
    * Get category
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceCategoryRef> getCategory() {
     return category;
@@ -167,9 +161,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Description of the category
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of the category")
+
 
 
   public String getDescription() {
@@ -187,9 +181,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * If true, this Boolean indicates that the category is a root of categories
-   * @return isRoot
+   *
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+
 
 
   public Boolean isIsRoot() {
@@ -207,11 +201,11 @@ public class ResourceCategoryCreate   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
 
-  @Valid
+
+
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -228,9 +222,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -248,9 +242,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Name of the category
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the category")
+
 
 
   public String getName() {
@@ -268,9 +262,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Unique identifier of the parent category
-   * @return parentId
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+
 
 
   public String getParentId() {
@@ -296,11 +290,11 @@ public class ResourceCategoryCreate   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -325,11 +319,11 @@ public class ResourceCategoryCreate   {
 
   /**
    * Get resourceCandidate
-   * @return resourceCandidate
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceCandidateRef> getResourceCandidate() {
     return resourceCandidate;
@@ -346,11 +340,11 @@ public class ResourceCategoryCreate   {
 
   /**
    * The period for which the category is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -367,9 +361,9 @@ public class ResourceCategoryCreate   {
 
   /**
    * Category version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Category version")
+
 
 
   public String getVersion() {
@@ -381,7 +375,7 @@ public class ResourceCategoryCreate   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -406,12 +400,12 @@ public class ResourceCategoryCreate   {
         Objects.equals(this.version, resourceCategoryCreate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemalLocation, type, category, description, isRoot, lastUpdate, lifecycleStatus, name, parentId, relatedParty, resourceCandidate, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceCategoryCreate {\n");

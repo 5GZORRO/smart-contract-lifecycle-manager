@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.api.model.entity;
+package eu._5gzorro.manager.api.model;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

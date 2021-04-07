@@ -1,49 +1,43 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.io.File;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import java.util.Objects;
 
 /**
  * ByteArrayResource
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
 
 
 
 
 public class ByteArrayResource   {
-  @JsonProperty("byteArray")
+ 
   private byte[] byteArray = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("file")
+ 
   private File file = null;
 
-  @JsonProperty("filename")
+ 
   private String filename = null;
 
-  @JsonProperty("inputStream")
+ 
   private InputStream inputStream = null;
 
-  @JsonProperty("open")
+ 
   private Boolean open = null;
 
-  @JsonProperty("readable")
+ 
   private Boolean readable = null;
 
-  @JsonProperty("uri")
+ 
   private URI uri = null;
 
-  @JsonProperty("url")
+ 
   private URL url = null;
 
   public ByteArrayResource byteArray(byte[] byteArray) {
@@ -53,11 +47,11 @@ public class ByteArrayResource   {
 
   /**
    * Get byteArray
-   * @return byteArray
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-@Pattern(regexp="^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$") 
+
   public byte[] getByteArray() {
     return byteArray;
   }
@@ -73,9 +67,9 @@ public class ByteArrayResource   {
 
   /**
    * Get description
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getDescription() {
@@ -93,11 +87,11 @@ public class ByteArrayResource   {
 
   /**
    * Get file
-   * @return file
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public File getFile() {
     return file;
@@ -114,9 +108,9 @@ public class ByteArrayResource   {
 
   /**
    * Get filename
-   * @return filename
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getFilename() {
@@ -134,11 +128,11 @@ public class ByteArrayResource   {
 
   /**
    * Get inputStream
-   * @return inputStream
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public InputStream getInputStream() {
     return inputStream;
@@ -155,9 +149,9 @@ public class ByteArrayResource   {
 
   /**
    * Get open
-   * @return open
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Boolean isOpen() {
@@ -175,9 +169,9 @@ public class ByteArrayResource   {
 
   /**
    * Get readable
-   * @return readable
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Boolean isReadable() {
@@ -195,11 +189,11 @@ public class ByteArrayResource   {
 
   /**
    * Get uri
-   * @return uri
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public URI getUri() {
     return uri;
@@ -216,11 +210,11 @@ public class ByteArrayResource   {
 
   /**
    * Get url
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public URL getUrl() {
     return url;
@@ -231,7 +225,7 @@ public class ByteArrayResource   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -251,12 +245,12 @@ public class ByteArrayResource   {
         Objects.equals(this.url, byteArrayResource.url);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(byteArray, description, file, filename, inputStream, open, readable, uri, url);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ByteArrayResource {\n");

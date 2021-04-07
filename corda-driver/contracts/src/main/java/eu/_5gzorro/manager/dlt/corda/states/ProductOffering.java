@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class ProductOffering extends PublicState {
   private OfferType offerType;
   private String name;
-  private it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering;
+  private eu._5gzorro.tm_forum.models.product.ProductOffering productOffering;
   private Map<String, Invitation> didInvitations;
 
   private final Party governanceParty;
@@ -32,7 +32,7 @@ public class ProductOffering extends PublicState {
       @NotNull OfferType offerType,
       @NotNull String name,
       @NotNull Party owner,
-      @NotNull it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering,
+      @NotNull eu._5gzorro.tm_forum.models.product.ProductOffering productOffering,
       Map<String, Invitation> didInvitations,
       @NotNull Party governanceParty,
       Party spectrumOracle
@@ -54,12 +54,12 @@ public class ProductOffering extends PublicState {
     return name;
   }
 
-  public it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering getProductOffering() {
+  public eu._5gzorro.tm_forum.models.product.ProductOffering getProductOffering() {
     return productOffering;
   }
 
   public ProductOffering setProductOffering(
-      it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering productOffering) {
+      eu._5gzorro.tm_forum.models.product.ProductOffering productOffering) {
     this.productOffering = productOffering;
     return this;
   }

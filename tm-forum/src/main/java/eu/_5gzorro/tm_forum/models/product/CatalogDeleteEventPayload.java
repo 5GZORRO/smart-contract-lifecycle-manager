@@ -1,24 +1,19 @@
 package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 
 /**
  * The event data structure
  */
-@ApiModel(description = "The event data structure")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class CatalogDeleteEventPayload   {
-  @JsonProperty("catalog")
+ 
   private Catalog catalog = null;
 
   public CatalogDeleteEventPayload catalog(Catalog catalog) {
@@ -28,11 +23,11 @@ public class CatalogDeleteEventPayload   {
 
   /**
    * The involved resource data for the event
-   * @return catalog
+   *
   **/
-  @ApiModelProperty(value = "The involved resource data for the event")
+ 
 
-  @Valid
+ 
 
   public Catalog getCatalog() {
     return catalog;
@@ -43,7 +38,7 @@ public class CatalogDeleteEventPayload   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -55,12 +50,12 @@ public class CatalogDeleteEventPayload   {
     return Objects.equals(this.catalog, catalogDeleteEventPayload.catalog);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(catalog);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CatalogDeleteEventPayload {\n");

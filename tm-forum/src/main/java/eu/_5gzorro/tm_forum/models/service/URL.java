@@ -1,51 +1,48 @@
 package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * URL
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
 
 
 
 
 public class URL   {
-  @JsonProperty("authority")
+ 
   private String authority = null;
 
-  @JsonProperty("content")
+ 
   private Object content = null;
 
-  @JsonProperty("defaultPort")
+ 
   private Integer defaultPort = null;
 
-  @JsonProperty("file")
+ 
   private String file = null;
 
-  @JsonProperty("host")
+ 
   private String host = null;
 
-  @JsonProperty("path")
+ 
   private String path = null;
 
-  @JsonProperty("port")
+ 
   private Integer port = null;
 
-  @JsonProperty("protocol")
+ 
   private String protocol = null;
 
-  @JsonProperty("query")
+ 
   private String query = null;
 
-  @JsonProperty("ref")
+ 
   private String ref = null;
 
-  @JsonProperty("userInfo")
+ 
   private String userInfo = null;
 
   public URL authority(String authority) {
@@ -55,9 +52,9 @@ public class URL   {
 
   /**
    * Get authority
-   * @return authority
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getAuthority() {
@@ -75,9 +72,9 @@ public class URL   {
 
   /**
    * Get content
-   * @return content
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Object getContent() {
@@ -95,9 +92,9 @@ public class URL   {
 
   /**
    * Get defaultPort
-   * @return defaultPort
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Integer getDefaultPort() {
@@ -115,9 +112,9 @@ public class URL   {
 
   /**
    * Get file
-   * @return file
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getFile() {
@@ -135,9 +132,9 @@ public class URL   {
 
   /**
    * Get host
-   * @return host
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getHost() {
@@ -155,9 +152,9 @@ public class URL   {
 
   /**
    * Get path
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getPath() {
@@ -175,9 +172,9 @@ public class URL   {
 
   /**
    * Get port
-   * @return port
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Integer getPort() {
@@ -195,9 +192,9 @@ public class URL   {
 
   /**
    * Get protocol
-   * @return protocol
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getProtocol() {
@@ -215,9 +212,9 @@ public class URL   {
 
   /**
    * Get query
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getQuery() {
@@ -235,9 +232,9 @@ public class URL   {
 
   /**
    * Get ref
-   * @return ref
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRef() {
@@ -255,9 +252,9 @@ public class URL   {
 
   /**
    * Get userInfo
-   * @return userInfo
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUserInfo() {
@@ -269,7 +266,7 @@ public class URL   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -291,12 +288,12 @@ public class URL   {
         Objects.equals(this.userInfo, URL.userInfo);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(authority, content, defaultPort, file, host, path, port, protocol, query, ref, userInfo);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class URL {\n");

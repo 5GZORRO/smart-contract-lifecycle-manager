@@ -1,57 +1,52 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.StatusEnum;
+import eu._5gzorro.tm_forum.models.StatusEnum;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
  * Represents a task used to export resources to a file Skipped properties: id,href
  */
-@ApiModel(description = "Represents a task used to export resources to a file Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class ExportJobCreate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("completionDate")
+ 
   private OffsetDateTime completionDate = null;
 
-  @JsonProperty("contentType")
+ 
   private String contentType = null;
 
-  @JsonProperty("creationDate")
+ 
   private OffsetDateTime creationDate = null;
 
-  @JsonProperty("errorLog")
+ 
   private String errorLog = null;
 
-  @JsonProperty("path")
+ 
   private String path = null;
 
-  @JsonProperty("query")
+ 
   private String query = null;
 
-  @JsonProperty("status")
+ 
   private StatusEnum status = null;
 
-  @JsonProperty("url")
+ 
   private String url = null;
 
   public ExportJobCreate baseType(String baseType) {
@@ -61,9 +56,9 @@ public class ExportJobCreate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -81,9 +76,9 @@ public class ExportJobCreate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -101,9 +96,9 @@ public class ExportJobCreate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+ 
 
 
   public String getType() {
@@ -121,11 +116,11 @@ public class ExportJobCreate   {
 
   /**
    * Data at which the job was completed
-   * @return completionDate
+   *
   **/
-  @ApiModelProperty(value = "Data at which the job was completed")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getCompletionDate() {
     return completionDate;
@@ -142,9 +137,9 @@ public class ExportJobCreate   {
 
   /**
    * The format of the exported data
-   * @return contentType
+   *
   **/
-  @ApiModelProperty(value = "The format of the exported data")
+ 
 
 
   public String getContentType() {
@@ -162,11 +157,11 @@ public class ExportJobCreate   {
 
   /**
    * Date at which the job was created
-   * @return creationDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getCreationDate() {
     return creationDate;
@@ -183,9 +178,9 @@ public class ExportJobCreate   {
 
   /**
    * Reason for failure
-   * @return errorLog
+   *
   **/
-  @ApiModelProperty(value = "Reason for failure")
+ 
 
 
   public String getErrorLog() {
@@ -203,9 +198,9 @@ public class ExportJobCreate   {
 
   /**
    * URL of the root resource acting as the source for streaming content to the file specified by the export job
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "URL of the root resource acting as the source for streaming content to the file specified by the export job")
+ 
 
 
   public String getPath() {
@@ -223,9 +218,9 @@ public class ExportJobCreate   {
 
   /**
    * Used to scope the exported data
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "Used to scope the exported data")
+ 
 
 
   public String getQuery() {
@@ -243,9 +238,9 @@ public class ExportJobCreate   {
 
   /**
    * Status of the export job (not started, running, succeeded, failed)
-   * @return status
+   *
   **/
-  @ApiModelProperty(value = "Status of the export job (not started, running, succeeded, failed)")
+ 
 
 
   public StatusEnum getStatus() {
@@ -263,10 +258,10 @@ public class ExportJobCreate   {
 
   /**
    * URL of the file containing the data to be exported
-   * @return url
+   *
   **/
-  @ApiModelProperty(required = true, value = "URL of the file containing the data to be exported")
-  @NotNull
+ 
+ 
 
 
   public String getUrl() {
@@ -278,7 +273,7 @@ public class ExportJobCreate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -300,12 +295,12 @@ public class ExportJobCreate   {
         Objects.equals(this.url, exportJobCreate.url);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, completionDate, contentType, creationDate, errorLog, path, query, status, url);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExportJobCreate {\n");

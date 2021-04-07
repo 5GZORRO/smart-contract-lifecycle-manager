@@ -2,28 +2,23 @@ package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
 /**
  * ServiceDescriptorAttr
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
 
 
 
 
 public class ServiceDescriptorAttr   {
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonIgnore
+
   private String uuid = null;
 
-  @JsonProperty("value")
+
   private String value = null;
 
   public ServiceDescriptorAttr name(String name) {
@@ -33,9 +28,9 @@ public class ServiceDescriptorAttr   {
 
   /**
    * Get name
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getName() {
@@ -53,9 +48,9 @@ public class ServiceDescriptorAttr   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -73,9 +68,9 @@ public class ServiceDescriptorAttr   {
 
   /**
    * Get value
-   * @return value
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getValue() {
@@ -87,7 +82,7 @@ public class ServiceDescriptorAttr   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -101,12 +96,12 @@ public class ServiceDescriptorAttr   {
         Objects.equals(this.value, serviceDescriptorAttr.value);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(name, uuid, value);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceDescriptorAttr {\n");

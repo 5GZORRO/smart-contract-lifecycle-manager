@@ -1,81 +1,74 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.*;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceLevelSpecificationRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics. Skipped properties: id,href,lastUpdate")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceSpecificationUpdate   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
+
+
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("isBundle")
+
   private Boolean isBundle = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecification")
-  @Valid
+
+
   private List<ResourceSpecificationRef> resourceSpecification = null;
 
-  @JsonProperty("serviceLevelSpecification")
-  @Valid
+
+
   private List<ServiceLevelSpecificationRef> serviceLevelSpecification = null;
 
-  @JsonProperty("serviceSpecCharacteristic")
-  @Valid
+
+
   private List<ServiceSpecCharacteristic> serviceSpecCharacteristic = null;
 
-  @JsonProperty("serviceSpecRelationship")
-  @Valid
+
+
   private List<ServiceSpecRelationship> serviceSpecRelationship = null;
 
-  @JsonProperty("targetServiceSchema")
+
   private TargetServiceSchema targetServiceSchema = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ServiceSpecificationUpdate baseType(String baseType) {
@@ -85,9 +78,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -105,9 +98,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -125,9 +118,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+
 
 
   public String getType() {
@@ -153,11 +146,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
 
-  @Valid
+
+
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -174,9 +167,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A narrative that explains in detail what the service specification is
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "A narrative that explains in detail what the service specification is")
+
 
 
   public String getDescription() {
@@ -194,9 +187,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
+
 
 
   public Boolean isIsBundle() {
@@ -214,9 +207,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * Used to indicate the current lifecycle status of the service specification
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the service specification")
+
 
 
   public String getLifecycleStatus() {
@@ -234,9 +227,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * Name of the service specification
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the service specification")
+
 
 
   public String getName() {
@@ -262,11 +255,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -291,11 +284,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).
-   * @return resourceSpecification
+   *
   **/
-  @ApiModelProperty(value = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
 
-  @Valid
+
+
 
   public List<ResourceSpecificationRef> getResourceSpecification() {
     return resourceSpecification;
@@ -320,11 +313,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum
-   * @return serviceLevelSpecification
+   *
   **/
-  @ApiModelProperty(value = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
 
-  @Valid
+
+
 
   public List<ServiceLevelSpecificationRef> getServiceLevelSpecification() {
     return serviceLevelSpecification;
@@ -349,11 +342,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.
-   * @return serviceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
 
-  @Valid
+
+
 
   public List<ServiceSpecCharacteristic> getServiceSpecCharacteristic() {
     return serviceSpecCharacteristic;
@@ -378,11 +371,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship
-   * @return serviceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
 
-  @Valid
+
+
 
   public List<ServiceSpecRelationship> getServiceSpecRelationship() {
     return serviceSpecRelationship;
@@ -399,11 +392,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.
-   * @return targetServiceSchema
+   *
   **/
-  @ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
 
-  @Valid
+
+
 
   public TargetServiceSchema getTargetServiceSchema() {
     return targetServiceSchema;
@@ -420,11 +413,11 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * The period for which the service specification is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the service specification is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -441,9 +434,9 @@ public class ServiceSpecificationUpdate   {
 
   /**
    * Service specification version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Service specification version")
+
 
 
   public String getVersion() {
@@ -455,7 +448,7 @@ public class ServiceSpecificationUpdate   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -482,12 +475,12 @@ public class ServiceSpecificationUpdate   {
         Objects.equals(this.version, serviceSpecificationUpdate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, description, isBundle, lifecycleStatus, name, relatedParty, resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic, serviceSpecRelationship, targetServiceSchema, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceSpecificationUpdate {\n");

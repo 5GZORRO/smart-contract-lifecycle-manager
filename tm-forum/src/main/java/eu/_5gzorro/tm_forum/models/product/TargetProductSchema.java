@@ -2,44 +2,35 @@ package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * The reference object to the schema and type of target product which is described by product specification
  */
-@ApiModel(description = "The reference object to the schema and type of target product which is described by product specification")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "target_product_schemas")
+
+
+
+
+
 public class TargetProductSchema {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
   public TargetProductSchema baseType(String baseType) {
@@ -49,9 +40,9 @@ public class TargetProductSchema {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -69,9 +60,9 @@ public class TargetProductSchema {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -89,9 +80,9 @@ public class TargetProductSchema {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -109,9 +100,9 @@ public class TargetProductSchema {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -129,9 +120,9 @@ public class TargetProductSchema {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -143,7 +134,7 @@ public class TargetProductSchema {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -159,12 +150,12 @@ public class TargetProductSchema {
         Objects.equals(this.uuid, targetProductSchema.uuid);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, uuid);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TargetProductSchema {\n");

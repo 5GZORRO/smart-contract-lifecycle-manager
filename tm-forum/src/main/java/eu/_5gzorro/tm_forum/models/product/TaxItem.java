@@ -2,58 +2,48 @@ package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-
 /**
  * A tax item is created for each tax rate and tax type used in the bill.
  */
-@ApiModel(description = "A tax item is created for each tax rate and tax type used in the bill.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "tax_items")
+
+
+
+
+
 public class TaxItem {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("taxAmount")
-  @Column(name = "tax_amount")
-  @Embedded
+ 
+ 
+ 
   private Money taxAmount = null;
 
-  @JsonProperty("taxCategory")
-  @Column(name = "tax_category")
+ 
+ 
   private String taxCategory = null;
 
-  @JsonProperty("taxRate")
-  @Column(name = "tax_rate")
+ 
+ 
   private Float taxRate = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
   public TaxItem baseType(String baseType) {
@@ -63,9 +53,9 @@ public class TaxItem {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -83,9 +73,9 @@ public class TaxItem {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -103,9 +93,9 @@ public class TaxItem {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -123,9 +113,9 @@ public class TaxItem {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -143,11 +133,11 @@ public class TaxItem {
 
   /**
    * Amount of tax expressed in the given currency
-   * @return taxAmount
+   *
   **/
-  @ApiModelProperty(value = "Amount of tax expressed in the given currency")
+ 
 
-  @Valid
+ 
 
   public Money getTaxAmount() {
     return taxAmount;
@@ -164,9 +154,9 @@ public class TaxItem {
 
   /**
    * Tax category
-   * @return taxCategory
+   *
   **/
-  @ApiModelProperty(value = "Tax category")
+ 
 
 
   public String getTaxCategory() {
@@ -184,9 +174,9 @@ public class TaxItem {
 
   /**
    * Applied rate of the tax
-   * @return taxRate
+   *
   **/
-  @ApiModelProperty(value = "Applied rate of the tax")
+ 
 
 
   public Float getTaxRate() {
@@ -204,9 +194,9 @@ public class TaxItem {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -218,7 +208,7 @@ public class TaxItem {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -237,12 +227,12 @@ public class TaxItem {
         Objects.equals(this.uuid, taxItem.uuid);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, taxAmount, taxCategory, taxRate, uuid);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TaxItem {\n");

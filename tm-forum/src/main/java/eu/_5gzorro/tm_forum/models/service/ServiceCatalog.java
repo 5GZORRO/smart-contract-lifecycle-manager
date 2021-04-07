@@ -1,74 +1,65 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The root entity for service catalog management. A service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers).  A service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog. A ServiceCandidate and its associated ServiceSpecification may be \&quot;published\&quot; - made visible -in any number of ServiceCatalogs, or in none.
  */
-@ApiModel(description = "The root entity for service catalog management. A service catalog is a group of service specifications made available through service candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers).  A service catalog typically includes name, description and time period that is valid for. It will have a list of ServiceCandidate catalog items. A ServiceCandidate is an entity that makes a ServiceSpecification available to a catalog. A ServiceCandidate and its associated ServiceSpecification may be \"published\" - made visible -in any number of ServiceCatalogs, or in none.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceCatalog   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+
+
   private List<ServiceCategoryRef> category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("lastUpdate")
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonIgnore
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ServiceCatalog baseType(String baseType) {
@@ -78,9 +69,9 @@ public class ServiceCatalog   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -98,9 +89,9 @@ public class ServiceCatalog   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -118,9 +109,9 @@ public class ServiceCatalog   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+
 
 
   public String getType() {
@@ -146,11 +137,11 @@ public class ServiceCatalog   {
 
   /**
    * List of service categories associated with this catalog
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "List of service categories associated with this catalog")
 
-  @Valid
+
+
 
   public List<ServiceCategoryRef> getCategory() {
     return category;
@@ -167,9 +158,9 @@ public class ServiceCatalog   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -187,9 +178,9 @@ public class ServiceCatalog   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -207,9 +198,9 @@ public class ServiceCatalog   {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getId() {
@@ -227,9 +218,9 @@ public class ServiceCatalog   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -247,9 +238,9 @@ public class ServiceCatalog   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -267,9 +258,9 @@ public class ServiceCatalog   {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -295,11 +286,11 @@ public class ServiceCatalog   {
 
   /**
    * List of parties or party roles related to this category
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "List of parties or party roles related to this category")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -316,9 +307,9 @@ public class ServiceCatalog   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -336,11 +327,11 @@ public class ServiceCatalog   {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -357,9 +348,9 @@ public class ServiceCatalog   {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -371,7 +362,7 @@ public class ServiceCatalog   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -396,12 +387,12 @@ public class ServiceCatalog   {
         Objects.equals(this.version, serviceCatalog.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, href, id, lastUpdate, lifecycleStatus, name, relatedParty, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceCatalog {\n");

@@ -2,54 +2,45 @@ package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.
  */
-@ApiModel(description = "provides references to the corresponding market segment as target of product offerings. A market segment is grouping of Parties, GeographicAreas, SalesChannels, and so forth.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "market_segment_refs")
+
+
+
+
+
 public class MarketSegmentRef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+ 
+ 
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
   public MarketSegmentRef baseType(String baseType) {
@@ -59,9 +50,9 @@ public class MarketSegmentRef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -79,9 +70,9 @@ public class MarketSegmentRef {
 
   /**
    * (Class) type of the referred market segment
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "(Class) type of the referred market segment")
+ 
 
 
   public String getReferredType() {
@@ -99,9 +90,9 @@ public class MarketSegmentRef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -119,9 +110,9 @@ public class MarketSegmentRef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -139,9 +130,9 @@ public class MarketSegmentRef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -159,9 +150,9 @@ public class MarketSegmentRef {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -179,9 +170,9 @@ public class MarketSegmentRef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -199,9 +190,9 @@ public class MarketSegmentRef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -213,7 +204,7 @@ public class MarketSegmentRef {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -232,12 +223,12 @@ public class MarketSegmentRef {
         Objects.equals(this.uuid, marketSegmentRef.uuid);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, href, id, name, uuid);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MarketSegmentRef {\n");

@@ -1,89 +1,77 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.ServiceSpecificationRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.ServiceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryRef;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications.
  */
-@ApiModel(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
 
-@Entity
-@Table(name = "service_candidates")
+
+
+
+
+
 public class ServiceCandidate {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_candidate_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ServiceCategoryRef> category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+ 
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+ 
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("serviceSpecification")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private ServiceSpecificationRef serviceSpecification = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ServiceCandidate baseType(String baseType) {
@@ -93,9 +81,9 @@ public class ServiceCandidate {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -113,9 +101,9 @@ public class ServiceCandidate {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -133,9 +121,9 @@ public class ServiceCandidate {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -161,11 +149,11 @@ public class ServiceCandidate {
 
   /**
    * The category specification implied by this candidate
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "The category specification implied by this candidate")
+ 
 
-  @Valid
+ 
 
   public List<ServiceCategoryRef> getCategory() {
     return category;
@@ -182,9 +170,9 @@ public class ServiceCandidate {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -202,9 +190,9 @@ public class ServiceCandidate {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -222,9 +210,9 @@ public class ServiceCandidate {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -242,9 +230,9 @@ public class ServiceCandidate {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -262,9 +250,9 @@ public class ServiceCandidate {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -282,9 +270,9 @@ public class ServiceCandidate {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -302,11 +290,11 @@ public class ServiceCandidate {
 
   /**
    * The service specification implied by this candidate
-   * @return serviceSpecification
+   *
   **/
-  @ApiModelProperty(value = "The service specification implied by this candidate")
+ 
 
-  @Valid
+ 
 
   public ServiceSpecificationRef getServiceSpecification() {
     return serviceSpecification;
@@ -323,9 +311,9 @@ public class ServiceCandidate {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -343,11 +331,11 @@ public class ServiceCandidate {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -364,9 +352,9 @@ public class ServiceCandidate {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -378,7 +366,7 @@ public class ServiceCandidate {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -403,12 +391,12 @@ public class ServiceCandidate {
         Objects.equals(this.version, serviceCandidate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, href, id, lastUpdate, lifecycleStatus, name, serviceSpecification, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceCandidate {\n");

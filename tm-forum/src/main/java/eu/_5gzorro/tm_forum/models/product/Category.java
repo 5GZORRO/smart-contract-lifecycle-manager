@@ -1,103 +1,90 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.CategoryRef;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingRef;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.
  */
-@ApiModel(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "categories")
+
+
+
+
+
 public class Category {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isRoot")
-  @Column(name = "is_root")
+ 
+ 
   private Boolean isRoot = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+ 
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+ 
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("lifecycleStatusEnum")
-  @Column(name = "lifecycle_status_enum")
+ 
+ 
   private LifecycleStatusEnumEnum lifecycleStatusEnum = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("parentId")
-  @Column(name = "parent_id")
+ 
+ 
   private String parentId = null;
 
-  @JsonProperty("productOffering")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "category_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ProductOfferingRef> productOffering = null;
 
-  @JsonProperty("subCategory")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "category_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<CategoryRef> subCategory = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public Category baseType(String baseType) {
@@ -107,9 +94,9 @@ public class Category {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -127,9 +114,9 @@ public class Category {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -147,9 +134,9 @@ public class Category {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -167,9 +154,9 @@ public class Category {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -187,9 +174,9 @@ public class Category {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -207,9 +194,9 @@ public class Category {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -227,9 +214,9 @@ public class Category {
 
   /**
    * If true, this Boolean indicates that the category is a root of categories
-   * @return isRoot
+   *
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+ 
 
 
   public Boolean isIsRoot() {
@@ -247,9 +234,9 @@ public class Category {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -267,9 +254,9 @@ public class Category {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -287,9 +274,9 @@ public class Category {
 
   /**
    * Get lifecycleStatusEnum
-   * @return lifecycleStatusEnum
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public LifecycleStatusEnumEnum getLifecycleStatusEnum() {
@@ -307,9 +294,9 @@ public class Category {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -327,9 +314,9 @@ public class Category {
 
   /**
    * Unique identifier of the parent category
-   * @return parentId
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+ 
 
 
   public String getParentId() {
@@ -355,11 +342,11 @@ public class Category {
 
   /**
    * A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
-   * @return productOffering
+   *
   **/
-  @ApiModelProperty(value = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
+ 
 
-  @Valid
+ 
 
   public List<ProductOfferingRef> getProductOffering() {
     return productOffering;
@@ -384,11 +371,11 @@ public class Category {
 
   /**
    * List of child categories in the tree for in this category
-   * @return subCategory
+   *
   **/
-  @ApiModelProperty(value = "List of child categories in the tree for in this category")
+ 
 
-  @Valid
+ 
 
   public List<CategoryRef> getSubCategory() {
     return subCategory;
@@ -405,9 +392,9 @@ public class Category {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -425,11 +412,11 @@ public class Category {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -446,9 +433,9 @@ public class Category {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -460,7 +447,7 @@ public class Category {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -488,12 +475,12 @@ public class Category {
         Objects.equals(this.version, category.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, description, href, id, isRoot, lastUpdate, lifecycleStatus, lifecycleStatusEnum, name, parentId, productOffering, subCategory, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Category {\n");

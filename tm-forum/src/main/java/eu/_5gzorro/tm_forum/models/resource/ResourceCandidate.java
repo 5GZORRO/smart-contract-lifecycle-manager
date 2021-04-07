@@ -1,89 +1,77 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.ResourceSpecificationRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.ResourceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCategoryRef;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.
  */
-@ApiModel(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_candidates")
+
+
+
+
+
 public class ResourceCandidate {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_candidate_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ResourceCategoryRef> category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("resourceSpecification")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_id", referencedColumnName = "uuid")
+
+
+
   private ResourceSpecificationRef resourceSpecification = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ResourceCandidate baseType(String baseType) {
@@ -93,9 +81,9 @@ public class ResourceCandidate {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -113,9 +101,9 @@ public class ResourceCandidate {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -133,9 +121,9 @@ public class ResourceCandidate {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -161,11 +149,11 @@ public class ResourceCandidate {
 
   /**
    * The category specification implied by this candidate
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "The category specification implied by this candidate")
 
-  @Valid
+
+
 
   public List<ResourceCategoryRef> getCategory() {
     return category;
@@ -182,9 +170,9 @@ public class ResourceCandidate {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -202,9 +190,9 @@ public class ResourceCandidate {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -222,9 +210,9 @@ public class ResourceCandidate {
 
   /**
    * Unique identifier of this REST resource
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of this REST resource")
+
 
 
   public String getId() {
@@ -242,9 +230,9 @@ public class ResourceCandidate {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -262,9 +250,9 @@ public class ResourceCandidate {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -282,9 +270,9 @@ public class ResourceCandidate {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -302,11 +290,11 @@ public class ResourceCandidate {
 
   /**
    * The resource specification implied by this candidate
-   * @return resourceSpecification
+   *
   **/
-  @ApiModelProperty(value = "The resource specification implied by this candidate")
 
-  @Valid
+
+
 
   public ResourceSpecificationRef getResourceSpecification() {
     return resourceSpecification;
@@ -323,9 +311,9 @@ public class ResourceCandidate {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -343,11 +331,11 @@ public class ResourceCandidate {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -364,9 +352,9 @@ public class ResourceCandidate {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -378,7 +366,7 @@ public class ResourceCandidate {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -403,12 +391,12 @@ public class ResourceCandidate {
         Objects.equals(this.version, resourceCandidate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, href, id, lastUpdate, lifecycleStatus, name, resourceSpecification, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceCandidate {\n");

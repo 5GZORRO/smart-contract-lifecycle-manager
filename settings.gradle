@@ -8,3 +8,5 @@ include 'corda-driver:contracts'
 include 'corda-driver:workflows'
 include 'corda-driver:driver-impl'
 include 'corda-driver:did-oracle'
+include 'tm-forum'
+

@@ -1,27 +1,21 @@
 package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Embeddable;
 
 /**
  * A base / value business entity used to represent money
  */
-@ApiModel(description = "A base / value business entity used to represent money")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Embeddable
+
+
+
+
 public class Money {
 
-  @JsonProperty("unit")
+ 
   private String unit = null;
 
-  @JsonProperty("value")
+ 
   private Float value = null;
 
   public Money unit(String unit) {
@@ -31,9 +25,9 @@ public class Money {
 
   /**
    * Currency (ISO4217 norm uses 3 letters to define the currency)
-   * @return unit
+   *
   **/
-  @ApiModelProperty(value = "Currency (ISO4217 norm uses 3 letters to define the currency)")
+ 
 
 
   public String getUnit() {
@@ -51,9 +45,9 @@ public class Money {
 
   /**
    * A positive floating point number
-   * @return value
+   *
   **/
-  @ApiModelProperty(value = "A positive floating point number")
+ 
 
 
   public Float getValue() {
@@ -65,7 +59,7 @@ public class Money {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -78,12 +72,12 @@ public class Money {
         Objects.equals(this.value, money.value);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(unit, value);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Money {\n");

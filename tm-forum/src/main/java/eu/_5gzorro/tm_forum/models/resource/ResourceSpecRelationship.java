@@ -1,61 +1,52 @@
 package eu._5gzorro.tm_forum.models.resource;
 
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship between/among resource specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among resource specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_spec_relationships")
+
+
+
+
+
 public class ResourceSpecRelationship {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("relationshipType")
-  @Column(name = "relationship_type")
+ 
+ 
   private String relationshipType = null;
 
-  @JsonProperty("role")
+ 
   private String role = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
   public ResourceSpecRelationship baseType(String baseType) {
@@ -65,9 +56,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Get baseType
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getBaseType() {
@@ -85,9 +76,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Type of relationship such as migration, substitution, dependency, exclusivity
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+ 
 
 
   public String getType() {
@@ -105,9 +96,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Reference of the target ResourceSpecification
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Reference of the target ResourceSpecification")
+ 
 
 
   public String getHref() {
@@ -125,9 +116,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Unique identifier of target ResourceSpecification
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of target ResourceSpecification")
+ 
 
 
   public String getId() {
@@ -145,9 +136,9 @@ public class ResourceSpecRelationship {
 
   /**
    * The name given to the target resource specification instance
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "The name given to the target resource specification instance")
+ 
 
 
   public String getName() {
@@ -165,9 +156,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Get relationshipType
-   * @return relationshipType
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRelationshipType() {
@@ -185,9 +176,9 @@ public class ResourceSpecRelationship {
 
   /**
    * The association role for this resource specification
-   * @return role
+   *
   **/
-  @ApiModelProperty(value = "The association role for this resource specification")
+ 
 
 
   public String getRole() {
@@ -205,9 +196,9 @@ public class ResourceSpecRelationship {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -225,11 +216,11 @@ public class ResourceSpecRelationship {
 
   /**
    * The period for which the ResourceSpecRelationship is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the ResourceSpecRelationship is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -239,7 +230,7 @@ public class ResourceSpecRelationship {
     this.validFor = validFor;
   }
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -259,12 +250,12 @@ public class ResourceSpecRelationship {
         Objects.equals(this.validFor, resourceSpecRelationship.validFor);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, type, href, id, name, relationshipType, role, uuid, validFor);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceSpecRelationship {\n");

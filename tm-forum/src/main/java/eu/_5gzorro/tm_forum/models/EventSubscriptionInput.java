@@ -1,28 +1,22 @@
 package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.*;
 
 /**
  * Sets the communication endpoint address the service instance must use to deliver notification information
  */
-@ApiModel(description = "Sets the communication endpoint address the service instance must use to deliver notification information")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class EventSubscriptionInput   {
-  @JsonProperty("callback")
+
   private String callback = null;
 
-  @JsonProperty("query")
+
   private String query = null;
 
   public EventSubscriptionInput callback(String callback) {
@@ -32,10 +26,10 @@ public class EventSubscriptionInput   {
 
   /**
    * The callback being registered.
-   * @return callback
+   *
   **/
-  @ApiModelProperty(required = true, value = "The callback being registered.")
-  @NotNull
+
+
 
 
   public String getCallback() {
@@ -53,9 +47,9 @@ public class EventSubscriptionInput   {
 
   /**
    * additional data to be passed
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "additional data to be passed")
+
 
 
   public String getQuery() {
@@ -67,7 +61,7 @@ public class EventSubscriptionInput   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -80,12 +74,12 @@ public class EventSubscriptionInput   {
         Objects.equals(this.query, eventSubscriptionInput.query);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(callback, query);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventSubscriptionInput {\n");

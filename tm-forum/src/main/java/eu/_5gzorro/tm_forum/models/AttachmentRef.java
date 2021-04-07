@@ -2,60 +2,51 @@ package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures
  */
-@ApiModel(description = "Attachment reference. An attachment complements the description of an element (for instance a product) through video, pictures")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "attachment_refs")
+
+
+
+
+
 public class AttachmentRef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+
+
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("url")
+
   private String url = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
   public AttachmentRef baseType(String baseType) {
@@ -65,9 +56,9 @@ public class AttachmentRef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -85,9 +76,9 @@ public class AttachmentRef {
 
   /**
    * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+
 
 
   public String getReferredType() {
@@ -105,9 +96,9 @@ public class AttachmentRef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -125,9 +116,9 @@ public class AttachmentRef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -145,9 +136,9 @@ public class AttachmentRef {
 
   /**
    * A narrative text describing the content of the attachment
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "A narrative text describing the content of the attachment")
+
 
 
   public String getDescription() {
@@ -165,9 +156,9 @@ public class AttachmentRef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -185,9 +176,9 @@ public class AttachmentRef {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getId() {
@@ -205,9 +196,9 @@ public class AttachmentRef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -225,9 +216,9 @@ public class AttachmentRef {
 
   /**
    * Link to the attachment media/content
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "Link to the attachment media/content")
+
 
 
   public String getUrl() {
@@ -245,9 +236,9 @@ public class AttachmentRef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -258,7 +249,7 @@ public class AttachmentRef {
     this.uuid = uuid;
   }
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -279,12 +270,12 @@ public class AttachmentRef {
         Objects.equals(this.uuid, attachmentRef.uuid);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, description, href, id, name, url, uuid);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AttachmentRef {\n");

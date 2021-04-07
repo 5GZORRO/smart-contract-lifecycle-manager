@@ -1,123 +1,109 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.AttachmentRef;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.AttachmentRef;
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristic;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.resource.TargetResourceSchemaRef;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * Resources are physical or non-physical components (or some combination of these) within an enterprise&#39;s infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components. A ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification.
  */
-@ApiModel(description = "Resources are physical or non-physical components (or some combination of these) within an enterprise's infrastructure or inventory. They are typically consumed or used by services (for example a physical port assigned to a service) or contribute to the realization of a Product (for example, a SIM card). They can be drawn from the Application, Computing and Network domains, and include, for example, Network Elements, software, IT systems, content and information, and technology components. A ResourceSpecification is an abstract base class for representing a generic means for implementing a particular type of Resource. In essence, a ResourceSpecification defines the common attributes and relationships of a set of related Resources, while Resource defines a specific instance that is based on a particular ResourceSpecification.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_specifications")
+
+
+
+
+
 public class ResourceSpecification   {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("category")
+
   private String category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("feature")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<Feature> feature = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("isBundle")
-  @Column(name = "is_bundle")
+
+
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecCharacteristic")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
-  @JsonProperty("resourceSpecRelationship")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_specification_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ResourceSpecRelationship> resourceSpecRelationship = null;
 
-  @JsonProperty("targetResourceSchema")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "target_resource_schema_id", referencedColumnName = "uuid")
+
+
+
   private TargetResourceSchemaRef targetResourceSchema = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ResourceSpecification baseType(String baseType) {
@@ -127,9 +113,9 @@ public class ResourceSpecification   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -147,9 +133,9 @@ public class ResourceSpecification   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -167,9 +153,9 @@ public class ResourceSpecification   {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -195,11 +181,11 @@ public class ResourceSpecification   {
 
   /**
    * Get attachment
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -216,9 +202,9 @@ public class ResourceSpecification   {
 
   /**
    * Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
+
 
 
   public String getCategory() {
@@ -236,9 +222,9 @@ public class ResourceSpecification   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -264,11 +250,11 @@ public class ResourceSpecification   {
 
   /**
    * Get feature
-   * @return feature
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<Feature> getFeature() {
     return feature;
@@ -285,9 +271,9 @@ public class ResourceSpecification   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -305,9 +291,9 @@ public class ResourceSpecification   {
 
   /**
    * Unique identifier of this REST resource
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of this REST resource")
+
 
 
   public String getId() {
@@ -325,9 +311,9 @@ public class ResourceSpecification   {
 
   /**
    * A flag indicates that if this resource specification is a bundled specification (true) or single (false).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
+
 
 
   public Boolean isIsBundle() {
@@ -345,9 +331,9 @@ public class ResourceSpecification   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -365,9 +351,9 @@ public class ResourceSpecification   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -385,9 +371,9 @@ public class ResourceSpecification   {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -413,11 +399,11 @@ public class ResourceSpecification   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -442,11 +428,11 @@ public class ResourceSpecification   {
 
   /**
    * Get resourceSpecCharacteristic
-   * @return resourceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
     return resourceSpecCharacteristic;
@@ -471,11 +457,11 @@ public class ResourceSpecification   {
 
   /**
    * Get resourceSpecRelationship
-   * @return resourceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecRelationship> getResourceSpecRelationship() {
     return resourceSpecRelationship;
@@ -492,11 +478,11 @@ public class ResourceSpecification   {
 
   /**
    * Get targetResourceSchema
-   * @return targetResourceSchema
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public TargetResourceSchemaRef getTargetResourceSchema() {
     return targetResourceSchema;
@@ -513,9 +499,9 @@ public class ResourceSpecification   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -533,11 +519,11 @@ public class ResourceSpecification   {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -554,9 +540,9 @@ public class ResourceSpecification   {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -568,7 +554,7 @@ public class ResourceSpecification   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -599,12 +585,12 @@ public class ResourceSpecification   {
         Objects.equals(this.version, resourceSpecification.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, category, description, feature, href, id, isBundle, lastUpdate, lifecycleStatus, name, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship, targetResourceSchema, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceSpecification {\n");

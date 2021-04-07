@@ -1,40 +1,36 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+
+import java.util.Objects;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceSpecificationDeleteNotification   {
-  @JsonProperty("event")
+ 
   private ServiceSpecificationDeleteEvent event = null;
 
-  @JsonProperty("eventId")
+ 
   private String eventId = null;
 
-  @JsonProperty("eventTime")
+ 
   private OffsetDateTime eventTime = null;
 
-  @JsonProperty("eventType")
+ 
   private String eventType = null;
 
-  @JsonProperty("fieldPath")
+ 
   private String fieldPath = null;
 
-  @JsonProperty("resourcePath")
+ 
   private String resourcePath = null;
 
   public ServiceSpecificationDeleteNotification event(ServiceSpecificationDeleteEvent event) {
@@ -44,11 +40,11 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * The event linked to the involved resource object
-   * @return event
+   *
   **/
-  @ApiModelProperty(value = "The event linked to the involved resource object")
+ 
 
-  @Valid
+ 
 
   public ServiceSpecificationDeleteEvent getEvent() {
     return event;
@@ -65,9 +61,9 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * The identifier of the notification
-   * @return eventId
+   *
   **/
-  @ApiModelProperty(value = "The identifier of the notification")
+ 
 
 
   public String getEventId() {
@@ -85,11 +81,11 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * Time of the event occurrence
-   * @return eventTime
+   *
   **/
-  @ApiModelProperty(value = "Time of the event occurrence")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getEventTime() {
     return eventTime;
@@ -106,9 +102,9 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * The type of the notification
-   * @return eventType
+   *
   **/
-  @ApiModelProperty(value = "The type of the notification")
+ 
 
 
   public String getEventType() {
@@ -126,9 +122,9 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * The path identifying the object field concerned by this notification
-   * @return fieldPath
+   *
   **/
-  @ApiModelProperty(value = "The path identifying the object field concerned by this notification")
+ 
 
 
   public String getFieldPath() {
@@ -146,9 +142,9 @@ public class ServiceSpecificationDeleteNotification   {
 
   /**
    * The path identifying the resource object concerned by this notification
-   * @return resourcePath
+   *
   **/
-  @ApiModelProperty(value = "The path identifying the resource object concerned by this notification")
+ 
 
 
   public String getResourcePath() {
@@ -160,7 +156,7 @@ public class ServiceSpecificationDeleteNotification   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -177,12 +173,12 @@ public class ServiceSpecificationDeleteNotification   {
         Objects.equals(this.resourcePath, serviceSpecificationDeleteNotification.resourcePath);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(event, eventId, eventTime, eventType, fieldPath, resourcePath);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceSpecificationDeleteNotification {\n");

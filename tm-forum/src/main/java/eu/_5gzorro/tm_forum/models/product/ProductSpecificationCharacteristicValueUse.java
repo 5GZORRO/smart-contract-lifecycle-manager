@@ -1,101 +1,90 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic &#39;Color&#39; might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in &#39;ProductSpecificationCharacteristicValueUse&#39; is a strict subset of the list of values as defined in the corresponding product specification characteristics.
  */
-@ApiModel(description = "A use of the ProductSpecificationCharacteristicValue by a ProductOffering to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering level. For example, a characteristic 'Color' might have values White, Blue, Green, and Red. But, the list of values can be restricted to e.g. White and Blue in an associated product offering. It should be noted that the list of values in 'ProductSpecificationCharacteristicValueUse' is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "product_specification_characteristic_value_uses")
+
+
+
+
+
 public class ProductSpecificationCharacteristicValueUse {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("lifecycleStatusEnum")
-  @Column(name = "lifecycle_status_enum")
+
+
   private LifecycleStatusEnumEnum lifecycleStatusEnum = null;
 
-  @JsonProperty("maxCardinality")
-  @Column(name = "max_cardinality")
+
+
   private Integer maxCardinality = null;
 
-  @JsonProperty("minCardinality")
-  @Column(name = "min_cardinality")
+
+
   private Integer minCardinality = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("productSpecCharacteristicValue")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_characteristic_value_use_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ProductSpecificationCharacteristicValue> productSpecCharacteristicValue = null;
 
-  @JsonProperty("productSpecification")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "product_specification_id", referencedColumnName = "uuid")
+
+
+
   private ProductSpecificationRef productSpecification = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("valueType")
-  @Column(name = "value_type")
+
+
   private String valueType = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ProductSpecificationCharacteristicValueUse baseType(String baseType) {
@@ -105,9 +94,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -125,9 +114,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -145,9 +134,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -165,9 +154,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -185,9 +174,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -205,9 +194,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -225,9 +214,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -245,9 +234,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Get lifecycleStatusEnum
-   * @return lifecycleStatusEnum
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public LifecycleStatusEnumEnum getLifecycleStatusEnum() {
@@ -265,9 +254,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
-   * @return maxCardinality
+   *
   **/
-  @ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+
 
 
   public Integer getMaxCardinality() {
@@ -285,9 +274,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.
-   * @return minCardinality
+   *
   **/
-  @ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+
 
 
   public Integer getMinCardinality() {
@@ -305,9 +294,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -333,11 +322,11 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * A number or text that can be assigned to a ProductSpecificationCharacteristic.
-   * @return productSpecCharacteristicValue
+   *
   **/
-  @ApiModelProperty(value = "A number or text that can be assigned to a ProductSpecificationCharacteristic.")
 
-  @Valid
+
+
 
   public List<ProductSpecificationCharacteristicValue> getProductSpecCharacteristicValue() {
     return productSpecCharacteristicValue;
@@ -354,11 +343,11 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.
-   * @return productSpecification
+   *
   **/
-  @ApiModelProperty(value = "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.")
 
-  @Valid
+
+
 
   public ProductSpecificationRef getProductSpecification() {
     return productSpecification;
@@ -375,9 +364,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -395,11 +384,11 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -416,9 +405,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * A kind of value that the characteristic can take on, such as numeric, text and so forth
-   * @return valueType
+   *
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+
 
 
   public String getValueType() {
@@ -436,9 +425,9 @@ public class ProductSpecificationCharacteristicValueUse {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -450,7 +439,7 @@ public class ProductSpecificationCharacteristicValueUse {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -478,12 +467,12 @@ public class ProductSpecificationCharacteristicValueUse {
         Objects.equals(this.version, productSpecificationCharacteristicValueUse.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, description, href, lastUpdate, lifecycleStatus, lifecycleStatusEnum, maxCardinality, minCardinality, name, productSpecCharacteristicValue, productSpecification, uuid, validFor, valueType, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductSpecificationCharacteristicValueUse {\n");

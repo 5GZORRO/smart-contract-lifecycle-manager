@@ -1,32 +1,27 @@
 package eu._5gzorro.tm_forum.models.resource;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.*;
 
 /**
  * Error
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
 
 
 
 
 public class Error   {
-  @JsonProperty("code")
+ 
   private Integer code = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("infoURL")
+ 
   private String infoURL = null;
 
-  @JsonProperty("message")
+ 
   private String message = null;
 
   public Error code(Integer code) {
@@ -36,10 +31,10 @@ public class Error   {
 
   /**
    * An integer coding the error type. This is given to caller so he can translate them if required.
-   * @return code
+   *
   **/
-  @ApiModelProperty(required = true, value = "An integer coding the error type. This is given to caller so he can translate them if required.")
-  @NotNull
+ 
+ 
 
 
   public Integer getCode() {
@@ -57,9 +52,9 @@ public class Error   {
 
   /**
    * (optional) A long localized error description if needed. It can contain precise information about which parameter is missing, or what are the identifier acceptable values.
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "(optional) A long localized error description if needed. It can contain precise information about which parameter is missing, or what are the identifier acceptable values.")
+ 
 
 
   public String getDescription() {
@@ -77,9 +72,9 @@ public class Error   {
 
   /**
    * (optional) A URL to online documentation that provides more information about the error.
-   * @return infoURL
+   *
   **/
-  @ApiModelProperty(value = "(optional) A URL to online documentation that provides more information about the error.")
+ 
 
 
   public String getInfoURL() {
@@ -97,10 +92,10 @@ public class Error   {
 
   /**
    * A short localized string that describes the error.
-   * @return message
+   *
   **/
-  @ApiModelProperty(required = true, value = "A short localized string that describes the error.")
-  @NotNull
+ 
+ 
 
 
   public String getMessage() {
@@ -112,7 +107,7 @@ public class Error   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -127,12 +122,12 @@ public class Error   {
         Objects.equals(this.message, error.message);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(code, description, infoURL, message);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Error {\n");

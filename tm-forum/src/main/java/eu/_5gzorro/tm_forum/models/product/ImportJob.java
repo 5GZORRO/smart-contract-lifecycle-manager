@@ -1,59 +1,55 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.StatusEnum;
+import eu._5gzorro.tm_forum.models.StatusEnum;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+
+import java.util.Objects;
 
 /**
  * Represents a task used to import resources from a file
  */
-@ApiModel(description = "Represents a task used to import resources from a file")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class ImportJob   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("completionDate")
+
   private OffsetDateTime completionDate = null;
 
-  @JsonProperty("contentType")
+
   private String contentType = null;
 
-  @JsonProperty("creationDate")
+
   private OffsetDateTime creationDate = null;
 
-  @JsonProperty("errorLog")
+
   private String errorLog = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("path")
+
   private String path = null;
 
-  @JsonProperty("status")
+
   private StatusEnum status = null;
 
-  @JsonProperty("url")
+
   private String url = null;
 
   public ImportJob baseType(String baseType) {
@@ -63,9 +59,9 @@ public class ImportJob   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -83,9 +79,9 @@ public class ImportJob   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -103,9 +99,9 @@ public class ImportJob   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+
 
 
   public String getType() {
@@ -123,11 +119,11 @@ public class ImportJob   {
 
   /**
    * Date at which the job was completed
-   * @return completionDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was completed")
 
-  @Valid
+
+
 
   public OffsetDateTime getCompletionDate() {
     return completionDate;
@@ -144,9 +140,9 @@ public class ImportJob   {
 
   /**
    * Indicates the format of the imported data
-   * @return contentType
+   *
   **/
-  @ApiModelProperty(value = "Indicates the format of the imported data")
+
 
 
   public String getContentType() {
@@ -164,11 +160,11 @@ public class ImportJob   {
 
   /**
    * Date at which the job was created
-   * @return creationDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
 
-  @Valid
+
+
 
   public OffsetDateTime getCreationDate() {
     return creationDate;
@@ -185,9 +181,9 @@ public class ImportJob   {
 
   /**
    * Reason for failure if status is failed
-   * @return errorLog
+   *
   **/
-  @ApiModelProperty(value = "Reason for failure if status is failed")
+
 
 
   public String getErrorLog() {
@@ -205,9 +201,9 @@ public class ImportJob   {
 
   /**
    * Reference of the import job
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Reference of the import job")
+
 
 
   public String getHref() {
@@ -225,9 +221,9 @@ public class ImportJob   {
 
   /**
    * Identifier of the import job
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Identifier of the import job")
+
 
 
   public String getId() {
@@ -245,9 +241,9 @@ public class ImportJob   {
 
   /**
    * URL of the root resource where the content of the file specified by the import job must be applied
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "URL of the root resource where the content of the file specified by the import job must be applied")
+
 
 
   public String getPath() {
@@ -265,9 +261,9 @@ public class ImportJob   {
 
   /**
    * Status of the import job (not started, running, succeeded, failed)
-   * @return status
+   *
   **/
-  @ApiModelProperty(value = "Status of the import job (not started, running, succeeded, failed)")
+
 
 
   public StatusEnum getStatus() {
@@ -285,9 +281,9 @@ public class ImportJob   {
 
   /**
    * URL of the file containing the data to be imported
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "URL of the file containing the data to be imported")
+
 
 
   public String getUrl() {
@@ -299,7 +295,7 @@ public class ImportJob   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -322,12 +318,12 @@ public class ImportJob   {
         Objects.equals(this.url, importJob.url);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, completionDate, contentType, creationDate, errorLog, href, id, path, status, url);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ImportJob {\n");

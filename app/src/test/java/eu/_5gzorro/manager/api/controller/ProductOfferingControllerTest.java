@@ -6,18 +6,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import eu._5gzorro.manager.api.controller.dto.PublishProductOfferingRequest;
-import eu._5gzorro.manager.api.controller.dto.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOfferingRequest;
+import eu._5gzorro.manager.api.controller.dto.requests.UpdateProductOfferingRequest;
 import eu._5gzorro.manager.api.service.ProductOfferingService;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
+import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import java.util.Collections;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jms.artemis.ArtemisAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

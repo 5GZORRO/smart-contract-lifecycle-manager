@@ -1,62 +1,56 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.ServiceSpecificationRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.ServiceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications. Skipped properties: id,href
  */
-@ApiModel(description = "ServiceCandidate is an entity that makes a service specification available to a catalog. A ServiceCandidate and its associated service specification may be published - made visible - in any number of service catalogs, or in none. One service specification can be composed of other service specifications. Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceCandidateCreate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+ 
+ 
   private List<ServiceCategoryRef> category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("lastUpdate")
+ 
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("serviceSpecification")
+ 
   private ServiceSpecificationRef serviceSpecification = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ServiceCandidateCreate baseType(String baseType) {
@@ -66,9 +60,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -86,9 +80,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -106,9 +100,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+ 
 
 
   public String getType() {
@@ -134,11 +128,11 @@ public class ServiceCandidateCreate   {
 
   /**
    * List of categories for this candidate
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "List of categories for this candidate")
+ 
 
-  @Valid
+ 
 
   public List<ServiceCategoryRef> getCategory() {
     return category;
@@ -155,9 +149,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * Description of this REST resource
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this REST resource")
+ 
 
 
   public String getDescription() {
@@ -175,11 +169,11 @@ public class ServiceCandidateCreate   {
 
   /**
    * Date and time of the last update of this REST resource
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update of this REST resource")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -196,9 +190,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * Used to indicate the current lifecycle status of the service candidate.
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the service candidate.")
+ 
 
 
   public String getLifecycleStatus() {
@@ -216,9 +210,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * Name given to this REST resource
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name given to this REST resource")
+ 
 
 
   public String getName() {
@@ -236,11 +230,11 @@ public class ServiceCandidateCreate   {
 
   /**
    * The service specification implied by this candidate
-   * @return serviceSpecification
+   *
   **/
-  @ApiModelProperty(value = "The service specification implied by this candidate")
+ 
 
-  @Valid
+ 
 
   public ServiceSpecificationRef getServiceSpecification() {
     return serviceSpecification;
@@ -257,11 +251,11 @@ public class ServiceCandidateCreate   {
 
   /**
    * The period for which this REST resource is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which this REST resource is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -278,9 +272,9 @@ public class ServiceCandidateCreate   {
 
   /**
    * the version of service candidate
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "the version of service candidate")
+ 
 
 
   public String getVersion() {
@@ -292,7 +286,7 @@ public class ServiceCandidateCreate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -314,12 +308,12 @@ public class ServiceCandidateCreate   {
         Objects.equals(this.version, serviceCandidateCreate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, lastUpdate, lifecycleStatus, name, serviceSpecification, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceCandidateCreate {\n");

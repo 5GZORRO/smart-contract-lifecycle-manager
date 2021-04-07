@@ -1,114 +1,103 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.AttachmentRef;
+import eu._5gzorro.tm_forum.models.PlaceRef;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.AttachmentRef;
-import it.nextworks.tmf_offering_catalog.information_models.PlaceRef;
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristic;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.resource.TargetResourceSchemaRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.
  */
-@ApiModel(description = "This is a concrete class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a PhysicalResource.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class PhysicalResourceSpec   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
+
+
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("category")
+
   private String category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("feature")
-  @Valid
+
+
   private List<Feature> feature = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("isBundle")
+
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("model")
+
   private String model = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("part")
+
   private String part = null;
 
-  @JsonProperty("place")
+
   private PlaceRef place = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecCharacteristic")
-  @Valid
+
+
   private List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
-  @JsonProperty("resourceSpecRelationship")
-  @Valid
+
+
   private List<ResourceSpecRelationship> resourceSpecRelationship = null;
 
-  @JsonProperty("sku")
+
   private String sku = null;
 
-  @JsonProperty("targetResourceSchema")
+
   private TargetResourceSchemaRef targetResourceSchema = null;
 
-  @JsonIgnore
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("vendor")
+
   private String vendor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public PhysicalResourceSpec baseType(String baseType) {
@@ -118,9 +107,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -138,9 +127,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -158,9 +147,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -186,11 +175,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get attachment
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -207,9 +196,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
+
 
 
   public String getCategory() {
@@ -227,9 +216,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -255,11 +244,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get feature
-   * @return feature
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<Feature> getFeature() {
     return feature;
@@ -276,9 +265,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -296,9 +285,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Unique identifier of this REST resource
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of this REST resource")
+
 
 
   public String getId() {
@@ -316,9 +305,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * A flag indicates that if this resource specification is a bundled specification (true) or single (false).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
+
 
 
   public Boolean isIsBundle() {
@@ -336,9 +325,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -356,9 +345,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -376,9 +365,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * This is a string that represents a manufacturer-allocated number used to identify the general type and/or category of the hardware item. This, in combination with the Part and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is an optional attribute.
-   * @return model
+   *
   **/
-  @ApiModelProperty(value = "This is a string that represents a manufacturer-allocated number used to identify the general type and/or category of the hardware item. This, in combination with the Part and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is an optional attribute.")
+
 
 
   public String getModel() {
@@ -396,9 +385,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -416,9 +405,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * This is a string that defines a manufacturer-allocated part number assigned by the organization that manufactures the hardware item. This, in combination with the Model and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute.
-   * @return part
+   *
   **/
-  @ApiModelProperty(value = "This is a string that defines a manufacturer-allocated part number assigned by the organization that manufactures the hardware item. This, in combination with the Model and the Vendor, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute.")
+
 
 
   public String getPart() {
@@ -436,11 +425,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get place
-   * @return place
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public PlaceRef getPlace() {
     return place;
@@ -465,11 +454,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -494,11 +483,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get resourceSpecCharacteristic
-   * @return resourceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
     return resourceSpecCharacteristic;
@@ -523,11 +512,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get resourceSpecRelationship
-   * @return resourceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecRelationship> getResourceSpecRelationship() {
     return resourceSpecRelationship;
@@ -544,9 +533,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * This is a string that defines the manufacturer-allocated Stock Keeping Unit (SKU) number of the hardware item. This is an optional attribute.
-   * @return sku
+   *
   **/
-  @ApiModelProperty(value = "This is a string that defines the manufacturer-allocated Stock Keeping Unit (SKU) number of the hardware item. This is an optional attribute.")
+
 
 
   public String getSku() {
@@ -564,11 +553,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get targetResourceSchema
-   * @return targetResourceSchema
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public TargetResourceSchemaRef getTargetResourceSchema() {
     return targetResourceSchema;
@@ -585,9 +574,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -605,11 +594,11 @@ public class PhysicalResourceSpec   {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -626,9 +615,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * This is a string that defines the name of the manufacturer. This, in combination with the Model and the Part, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute for a physical resource.
-   * @return vendor
+   *
   **/
-  @ApiModelProperty(value = "This is a string that defines the name of the manufacturer. This, in combination with the Model and the Part, identify different types of hardware items. The SerialNumber can then be used to differentiate between different instances of the same type of hardware item. This is a REQUIRED attribute for a physical resource.")
+
 
 
   public String getVendor() {
@@ -646,9 +635,9 @@ public class PhysicalResourceSpec   {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -660,7 +649,7 @@ public class PhysicalResourceSpec   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -696,12 +685,12 @@ public class PhysicalResourceSpec   {
         Objects.equals(this.version, physicalResourceSpec.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, category, description, feature, href, id, isBundle, lastUpdate, lifecycleStatus, model, name, part, place, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship, sku, targetResourceSchema, uuid, validFor, vendor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PhysicalResourceSpec {\n");

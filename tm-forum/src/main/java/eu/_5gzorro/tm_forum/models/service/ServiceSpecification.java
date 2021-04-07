@@ -1,124 +1,110 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.*;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceLevelSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecCharacteristic;
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecRelationship;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.
  */
-@ApiModel(description = "ServiceSpecification is a class that offers characteristics to describe a type of service. Functionally, it acts as a template by which Services may be instantiated. By sharing the same  specification, these services would therefore share the same set of characteristics.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
 
-@Entity
-@Table(name = "service_specifications")
+
+
+
+
+
 public class ServiceSpecification {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isBundle")
-  @Column(name = "is_bundle")
+ 
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+ 
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+ 
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecification")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ResourceSpecificationRef> resourceSpecification = null;
 
-  @JsonProperty("serviceLevelSpecification")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ServiceLevelSpecificationRef> serviceLevelSpecification = null;
 
-  @JsonProperty("serviceSpecCharacteristic")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ServiceSpecCharacteristic> serviceSpecCharacteristic = null;
 
-  @JsonProperty("serviceSpecRelationship")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "service_specification_fk", referencedColumnName = "uuid")
+ 
+ 
+ 
+ 
   private List<ServiceSpecRelationship> serviceSpecRelationship = null;
 
-  @JsonProperty("targetServiceSchema")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "target_service_schema_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private TargetServiceSchema targetServiceSchema = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ServiceSpecification baseType(String baseType) {
@@ -128,9 +114,9 @@ public class ServiceSpecification {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -148,9 +134,9 @@ public class ServiceSpecification {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -168,9 +154,9 @@ public class ServiceSpecification {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -196,11 +182,11 @@ public class ServiceSpecification {
 
   /**
    * A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "A list of attachments (Attachment [*]). Complements the description of the specification through video, pictures...")
+ 
 
-  @Valid
+ 
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -217,9 +203,9 @@ public class ServiceSpecification {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -237,9 +223,9 @@ public class ServiceSpecification {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -257,9 +243,9 @@ public class ServiceSpecification {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -277,9 +263,9 @@ public class ServiceSpecification {
 
   /**
    * isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "isBundle determines whether a ServiceSpecification represents a single ServiceSpecification (false), or a bundle of ServiceSpecification (true).")
+ 
 
 
   public Boolean isIsBundle() {
@@ -297,9 +283,9 @@ public class ServiceSpecification {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -317,9 +303,9 @@ public class ServiceSpecification {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -337,9 +323,9 @@ public class ServiceSpecification {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -365,11 +351,11 @@ public class ServiceSpecification {
 
   /**
    * A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "A list of related party references (RelatedParty [*]). A related party defines party or party role linked to a specific entity.")
+ 
 
-  @Valid
+ 
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -394,11 +380,11 @@ public class ServiceSpecification {
 
   /**
    * A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).
-   * @return resourceSpecification
+   *
   **/
-  @ApiModelProperty(value = "A list of resource specification references (ResourceSpecificationRef [*]). The ResourceSpecification is required for a service specification with type ResourceFacingServiceSpecification (RFSS).")
+ 
 
-  @Valid
+ 
 
   public List<ResourceSpecificationRef> getResourceSpecification() {
     return resourceSpecification;
@@ -423,11 +409,11 @@ public class ServiceSpecification {
 
   /**
    * A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum
-   * @return serviceLevelSpecification
+   *
   **/
-  @ApiModelProperty(value = "A list of service level specifications related to this service specification, and which will need to be satisifiable for corresponding service instances; e.g. Gold, Platinum")
+ 
 
-  @Valid
+ 
 
   public List<ServiceLevelSpecificationRef> getServiceLevelSpecification() {
     return serviceLevelSpecification;
@@ -452,11 +438,11 @@ public class ServiceSpecification {
 
   /**
    * A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.
-   * @return serviceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "A list of service spec characteristics (ServiceSpecCharacteristic [*]). This class represents the key features of this service specification.")
+ 
 
-  @Valid
+ 
 
   public List<ServiceSpecCharacteristic> getServiceSpecCharacteristic() {
     return serviceSpecCharacteristic;
@@ -481,11 +467,11 @@ public class ServiceSpecification {
 
   /**
    * A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship
-   * @return serviceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "A list of service specifications related to this specification, e.g. migration, substitution, dependency or exclusivity relationship")
+ 
 
-  @Valid
+ 
 
   public List<ServiceSpecRelationship> getServiceSpecRelationship() {
     return serviceSpecRelationship;
@@ -502,11 +488,11 @@ public class ServiceSpecification {
 
   /**
    * A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.
-   * @return targetServiceSchema
+   *
   **/
-  @ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
+ 
 
-  @Valid
+ 
 
   public TargetServiceSchema getTargetServiceSchema() {
     return targetServiceSchema;
@@ -523,9 +509,9 @@ public class ServiceSpecification {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -543,11 +529,11 @@ public class ServiceSpecification {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -564,9 +550,9 @@ public class ServiceSpecification {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -578,7 +564,7 @@ public class ServiceSpecification {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -609,12 +595,12 @@ public class ServiceSpecification {
         Objects.equals(this.version, serviceSpecification.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, description, href, id, isBundle, lastUpdate, lifecycleStatus, name, relatedParty, resourceSpecification, serviceLevelSpecification, serviceSpecCharacteristic, serviceSpecRelationship, targetServiceSchema, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceSpecification {\n");

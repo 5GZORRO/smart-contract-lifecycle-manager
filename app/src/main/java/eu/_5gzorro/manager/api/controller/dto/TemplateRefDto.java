@@ -2,12 +2,12 @@ package eu._5gzorro.manager.api.controller.dto;
 
 import java.util.Objects;
 
-public class TemplateRef {
+public class TemplateRefDto {
     private String href;
     private String name;
     private String description;
 
-    public TemplateRef() {
+    public TemplateRefDto() {
     }
 
     public String getHref() {
@@ -38,7 +38,7 @@ public class TemplateRef {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TemplateRef that = (TemplateRef) o;
+        TemplateRefDto that = (TemplateRefDto) o;
         return href.equals(that.href);
     }
 

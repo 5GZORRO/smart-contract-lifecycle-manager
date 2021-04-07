@@ -1,80 +1,71 @@
 package eu._5gzorro.tm_forum.models.service;
 
+import eu._5gzorro.tm_forum.models.Quantity;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.Quantity;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * Complements the description of an element (for instance a product) through video, pictures...
  */
-@ApiModel(description = "Complements the description of an element (for instance a product) through video, pictures...")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
 
-@Entity
-@Table(name = "attachments")
+
+
+
+
+
 public class Attachment {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachmentType")
-  @Column(name = "attachment_type")
+
+
   private String attachmentType = null;
 
-  @JsonProperty("content")
+
   private String content = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("mimeType")
-  @Column(name = "mime_type")
+
+
   private String mimeType = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("size")
-  @Embedded
+
+
   private Quantity size = null;
 
-  @JsonProperty("url")
+
   private String url = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
   public Attachment baseType(String baseType) {
@@ -84,9 +75,9 @@ public class Attachment {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -104,9 +95,9 @@ public class Attachment {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -124,9 +115,9 @@ public class Attachment {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -144,9 +135,9 @@ public class Attachment {
 
   /**
    * Attachment type such as video, picture
-   * @return attachmentType
+   *
   **/
-  @ApiModelProperty(value = "Attachment type such as video, picture")
+
 
 
   public String getAttachmentType() {
@@ -164,9 +155,9 @@ public class Attachment {
 
   /**
    * The actual contents of the attachment object, if embedded, encoded as base64
-   * @return content
+   *
   **/
-  @ApiModelProperty(value = "The actual contents of the attachment object, if embedded, encoded as base64")
+
 
 
   public String getContent() {
@@ -184,9 +175,9 @@ public class Attachment {
 
   /**
    * A narrative text describing the content of the attachment
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "A narrative text describing the content of the attachment")
+
 
 
   public String getDescription() {
@@ -204,9 +195,9 @@ public class Attachment {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -224,9 +215,9 @@ public class Attachment {
 
   /**
    * Unique identifier for this particular attachment
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier for this particular attachment")
+
 
 
   public String getId() {
@@ -244,9 +235,9 @@ public class Attachment {
 
   /**
    * Attachment mime type such as extension file for video, picture and document
-   * @return mimeType
+   *
   **/
-  @ApiModelProperty(value = "Attachment mime type such as extension file for video, picture and document")
+
 
 
   public String getMimeType() {
@@ -264,9 +255,9 @@ public class Attachment {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -284,11 +275,11 @@ public class Attachment {
 
   /**
    * The size of the attachment.
-   * @return size
+   *
   **/
-  @ApiModelProperty(value = "The size of the attachment.")
 
-  @Valid
+
+
 
   public Quantity getSize() {
     return size;
@@ -305,9 +296,9 @@ public class Attachment {
 
   /**
    * Uniform Resource Locator, is a web page address (a subset of URI)
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "Uniform Resource Locator, is a web page address (a subset of URI)")
+
 
 
   public String getUrl() {
@@ -325,9 +316,9 @@ public class Attachment {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -345,11 +336,11 @@ public class Attachment {
 
   /**
    * The period of time for which the attachment is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period of time for which the attachment is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -360,7 +351,7 @@ public class Attachment {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -385,12 +376,12 @@ public class Attachment {
         Objects.equals(this.validFor, attachment.validFor);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachmentType, content, description, href, id, mimeType, name, size, url, uuid, validFor);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Attachment {\n");

@@ -1,65 +1,58 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other categories and/or product offerings, resource or service candidates. Skipped properties: id,href,lastUpdate")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class CategoryUpdate   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("isRoot")
+
   private Boolean isRoot = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("parentId")
+
   private String parentId = null;
 
-  @JsonProperty("productOffering")
-  @Valid
+
+
   private List<ProductOfferingRef> productOffering = null;
 
-  @JsonProperty("subCategory")
-  @Valid
+
+
   private List<CategoryRef> subCategory = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public CategoryUpdate baseType(String baseType) {
@@ -69,9 +62,9 @@ public class CategoryUpdate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -89,9 +82,9 @@ public class CategoryUpdate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -109,9 +102,9 @@ public class CategoryUpdate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+
 
 
   public String getType() {
@@ -129,9 +122,9 @@ public class CategoryUpdate   {
 
   /**
    * Description of the category
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of the category")
+
 
 
   public String getDescription() {
@@ -149,9 +142,9 @@ public class CategoryUpdate   {
 
   /**
    * If true, this Boolean indicates that the category is a root of categories
-   * @return isRoot
+   *
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+
 
 
   public Boolean isIsRoot() {
@@ -169,9 +162,9 @@ public class CategoryUpdate   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -189,9 +182,9 @@ public class CategoryUpdate   {
 
   /**
    * Name of the category
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the category")
+
 
 
   public String getName() {
@@ -209,9 +202,9 @@ public class CategoryUpdate   {
 
   /**
    * Unique identifier of the parent category
-   * @return parentId
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+
 
 
   public String getParentId() {
@@ -237,11 +230,11 @@ public class CategoryUpdate   {
 
   /**
    * A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.
-   * @return productOffering
+   *
   **/
-  @ApiModelProperty(value = "A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.")
 
-  @Valid
+
+
 
   public List<ProductOfferingRef> getProductOffering() {
     return productOffering;
@@ -266,11 +259,11 @@ public class CategoryUpdate   {
 
   /**
    * The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings.
-   * @return subCategory
+   *
   **/
-  @ApiModelProperty(value = "The category resource is used to group product offerings, service and resource candidates in logical containers. Categories can contain other (sub-)categories and/or product offerings.")
 
-  @Valid
+
+
 
   public List<CategoryRef> getSubCategory() {
     return subCategory;
@@ -287,11 +280,11 @@ public class CategoryUpdate   {
 
   /**
    * The period for which the category is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -308,9 +301,9 @@ public class CategoryUpdate   {
 
   /**
    * Category version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Category version")
+
 
 
   public String getVersion() {
@@ -322,7 +315,7 @@ public class CategoryUpdate   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -345,12 +338,12 @@ public class CategoryUpdate   {
         Objects.equals(this.version, categoryUpdate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, description, isRoot, lifecycleStatus, name, parentId, productOffering, subCategory, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CategoryUpdate {\n");

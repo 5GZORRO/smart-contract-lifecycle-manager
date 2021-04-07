@@ -1,86 +1,79 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.AttachmentRef;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.AttachmentRef;
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristic;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource. Skipped properties: id,href
  */
-@ApiModel(description = "This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource. Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class LogicalResourceSpecCreate   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
+
+
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("category")
+
   private String category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("feature")
-  @Valid
+
+
   private List<Feature> feature = null;
 
-  @JsonProperty("isBundle")
+
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
+
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecCharacteristic")
-  @Valid
+
+
   private List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
-  @JsonProperty("resourceSpecRelationship")
-  @Valid
+
+
   private List<ResourceSpecRelationship> resourceSpecRelationship = null;
 
-  @JsonProperty("targetResourceSchema")
+
   private TargetResourceSchemaRef targetResourceSchema = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public LogicalResourceSpecCreate baseType(String baseType) {
@@ -90,9 +83,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * The (immediate) base class type of this REST resource
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "The (immediate) base class type of this REST resource")
+
 
 
   public String getBaseType() {
@@ -110,9 +103,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+
 
 
   public String getSchemaLocation() {
@@ -130,9 +123,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -158,11 +151,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get attachment
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -179,9 +172,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
+
 
 
   public String getCategory() {
@@ -199,9 +192,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Description of this REST resource
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this REST resource")
+
 
 
   public String getDescription() {
@@ -227,11 +220,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get feature
-   * @return feature
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<Feature> getFeature() {
     return feature;
@@ -248,9 +241,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * A flag indicates that if this resource specification is a bundled specification (true) or single (false).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
+
 
 
   public Boolean isIsBundle() {
@@ -268,11 +261,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Date and time of the last update of this REST resource
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update of this REST resource")
 
-  @Valid
+
+
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -289,9 +282,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Used to indicate the current lifecycle status of the resource specification
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource specification")
+
 
 
   public String getLifecycleStatus() {
@@ -309,9 +302,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Name given to this REST resource
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name given to this REST resource")
+
 
 
   public String getName() {
@@ -337,11 +330,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -366,11 +359,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get resourceSpecCharacteristic
-   * @return resourceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
     return resourceSpecCharacteristic;
@@ -395,11 +388,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get resourceSpecRelationship
-   * @return resourceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecRelationship> getResourceSpecRelationship() {
     return resourceSpecRelationship;
@@ -416,11 +409,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Get targetResourceSchema
-   * @return targetResourceSchema
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public TargetResourceSchemaRef getTargetResourceSchema() {
     return targetResourceSchema;
@@ -437,11 +430,11 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * The period for which this REST resource is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which this REST resource is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -458,9 +451,9 @@ public class LogicalResourceSpecCreate   {
 
   /**
    * Resource Specification version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Resource Specification version")
+
 
 
   public String getVersion() {
@@ -472,7 +465,7 @@ public class LogicalResourceSpecCreate   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -500,12 +493,12 @@ public class LogicalResourceSpecCreate   {
         Objects.equals(this.version, logicalResourceSpecCreate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, category, description, feature, isBundle, lastUpdate, lifecycleStatus, name, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship, targetResourceSchema, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LogicalResourceSpecCreate {\n");

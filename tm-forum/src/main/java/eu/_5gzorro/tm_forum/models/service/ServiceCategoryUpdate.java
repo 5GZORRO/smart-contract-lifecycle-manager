@@ -1,65 +1,59 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.ServiceCandidateRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.ServiceCandidateRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,lastUpdate
  */
-@ApiModel(description = "The (service) category resource is used to group service candidates in logical containers. Categories can contain other categories. Skipped properties: id,href,lastUpdate")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceCategoryUpdate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+ 
+ 
   private List<ServiceCategoryRef> category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("isRoot")
+ 
   private Boolean isRoot = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("parentId")
+ 
   private String parentId = null;
 
-  @JsonProperty("serviceCandidate")
-  @Valid
+ 
+ 
   private List<ServiceCandidateRef> serviceCandidate = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ServiceCategoryUpdate baseType(String baseType) {
@@ -69,9 +63,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -89,9 +83,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -109,9 +103,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+ 
 
 
   public String getType() {
@@ -137,11 +131,11 @@ public class ServiceCategoryUpdate   {
 
   /**
    * List of child categories in the tree for in this category
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "List of child categories in the tree for in this category")
+ 
 
-  @Valid
+ 
 
   public List<ServiceCategoryRef> getCategory() {
     return category;
@@ -158,9 +152,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * Description of the category
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of the category")
+ 
 
 
   public String getDescription() {
@@ -178,9 +172,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * If true, this Boolean indicates that the category is a root of categories
-   * @return isRoot
+   *
   **/
-  @ApiModelProperty(value = "If true, this Boolean indicates that the category is a root of categories")
+ 
 
 
   public Boolean isIsRoot() {
@@ -198,9 +192,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -218,9 +212,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * Name of the category
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the category")
+ 
 
 
   public String getName() {
@@ -238,9 +232,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * Unique identifier of the parent category
-   * @return parentId
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the parent category")
+ 
 
 
   public String getParentId() {
@@ -266,11 +260,11 @@ public class ServiceCategoryUpdate   {
 
   /**
    * List of service candidates associated with this category
-   * @return serviceCandidate
+   *
   **/
-  @ApiModelProperty(value = "List of service candidates associated with this category")
+ 
 
-  @Valid
+ 
 
   public List<ServiceCandidateRef> getServiceCandidate() {
     return serviceCandidate;
@@ -287,11 +281,11 @@ public class ServiceCategoryUpdate   {
 
   /**
    * The period for which the category is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the category is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -308,9 +302,9 @@ public class ServiceCategoryUpdate   {
 
   /**
    * ServiceCategory version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "ServiceCategory version")
+ 
 
 
   public String getVersion() {
@@ -322,7 +316,7 @@ public class ServiceCategoryUpdate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -345,12 +339,12 @@ public class ServiceCategoryUpdate   {
         Objects.equals(this.version, serviceCategoryUpdate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, isRoot, lifecycleStatus, name, parentId, serviceCandidate, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceCategoryUpdate {\n");

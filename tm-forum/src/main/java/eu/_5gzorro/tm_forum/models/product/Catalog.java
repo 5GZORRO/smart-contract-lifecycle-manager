@@ -1,81 +1,72 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum;
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.CategoryRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details
  */
-@ApiModel(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class Catalog   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("catalogType")
+
   private String catalogType = null;
 
-  @JsonProperty("category")
-  @Valid
+
+
   private List<CategoryRef> category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("lastUpdate")
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("lifecycleStatusEnum")
+
   private LifecycleStatusEnumEnum lifecycleStatusEnum = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonIgnore
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public Catalog baseType(String baseType) {
@@ -85,9 +76,9 @@ public class Catalog   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -105,9 +96,9 @@ public class Catalog   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -125,9 +116,9 @@ public class Catalog   {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -145,9 +136,9 @@ public class Catalog   {
 
   /**
    * Indicates if the catalog is a product, service or resource catalog
-   * @return catalogType
+   *
   **/
-  @ApiModelProperty(value = "Indicates if the catalog is a product, service or resource catalog")
+
 
 
   public String getCatalogType() {
@@ -173,11 +164,11 @@ public class Catalog   {
 
   /**
    * List of  categories associated with this catalog
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "List of  categories associated with this catalog")
 
-  @Valid
+
+
 
   public List<CategoryRef> getCategory() {
     return category;
@@ -194,9 +185,9 @@ public class Catalog   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -214,9 +205,9 @@ public class Catalog   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -234,9 +225,9 @@ public class Catalog   {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getId() {
@@ -254,9 +245,9 @@ public class Catalog   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -274,9 +265,9 @@ public class Catalog   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -294,9 +285,9 @@ public class Catalog   {
 
   /**
    * Get lifecycleStatusEnum
-   * @return lifecycleStatusEnum
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public LifecycleStatusEnumEnum getLifecycleStatusEnum() {
@@ -314,9 +305,9 @@ public class Catalog   {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -342,11 +333,11 @@ public class Catalog   {
 
   /**
    * List of parties involved in this catalog
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "List of parties involved in this catalog")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -363,9 +354,9 @@ public class Catalog   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -383,11 +374,11 @@ public class Catalog   {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -404,9 +395,9 @@ public class Catalog   {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -418,7 +409,7 @@ public class Catalog   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -445,12 +436,12 @@ public class Catalog   {
         Objects.equals(this.version, catalog.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, catalogType, category, description, href, id, lastUpdate, lifecycleStatus, lifecycleStatusEnum, name, relatedParty, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Catalog {\n");

@@ -1,112 +1,103 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.PlaceRef;
+import eu._5gzorro.tm_forum.models.Quantity;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.PlaceRef;
-import it.nextworks.tmf_offering_catalog.information_models.Quantity;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.product.BundledProductOfferingPriceRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristicValueUse;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment. Skipped properties: id,href
  */
-@ApiModel(description = "Is based on both the basic cost to develop and produce products and the enterprises policy on revenue targets. This price may be further revised through discounting (productOfferPriceAlteration). The price, applied for a productOffering may also be influenced by the productOfferingTerm, the customer selected, eg: a productOffering can be offered with multiple terms, like commitment periods for the contract. The price may be influenced by this productOfferingTerm. A productOffering may be cheaper with a 24 month commitment than with a 12 month commitment. Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class ProductOfferingPriceCreate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("bundledPopRelationship")
-  @Valid
+ 
+ 
   private List<BundledProductOfferingPriceRelationship> bundledPopRelationship = null;
 
-  @JsonProperty("constraint")
-  @Valid
+ 
+ 
   private List<ConstraintRef> constraint = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("isBundle")
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
+ 
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("percentage")
+ 
   private Float percentage = null;
 
-  @JsonProperty("place")
-  @Valid
+ 
+ 
   private List<PlaceRef> place = null;
 
-  @JsonProperty("popRelationship")
-  @Valid
+ 
+ 
   private List<ProductOfferingPriceRelationship> popRelationship = null;
 
-  @JsonProperty("price")
+ 
   private Money price = null;
 
-  @JsonProperty("priceType")
+ 
   private String priceType = null;
 
-  @JsonProperty("pricingLogicAlgorithm")
-  @Valid
+ 
+ 
   private List<PricingLogicAlgorithm> pricingLogicAlgorithm = null;
 
-  @JsonProperty("prodSpecCharValueUse")
-  @Valid
+ 
+ 
   private List<ProductSpecificationCharacteristicValueUse> prodSpecCharValueUse = null;
 
-  @JsonProperty("productOfferingTerm")
-  @Valid
+ 
+ 
   private List<ProductOfferingTerm> productOfferingTerm = null;
 
-  @JsonProperty("recurringChargePeriodLength")
+ 
   private Integer recurringChargePeriodLength = null;
 
-  @JsonProperty("recurringChargePeriodType")
+ 
   private String recurringChargePeriodType = null;
 
-  @JsonProperty("tax")
-  @Valid
+ 
+ 
   private List<TaxItem> tax = null;
 
-  @JsonProperty("unitOfMeasure")
+ 
   private Quantity unitOfMeasure = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ProductOfferingPriceCreate baseType(String baseType) {
@@ -116,9 +107,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * the immediate base class type of this product offering
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "the immediate base class type of this product offering")
+ 
 
 
   public String getBaseType() {
@@ -136,9 +127,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * hyperlink reference to the schema describing this resource
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "hyperlink reference to the schema describing this resource")
+ 
 
 
   public String getSchemaLocation() {
@@ -156,9 +147,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The class type of this Product offering
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "The class type of this Product offering")
+ 
 
 
   public String getType() {
@@ -184,11 +175,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.
-   * @return bundledPopRelationship
+   *
   **/
-  @ApiModelProperty(value = "this object represents a bundle relationship from a bundle product offering price (parent) to a simple product offering price (child). A simple product offering price may participate in more than one bundle relationship.")
+ 
 
-  @Valid
+ 
 
   public List<BundledProductOfferingPriceRelationship> getBundledPopRelationship() {
     return bundledPopRelationship;
@@ -213,11 +204,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The Constraint resource represents a policy/rule applied to ProductOfferingPrice.
-   * @return constraint
+   *
   **/
-  @ApiModelProperty(value = "The Constraint resource represents a policy/rule applied to ProductOfferingPrice.")
+ 
 
-  @Valid
+ 
 
   public List<ConstraintRef> getConstraint() {
     return constraint;
@@ -234,9 +225,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * Description of the productOfferingPrice
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of the productOfferingPrice")
+ 
 
 
   public String getDescription() {
@@ -254,9 +245,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * A flag indicating if this ProductOfferingPrice is composite (bundle) or not
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicating if this ProductOfferingPrice is composite (bundle) or not")
+ 
 
 
   public Boolean isIsBundle() {
@@ -274,11 +265,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * the last update time of this ProductOfferingPrice
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "the last update time of this ProductOfferingPrice")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -295,9 +286,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * the lifecycle status of this ProductOfferingPrice
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "the lifecycle status of this ProductOfferingPrice")
+ 
 
 
   public String getLifecycleStatus() {
@@ -315,9 +306,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * Name of the productOfferingPrice
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the productOfferingPrice")
+ 
 
 
   public String getName() {
@@ -335,9 +326,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * Percentage to apply for ProductOfferPriceAlteration (Discount)
-   * @return percentage
+   *
   **/
-  @ApiModelProperty(value = "Percentage to apply for ProductOfferPriceAlteration (Discount)")
+ 
 
 
   public Float getPercentage() {
@@ -363,11 +354,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * Place defines the places where the products are sold or delivered.
-   * @return place
+   *
   **/
-  @ApiModelProperty(value = "Place defines the places where the products are sold or delivered.")
+ 
 
-  @Valid
+ 
 
   public List<PlaceRef> getPlace() {
     return place;
@@ -392,11 +383,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount
-   * @return popRelationship
+   *
   **/
-  @ApiModelProperty(value = "Product Offering Prices related to this Product Offering Price, for example a price alteration such as allowance or discount")
+ 
 
-  @Valid
+ 
 
   public List<ProductOfferingPriceRelationship> getPopRelationship() {
     return popRelationship;
@@ -413,11 +404,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The amount of money that characterizes the price.
-   * @return price
+   *
   **/
-  @ApiModelProperty(value = "The amount of money that characterizes the price.")
+ 
 
-  @Valid
+ 
 
   public Money getPrice() {
     return price;
@@ -434,9 +425,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.
-   * @return priceType
+   *
   **/
-  @ApiModelProperty(value = "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth.")
+ 
 
 
   public String getPriceType() {
@@ -462,11 +453,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).
-   * @return pricingLogicAlgorithm
+   *
   **/
-  @ApiModelProperty(value = "The PricingLogicAlgorithm entity represents an instantiation of an interface specification to external rating function (without a modeled behavior in SID). Some of the parameters of the interface definition may be already set (such as price per unit) and some may be gathered during the rating process from the event (such as call duration) or from ProductCharacteristicValues (such as assigned bandwidth).")
+ 
 
-  @Valid
+ 
 
   public List<PricingLogicAlgorithm> getPricingLogicAlgorithm() {
     return pricingLogicAlgorithm;
@@ -491,11 +482,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.
-   * @return prodSpecCharValueUse
+   *
   **/
-  @ApiModelProperty(value = "A use of the ProductSpecificationCharacteristicValue by a ProductOfferingPrice to which additional properties (attributes) apply or override the properties of similar properties contained in ProductSpecificationCharacteristicValue. It should be noted that characteristics which their value(s) addressed by this object must exist in corresponding product specification. The available characteristic values for a ProductSpecificationCharacteristic in a Product specification can be modified at the ProductOffering and ProcuctOfferingPrice level. The list of values in ProductSpecificationCharacteristicValueUse is a strict subset of the list of values as defined in the corresponding product specification characteristics.")
+ 
 
-  @Valid
+ 
 
   public List<ProductSpecificationCharacteristicValueUse> getProdSpecCharValueUse() {
     return prodSpecCharValueUse;
@@ -520,11 +511,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.
-   * @return productOfferingTerm
+   *
   **/
-  @ApiModelProperty(value = "A list of conditions under which a ProductOfferingPrice is made available to Customers. For instance, a Product Offering Price can be offered with multiple commitment periods.")
+ 
 
-  @Valid
+ 
 
   public List<ProductOfferingTerm> getProductOfferingTerm() {
     return productOfferingTerm;
@@ -541,9 +532,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable
-   * @return recurringChargePeriodLength
+   *
   **/
-  @ApiModelProperty(value = "the period of the recurring charge:  1, 2, ... .It sets to zero if it is not applicable")
+ 
 
 
   public Integer getRecurringChargePeriodLength() {
@@ -561,9 +552,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The period to repeat the application of the price Could be month, week...
-   * @return recurringChargePeriodType
+   *
   **/
-  @ApiModelProperty(value = "The period to repeat the application of the price Could be month, week...")
+ 
 
 
   public String getRecurringChargePeriodType() {
@@ -589,11 +580,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * An amount of money levied on the price of a Product by a legislative body.
-   * @return tax
+   *
   **/
-  @ApiModelProperty(value = "An amount of money levied on the price of a Product by a legislative body.")
+ 
 
-  @Valid
+ 
 
   public List<TaxItem> getTax() {
     return tax;
@@ -610,11 +601,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.
-   * @return unitOfMeasure
+   *
   **/
-  @ApiModelProperty(value = "A number and unit representing how many (for instance 1 dozen) of an ProductOffering is available at the offered price. Its meaning depends on the priceType. It could be a price, a rate, or a discount.")
+ 
 
-  @Valid
+ 
 
   public Quantity getUnitOfMeasure() {
     return unitOfMeasure;
@@ -631,11 +622,11 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * The period for which the productOfferingPrice is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the productOfferingPrice is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -652,9 +643,9 @@ public class ProductOfferingPriceCreate   {
 
   /**
    * ProductOffering version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "ProductOffering version")
+ 
 
 
   public String getVersion() {
@@ -666,7 +657,7 @@ public class ProductOfferingPriceCreate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -701,12 +692,12 @@ public class ProductOfferingPriceCreate   {
         Objects.equals(this.version, productOfferingPriceCreate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, bundledPopRelationship, constraint, description, isBundle, lastUpdate, lifecycleStatus, name, percentage, place, popRelationship, price, priceType, pricingLogicAlgorithm, prodSpecCharValueUse, productOfferingTerm, recurringChargePeriodLength, recurringChargePeriodType, tax, unitOfMeasure, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductOfferingPriceCreate {\n");

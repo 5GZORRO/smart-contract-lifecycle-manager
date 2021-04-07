@@ -1,42 +1,42 @@
-package eu._5gzorro.legalproserepository.controller.v1.response;
+package eu._5gzorro.manager.api.controller.dto.responses;
 
-import eu._5gzorro.legalproserepository.dto.LegalProseTemplateDto;
-import org.springframework.data.domain.Page;
+import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
+//import org.springframework.data.domain.Page;
 
 import java.util.Objects;
 
-public class PagedTemplateResponse {
-    private Page<LegalProseTemplateDto> pagedTemplates;
-
-    public PagedTemplateResponse(Page<LegalProseTemplateDto> pagedTemplates) {
-        this.pagedTemplates = pagedTemplates;
-    }
-
-    public Page<LegalProseTemplateDto> getPagedTemplates() {
-        return pagedTemplates;
-    }
-
-    public void setPagedTemplates(Page<LegalProseTemplateDto> pagedTemplates) {
-        this.pagedTemplates = pagedTemplates;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PagedTemplateResponse that = (PagedTemplateResponse) o;
-        return pagedTemplates.equals(that.pagedTemplates);
-    }
-
-    @Override
-    public String toString() {
-        return "PagedTemplateResponse{" +
-                "pagedTemplates=" + pagedTemplates +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pagedTemplates);
-    }
+public class PagedSlaResponse {
+//    private Page<ServiceLevelAgreementDto> pagedSLAs;
+//
+//    public PagedSlaResponse(Page<ServiceLevelAgreementDto> pagedSLAs) {
+//        this.pagedSLAs = pagedSLAs;
+//    }
+//
+//    public Page<ServiceLevelAgreementDto> getPagedSLAs() {
+//        return pagedSLAs;
+//    }
+//
+//    public void setPagedSLAs(Page<ServiceLevelAgreementDto> pagedSLAs) {
+//        this.pagedSLAs = pagedSLAs;
+//    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        PagedSlaResponse that = (PagedSlaResponse) o;
+//        return pagedSLAs.equals(that.pagedSLAs);
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "PagedTemplateResponse{" +
+//                "pagedSLAs=" + pagedSLAs +
+//                '}';
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(pagedSLAs);
+//    }
 }

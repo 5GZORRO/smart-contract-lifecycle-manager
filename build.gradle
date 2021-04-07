@@ -65,14 +65,14 @@ allprojects {
         mavenCentral()
         maven { url 'https://software.r3.com/artifactory/corda' }
         maven { url 'https://jitpack.io' }
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/5gzorro/resource-and-service-offer-catalog")
-            credentials {
-                username = project.findProperty("gpr.user") as String ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") as String ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/5gzorro/resource-and-service-offer-catalog")
+//            credentials {
+//                username = project.findProperty("gpr.user") as String ?: System.getenv("GITHUB_USERNAME")
+//                password = project.findProperty("gpr.key") as String ?: System.getenv("GITHUB_TOKEN")
+//            }
+//        }
     }
 
     test {

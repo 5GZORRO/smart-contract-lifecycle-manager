@@ -1,105 +1,92 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristicValue;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * This class defines the characteristic features of a resource specification. Every ResourceSpecification has a variety of important attributes, methods, constraints, and relationships, which distinguish a resource specification from other resource specifications.
  */
-@ApiModel(description = "This class defines the characteristic features of a resource specification. Every ResourceSpecification has a variety of important attributes, methods, constraints, and relationships, which distinguish a resource specification from other resource specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_spec_characteristics")
+
+
+
+
+
 public class ResourceSpecCharacteristic   {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("@valueSchemaLocation")
-  @Column(name = "value_schema_location")
+
+
   private String valueSchemaLocation = null;
 
-  @JsonProperty("configurable")
+
   private Boolean configurable = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("extensible")
+
   private Boolean extensible = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("isUnique")
-  @Column(name = "is_unique")
+
+
   private Boolean isUnique = null;
 
-  @JsonProperty("maxCardinality")
-  @Column(name = "max_cardinality")
+
+
   private Integer maxCardinality = null;
 
-  @JsonProperty("minCardinality")
-  @Column(name = "min_cardinality")
+
+
   private Integer minCardinality = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("regex")
+
   private String regex = null;
 
-  @JsonProperty("resourceSpecCharRelationship")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_spec_characteristic_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ResourceSpecCharRelationship> resourceSpecCharRelationship = null;
 
-  @JsonProperty("resourceSpecCharacteristicValue")
-  @Valid
-  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "resource_spec_characteristic_fk", referencedColumnName = "uuid")
+
+
+
+
   private List<ResourceSpecCharacteristicValue> resourceSpecCharacteristicValue = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("valueType")
-  @Column(name = "value_type")
+
+
   private String valueType = null;
 
   public ResourceSpecCharacteristic baseType(String baseType) {
@@ -109,9 +96,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -129,9 +116,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * A link to the schema describing this characteristic specification
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A link to the schema describing this characteristic specification")
+
 
 
   public String getSchemaLocation() {
@@ -149,9 +136,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * (Class) type of the ResourceSpecCharacteristic
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "(Class) type of the ResourceSpecCharacteristic")
+
 
 
   public String getType() {
@@ -169,9 +156,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * This (optional) field provides a link to the schema describing the value type
-   * @return valueSchemaLocation
+   *
   **/
-  @ApiModelProperty(value = "This (optional) field provides a link to the schema describing the value type")
+
 
 
   public String getValueSchemaLocation() {
@@ -189,9 +176,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * If true, the Boolean indicates that the ResourceSpecCharacteristic is configurable
-   * @return configurable
+   *
   **/
-  @ApiModelProperty(value = "If true, the Boolean indicates that the ResourceSpecCharacteristic is configurable")
+
 
 
   public Boolean isConfigurable() {
@@ -209,9 +196,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * A narrative that explains the CharacteristicSpecification.
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "A narrative that explains the CharacteristicSpecification.")
+
 
 
   public String getDescription() {
@@ -229,9 +216,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.
-   * @return extensible
+   *
   **/
-  @ApiModelProperty(value = "An indicator that specifies that the values for the characteristic can be extended by adding new values when instantiating a characteristic for a resource.")
+
 
 
   public Boolean isExtensible() {
@@ -249,9 +236,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -269,9 +256,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"
-   * @return isUnique
+   *
   **/
-  @ApiModelProperty(value = "An indicator that specifies if a value is unique for the specification. Possible values are; \"unique while value is in effect\" and \"unique whether value is in effect or not\"")
+
 
 
   public Boolean isIsUnique() {
@@ -289,9 +276,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.
-   * @return maxCardinality
+   *
   **/
-  @ApiModelProperty(value = "The maximum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where five is the value for the maxCardinality.")
+
 
 
   public Integer getMaxCardinality() {
@@ -309,9 +296,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.
-   * @return minCardinality
+   *
   **/
-  @ApiModelProperty(value = "The minimum number of instances a CharacteristicValue can take on. For example, zero to five phone numbers in a group calling plan, where zero is the value for the minCardinality.")
+
 
 
   public Integer getMinCardinality() {
@@ -329,9 +316,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "A word, term, or phrase by which this characteristic specification is known and distinguished from other characteristic specifications.")
+
 
 
   public String getName() {
@@ -349,9 +336,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * A rule or principle represented in regular expression used to derive the value of a characteristic value.
-   * @return regex
+   *
   **/
-  @ApiModelProperty(value = "A rule or principle represented in regular expression used to derive the value of a characteristic value.")
+
 
 
   public String getRegex() {
@@ -377,11 +364,11 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * Get resourceSpecCharRelationship
-   * @return resourceSpecCharRelationship
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecCharRelationship> getResourceSpecCharRelationship() {
     return resourceSpecCharRelationship;
@@ -406,11 +393,11 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * Get resourceSpecCharacteristicValue
-   * @return resourceSpecCharacteristicValue
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceSpecCharacteristicValue> getResourceSpecCharacteristicValue() {
     return resourceSpecCharacteristicValue;
@@ -427,9 +414,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -447,11 +434,11 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * The period of time for which a characteristic is applicable.
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period of time for which a characteristic is applicable.")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -468,9 +455,9 @@ public class ResourceSpecCharacteristic   {
 
   /**
    * A kind of value that the characteristic can take on, such as numeric, text and so forth
-   * @return valueType
+   *
   **/
-  @ApiModelProperty(value = "A kind of value that the characteristic can take on, such as numeric, text and so forth")
+
 
 
   public String getValueType() {
@@ -481,7 +468,7 @@ public class ResourceSpecCharacteristic   {
     this.valueType = valueType;
   }
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -510,12 +497,12 @@ public class ResourceSpecCharacteristic   {
         Objects.equals(this.valueType, resourceSpecCharacteristic.valueType);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, valueSchemaLocation, configurable, description, extensible, href, isUnique, maxCardinality, minCardinality, name, regex, resourceSpecCharRelationship, resourceSpecCharacteristicValue, uuid, validFor, valueType);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceSpecCharacteristic {\n");

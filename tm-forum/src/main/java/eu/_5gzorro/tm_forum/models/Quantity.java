@@ -1,27 +1,21 @@
 package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Embeddable;
 
 /**
  * An amount in a given unit
  */
-@ApiModel(description = "An amount in a given unit")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Embeddable
+
+
+
+
 public class Quantity {
 
-  @JsonProperty("amount")
+
   private Float amount = null;
 
-  @JsonProperty("units")
+
   private String units = null;
 
   public Quantity amount(Float amount) {
@@ -31,9 +25,9 @@ public class Quantity {
 
   /**
    * Numeric value in a given unit
-   * @return amount
+   *
   **/
-  @ApiModelProperty(value = "Numeric value in a given unit")
+
 
 
   public Float getAmount() {
@@ -51,9 +45,9 @@ public class Quantity {
 
   /**
    * Unit
-   * @return units
+   *
   **/
-  @ApiModelProperty(value = "Unit")
+
 
 
   public String getUnits() {
@@ -65,7 +59,7 @@ public class Quantity {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -78,12 +72,12 @@ public class Quantity {
         Objects.equals(this.units, quantity.units);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(amount, units);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Quantity {\n");

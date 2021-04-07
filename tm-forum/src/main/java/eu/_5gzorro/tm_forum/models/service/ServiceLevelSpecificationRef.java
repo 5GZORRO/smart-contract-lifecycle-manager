@@ -2,54 +2,45 @@ package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications.
  */
-@ApiModel(description = "A Service Level Specification represents a pre-defined or negotiated set of Service Level  Objectives. In addition, certain consequences are associated with not meeting the Service Level  Objectives. Service Level Agreements are expressed in terms of Service Level Specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
 
-@Entity
-@Table(name = "service_level_specification_refs")
+
+
+
+
+
 public class ServiceLevelSpecificationRef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+
+
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
   public ServiceLevelSpecificationRef baseType(String baseType) {
@@ -59,9 +50,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -79,9 +70,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+
 
 
   public String getReferredType() {
@@ -99,9 +90,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -119,9 +110,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -139,9 +130,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -159,9 +150,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getId() {
@@ -179,9 +170,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -199,9 +190,9 @@ public class ServiceLevelSpecificationRef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -213,7 +204,7 @@ public class ServiceLevelSpecificationRef {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -232,12 +223,12 @@ public class ServiceLevelSpecificationRef {
         Objects.equals(this.uuid, serviceLevelSpecificationRef.uuid);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, href, id, name, uuid);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceLevelSpecificationRef {\n");

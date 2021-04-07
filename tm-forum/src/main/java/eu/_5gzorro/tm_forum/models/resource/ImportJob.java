@@ -1,49 +1,45 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+
+import java.util.Objects;
 
 /**
  * Represents a task used to import resources from a file
  */
-@ApiModel(description = "Represents a task used to import resources from a file")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class ImportJob   {
-  @JsonProperty("completionDate")
+
   private OffsetDateTime completionDate = null;
 
-  @JsonProperty("contentType")
+
   private String contentType = null;
 
-  @JsonProperty("creationDate")
+
   private OffsetDateTime creationDate = null;
 
-  @JsonProperty("errorLog")
+
   private String errorLog = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("path")
+
   private String path = null;
 
-  @JsonProperty("status")
+
   private String status = null;
 
-  @JsonProperty("url")
+
   private String url = null;
 
   public ImportJob completionDate(OffsetDateTime completionDate) {
@@ -53,11 +49,11 @@ public class ImportJob   {
 
   /**
    * Date at which the job was completed
-   * @return completionDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was completed")
 
-  @Valid
+
+
 
   public OffsetDateTime getCompletionDate() {
     return completionDate;
@@ -74,9 +70,9 @@ public class ImportJob   {
 
   /**
    * Indicates the format of the imported data
-   * @return contentType
+   *
   **/
-  @ApiModelProperty(value = "Indicates the format of the imported data")
+
 
 
   public String getContentType() {
@@ -94,11 +90,11 @@ public class ImportJob   {
 
   /**
    * Date at which the job was created
-   * @return creationDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
 
-  @Valid
+
+
 
   public OffsetDateTime getCreationDate() {
     return creationDate;
@@ -115,9 +111,9 @@ public class ImportJob   {
 
   /**
    * Reason for failure if status is failed
-   * @return errorLog
+   *
   **/
-  @ApiModelProperty(value = "Reason for failure if status is failed")
+
 
 
   public String getErrorLog() {
@@ -135,9 +131,9 @@ public class ImportJob   {
 
   /**
    * Reference of the import job
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Reference of the import job")
+
 
 
   public String getHref() {
@@ -155,9 +151,9 @@ public class ImportJob   {
 
   /**
    * Identifier of the import job
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Identifier of the import job")
+
 
 
   public String getId() {
@@ -175,9 +171,9 @@ public class ImportJob   {
 
   /**
    * URL of the root resource where the content of the file specified by the import job must be applied
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "URL of the root resource where the content of the file specified by the import job must be applied")
+
 
 
   public String getPath() {
@@ -195,9 +191,9 @@ public class ImportJob   {
 
   /**
    * Status of the import job (not started, running, succeeded, failed)
-   * @return status
+   *
   **/
-  @ApiModelProperty(value = "Status of the import job (not started, running, succeeded, failed)")
+
 
 
   public String getStatus() {
@@ -215,9 +211,9 @@ public class ImportJob   {
 
   /**
    * URL of the file containing the data to be imported
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "URL of the file containing the data to be imported")
+
 
 
   public String getUrl() {
@@ -229,7 +225,7 @@ public class ImportJob   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -249,12 +245,12 @@ public class ImportJob   {
         Objects.equals(this.url, importJob.url);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(completionDate, contentType, creationDate, errorLog, href, id, path, status, url);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ImportJob {\n");

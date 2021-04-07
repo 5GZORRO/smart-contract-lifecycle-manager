@@ -2,56 +2,47 @@ package eu._5gzorro.tm_forum.models.product;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-
 /**
  * A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded
  */
-@ApiModel(description = "A set of numbers that specifies the lower and upper limits for a ProductOffering that can be procured as part of the related BundledProductOffering. Values can range from 0 to unbounded")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "bundled_product_offering_options")
+
+
+
+
+
 public class BundledProductOfferingOption {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("numberRelOfferDefault")
-  @Column(name = "number_rel_offer_default")
+ 
+ 
   private Integer numberRelOfferDefault = null;
 
-  @JsonProperty("numberRelOfferLowerLimit")
-  @Column(name = "number_rel_offer_lower_limit")
+ 
+ 
   private Integer numberRelOfferLowerLimit = null;
 
-  @JsonProperty("numberRelOfferUpperLimit")
-  @Column(name = "number_rel_offer_upper_limit")
+ 
+ 
   private Integer numberRelOfferUpperLimit = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
   public BundledProductOfferingOption baseType(String baseType) {
@@ -61,9 +52,9 @@ public class BundledProductOfferingOption {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -81,9 +72,9 @@ public class BundledProductOfferingOption {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -101,9 +92,9 @@ public class BundledProductOfferingOption {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -121,9 +112,9 @@ public class BundledProductOfferingOption {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -141,9 +132,9 @@ public class BundledProductOfferingOption {
 
   /**
    * Default number of produc offereings that should be procured as part of the related BundledProductOffering
-   * @return numberRelOfferDefault
+   *
   **/
-  @ApiModelProperty(value = "Default number of produc offereings that should be procured as part of the related BundledProductOffering")
+ 
 
 
   public Integer getNumberRelOfferDefault() {
@@ -161,9 +152,9 @@ public class BundledProductOfferingOption {
 
   /**
    * lower limit for a product offering that can be procured as part of the related BundledProductOffering
-   * @return numberRelOfferLowerLimit
+   *
   **/
-  @ApiModelProperty(value = "lower limit for a product offering that can be procured as part of the related BundledProductOffering")
+ 
 
 
   public Integer getNumberRelOfferLowerLimit() {
@@ -181,9 +172,9 @@ public class BundledProductOfferingOption {
 
   /**
    * upper limit for a product offering that can be procured as part of the related BundledProductOffering
-   * @return numberRelOfferUpperLimit
+   *
   **/
-  @ApiModelProperty(value = "upper limit for a product offering that can be procured as part of the related BundledProductOffering")
+ 
 
 
   public Integer getNumberRelOfferUpperLimit() {
@@ -201,9 +192,9 @@ public class BundledProductOfferingOption {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -215,7 +206,7 @@ public class BundledProductOfferingOption {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -234,12 +225,12 @@ public class BundledProductOfferingOption {
         Objects.equals(this.uuid, bundledProductOfferingOption.uuid);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, numberRelOfferDefault, numberRelOfferLowerLimit, numberRelOfferUpperLimit, uuid);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BundledProductOfferingOption {\n");

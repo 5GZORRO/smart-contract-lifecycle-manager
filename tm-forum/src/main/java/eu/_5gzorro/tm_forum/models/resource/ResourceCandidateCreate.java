@@ -1,62 +1,56 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.ResourceSpecificationRef;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.ResourceSpecificationRef;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none. Skipped properties: id,href
  */
-@ApiModel(description = "ResourceCandidate is an entity that makes a resource specification available to a catalog. A ResourceCandidate and its associated resource specification may be published - made visible - in any number of resource catalogs, or in none. Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class ResourceCandidateCreate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+ 
+ 
   private List<ResourceCategoryRef> category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("lastUpdate")
+ 
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("resourceSpecification")
+ 
   private ResourceSpecificationRef resourceSpecification = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ResourceCandidateCreate baseType(String baseType) {
@@ -66,9 +60,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * The (immediate) base class type of this REST resource
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "The (immediate) base class type of this REST resource")
+ 
 
 
   public String getBaseType() {
@@ -86,9 +80,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+ 
 
 
   public String getSchemaLocation() {
@@ -106,9 +100,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * Class type of this REST resource
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "Class type of this REST resource")
+ 
 
 
   public String getType() {
@@ -134,11 +128,11 @@ public class ResourceCandidateCreate   {
 
   /**
    * Get category
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<ResourceCategoryRef> getCategory() {
     return category;
@@ -155,9 +149,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * Description of this REST resource
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this REST resource")
+ 
 
 
   public String getDescription() {
@@ -175,11 +169,11 @@ public class ResourceCandidateCreate   {
 
   /**
    * Date and time of the last update of this REST resource
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update of this REST resource")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -196,9 +190,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * Used to indicate the current lifecycle status of the resource candidate.
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status of the resource candidate.")
+ 
 
 
   public String getLifecycleStatus() {
@@ -216,9 +210,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * Name given to this REST resource
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name given to this REST resource")
+ 
 
 
   public String getName() {
@@ -236,11 +230,11 @@ public class ResourceCandidateCreate   {
 
   /**
    * Get resourceSpecification
-   * @return resourceSpecification
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public ResourceSpecificationRef getResourceSpecification() {
     return resourceSpecification;
@@ -257,11 +251,11 @@ public class ResourceCandidateCreate   {
 
   /**
    * The period for which this REST resource is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which this REST resource is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -278,9 +272,9 @@ public class ResourceCandidateCreate   {
 
   /**
    * the version of resource candidate
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "the version of resource candidate")
+ 
 
 
   public String getVersion() {
@@ -292,7 +286,7 @@ public class ResourceCandidateCreate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -314,12 +308,12 @@ public class ResourceCandidateCreate   {
         Objects.equals(this.version, resourceCandidateCreate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, lastUpdate, lifecycleStatus, name, resourceSpecification, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceCandidateCreate {\n");

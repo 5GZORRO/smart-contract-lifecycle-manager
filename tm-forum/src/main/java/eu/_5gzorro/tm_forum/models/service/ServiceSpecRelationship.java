@@ -1,65 +1,56 @@
 package eu._5gzorro.tm_forum.models.service;
 
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship between/among service specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among service specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
 
-@Entity
-@Table(name = "service_spec_relationships")
+
+
+
+
+
 public class ServiceSpecRelationship {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("relationshipType")
-  @Column(name = "relationship_type")
+ 
+ 
   private String relationshipType = null;
 
-  @JsonProperty("role")
+ 
   private String role = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
   public ServiceSpecRelationship baseType(String baseType) {
@@ -69,9 +60,9 @@ public class ServiceSpecRelationship {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -89,9 +80,9 @@ public class ServiceSpecRelationship {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -109,9 +100,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -129,9 +120,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -149,9 +140,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -169,9 +160,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -189,9 +180,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Type of relationship such as migration, substitution, dependency, exclusivity
-   * @return relationshipType
+   *
   **/
-  @ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+ 
 
 
   public String getRelationshipType() {
@@ -209,9 +200,9 @@ public class ServiceSpecRelationship {
 
   /**
    * The association role for this service specification
-   * @return role
+   *
   **/
-  @ApiModelProperty(value = "The association role for this service specification")
+ 
 
 
   public String getRole() {
@@ -229,9 +220,9 @@ public class ServiceSpecRelationship {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -249,11 +240,11 @@ public class ServiceSpecRelationship {
 
   /**
    * The period for which the serviceSpecRelationship is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the serviceSpecRelationship is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -264,7 +255,7 @@ public class ServiceSpecRelationship {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -285,12 +276,12 @@ public class ServiceSpecRelationship {
         Objects.equals(this.validFor, serviceSpecRelationship.validFor);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, id, name, relationshipType, role, uuid, validFor);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceSpecRelationship {\n");

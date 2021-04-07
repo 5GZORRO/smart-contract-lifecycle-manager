@@ -1,59 +1,53 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href,id,href
  */
-@ApiModel(description = "The root entity for resource catalog management. A resource catalog is a group of resource specifications made available through resource candidates that an organization provides to the consumers (internal consumers like its employees or B2B customers or B2C customers). Skipped properties: id,href,id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class ResourceCatalogUpdate   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("category")
-  @Valid
+
+
   private List<ResourceCategoryRef> category = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("lifecycleStatus")
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+
+
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("validFor")
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public ResourceCatalogUpdate baseType(String baseType) {
@@ -63,9 +57,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Indicates<b> </b>the base (class) type of this REST resource
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "Indicates<b> </b>the base (class) type of this REST resource")
+
 
 
   public String getBaseType() {
@@ -83,9 +77,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * This field provides a link to the schema describing this REST resource
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "This field provides a link to the schema describing this REST resource")
+
 
 
   public String getSchemaLocation() {
@@ -103,9 +97,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "Indicates the (class) type of catalog. For resource catalogs, this will be 'ResourceCatalog'.")
+
 
 
   public String getType() {
@@ -131,11 +125,11 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Get category
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<ResourceCategoryRef> getCategory() {
     return category;
@@ -152,9 +146,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -172,9 +166,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -192,9 +186,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Name of the catalog
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the catalog")
+
 
 
   public String getName() {
@@ -220,11 +214,11 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -241,11 +235,11 @@ public class ResourceCatalogUpdate   {
 
   /**
    * The period for which the catalog is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -262,9 +256,9 @@ public class ResourceCatalogUpdate   {
 
   /**
    * Catalog version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Catalog version")
+
 
 
   public String getVersion() {
@@ -276,7 +270,7 @@ public class ResourceCatalogUpdate   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -297,12 +291,12 @@ public class ResourceCatalogUpdate   {
         Objects.equals(this.version, resourceCatalogUpdate.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, category, description, lifecycleStatus, name, relatedParty, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceCatalogUpdate {\n");

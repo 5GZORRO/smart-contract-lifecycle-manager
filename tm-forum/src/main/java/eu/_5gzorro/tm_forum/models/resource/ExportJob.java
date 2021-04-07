@@ -1,52 +1,48 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+
+import java.util.Objects;
 
 /**
  * Represents a task used to export resources to a file
  */
-@ApiModel(description = "Represents a task used to export resources to a file")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class ExportJob   {
-  @JsonProperty("completionDate")
+ 
   private OffsetDateTime completionDate = null;
 
-  @JsonProperty("contentType")
+ 
   private String contentType = null;
 
-  @JsonProperty("creationDate")
+ 
   private OffsetDateTime creationDate = null;
 
-  @JsonProperty("errorLog")
+ 
   private String errorLog = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("path")
+ 
   private String path = null;
 
-  @JsonProperty("query")
+ 
   private String query = null;
 
-  @JsonProperty("status")
+ 
   private String status = null;
 
-  @JsonProperty("url")
+ 
   private String url = null;
 
   public ExportJob completionDate(OffsetDateTime completionDate) {
@@ -56,11 +52,11 @@ public class ExportJob   {
 
   /**
    * Data at which the job was completed
-   * @return completionDate
+   *
   **/
-  @ApiModelProperty(value = "Data at which the job was completed")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getCompletionDate() {
     return completionDate;
@@ -77,9 +73,9 @@ public class ExportJob   {
 
   /**
    * The format of the exported data
-   * @return contentType
+   *
   **/
-  @ApiModelProperty(value = "The format of the exported data")
+ 
 
 
   public String getContentType() {
@@ -97,11 +93,11 @@ public class ExportJob   {
 
   /**
    * Date at which the job was created
-   * @return creationDate
+   *
   **/
-  @ApiModelProperty(value = "Date at which the job was created")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getCreationDate() {
     return creationDate;
@@ -118,9 +114,9 @@ public class ExportJob   {
 
   /**
    * Reason for failure
-   * @return errorLog
+   *
   **/
-  @ApiModelProperty(value = "Reason for failure")
+ 
 
 
   public String getErrorLog() {
@@ -138,9 +134,9 @@ public class ExportJob   {
 
   /**
    * Reference of the export job
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Reference of the export job")
+ 
 
 
   public String getHref() {
@@ -158,9 +154,9 @@ public class ExportJob   {
 
   /**
    * Identifier of the export job
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Identifier of the export job")
+ 
 
 
   public String getId() {
@@ -178,9 +174,9 @@ public class ExportJob   {
 
   /**
    * URL of the root resource acting as the source for streaming content to the file specified by the export job
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "URL of the root resource acting as the source for streaming content to the file specified by the export job")
+ 
 
 
   public String getPath() {
@@ -198,9 +194,9 @@ public class ExportJob   {
 
   /**
    * Used to scope the exported data
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "Used to scope the exported data")
+ 
 
 
   public String getQuery() {
@@ -218,9 +214,9 @@ public class ExportJob   {
 
   /**
    * Status of the export job (not started, running, succeeded, failed)
-   * @return status
+   *
   **/
-  @ApiModelProperty(value = "Status of the export job (not started, running, succeeded, failed)")
+ 
 
 
   public String getStatus() {
@@ -238,9 +234,9 @@ public class ExportJob   {
 
   /**
    * URL of the file containing the data to be exported
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "URL of the file containing the data to be exported")
+ 
 
 
   public String getUrl() {
@@ -252,7 +248,7 @@ public class ExportJob   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -273,12 +269,12 @@ public class ExportJob   {
         Objects.equals(this.url, exportJob.url);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(completionDate, contentType, creationDate, errorLog, href, id, path, query, status, url);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExportJob {\n");

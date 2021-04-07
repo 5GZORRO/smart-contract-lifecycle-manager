@@ -1,59 +1,54 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCreateEventPayload;
 import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+
+import java.util.Objects;
 
 /**
  * The notification data structure
  */
-@ApiModel(description = "The notification data structure")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class ProductSpecificationCreateEvent   {
-  @JsonProperty("correlationId")
+
   private String correlationId = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("domain")
+
   private String domain = null;
 
-  @JsonProperty("event")
+
   private ProductSpecificationCreateEventPayload event = null;
 
-  @JsonProperty("eventId")
+
   private String eventId = null;
 
-  @JsonProperty("eventTime")
+
   private OffsetDateTime eventTime = null;
 
-  @JsonProperty("eventType")
+
   private String eventType = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("priority")
+
   private String priority = null;
 
-  @JsonProperty("timeOcurred")
+
   private OffsetDateTime timeOcurred = null;
 
-  @JsonProperty("title")
+
   private String title = null;
 
   public ProductSpecificationCreateEvent correlationId(String correlationId) {
@@ -63,9 +58,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The correlation id for this event.
-   * @return correlationId
+   *
   **/
-  @ApiModelProperty(value = "The correlation id for this event.")
+
 
 
   public String getCorrelationId() {
@@ -83,9 +78,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * An explnatory of the event.
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "An explnatory of the event.")
+
 
 
   public String getDescription() {
@@ -103,9 +98,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The domain of the event.
-   * @return domain
+   *
   **/
-  @ApiModelProperty(value = "The domain of the event.")
+
 
 
   public String getDomain() {
@@ -123,11 +118,11 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The event payload linked to the involved resource object
-   * @return event
+   *
   **/
-  @ApiModelProperty(value = "The event payload linked to the involved resource object")
 
-  @Valid
+
+
 
   public ProductSpecificationCreateEventPayload getEvent() {
     return event;
@@ -144,9 +139,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The identifier of the notification.
-   * @return eventId
+   *
   **/
-  @ApiModelProperty(value = "The identifier of the notification.")
+
 
 
   public String getEventId() {
@@ -164,11 +159,11 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * Time of the event occurrence.
-   * @return eventTime
+   *
   **/
-  @ApiModelProperty(value = "Time of the event occurrence.")
 
-  @Valid
+
+
 
   public OffsetDateTime getEventTime() {
     return eventTime;
@@ -185,9 +180,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The type of the notification.
-   * @return eventType
+   *
   **/
-  @ApiModelProperty(value = "The type of the notification.")
+
 
 
   public String getEventType() {
@@ -205,9 +200,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * Reference of the ProcessFlow
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Reference of the ProcessFlow")
+
 
 
   public String getHref() {
@@ -225,9 +220,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * Identifier of the Process flow
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Identifier of the Process flow")
+
 
 
   public String getId() {
@@ -245,9 +240,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * A priority.
-   * @return priority
+   *
   **/
-  @ApiModelProperty(value = "A priority.")
+
 
 
   public String getPriority() {
@@ -265,11 +260,11 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The time the event occured.
-   * @return timeOcurred
+   *
   **/
-  @ApiModelProperty(value = "The time the event occured.")
 
-  @Valid
+
+
 
   public OffsetDateTime getTimeOcurred() {
     return timeOcurred;
@@ -286,9 +281,9 @@ public class ProductSpecificationCreateEvent   {
 
   /**
    * The title of the event.
-   * @return title
+   *
   **/
-  @ApiModelProperty(value = "The title of the event.")
+
 
 
   public String getTitle() {
@@ -300,7 +295,7 @@ public class ProductSpecificationCreateEvent   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -323,12 +318,12 @@ public class ProductSpecificationCreateEvent   {
         Objects.equals(this.title, productSpecificationCreateEvent.title);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(correlationId, description, domain, event, eventId, eventTime, eventType, href, id, priority, timeOcurred, title);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductSpecificationCreateEvent {\n");

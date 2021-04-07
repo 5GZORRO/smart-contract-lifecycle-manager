@@ -1,54 +1,45 @@
 package eu._5gzorro.tm_forum.models.resource;
 
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.
  */
-@ApiModel(description = "An aggregation, migration, substitution, dependency or exclusivity relationship between/among Specification Characteristics.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "resource_spec_char_relationships")
+
+
+
+
+
 public class ResourceSpecCharRelationship {
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("relationshipType")
-  @Column(name = "relationship_type")
+
+
   private String relationshipType = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
   public ResourceSpecCharRelationship type(String type) {
@@ -58,9 +49,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * class type of target specification
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "class type of target specification")
+
 
 
   public String getType() {
@@ -78,9 +69,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * Hyperlink reference to the target specification
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the target specification")
+
 
 
   public String getHref() {
@@ -98,9 +89,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * Unique identifier of the target specification
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the target specification")
+
 
 
   public String getId() {
@@ -118,9 +109,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * Name of the target characteristic
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the target characteristic")
+
 
 
   public String getName() {
@@ -138,9 +129,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * Get relationshipType
-   * @return relationshipType
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getRelationshipType() {
@@ -158,9 +149,9 @@ public class ResourceSpecCharRelationship {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -178,11 +169,11 @@ public class ResourceSpecCharRelationship {
 
   /**
    * The period for which the object is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the object is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -192,7 +183,7 @@ public class ResourceSpecCharRelationship {
     this.validFor = validFor;
   }
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -210,12 +201,12 @@ public class ResourceSpecCharRelationship {
         Objects.equals(this.validFor, resourceSpecCharRelationship.validFor);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(type, href, id, name, relationshipType, uuid, validFor);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourceSpecCharRelationship {\n");

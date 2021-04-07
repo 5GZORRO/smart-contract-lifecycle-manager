@@ -1,69 +1,66 @@
 package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * URI
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
 
 
 
 
 public class URI   {
-  @JsonProperty("absolute")
+ 
   private Boolean absolute = null;
 
-  @JsonProperty("authority")
+ 
   private String authority = null;
 
-  @JsonProperty("fragment")
+ 
   private String fragment = null;
 
-  @JsonProperty("host")
+ 
   private String host = null;
 
-  @JsonProperty("opaque")
+ 
   private Boolean opaque = null;
 
-  @JsonProperty("path")
+ 
   private String path = null;
 
-  @JsonProperty("port")
+ 
   private Integer port = null;
 
-  @JsonProperty("query")
+ 
   private String query = null;
 
-  @JsonProperty("rawAuthority")
+ 
   private String rawAuthority = null;
 
-  @JsonProperty("rawFragment")
+ 
   private String rawFragment = null;
 
-  @JsonProperty("rawPath")
+ 
   private String rawPath = null;
 
-  @JsonProperty("rawQuery")
+ 
   private String rawQuery = null;
 
-  @JsonProperty("rawSchemeSpecificPart")
+ 
   private String rawSchemeSpecificPart = null;
 
-  @JsonProperty("rawUserInfo")
+ 
   private String rawUserInfo = null;
 
-  @JsonProperty("scheme")
+ 
   private String scheme = null;
 
-  @JsonProperty("schemeSpecificPart")
+ 
   private String schemeSpecificPart = null;
 
-  @JsonProperty("userInfo")
+ 
   private String userInfo = null;
 
   public URI absolute(Boolean absolute) {
@@ -73,9 +70,9 @@ public class URI   {
 
   /**
    * Get absolute
-   * @return absolute
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Boolean isAbsolute() {
@@ -93,9 +90,9 @@ public class URI   {
 
   /**
    * Get authority
-   * @return authority
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getAuthority() {
@@ -113,9 +110,9 @@ public class URI   {
 
   /**
    * Get fragment
-   * @return fragment
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getFragment() {
@@ -133,9 +130,9 @@ public class URI   {
 
   /**
    * Get host
-   * @return host
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getHost() {
@@ -153,9 +150,9 @@ public class URI   {
 
   /**
    * Get opaque
-   * @return opaque
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Boolean isOpaque() {
@@ -173,9 +170,9 @@ public class URI   {
 
   /**
    * Get path
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getPath() {
@@ -193,9 +190,9 @@ public class URI   {
 
   /**
    * Get port
-   * @return port
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public Integer getPort() {
@@ -213,9 +210,9 @@ public class URI   {
 
   /**
    * Get query
-   * @return query
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getQuery() {
@@ -233,9 +230,9 @@ public class URI   {
 
   /**
    * Get rawAuthority
-   * @return rawAuthority
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawAuthority() {
@@ -253,9 +250,9 @@ public class URI   {
 
   /**
    * Get rawFragment
-   * @return rawFragment
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawFragment() {
@@ -273,9 +270,9 @@ public class URI   {
 
   /**
    * Get rawPath
-   * @return rawPath
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawPath() {
@@ -293,9 +290,9 @@ public class URI   {
 
   /**
    * Get rawQuery
-   * @return rawQuery
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawQuery() {
@@ -313,9 +310,9 @@ public class URI   {
 
   /**
    * Get rawSchemeSpecificPart
-   * @return rawSchemeSpecificPart
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawSchemeSpecificPart() {
@@ -333,9 +330,9 @@ public class URI   {
 
   /**
    * Get rawUserInfo
-   * @return rawUserInfo
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRawUserInfo() {
@@ -353,9 +350,9 @@ public class URI   {
 
   /**
    * Get scheme
-   * @return scheme
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getScheme() {
@@ -373,9 +370,9 @@ public class URI   {
 
   /**
    * Get schemeSpecificPart
-   * @return schemeSpecificPart
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getSchemeSpecificPart() {
@@ -393,9 +390,9 @@ public class URI   {
 
   /**
    * Get userInfo
-   * @return userInfo
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUserInfo() {
@@ -407,7 +404,7 @@ public class URI   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -435,12 +432,12 @@ public class URI   {
         Objects.equals(this.userInfo, URI.userInfo);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(absolute, authority, fragment, host, opaque, path, port, query, rawAuthority, rawFragment, rawPath, rawQuery, rawSchemeSpecificPart, rawUserInfo, scheme, schemeSpecificPart, userInfo);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class URI {\n");

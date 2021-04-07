@@ -1,8 +1,8 @@
-package eu._5gzorro.manager.api.controller.dto;
+package eu._5gzorro.manager.api.controller.dto.requests;
 
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.VerifiableCredential;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
+import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import java.util.Collection;
 import java.util.Map;
 import javax.validation.constraints.NotNull;

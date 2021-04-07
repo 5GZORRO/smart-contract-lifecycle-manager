@@ -1,25 +1,20 @@
 package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.Embeddable;
 
 /**
  * Any
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Embeddable
+
+
+
 public class Any {
 
-  @JsonProperty("alias")
+
   private String alias = null;
 
-  @JsonProperty("value")
+
   private String value = null;
 
   public Any alias(String alias) {
@@ -29,9 +24,9 @@ public class Any {
 
   /**
    * Get alias
-   * @return alias
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getAlias() {
@@ -49,9 +44,9 @@ public class Any {
 
   /**
    * Get value
-   * @return value
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getValue() {
@@ -63,7 +58,7 @@ public class Any {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -76,12 +71,12 @@ public class Any {
         Objects.equals(this.value, any.value);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(alias, value);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Any {\n");

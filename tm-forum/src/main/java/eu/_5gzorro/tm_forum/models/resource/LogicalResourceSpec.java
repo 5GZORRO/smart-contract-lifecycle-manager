@@ -1,98 +1,87 @@
 package eu._5gzorro.tm_forum.models.resource;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.AttachmentRef;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.AttachmentRef;
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristic;
-import it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecRelationship;
-import it.nextworks.tmf_offering_catalog.information_models.resource.TargetResourceSchemaRef;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource.
  */
-@ApiModel(description = "This is a base class that is used to define the invariant characteristics and behavior (attributes, methods, constraints, and relationships) of a LogicalResource.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
+
+
+
 
 
 
 
 public class LogicalResourceSpec   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("attachment")
-  @Valid
+ 
+ 
   private List<AttachmentRef> attachment = null;
 
-  @JsonProperty("category")
+ 
   private String category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("feature")
-  @Valid
+ 
+ 
   private List<Feature> feature = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isBundle")
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("lastUpdate")
+ 
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+ 
+ 
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("resourceSpecCharacteristic")
-  @Valid
+ 
+ 
   private List<ResourceSpecCharacteristic> resourceSpecCharacteristic = null;
 
-  @JsonProperty("resourceSpecRelationship")
-  @Valid
+ 
+ 
   private List<ResourceSpecRelationship> resourceSpecRelationship = null;
 
-  @JsonProperty("targetResourceSchema")
+ 
   private TargetResourceSchemaRef targetResourceSchema = null;
 
-  @JsonIgnore
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public LogicalResourceSpec baseType(String baseType) {
@@ -102,9 +91,9 @@ public class LogicalResourceSpec   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -122,9 +111,9 @@ public class LogicalResourceSpec   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -142,9 +131,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -170,11 +159,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get attachment
-   * @return attachment
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<AttachmentRef> getAttachment() {
     return attachment;
@@ -191,9 +180,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "Category of the target resource like NetworkConnectivity, PhysicalLinks, Generic, L2Network and so on.")
+ 
 
 
   public String getCategory() {
@@ -211,9 +200,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -239,11 +228,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get feature
-   * @return feature
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<Feature> getFeature() {
     return feature;
@@ -260,9 +249,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -280,9 +269,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Unique identifier of this REST resource
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of this REST resource")
+ 
 
 
   public String getId() {
@@ -300,9 +289,9 @@ public class LogicalResourceSpec   {
 
   /**
    * A flag indicates that if this resource specification is a bundled specification (true) or single (false).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicates that if this resource specification is a bundled specification (true) or single (false).")
+ 
 
 
   public Boolean isIsBundle() {
@@ -320,9 +309,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
 
   public String getLastUpdate() {
@@ -340,9 +329,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -360,9 +349,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -388,11 +377,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get relatedParty
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -417,11 +406,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get resourceSpecCharacteristic
-   * @return resourceSpecCharacteristic
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<ResourceSpecCharacteristic> getResourceSpecCharacteristic() {
     return resourceSpecCharacteristic;
@@ -446,11 +435,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get resourceSpecRelationship
-   * @return resourceSpecRelationship
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<ResourceSpecRelationship> getResourceSpecRelationship() {
     return resourceSpecRelationship;
@@ -467,11 +456,11 @@ public class LogicalResourceSpec   {
 
   /**
    * Get targetResourceSchema
-   * @return targetResourceSchema
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public TargetResourceSchemaRef getTargetResourceSchema() {
     return targetResourceSchema;
@@ -488,9 +477,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -508,11 +497,11 @@ public class LogicalResourceSpec   {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -529,9 +518,9 @@ public class LogicalResourceSpec   {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+ 
 
 
   public String getVersion() {
@@ -543,7 +532,7 @@ public class LogicalResourceSpec   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -574,12 +563,12 @@ public class LogicalResourceSpec   {
         Objects.equals(this.version, logicalResourceSpec.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, attachment, category, description, feature, href, id, isBundle, lastUpdate, lifecycleStatus, name, relatedParty, resourceSpecCharacteristic, resourceSpecRelationship, targetResourceSchema, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LogicalResourceSpec {\n");

@@ -1,24 +1,19 @@
 package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 
 /**
  * The event data structure
  */
-@ApiModel(description = "The event data structure")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceCatalogDeleteEvent   {
-  @JsonProperty("serviceCatalog")
+
   private ServiceCatalog serviceCatalog = null;
 
   public ServiceCatalogDeleteEvent serviceCatalog(ServiceCatalog serviceCatalog) {
@@ -28,11 +23,11 @@ public class ServiceCatalogDeleteEvent   {
 
   /**
    * The involved resource data for the event
-   * @return serviceCatalog
+   *
   **/
-  @ApiModelProperty(value = "The involved resource data for the event")
 
-  @Valid
+
+
 
   public ServiceCatalog getServiceCatalog() {
     return serviceCatalog;
@@ -43,7 +38,7 @@ public class ServiceCatalogDeleteEvent   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -55,12 +50,12 @@ public class ServiceCatalogDeleteEvent   {
     return Objects.equals(this.serviceCatalog, serviceCatalogDeleteEvent.serviceCatalog);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(serviceCatalog);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceCatalogDeleteEvent {\n");

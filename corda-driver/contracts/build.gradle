@@ -58,6 +58,9 @@ dependencies {
     compile (project(":dlt-driver-api")) {
         exclude group: "junit", module: "junit"
     }
+
+
+    implementation(project(":tm-forum"))
 }
 
 test {

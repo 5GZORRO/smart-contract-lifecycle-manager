@@ -1,64 +1,60 @@
 package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
 
 /**
  * File
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
 
 
 
 
 public class File   {
-  @JsonProperty("absolute")
+
   private Boolean absolute = null;
 
-  @JsonProperty("absoluteFile")
+
   private File absoluteFile = null;
 
-  @JsonProperty("absolutePath")
+
   private String absolutePath = null;
 
-  @JsonProperty("canonicalFile")
+
   private File canonicalFile = null;
 
-  @JsonProperty("canonicalPath")
+
   private String canonicalPath = null;
 
-  @JsonProperty("directory")
+
   private Boolean directory = null;
 
-  @JsonProperty("file")
+
   private Boolean file = null;
 
-  @JsonProperty("freeSpace")
+
   private Long freeSpace = null;
 
-  @JsonProperty("hidden")
+
   private Boolean hidden = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("parent")
+
   private String parent = null;
 
-  @JsonProperty("parentFile")
+
   private File parentFile = null;
 
-  @JsonProperty("path")
+
   private String path = null;
 
-  @JsonProperty("totalSpace")
+
   private Long totalSpace = null;
 
-  @JsonProperty("usableSpace")
+
   private Long usableSpace = null;
 
   public File absolute(Boolean absolute) {
@@ -68,9 +64,9 @@ public class File   {
 
   /**
    * Get absolute
-   * @return absolute
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Boolean isAbsolute() {
@@ -88,11 +84,11 @@ public class File   {
 
   /**
    * Get absoluteFile
-   * @return absoluteFile
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public File getAbsoluteFile() {
     return absoluteFile;
@@ -109,9 +105,9 @@ public class File   {
 
   /**
    * Get absolutePath
-   * @return absolutePath
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getAbsolutePath() {
@@ -129,11 +125,11 @@ public class File   {
 
   /**
    * Get canonicalFile
-   * @return canonicalFile
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public File getCanonicalFile() {
     return canonicalFile;
@@ -150,9 +146,9 @@ public class File   {
 
   /**
    * Get canonicalPath
-   * @return canonicalPath
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getCanonicalPath() {
@@ -170,9 +166,9 @@ public class File   {
 
   /**
    * Get directory
-   * @return directory
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Boolean isDirectory() {
@@ -190,9 +186,9 @@ public class File   {
 
   /**
    * Get file
-   * @return file
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Boolean isFile() {
@@ -210,9 +206,9 @@ public class File   {
 
   /**
    * Get freeSpace
-   * @return freeSpace
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Long getFreeSpace() {
@@ -230,9 +226,9 @@ public class File   {
 
   /**
    * Get hidden
-   * @return hidden
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Boolean isHidden() {
@@ -250,9 +246,9 @@ public class File   {
 
   /**
    * Get name
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getName() {
@@ -270,9 +266,9 @@ public class File   {
 
   /**
    * Get parent
-   * @return parent
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getParent() {
@@ -290,11 +286,11 @@ public class File   {
 
   /**
    * Get parentFile
-   * @return parentFile
+   *
   **/
-  @ApiModelProperty(value = "")
 
-  @Valid
+
+
 
   public File getParentFile() {
     return parentFile;
@@ -311,9 +307,9 @@ public class File   {
 
   /**
    * Get path
-   * @return path
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getPath() {
@@ -331,9 +327,9 @@ public class File   {
 
   /**
    * Get totalSpace
-   * @return totalSpace
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Long getTotalSpace() {
@@ -351,9 +347,9 @@ public class File   {
 
   /**
    * Get usableSpace
-   * @return usableSpace
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public Long getUsableSpace() {
@@ -365,7 +361,7 @@ public class File   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -391,12 +387,12 @@ public class File   {
         Objects.equals(this.usableSpace, file.usableSpace);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(absolute, absoluteFile, absolutePath, canonicalFile, canonicalPath, directory, file, freeSpace, hidden, name, parent, parentFile, path, totalSpace, usableSpace);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class File {\n");

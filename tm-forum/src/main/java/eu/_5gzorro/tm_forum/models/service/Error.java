@@ -1,46 +1,40 @@
 package eu._5gzorro.tm_forum.models.service;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.*;
 
 /**
  * Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)
  */
-@ApiModel(description = "Used when an API throws an Error, typically with a HTTP error response-code (3xx, 4xx, 5xx)")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class Error   {
-  @JsonProperty("@baseType")
+
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("code")
+
   private Integer code = null;
 
-  @JsonProperty("message")
+
   private String message = null;
 
-  @JsonProperty("reason")
+
   private String reason = null;
 
-  @JsonProperty("referenceError")
+
   private String referenceError = null;
 
-  @JsonProperty("status")
+
   private Integer status = null;
 
   public Error baseType(String baseType) {
@@ -50,9 +44,9 @@ public class Error   {
 
   /**
    * When sub-classing, this defines the super-class.
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class.")
+
 
 
   public String getBaseType() {
@@ -70,9 +64,9 @@ public class Error   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -90,9 +84,9 @@ public class Error   {
 
   /**
    * When sub-classing, this defines the sub-class entity name.
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name.")
+
 
 
   public String getType() {
@@ -110,10 +104,10 @@ public class Error   {
 
   /**
    * Application relevant detail, defined in the API or a common list.
-   * @return code
+   *
   **/
-  @ApiModelProperty(required = true, value = "Application relevant detail, defined in the API or a common list.")
-  @NotNull
+
+
 
 
   public Integer getCode() {
@@ -131,9 +125,9 @@ public class Error   {
 
   /**
    * More details and corrective actions related to the error which can be shown to a client user.
-   * @return message
+   *
   **/
-  @ApiModelProperty(value = "More details and corrective actions related to the error which can be shown to a client user.")
+
 
 
   public String getMessage() {
@@ -151,10 +145,10 @@ public class Error   {
 
   /**
    * Explanation of the reason for the error which can be shown to a client user.
-   * @return reason
+   *
   **/
-  @ApiModelProperty(required = true, value = "Explanation of the reason for the error which can be shown to a client user.")
-  @NotNull
+
+
 
 
   public String getReason() {
@@ -172,9 +166,9 @@ public class Error   {
 
   /**
    * URI of documentation describing the error.
-   * @return referenceError
+   *
   **/
-  @ApiModelProperty(value = "URI of documentation describing the error.")
+
 
 
   public String getReferenceError() {
@@ -192,9 +186,9 @@ public class Error   {
 
   /**
    * HTTP Error code extension
-   * @return status
+   *
   **/
-  @ApiModelProperty(value = "HTTP Error code extension")
+
 
 
   public Integer getStatus() {
@@ -206,7 +200,7 @@ public class Error   {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -225,12 +219,12 @@ public class Error   {
         Objects.equals(this.status, error.status);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, code, message, reason, referenceError, status);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Error {\n");

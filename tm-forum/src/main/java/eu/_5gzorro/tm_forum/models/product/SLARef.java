@@ -1,82 +1,72 @@
 package eu._5gzorro.tm_forum.models.product;
 
+import eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.
  */
-@ApiModel(description = "ServiceLevelAgreement reference: A service level agreement (SLA) is a type of agreement that represents a formal negotiated agreement between two parties designed to create a common understanding about products, services, priorities, responsibilities, and so forth. The SLA is a set of appropriate procedures and targets formally or informally agreed between parties in order to achieve and maintain specified Quality of Service.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "sla_refs")
+
+
+
+
+
 public class SLARef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+
+
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("lifecycleStatusEnum")
-  @Column(name = "lifecycle_status_enum")
+
+
   private LifecycleStatusEnumEnum lifecycleStatusEnum = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public SLARef baseType(String baseType) {
@@ -86,9 +76,9 @@ public class SLARef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -106,9 +96,9 @@ public class SLARef {
 
   /**
    * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+
 
 
   public String getReferredType() {
@@ -126,9 +116,9 @@ public class SLARef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -146,9 +136,9 @@ public class SLARef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -166,9 +156,9 @@ public class SLARef {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -186,9 +176,9 @@ public class SLARef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -206,10 +196,10 @@ public class SLARef {
 
   /**
    * Unique identifier of service level agreement
-   * @return id
+   *
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier of service level agreement")
-  @NotNull
+
+
 
 
   public String getId() {
@@ -227,9 +217,9 @@ public class SLARef {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -247,9 +237,9 @@ public class SLARef {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -267,9 +257,9 @@ public class SLARef {
 
   /**
    * Get lifecycleStatusEnum
-   * @return lifecycleStatusEnum
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public LifecycleStatusEnumEnum getLifecycleStatusEnum() {
@@ -287,9 +277,9 @@ public class SLARef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -307,9 +297,9 @@ public class SLARef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -327,11 +317,11 @@ public class SLARef {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -348,9 +338,9 @@ public class SLARef {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -362,7 +352,7 @@ public class SLARef {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -387,12 +377,12 @@ public class SLARef {
         Objects.equals(this.version, slARef.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, description, href, id, lastUpdate, lifecycleStatus, lifecycleStatusEnum, name, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SLARef {\n");

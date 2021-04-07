@@ -1,101 +1,92 @@
 package eu._5gzorro.tm_forum.models.product;
 
+import eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum;
+import eu._5gzorro.tm_forum.models.Quantity;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum;
-import it.nextworks.tmf_offering_catalog.information_models.Quantity;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself
  */
-@ApiModel(description = "An attachment by value or by reference. For AttachmentRefOrValue, the attribute type,schemaLocation and referredType are related to the contained entity and not to AttchmentRefOrValue itself")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "attachment_refs_or_values")
+
+
+
+
+
 public class AttachmentRefOrValue {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+
+
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+
+
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+
+
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+
   private String type = null;
 
-  @JsonProperty("attachmentType")
-  @Column(name = "attachment_type")
+
+
   private String attachmentType = null;
 
-  @JsonProperty("content")
+
   private String content = null;
 
-  @JsonProperty("description")
+
   private String description = null;
 
-  @JsonProperty("href")
+
   private String href = null;
 
-  @JsonProperty("id")
+
   private String id = null;
 
-  @JsonProperty("lastUpdate")
-  @Column(name = "last_update")
+
+
   private String lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
-  @Column(name = "lifecycle_status")
+
+
   private String lifecycleStatus = null;
 
-  @JsonProperty("lifecycleStatusEnum")
-  @Column(name = "lifecycle_status_enum")
+
+
   private LifecycleStatusEnumEnum lifecycleStatusEnum = null;
 
-  @JsonProperty("mimeType")
-  @Column(name = "mime_type")
+
+
   private String mimeType = null;
 
-  @JsonProperty("name")
+
   private String name = null;
 
-  @JsonProperty("size")
-  @Column(name = "size")
-  @Embedded
+
+
+
   private Quantity size = null;
 
-  @JsonProperty("url")
+
   private String url = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+
+
+
+
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+
+
+
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+
   private String version = null;
 
   public AttachmentRefOrValue baseType(String baseType) {
@@ -105,9 +96,9 @@ public class AttachmentRefOrValue {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+
 
 
   public String getBaseType() {
@@ -125,9 +116,9 @@ public class AttachmentRefOrValue {
 
   /**
    * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+
 
 
   public String getReferredType() {
@@ -145,9 +136,9 @@ public class AttachmentRefOrValue {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+
 
 
   public String getSchemaLocation() {
@@ -165,9 +156,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getType() {
@@ -185,9 +176,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Attachment type such as video, picture
-   * @return attachmentType
+   *
   **/
-  @ApiModelProperty(value = "Attachment type such as video, picture")
+
 
 
   public String getAttachmentType() {
@@ -205,9 +196,9 @@ public class AttachmentRefOrValue {
 
   /**
    * The actual contents of the attachment object, if embedded, encoded as base64
-   * @return content
+   *
   **/
-  @ApiModelProperty(value = "The actual contents of the attachment object, if embedded, encoded as base64")
+
 
 
   public String getContent() {
@@ -225,9 +216,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+
 
 
   public String getDescription() {
@@ -245,9 +236,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+
 
 
   public String getHref() {
@@ -265,9 +256,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Unique identifier for this particular attachment
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier for this particular attachment")
+
 
 
   public String getId() {
@@ -285,9 +276,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+
 
 
   public String getLastUpdate() {
@@ -305,9 +296,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+
 
 
   public String getLifecycleStatus() {
@@ -325,9 +316,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Get lifecycleStatusEnum
-   * @return lifecycleStatusEnum
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public LifecycleStatusEnumEnum getLifecycleStatusEnum() {
@@ -345,9 +336,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Attachment mime type such as extension file for video, picture and document
-   * @return mimeType
+   *
   **/
-  @ApiModelProperty(value = "Attachment mime type such as extension file for video, picture and document")
+
 
 
   public String getMimeType() {
@@ -365,9 +356,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+
 
 
   public String getName() {
@@ -385,11 +376,11 @@ public class AttachmentRefOrValue {
 
   /**
    * The size of the attachment.
-   * @return size
+   *
   **/
-  @ApiModelProperty(value = "The size of the attachment.")
 
-  @Valid
+
+
 
   public Quantity getSize() {
     return size;
@@ -406,9 +397,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Uniform Resource Locator, is a web page address (a subset of URI)
-   * @return url
+   *
   **/
-  @ApiModelProperty(value = "Uniform Resource Locator, is a web page address (a subset of URI)")
+
 
 
   public String getUrl() {
@@ -426,9 +417,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+
 
 
   public String getUuid() {
@@ -446,11 +437,11 @@ public class AttachmentRefOrValue {
 
   /**
    * The period for which the entity is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the entity is valid")
 
-  @Valid
+
+
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -467,9 +458,9 @@ public class AttachmentRefOrValue {
 
   /**
    * Entity version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Entity version")
+
 
 
   public String getVersion() {
@@ -481,7 +472,7 @@ public class AttachmentRefOrValue {
   }
 
 
-  @Override
+
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -511,12 +502,12 @@ public class AttachmentRefOrValue {
         Objects.equals(this.version, attachmentRefOrValue.version);
   }
 
-  @Override
+
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, attachmentType, content, description, href, id, lastUpdate, lifecycleStatus, lifecycleStatusEnum, mimeType, name, size, url, uuid, validFor, version);
   }
 
-  @Override
+
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AttachmentRefOrValue {\n");

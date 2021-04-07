@@ -1,66 +1,60 @@
 package eu._5gzorro.tm_forum.models.product;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import eu._5gzorro.tm_forum.models.RelatedParty;
+import eu._5gzorro.tm_forum.models.TimePeriod;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.RelatedParty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.threeten.bp.OffsetDateTime;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details Skipped properties: id,href
  */
-@ApiModel(description = "A collection of Product Offerings, intended for a specific DistributionChannel, enhanced with additional information such as SLA parameters, invoicing and shipping details Skipped properties: id,href")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
+
+
+
 
 
 
 
 public class CatalogCreate   {
-  @JsonProperty("@baseType")
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("catalogType")
+ 
   private String catalogType = null;
 
-  @JsonProperty("category")
-  @Valid
+ 
+ 
   private List<CategoryRef> category = null;
 
-  @JsonProperty("description")
+ 
   private String description = null;
 
-  @JsonProperty("lastUpdate")
+ 
   private OffsetDateTime lastUpdate = null;
 
-  @JsonProperty("lifecycleStatus")
+ 
   private String lifecycleStatus = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("relatedParty")
-  @Valid
+ 
+ 
   private List<RelatedParty> relatedParty = null;
 
-  @JsonProperty("validFor")
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public CatalogCreate baseType(String baseType) {
@@ -70,9 +64,9 @@ public class CatalogCreate   {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -90,9 +84,9 @@ public class CatalogCreate   {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -110,9 +104,9 @@ public class CatalogCreate   {
 
   /**
    * When sub-classing, this defines the sub-class entity name
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the sub-class entity name")
+ 
 
 
   public String getType() {
@@ -130,9 +124,9 @@ public class CatalogCreate   {
 
   /**
    * Indicates if the catalog is a product, service or resource catalog
-   * @return catalogType
+   *
   **/
-  @ApiModelProperty(value = "Indicates if the catalog is a product, service or resource catalog")
+ 
 
 
   public String getCatalogType() {
@@ -158,11 +152,11 @@ public class CatalogCreate   {
 
   /**
    * List of root categories contained in this catalog
-   * @return category
+   *
   **/
-  @ApiModelProperty(value = "List of root categories contained in this catalog")
+ 
 
-  @Valid
+ 
 
   public List<CategoryRef> getCategory() {
     return category;
@@ -179,9 +173,9 @@ public class CatalogCreate   {
 
   /**
    * Description of this catalog
-   * @return description
+   *
   **/
-  @ApiModelProperty(value = "Description of this catalog")
+ 
 
 
   public String getDescription() {
@@ -199,11 +193,11 @@ public class CatalogCreate   {
 
   /**
    * Date and time of the last update
-   * @return lastUpdate
+   *
   **/
-  @ApiModelProperty(value = "Date and time of the last update")
+ 
 
-  @Valid
+ 
 
   public OffsetDateTime getLastUpdate() {
     return lastUpdate;
@@ -220,9 +214,9 @@ public class CatalogCreate   {
 
   /**
    * Used to indicate the current lifecycle status
-   * @return lifecycleStatus
+   *
   **/
-  @ApiModelProperty(value = "Used to indicate the current lifecycle status")
+ 
 
 
   public String getLifecycleStatus() {
@@ -240,9 +234,9 @@ public class CatalogCreate   {
 
   /**
    * Name of the catalog
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the catalog")
+ 
 
 
   public String getName() {
@@ -268,11 +262,11 @@ public class CatalogCreate   {
 
   /**
    * List of parties involved in this catalog
-   * @return relatedParty
+   *
   **/
-  @ApiModelProperty(value = "List of parties involved in this catalog")
+ 
 
-  @Valid
+ 
 
   public List<RelatedParty> getRelatedParty() {
     return relatedParty;
@@ -289,11 +283,11 @@ public class CatalogCreate   {
 
   /**
    * The period for which the catalog is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the catalog is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -310,9 +304,9 @@ public class CatalogCreate   {
 
   /**
    * Catalog version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Catalog version")
+ 
 
 
   public String getVersion() {
@@ -324,7 +318,7 @@ public class CatalogCreate   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -347,12 +341,12 @@ public class CatalogCreate   {
         Objects.equals(this.version, catalogCreate.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, catalogType, category, description, lastUpdate, lifecycleStatus, name, relatedParty, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CatalogCreate {\n");

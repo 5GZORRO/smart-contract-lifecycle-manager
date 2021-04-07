@@ -1,69 +1,60 @@
 package eu._5gzorro.tm_forum.models.resource;
 
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * applicable feature(s) for this resource specification.
  */
-@ApiModel(description = "applicable feature(s) for this resource specification.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:00:31.056Z")
 
-@Entity
-@Table(name = "features")
+
+
+
+
+
 public class Feature {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("isBundle")
-  @Column(name = "is_bundle")
+ 
+ 
   private Boolean isBundle = null;
 
-  @JsonProperty("isEnabled")
-  @Column(name = "is_enabled")
+ 
+ 
   private Boolean isEnabled = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public Feature baseType(String baseType) {
@@ -73,9 +64,9 @@ public class Feature {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -93,9 +84,9 @@ public class Feature {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -113,9 +104,9 @@ public class Feature {
 
   /**
    * The optional (class) type of the feature
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "The optional (class) type of the feature")
+ 
 
 
   public String getType() {
@@ -133,9 +124,9 @@ public class Feature {
 
   /**
    * Hyperlink reference to the target feature. It is optional if the feature is not defined as a separate REST resource.
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Hyperlink reference to the target feature. It is optional if the feature is not defined as a separate REST resource.")
+ 
 
 
   public String getHref() {
@@ -153,9 +144,9 @@ public class Feature {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -173,9 +164,9 @@ public class Feature {
 
   /**
    * A flag indicating if the feature is bundle (true) or not (false).
-   * @return isBundle
+   *
   **/
-  @ApiModelProperty(value = "A flag indicating if the feature is bundle (true) or not (false).")
+ 
 
 
   public Boolean isIsBundle() {
@@ -193,9 +184,9 @@ public class Feature {
 
   /**
    * A flag indicating if the feature is enabled (true) or not (false).
-   * @return isEnabled
+   *
   **/
-  @ApiModelProperty(value = "A flag indicating if the feature is enabled (true) or not (false).")
+ 
 
 
   public Boolean isIsEnabled() {
@@ -213,9 +204,9 @@ public class Feature {
 
   /**
    * Unique name given to the feature. it is Required if the feature is not introduced as a separate REST resource
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Unique name given to the feature. it is Required if the feature is not introduced as a separate REST resource")
+ 
 
 
   public String getName() {
@@ -233,9 +224,9 @@ public class Feature {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -253,11 +244,11 @@ public class Feature {
 
   /**
    * The period for which this relationship is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which this relationship is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -274,9 +265,9 @@ public class Feature {
 
   /**
    * feature version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "feature version")
+ 
 
 
   public String getVersion() {
@@ -287,7 +278,7 @@ public class Feature {
     this.version = version;
   }
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -309,12 +300,12 @@ public class Feature {
         Objects.equals(this.version, feature.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, id, isBundle, isEnabled, name, uuid, validFor, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Feature {\n");

@@ -40,271 +40,271 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
 
   private Set<Class<?>> nextworksWhitelist() {
     Set<Class<?>> whitelist = new HashSet<>();
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ExportJob.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ExportJob.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogBatchEventPayload.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.InputStream.class);
+        .add(eu._5gzorro.tm_forum.models.product.CatalogBatchEventPayload.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.InputStream.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingAttributeValueChangeEventPayload.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryRef.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingAttributeValueChangeEventPayload.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCategoryRef.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryDeleteNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.Money.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCategoryDeleteNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.Money.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecCharacteristicValue.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.ServiceCandidateRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.PricingLogicAlgorithm.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.TaxItem.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCategoryUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.Quantity.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecCharacteristicValue.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.ServiceCandidateRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.PricingLogicAlgorithm.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.TaxItem.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCategoryUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.Quantity.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingDeleteEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.Category.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.File.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductOfferingDeleteEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.Category.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.File.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogDeleteEventPayload.class);
+        .add(eu._5gzorro.tm_forum.models.product.CatalogDeleteEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogChangeNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCatalogChangeNotification.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ExportJob.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ExportJob.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceAttributeValueChangeEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.PhysicalResourceSpec.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.Catalog.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceAttributeValueChangeEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.PhysicalResourceSpec.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.Catalog.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCandidateUpdate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceCandidateUpdate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecificationUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ExportJobCreate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceSpecificationUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ExportJobCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogDeleteNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategory.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.TargetServiceSchema.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCatalogDeleteNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCategory.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.TargetServiceSchema.class);
     whitelist.add(eu._5gzorro.manager.domain.ServiceCandidate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.LogicalResourceSpecUpdate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.LogicalResourceSpecUpdate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.PhysicalResourceSpecUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCategoryRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.LogicalResourceSpec.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingTerm.class);
+        .add(eu._5gzorro.tm_forum.models.resource.PhysicalResourceSpecUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCategoryRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.LogicalResourceSpec.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingTerm.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.TargetResourceSchemaRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ImportJobCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.AgreementRef.class);
+        .add(eu._5gzorro.tm_forum.models.resource.TargetResourceSchemaRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ImportJobCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.AgreementRef.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharRelationship.class);
+        eu._5gzorro.tm_forum.models.resource.ResourceSpecCharRelationship.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecificationCreate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceSpecificationCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingStateChangeEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingStateChangeEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCreateEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCreateEventPayload.class);
     whitelist.add(eu._5gzorro.manager.domain.ServiceLevelAgreement.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.URL.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ImportJobCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.URL.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ImportJobCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristicValue.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCharacteristicValue.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationCreateEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.LifecycleStatusEnumEnum.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationCreateEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.LifecycleStatusEnumEnum.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCreateEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCreateEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristicValueUse.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ImportJob.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogCreate.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCharacteristicValueUse.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ImportJob.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCatalogCreate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogCreateEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.TargetProductSchema.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryCreate.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCatalogCreateEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.TargetProductSchema.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCategoryCreate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.SLARef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.EventSubscriptionInput.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.ResourceSpecificationRef.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductOfferingPriceUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.SLARef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.EventSubscriptionInput.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.ResourceSpecificationRef.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryChangeEvent.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCategoryChangeEvent.class);
     whitelist.add(eu._5gzorro.manager.domain.Invitation.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateChangeEvent.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCandidateChangeEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecification.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductOfferingPriceCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceSpecification.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryDeleteEventPayload.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogBatchEvent.class);
+        .add(eu._5gzorro.tm_forum.models.product.CategoryDeleteEventPayload.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogBatchEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingCreateEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ImportJob.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductOfferingCreateEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ImportJob.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceLevelSpecificationRef.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceLevelSpecificationRef.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryCreateEventPayload.class);
+        .add(eu._5gzorro.tm_forum.models.product.CategoryCreateEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceDeleteEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceDeleteEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCatalogCreate.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductSpecificationUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCatalogCreate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateCreateEvent.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCandidateCreateEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryCreateEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryDeleteEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.AttachmentRef.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCategoryCreateEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CategoryDeleteEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.AttachmentRef.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingCreate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceSpecRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristic.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogDeleteEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.MarketSegmentRef.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCharacteristic.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogDeleteEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCatalogUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.MarketSegmentRef.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCharacteristicRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.Error.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationCharacteristicRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.Error.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationChangeNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationChangeNotification.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateChangeNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCandidateChangeNotification.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingStateChangeEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingStateChangeEventPayload.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.BundledProductSpecification.class);
+        .add(eu._5gzorro.tm_forum.models.product.BundledProductSpecification.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationDeleteEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationDeleteEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristic.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCatalogUpdate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceSpecCharacteristic.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCatalogUpdate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryCreateNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryUpdate.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCategoryCreateNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCategoryUpdate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingCreateEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingCreateEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationChangeEvent.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationChangeEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.PhysicalResourceSpecCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.Error.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.ResourceCandidateRef.class);
+        .add(eu._5gzorro.tm_forum.models.resource.PhysicalResourceSpecCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductSpecification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceSpecRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.Error.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.ResourceCandidateRef.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryDeleteEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalog.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCategoryDeleteEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCatalog.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationDeleteEventPayload.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.PlaceRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidate.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationDeleteEventPayload.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.PlaceRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCandidate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationCreateNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.Any.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ImportJobCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogCreateEvent.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationCreateNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.Any.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOffering.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ImportJobCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogCreateEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceCreateEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceCreateEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecCharacteristicValue.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateCreate.class);
+        eu._5gzorro.tm_forum.models.resource.ResourceSpecCharacteristicValue.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCandidateCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceStateChangeEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.Error.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceStateChangeEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.Error.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationRelationship.class);
+        eu._5gzorro.tm_forum.models.product.ProductSpecificationRelationship.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ChannelRef.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceSpecificationCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ChannelRef.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.BundledProductOfferingPriceRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ExportJob.class);
+        eu._5gzorro.tm_forum.models.product.BundledProductOfferingPriceRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CategoryUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ExportJob.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCandidateCreate.class);
+        .add(eu._5gzorro.tm_forum.models.resource.ResourceCandidateCreate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateCreateNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCandidateCreateNotification.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateDeleteEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.RelatedParty.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceDescriptor.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCandidateDeleteEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.RelatedParty.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceDescriptor.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceCreateEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceCreateEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogCreateNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.StatusEnum.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCatalogCreateNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.StatusEnum.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.BundledProductOfferingOption.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ByteArrayResource.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCandidate.class);
+        .add(eu._5gzorro.tm_forum.models.product.BundledProductOfferingOption.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ByteArrayResource.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCandidate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateDeleteNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCandidateDeleteNotification.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogChangeEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.ServiceSpecificationRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCategoryCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceDescriptorAttr.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCatalogChangeEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.ServiceSpecificationRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCategoryCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceDescriptorAttr.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecCharRelationship.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceSpecification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCandidateUpdate.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceSpecCharRelationship.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceSpecification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceCandidateUpdate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogCreateEventPayload.class);
+        .add(eu._5gzorro.tm_forum.models.product.CatalogCreateEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationDeleteNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ImportJob.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.EventSubscription.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ExportJobCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCategory.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationDeleteNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ImportJob.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.EventSubscription.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ExportJobCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCategory.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogBatchNotification.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.ExportJobCreate.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCatalogBatchNotification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductSpecificationRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.ExportJobCreate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogBatchEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPrice.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogUpdate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.ResourceCatalog.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCatalogBatchEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CategoryCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingPrice.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogUpdate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingPriceRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CategoryRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.ResourceCatalog.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceCategoryChangeNotification.class);
+        eu._5gzorro.tm_forum.models.service.ServiceCategoryChangeNotification.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceStateChangeEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceStateChangeEventPayload.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationDeleteEvent.class);
+        eu._5gzorro.tm_forum.models.service.ServiceSpecificationDeleteEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceAttributeValueChangeEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceAttributeValueChangeEventPayload.class);
     whitelist.add(eu._5gzorro.manager.domain.Place.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ConstraintRef.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ConstraintRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.ProductOfferingRef.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.product.ProductSpecificationCreate.class);
+        .add(eu._5gzorro.tm_forum.models.product.ProductSpecificationCreate.class);
     whitelist.add(eu._5gzorro.manager.domain.ProductOfferTerm.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceCatalogDeleteEvent.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceCatalogDeleteEvent.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecificationUpdate.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceSpecificationUpdate.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingDeleteEventPayload.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CategoryCreateEvent.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.CatalogCreate.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingDeleteEventPayload.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CategoryCreateEvent.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogCreate.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.resource.LogicalResourceSpecCreate.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.Attachment.class);
+        .add(eu._5gzorro.tm_forum.models.resource.LogicalResourceSpecCreate.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.Attachment.class);
     whitelist
-        .add(it.nextworks.tmf_offering_catalog.information_models.service.ServiceSpecCharacteristic.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.TimePeriod.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.BundledProductOffering.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.service.URI.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.resource.Feature.class);
-    whitelist.add(it.nextworks.tmf_offering_catalog.information_models.product.AttachmentRefOrValue.class);
+        .add(eu._5gzorro.tm_forum.models.service.ServiceSpecCharacteristic.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.TimePeriod.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.BundledProductOffering.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.service.URI.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.resource.Feature.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.product.AttachmentRefOrValue.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingAttributeValueChangeEvent.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingAttributeValueChangeEvent.class);
     whitelist.add(
-        it.nextworks.tmf_offering_catalog.information_models.product.ProductOfferingPriceDeleteEventPayload.class);
+        eu._5gzorro.tm_forum.models.product.ProductOfferingPriceDeleteEventPayload.class);
 
     return whitelist;
   }

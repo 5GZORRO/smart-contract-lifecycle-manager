@@ -2,64 +2,53 @@ package eu._5gzorro.tm_forum.models;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TargetServiceSchema;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
-
 /**
  * Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.
  */
-@ApiModel(description = "Service specification reference: ServiceSpecification(s) required to realize a ProductSpecification.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "service_specification_refs")
+
+
+
+
+
 public class ServiceSpecificationRef {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@referredType")
-  @Column(name = "referred_type")
+ 
+ 
   private String referredType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("name")
+ 
   private String name = null;
 
-  @JsonProperty("targetServiceSchema")
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-  @JoinColumn(name = "target_service_schema_id", referencedColumnName = "uuid")
+ 
+ 
+ 
   private TargetServiceSchema targetServiceSchema = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("version")
+ 
   private String version = null;
 
   public ServiceSpecificationRef baseType(String baseType) {
@@ -69,9 +58,9 @@ public class ServiceSpecificationRef {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -89,9 +78,9 @@ public class ServiceSpecificationRef {
 
   /**
    * The actual type of the target instance when needed for disambiguation.
-   * @return referredType
+   *
   **/
-  @ApiModelProperty(value = "The actual type of the target instance when needed for disambiguation.")
+ 
 
 
   public String getReferredType() {
@@ -109,9 +98,9 @@ public class ServiceSpecificationRef {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -129,9 +118,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -149,9 +138,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -169,9 +158,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Get id
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getId() {
@@ -189,9 +178,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Name of the entity
-   * @return name
+   *
   **/
-  @ApiModelProperty(value = "Name of the entity")
+ 
 
 
   public String getName() {
@@ -209,11 +198,11 @@ public class ServiceSpecificationRef {
 
   /**
    * A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.
-   * @return targetServiceSchema
+   *
   **/
-  @ApiModelProperty(value = "A target service schema reference (TargetServiceSchemaRef). The reference object to the schema and type of target service which is described by service specification.")
+ 
 
-  @Valid
+ 
 
   public TargetServiceSchema getTargetServiceSchema() {
     return targetServiceSchema;
@@ -230,9 +219,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -250,9 +239,9 @@ public class ServiceSpecificationRef {
 
   /**
    * Service specification version
-   * @return version
+   *
   **/
-  @ApiModelProperty(value = "Service specification version")
+ 
 
 
   public String getVersion() {
@@ -264,7 +253,7 @@ public class ServiceSpecificationRef {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -285,12 +274,12 @@ public class ServiceSpecificationRef {
         Objects.equals(this.version, serviceSpecificationRef.version);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, referredType, schemaLocation, type, href, id, name, targetServiceSchema, uuid, version);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceSpecificationRef {\n");

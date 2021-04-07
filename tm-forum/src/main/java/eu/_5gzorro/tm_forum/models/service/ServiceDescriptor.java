@@ -1,41 +1,31 @@
 package eu._5gzorro.tm_forum.models.service;
 
-import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import it.nextworks.tmf_offering_catalog.information_models.service.ServiceDescriptorAttr;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * This model will hold information that will help later on service orchestration.
  */
-@ApiModel(description = "This model will hold information that will help later on service orchestration.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-10T10:03:19.238Z")
+
+
+
 
 
 
 
 public class ServiceDescriptor   {
-  @JsonProperty("metadata")
-  @Valid
+ 
+ 
   private List<ServiceDescriptorAttr> metadata = null;
 
-  @JsonProperty("rootEntityID")
+ 
   private String rootEntityID = null;
 
-  @JsonProperty("rootEntityType")
+ 
   private String rootEntityType = null;
 
-  @JsonIgnore
+ 
   private String uuid = null;
 
   public ServiceDescriptor metadata(List<ServiceDescriptorAttr> metadata) {
@@ -53,11 +43,11 @@ public class ServiceDescriptor   {
 
   /**
    * Get metadata
-   * @return metadata
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
-  @Valid
+ 
 
   public List<ServiceDescriptorAttr> getMetadata() {
     return metadata;
@@ -74,9 +64,9 @@ public class ServiceDescriptor   {
 
   /**
    * Get rootEntityID
-   * @return rootEntityID
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRootEntityID() {
@@ -94,9 +84,9 @@ public class ServiceDescriptor   {
 
   /**
    * Get rootEntityType
-   * @return rootEntityType
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getRootEntityType() {
@@ -114,9 +104,9 @@ public class ServiceDescriptor   {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -128,7 +118,7 @@ public class ServiceDescriptor   {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -143,12 +133,12 @@ public class ServiceDescriptor   {
         Objects.equals(this.uuid, serviceDescriptor.uuid);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(metadata, rootEntityID, rootEntityType, uuid);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceDescriptor {\n");

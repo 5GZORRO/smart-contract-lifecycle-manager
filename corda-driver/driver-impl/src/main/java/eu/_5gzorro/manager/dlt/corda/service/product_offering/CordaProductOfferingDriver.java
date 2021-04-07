@@ -84,7 +84,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
 
     @Override
     public void publishProductOffering(
-            it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering offer,
+            eu._5gzorro.tm_forum.models.product.ProductOffering offer,
             Map<String, Invitation> invitations,
             Collection<VerifiableCredential> verifiableCredentials,
             VerifiableCredential identityCredential) {
@@ -106,7 +106,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering> 
 
     @Override
     public void updateProductOffer(
-            it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering offer,
+            eu._5gzorro.tm_forum.models.product.ProductOffering offer,
             VerifiableCredential identityCredential) {
         Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 

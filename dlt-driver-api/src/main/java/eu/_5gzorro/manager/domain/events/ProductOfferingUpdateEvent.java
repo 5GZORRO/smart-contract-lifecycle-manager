@@ -2,7 +2,7 @@ package eu._5gzorro.manager.domain.events;
 
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
-import it.nextworks.tmf_offering_catalog.information_models.product.ProductOffering;
+import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import java.util.Map;
 
 public class ProductOfferingUpdateEvent {

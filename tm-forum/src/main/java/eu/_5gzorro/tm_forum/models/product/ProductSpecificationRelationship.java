@@ -1,59 +1,50 @@
 package eu._5gzorro.tm_forum.models.product;
 
+import eu._5gzorro.tm_forum.models.TimePeriod;
+
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import it.nextworks.tmf_offering_catalog.information_models.TimePeriod;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.validation.annotation.Validated;
-
-import javax.persistence.*;
-import javax.validation.Valid;
 
 /**
  * A migration, substitution, dependency or exclusivity relationship between/among product specifications.
  */
-@ApiModel(description = "A migration, substitution, dependency or exclusivity relationship between/among product specifications.")
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-02-09T15:56:41.618Z")
 
-@Entity
-@Table(name = "product_specification_relationships")
+
+
+
+
+
 public class ProductSpecificationRelationship {
 
-  @JsonProperty("@baseType")
-  @Column(name = "base_type")
+ 
+ 
   private String baseType = null;
 
-  @JsonProperty("@schemaLocation")
-  @Column(name = "schema_location")
+ 
+ 
   private String schemaLocation = null;
 
-  @JsonProperty("@type")
+ 
   private String type = null;
 
-  @JsonProperty("href")
+ 
   private String href = null;
 
-  @JsonProperty("id")
+ 
   private String id = null;
 
-  @JsonProperty("relationshipType")
-  @Column(name = "relationship_type")
+ 
+ 
   private String relationshipType = null;
 
-  @JsonIgnore
-  @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "uuid2")
+ 
+ 
+ 
+ 
   private String uuid = null;
 
-  @JsonProperty("validFor")
-  @Column(name = "valid_for")
-  @Embedded
+ 
+ 
+ 
   private TimePeriod validFor = null;
 
   public ProductSpecificationRelationship baseType(String baseType) {
@@ -63,9 +54,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * When sub-classing, this defines the super-class
-   * @return baseType
+   *
   **/
-  @ApiModelProperty(value = "When sub-classing, this defines the super-class")
+ 
 
 
   public String getBaseType() {
@@ -83,9 +74,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * A URI to a JSON-Schema file that defines additional attributes and relationships
-   * @return schemaLocation
+   *
   **/
-  @ApiModelProperty(value = "A URI to a JSON-Schema file that defines additional attributes and relationships")
+ 
 
 
   public String getSchemaLocation() {
@@ -103,9 +94,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * Get type
-   * @return type
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getType() {
@@ -123,9 +114,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * Unique reference of the entity
-   * @return href
+   *
   **/
-  @ApiModelProperty(value = "Unique reference of the entity")
+ 
 
 
   public String getHref() {
@@ -143,9 +134,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * Unique identifier of the productSpecification
-   * @return id
+   *
   **/
-  @ApiModelProperty(value = "Unique identifier of the productSpecification")
+ 
 
 
   public String getId() {
@@ -163,9 +154,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * Type of relationship such as migration, substitution, dependency, exclusivity
-   * @return relationshipType
+   *
   **/
-  @ApiModelProperty(value = "Type of relationship such as migration, substitution, dependency, exclusivity")
+ 
 
 
   public String getRelationshipType() {
@@ -183,9 +174,9 @@ public class ProductSpecificationRelationship {
 
   /**
    * Get uuid
-   * @return uuid
+   *
   **/
-  @ApiModelProperty(value = "")
+ 
 
 
   public String getUuid() {
@@ -203,11 +194,11 @@ public class ProductSpecificationRelationship {
 
   /**
    * The period for which the productSpecificationRelationship is valid
-   * @return validFor
+   *
   **/
-  @ApiModelProperty(value = "The period for which the productSpecificationRelationship is valid")
+ 
 
-  @Valid
+ 
 
   public TimePeriod getValidFor() {
     return validFor;
@@ -218,7 +209,7 @@ public class ProductSpecificationRelationship {
   }
 
 
-  @Override
+ 
   public boolean equals(Object o) {
     if (this == o) {
       return true;
@@ -237,12 +228,12 @@ public class ProductSpecificationRelationship {
         Objects.equals(this.validFor, productSpecificationRelationship.validFor);
   }
 
-  @Override
+ 
   public int hashCode() {
     return Objects.hash(baseType, schemaLocation, type, href, id, relationshipType, uuid, validFor);
   }
 
-  @Override
+ 
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProductSpecificationRelationship {\n");
