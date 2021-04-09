@@ -3,17 +3,11 @@
     "schemas": {
       "AgreementRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "name": {
@@ -25,24 +19,24 @@
           "id": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
       },
       "CategoryRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "name": {
@@ -54,10 +48,16 @@
           "id": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
             "type": "string"
           },
           "version": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
@@ -65,7 +65,7 @@
       "ChannelRef": {
         "type": "object",
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -74,16 +74,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -110,28 +116,19 @@
           },
           "id": {
             "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
           }
         }
       },
       "PlaceRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "role": {
             "type": "string"
           },
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "name": {
@@ -143,7 +140,13 @@
           "id": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
@@ -182,16 +185,19 @@
       "TargetProductSchema": {
         "type": "object",
         "properties": {
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "href": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
@@ -202,10 +208,7 @@
       "BundledProductOfferingOption": {
         "type": "object",
         "properties": {
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "numberRelOfferDefault": {
@@ -223,7 +226,13 @@
           "href": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
@@ -240,10 +249,16 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
             "type": "string"
           },
           "version": {
@@ -253,12 +268,12 @@
             "format": "int32",
             "type": "integer"
           },
+          "baseType": {
+            "type": "string"
+          },
           "minCardinality": {
             "format": "int32",
             "type": "integer"
-          },
-          "@baseType": {
-            "type": "string"
           },
           "lifecycleStatusEnum": {
             "type": "string",
@@ -290,22 +305,16 @@
           },
           "href": {
             "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
           }
         }
       },
       "MarketSegmentRef": {
         "type": "object",
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
-          "@baseType": {
-            "type": "string"
-          },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "name": {
@@ -317,18 +326,21 @@
           "id": {
             "type": "string"
           },
-          "@schemaLocation": {
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }
       },
       "ProductOfferingPriceRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -337,16 +349,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -372,9 +390,6 @@
             "type": "string"
           },
           "id": {
-            "type": "string"
-          },
-          "@schemaLocation": {
             "type": "string"
           }
         }
@@ -391,10 +406,19 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
             "type": "string"
           },
           "valueFrom": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           },
           "rangeInterval": {
@@ -406,16 +430,10 @@
           "regex": {
             "type": "string"
           },
-          "@baseType": {
-            "type": "string"
-          },
           "valueType": {
             "type": "string"
           },
           "href": {
-            "type": "string"
-          },
-          "@schemaLocation": {
             "type": "string"
           },
           "value": {
@@ -425,11 +443,8 @@
       },
       "SLARef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -438,16 +453,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -473,9 +494,6 @@
             "type": "string"
           },
           "id": {
-            "type": "string"
-          },
-          "@schemaLocation": {
             "type": "string"
           }
         }
@@ -549,11 +567,8 @@
       },
       "ServiceCandidateRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -562,16 +577,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -598,29 +619,38 @@
           },
           "id": {
             "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
           }
         }
       },
       "ProductOfferingTerm": {
         "type": "object",
         "properties": {
-          "duration": {
-            "$ref": "#/components/schemas/Quantity"
-          },
-          "@baseType": {
-            "type": "string"
-          },
           "lifecycleStatus": {
             "type": "string"
           },
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "duration": {
+            "$ref": "#/components/schemas/Quantity"
           },
           "lifecycleStatusEnum": {
             "type": "string",
@@ -641,16 +671,7 @@
           "name": {
             "type": "string"
           },
-          "description": {
-            "type": "string"
-          },
           "href": {
-            "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
-          },
-          "version": {
             "type": "string"
           }
         }
@@ -670,9 +691,6 @@
           "serviceCandidate": {
             "$ref": "#/components/schemas/ServiceCandidateRef"
           },
-          "@type": {
-            "type": "string"
-          },
           "channel": {
             "type": "array",
             "items": {
@@ -688,8 +706,17 @@
               "$ref": "#/components/schemas/ProductOfferingPriceRef"
             }
           },
+          "type": {
+            "type": "string"
+          },
           "resourceCandidate": {
             "$ref": "#/components/schemas/ResourceCandidateRef"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
           },
           "bundledProductOffering": {
             "type": "array",
@@ -698,9 +725,6 @@
             }
           },
           "statusReason": {
-            "type": "string"
-          },
-          "@baseType": {
             "type": "string"
           },
           "attachment": {
@@ -720,9 +744,6 @@
             "items": {
               "$ref": "#/components/schemas/PlaceRef"
             }
-          },
-          "@schemaLocation": {
-            "type": "string"
           },
           "productOfferingTerm": {
             "type": "array",
@@ -751,6 +772,9 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
+          "schemaLocation": {
+            "type": "string"
+          },
           "isSellable": {
             "type": "boolean"
           },
@@ -777,7 +801,7 @@
       "ResourceCandidateRef": {
         "type": "object",
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -786,16 +810,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -822,17 +852,11 @@
           },
           "id": {
             "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
           }
         }
       },
       "BundledProductOffering": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
           "lifecycleStatus": {
             "type": "string"
@@ -840,20 +864,26 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           },
           "bundledProductOfferingOption": {
             "$ref": "#/components/schemas/BundledProductOfferingOption"
-          },
-          "@baseType": {
-            "type": "string"
           },
           "lifecycleStatusEnum": {
             "type": "string",
@@ -878,9 +908,6 @@
             "type": "string"
           },
           "id": {
-            "type": "string"
-          },
-          "@schemaLocation": {
             "type": "string"
           }
         }
@@ -888,7 +915,7 @@
       "AttachmentRefOrValue": {
         "type": "object",
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -900,13 +927,19 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
           "mimeType": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
             "type": "string"
           },
           "version": {
@@ -918,7 +951,7 @@
           "url": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "size": {
@@ -948,19 +981,13 @@
           },
           "id": {
             "type": "string"
-          },
-          "@schemaLocation": {
-            "type": "string"
           }
         }
       },
       "ProductSpecificationRef": {
         "type": "object",
-        "required": [
-          "id"
-        ],
         "properties": {
-          "@referredType": {
+          "referredType": {
             "type": "string"
           },
           "lifecycleStatus": {
@@ -972,16 +999,22 @@
           "validFor": {
             "$ref": "#/components/schemas/TimePeriod"
           },
-          "@type": {
+          "schemaLocation": {
             "type": "string"
           },
           "description": {
             "type": "string"
           },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
-          "@baseType": {
+          "baseType": {
             "type": "string"
           },
           "lifecycleStatusEnum": {
@@ -1007,9 +1040,6 @@
             "type": "string"
           },
           "id": {
-            "type": "string"
-          },
-          "@schemaLocation": {
             "type": "string"
           }
         }

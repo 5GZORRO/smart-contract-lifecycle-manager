@@ -14,12 +14,15 @@ buildscript {
         quasar_version = constants.getProperty("quasarVersion")
         log4j_version = constants.getProperty("log4jVersion")
         slf4j_version = constants.getProperty("slf4jVersion")
+        hibernate_types_52_version = constants.getProperty("hibernateTypes52Version")
+        postgresql_version = constants.getProperty("postgresqlVersion")
+        h2_version = constants.getProperty("h2Version")
         corda_platform_version = constants.getProperty("platformVersion").toInteger()
         corbeans_version = constants.getProperty("corbeansVersion")
 
         //springboot
-        spring_boot_version = '2.1.18.RELEASE'
-        spring_boot_gradle_plugin_version = '2.1.18.RELEASE'
+        spring_boot_version = '2.2.13.RELEASE'
+        spring_boot_gradle_plugin_version = '2.2.13.RELEASE'
 
         // okhttp
         okhttp_version = '3.5.0'
@@ -58,6 +61,7 @@ allprojects {
     apply from: "${rootProject.projectDir}/repositories.gradle"
     apply plugin: 'java'
     apply plugin: 'com.adarshr.test-logger'
+    sourceCompatibility='1.8'
 
     repositories {
         mavenLocal()

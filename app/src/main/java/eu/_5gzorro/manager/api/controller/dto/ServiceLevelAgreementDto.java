@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.api.controller.dto;
 
 import eu._5gzorro.manager.api.model.DateRange;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +13,7 @@ public class ServiceLevelAgreementDto {
     private String name;
     private String description;
     private String version;
-    private DateRange validFor;
+    private TimePeriod validFor;
     private TemplateRefDto templateRef;
     private String state;
     private boolean approved;
@@ -63,11 +64,11 @@ public class ServiceLevelAgreementDto {
         this.version = version;
     }
 
-    public DateRange getValidFor() {
+    public TimePeriod getValidFor() {
         return validFor;
     }
 
-    public void setValidFor(DateRange validFor) {
+    public void setValidFor(TimePeriod validFor) {
         this.validFor = validFor;
     }
 

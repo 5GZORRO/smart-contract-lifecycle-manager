@@ -43,6 +43,11 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot_version")
 
+    implementation("com.h2database:h2:$h2_version")
+    implementation("org.postgresql:postgresql:$postgresql_version")
+    implementation("com.vladmihalcea:hibernate-types-52:$hibernate_types_52_version")
+
+
 }
 
 springBoot {
@@ -64,5 +69,15 @@ jib {
     }
     container {
         mainClass = 'eu._5gzorro.manager.api.ManagerApplication'
+    }
+}
+
+task bootRunDev(type: org.springframework.boot.gradle.tasks.run.BootRun, dependsOn: 'build') {
+    group = 'Application'
+
+    doFirst() {
+        main = bootJar.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+        systemProperty 'spring.profiles.active', 'dev'
     }
 }

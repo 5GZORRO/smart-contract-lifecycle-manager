@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.api.controller.dto;
 
 import eu._5gzorro.manager.api.model.DateRange;
+import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.Objects;
 
@@ -8,9 +9,41 @@ public class RelatedPartyRefDto {
     private String href;
     private String role;
     private String name;
-    private DateRange validFor;
+    private TimePeriod validFor;
 
     public RelatedPartyRefDto() {
+    }
+
+    public String getHref() {
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public TimePeriod getValidFor() {
+        return validFor;
+    }
+
+    public void setValidFor(TimePeriod validFor) {
+        this.validFor = validFor;
     }
 
     @Override

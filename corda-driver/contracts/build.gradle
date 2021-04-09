@@ -59,7 +59,6 @@ dependencies {
         exclude group: "junit", module: "junit"
     }
 
-
     implementation(project(":tm-forum"))
 }
 
