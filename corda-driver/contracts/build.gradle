@@ -1,7 +1,6 @@
 apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
 apply plugin: 'maven-publish'
-apply plugin: "java-library"
 
 group 'eu._5gzorro'
 
@@ -55,9 +54,7 @@ dependencies {
 
     cordaCompile "$corda_release_group:corda-jackson:$corda_release_version"
 
-    compile (project(":dlt-driver-api")) {
-        exclude group: "junit", module: "junit"
-    }
+    implementation(project(":dlt-driver-api"))
 
     implementation(project(":tm-forum"))
 }
