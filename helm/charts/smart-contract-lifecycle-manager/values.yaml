@@ -1,0 +1,56 @@
+dockerTag: 0.0.1
+
+fullnameOverride: "sclm-app"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: 
+
+replicaCount: 1
+service:
+    name: sclm-app
+    type: ClusterIP
+    appPort: 8087
+    extAppPort: 80
+
+image:
+    pullPolicy: IfNotPresent
+
+resources:
+    limits:
+        cpu: 2
+        memory: 4G
+    requests:
+        cpu: 1
+        memory: 2G
+
+podSecurityContext: {}
+securityContext: {}
+
+imagePullSecrets:
+    [name: regcred-zorro]
+
+postgres:
+    host: postgresql.postgres.svc.cluster.local
+    port: 5432
+
+probePath: /actuator/health
+
+spring:
+    profiles: staging
+
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 20
+  failureThreshold: 120
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 20
+  failureThreshold: 120

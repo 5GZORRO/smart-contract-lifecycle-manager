@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.service.name }}-ingress
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+spec:
+  rules:
+  - http:
+      paths:
+      - path: {{ .Values.service.prefix }}/smart-contract-lifecycle-manager(/|$)(.*)
+        backend:
+          serviceName: {{ .Values.service.name }}
+          servicePort: {{ .Values.service.appPort }}

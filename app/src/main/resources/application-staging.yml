@@ -1,0 +1,49 @@
+server:
+  port: ${SERVER_PORT:8087}
+
+dlt:
+  driver: corda
+
+corda:
+  rpc:
+    host: ${CORDA_RPC_HOST:localhost}
+    rpcPort: ${CORDA_RPC_PORT:10006}
+    username: ${CORDA_RPC_USERNAME:user1}
+    password: ${CORDA_RPC_PASSWORD:test}
+
+  governanceNodeNames: # Corda X500 names of valid governance nodes
+    - "O=GovernanceNode,L=Madrid,C=ES"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+
+spring:
+  profiles:
+    active:
+      - dev
+
+  application:
+    name: smart-contract-lifecycle-manager
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  kafka:
+    enabled: false
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    update-topics:
+      product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
+
+datasource:
+  url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
+  driverClassName: org.postgresql.Driver
+  username: 5gzorro_admin
+  password: 5gzorro
+  initialization-mode: never
