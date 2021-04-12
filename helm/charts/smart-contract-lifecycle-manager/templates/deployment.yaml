@@ -30,10 +30,10 @@ spec:
       - name: {{ .Chart.Name }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
-        image: "docker.pkg.github.com/5gzorro/legal-prose-repository/smart-contract-lifecycle-mgr-api:{{ .Values.dockerTag }}"
+        image: "docker.pkg.github.com/5gzorro/smart-contract-lifecycle-manager/lifecycle-manager-api:{{ .Values.dockerTag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-          - containerPort: 8080
+          - containerPort: 8087
             protocol: TCP
         env:
         # [SQL Configuration]
@@ -56,6 +56,20 @@ spec:
               secretKeyRef:
                   name: smart-contract-lifecycle-mgr-api-db-credentials
                   key: name
+        - name: CORDA_RPC_HOST
+          value: "{{ .Values.corda.host }}"
+        - name: CORDA_RPC_PORT
+          value: "{{ .Values.corda.port }}"
+        - name: CORDA_RPC_USERNAME
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-corda-credentials
+                  key: username
+        - name: CORDA_RPC_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-corda-credentials
+                  key: password
         # [Application Environment Variables]
         - name: SPRING_PROFILES_ACTIVE
           value: {{ .Values.spring.profiles }}

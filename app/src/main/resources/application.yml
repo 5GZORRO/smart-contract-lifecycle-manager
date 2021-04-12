@@ -25,27 +25,22 @@ springdoc:
 spring:
   application:
     name: smart-contract-lifecycle-manager
-  h2:
-    console:
-      enabled: true
-  database: h2
-  console: true
-  path: /h2
   liquibase:
     enabled: false
+
   jpa:
     hibernate:
       ddl-auto: update
-      database-platform: org.hibernate.dialect.H2Dialect
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
   kafka:
     enabled: false
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 
-datasource:
-  platform: h2
-  url: jdbc:h2://localhost:${server.port}/h2
-  username: sa
-  password: 1234
-  driverClassName: org.h2.Driver
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
+    driverClassName: org.postgresql.Driver
+    username: 5gzorro_admin
+    password: 5gzorro
+    initialization-mode: never

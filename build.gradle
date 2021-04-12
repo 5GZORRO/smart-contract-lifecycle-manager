@@ -21,8 +21,8 @@ buildscript {
         corbeans_version = constants.getProperty("corbeansVersion")
 
         //springboot
-        spring_boot_version = '2.2.13.RELEASE'
-        spring_boot_gradle_plugin_version = '2.2.13.RELEASE'
+        spring_boot_version = '2.2.12.RELEASE'
+        spring_boot_gradle_plugin_version = '2.2.12.RELEASE'
 
         // okhttp
         okhttp_version = '3.5.0'

@@ -2,6 +2,9 @@ dockerTag: 0.0.1
 
 fullnameOverride: "sclm-app"
 
+corda:
+  port: "10003"
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true

@@ -25,9 +25,9 @@ dependencies {
         exclude group: "junit", module: "junit"
     }
 
-    implementation('org.springframework.kafka:spring-kafka:2.6.6')
+    implementation('org.springframework.kafka:spring-kafka:2.4.12.RELEASE')
 
-    implementation('org.springdoc:springdoc-openapi-ui:1.5.3')
+    implementation('org.springdoc:springdoc-openapi-ui:1.3.9')
 
     testImplementation("org.awaitility:awaitility:$awaitility_version")
 
@@ -42,8 +42,8 @@ dependencies {
     implementation(project(":tm-forum"))
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot_version")
+    compile("org.springframework.boot:spring-boot-starter-jdbc:$spring_boot_version")
 
-    implementation("com.h2database:h2:$h2_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
     implementation("com.vladmihalcea:hibernate-types-52:$hibernate_types_52_version")
 

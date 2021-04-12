@@ -16,7 +16,7 @@ dependencies {
     implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
 
 
-    implementation(project(":dlt-driver-api"))
+    compile(project(":dlt-driver-api"))
 
     // CorDapp dependencies.
     implementation project(":corda-driver:contracts")
