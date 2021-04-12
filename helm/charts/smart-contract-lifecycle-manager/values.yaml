@@ -1,4 +1,4 @@
-dockerTag: 0.0.1
+dockerTag: 0.0.3
 
 fullnameOverride: "sclm-app"
 

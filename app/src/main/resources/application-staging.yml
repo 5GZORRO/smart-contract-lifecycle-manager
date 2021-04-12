@@ -35,15 +35,14 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:governance}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_DB_USER:5gzorro_admin}
+    password: ${POSTGRES_DB_PASSWORD:5gzorro}
+
   kafka:
     enabled: false
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
-
-datasource:
-  url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
-  driverClassName: org.postgresql.Driver
-  username: 5gzorro_admin
-  password: 5gzorro
-  initialization-mode: never
