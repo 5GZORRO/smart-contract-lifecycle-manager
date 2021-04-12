@@ -1,6 +1,5 @@
 package eu._5gzorro.manager.api.controller.dto;
 
-import eu._5gzorro.manager.api.model.DateRange;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
