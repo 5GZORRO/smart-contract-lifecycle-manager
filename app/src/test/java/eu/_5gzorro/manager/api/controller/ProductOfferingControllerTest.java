@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOfferingRequest;
 import eu._5gzorro.manager.api.controller.dto.requests.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
 import eu._5gzorro.manager.api.service.ProductOfferingService;
+import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import org.hamcrest.Matchers;
@@ -16,6 +18,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -31,13 +34,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = { "dlt.driver=nothing" })
-@AutoConfigureMockMvc
-@EnableAutoConfiguration(exclude = {
-    DataSourceAutoConfiguration.class,
-    DataSourceTransactionManagerAutoConfiguration.class,
-    HibernateJpaAutoConfiguration.class
-})
+@WebMvcTest(controllers = ProductOfferingController.class)
 public class ProductOfferingControllerTest {
 
   @Autowired

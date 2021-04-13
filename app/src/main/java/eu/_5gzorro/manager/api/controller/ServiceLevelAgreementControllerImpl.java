@@ -1,17 +1,19 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
 import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
 import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+@RestController
 public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreementController {
 
     @Autowired
@@ -20,19 +22,19 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     @Override
     public ResponseEntity<PagedSlaResponse> getServiceLevelAgreements(Pageable pageable) {
 
-        Page<ServiceLevelAgreementDto> slas = slaService.getSLAs(pageable);
+        Page<ServiceLevelAgreement> slas = slaService.getSLAs(pageable);
         PagedSlaResponse response = new PagedSlaResponse(slas);
         return ResponseEntity.ok(response);
     }
 
     @Override
-    public ResponseEntity<ServiceLevelAgreementDto> getServiceLevelAgreement(String id) throws JsonProcessingException {
-        ServiceLevelAgreementDto sla = slaService.getSLA(id);
+    public ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(String id) throws JsonProcessingException {
+        ServiceLevelAgreement sla = slaService.getSLA(id);
         return ResponseEntity.ok(sla);
     }
 
     @Override
-    public ResponseEntity<ServiceLevelAgreementDto> createServiceLevelAgreement(ServiceLevelAgreementDto sla) throws JsonProcessingException {
+    public ResponseEntity<ServiceLevelAgreement> createServiceLevelAgreement(ServiceLevelAgreement sla) throws JsonProcessingException {
 
         slaService.createSLA(sla);
         return ResponseEntity.accepted().build();

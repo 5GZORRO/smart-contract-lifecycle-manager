@@ -1,17 +1,16 @@
-package eu._5gzorro.manager.api.controller.dto;
+package eu._5gzorro.tm_forum.models.sla;
 
-import eu._5gzorro.manager.api.model.DateRange;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.util.Objects;
 
-public class RelatedPartyRefDto {
+public class RelatedPartyRef {
     private String href;
     private String role;
     private String name;
     private TimePeriod validFor;
 
-    public RelatedPartyRefDto() {
+    public RelatedPartyRef() {
     }
 
     public String getHref() {
@@ -50,7 +49,7 @@ public class RelatedPartyRefDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RelatedPartyRefDto that = (RelatedPartyRefDto) o;
+        RelatedPartyRef that = (RelatedPartyRef) o;
         return href.equals(that.href) && role.equals(that.role) && Objects.equals(name, that.name) && Objects.equals(validFor, that.validFor);
     }
 

@@ -1,13 +1,13 @@
-package eu._5gzorro.manager.api.controller.dto;
+package eu._5gzorro.tm_forum.models.sla;
 
 import java.util.Objects;
 
-public class TemplateRefDto {
+public class TemplateRef {
     private String href;
     private String name;
     private String description;
 
-    public TemplateRefDto() {
+    public TemplateRef() {
     }
 
     public String getHref() {
@@ -38,7 +38,7 @@ public class TemplateRefDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TemplateRefDto that = (TemplateRefDto) o;
+        TemplateRef that = (TemplateRef) o;
         return href.equals(that.href);
     }
 

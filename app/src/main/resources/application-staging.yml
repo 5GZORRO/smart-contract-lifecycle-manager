@@ -41,11 +41,11 @@ spring:
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 
-datasource:
-  url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:governance}
-  driverClassName: org.postgresql.Driver
-  username: ${POSTGRES_DB_USER:5gzorro_admin}
-  password: ${POSTGRES_DB_PASSWORD:5gzorro}
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:governance}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_DB_USER:5gzorro_admin}
+    password: ${POSTGRES_DB_PASSWORD:5gzorro}
 
 integrations:
   identity-permissions:

@@ -1,22 +1,22 @@
 package eu._5gzorro.manager.api.controller.dto.responses;
 
-import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import org.springframework.data.domain.Page;
 
 import java.util.Objects;
 
 public class PagedSlaResponse {
-    private Page<ServiceLevelAgreementDto> pagedSLAs;
+    private Page<ServiceLevelAgreement> pagedSLAs;
 
-    public PagedSlaResponse(Page<ServiceLevelAgreementDto> pagedSLAs) {
+    public PagedSlaResponse(Page<ServiceLevelAgreement> pagedSLAs) {
         this.pagedSLAs = pagedSLAs;
     }
 
-    public Page<ServiceLevelAgreementDto> getPagedSLAs() {
+    public Page<ServiceLevelAgreement> getPagedSLAs() {
         return pagedSLAs;
     }
 
-    public void setPagedSLAs(Page<ServiceLevelAgreementDto> pagedSLAs) {
+    public void setPagedSLAs(Page<ServiceLevelAgreement> pagedSLAs) {
         this.pagedSLAs = pagedSLAs;
     }
 

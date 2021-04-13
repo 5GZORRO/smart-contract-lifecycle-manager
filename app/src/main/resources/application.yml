@@ -44,3 +44,10 @@ spring:
     username: 5gzorro_admin
     password: 5gzorro
     initialization-mode: never
+
+integrations:
+  identity-permissions:
+    apiBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
+
+callbacks:
+  updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}

@@ -1,11 +1,11 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
 import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
 import eu._5gzorro.manager.api.controller.dto.responses.ApiErrorResponse;
 import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,8 +21,7 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @Tag(name = "Service Level Agreement")
-@RestController
-@RequestMapping("/service-level-agreement")
+@RequestMapping("/api/v1/service-level-agreement")
 public interface ServiceLevelAgreementController {
 
     @Operation(description = "Retrieve a paged collection of Service Level Agreements according to paging and filter parameters")
@@ -39,14 +38,14 @@ public interface ServiceLevelAgreementController {
     @Operation(description = "Get an SLA by DID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "An SLA matching the provided id",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceLevelAgreementDto.class, name = "Service Level Agreement")) }),
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceLevelAgreement.class, name = "Service Level Agreement")) }),
             @ApiResponse(responseCode = "400", description = "Invalid id was provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
             @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @GetMapping("{id}")
-    ResponseEntity<ServiceLevelAgreementDto> getServiceLevelAgreement(@PathVariable final String id) throws JsonProcessingException;
+    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String id) throws JsonProcessingException;
 
     @Operation(description = "Create a new Service Level Agreement definition")
     @ApiResponses(value = {
@@ -56,7 +55,7 @@ public interface ServiceLevelAgreementController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping
-    ResponseEntity<ServiceLevelAgreementDto> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreementDto sla) throws JsonProcessingException;
+    ResponseEntity<ServiceLevelAgreement> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreement sla) throws JsonProcessingException;
 
     @Operation(description = "Callback endpoint to handle processing async DID identifier generation")
     @ApiResponses(value = {
@@ -80,7 +79,4 @@ public interface ServiceLevelAgreementController {
     })
     @DeleteMapping("{id}")
     ResponseEntity<Void> removeServiceLevelAgreeement(@PathVariable String id);
-
-
-
 }

@@ -20,7 +20,7 @@ import java.util.UUID;
         name = "jsonb",
         typeClass = JsonBinaryType.class
 )
-public class ServiceLevelAgreement {
+public class ServiceLevelAgreementWrapper {
     @Id
     private String id;
 
@@ -37,7 +37,7 @@ public class ServiceLevelAgreement {
     @Column(columnDefinition = "jsonb")
     private String properties;
 
-    public ServiceLevelAgreement() {
+    public ServiceLevelAgreementWrapper() {
     }
 
     public String getId() {
@@ -92,7 +92,7 @@ public class ServiceLevelAgreement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ServiceLevelAgreement that = (ServiceLevelAgreement) o;
+        ServiceLevelAgreementWrapper that = (ServiceLevelAgreementWrapper) o;
         return id.equals(that.id) && handle.equals(that.handle) && properties.equals(that.properties);
     }
 

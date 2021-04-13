@@ -2,15 +2,14 @@ package eu._5gzorro.manager.api.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
 import eu._5gzorro.manager.api.model.AuthData;
-import eu._5gzorro.manager.api.model.entity.ServiceLevelAgreement;
+import eu._5gzorro.manager.api.model.entity.ServiceLevelAgreementWrapper;
 import eu._5gzorro.manager.api.model.enumureration.EntityStatus;
-import eu._5gzorro.manager.api.model.exception.DIDCreationException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementStatusException;
 import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
 import eu._5gzorro.manager.api.utils.UuidSource;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -21,7 +20,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementService {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceLevelAgreementServiceImpl.class);
@@ -48,12 +49,12 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     }
 
     @Override
-    public Page<ServiceLevelAgreementDto> getSLAs(Pageable pageable) {
+    public Page<ServiceLevelAgreement> getSLAs(Pageable pageable) {
 
         return slaRepository.findAll(pageable)
                 .map(sla -> {
                     try {
-                        return objectMapper.readValue(sla.getProperties(), ServiceLevelAgreementDto.class);
+                        return objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
@@ -62,34 +63,35 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     }
 
     @Override
-    public ServiceLevelAgreementDto getSLA(String slaId) throws JsonProcessingException {
-        ServiceLevelAgreement sla = slaRepository.findById(slaId)
+    public ServiceLevelAgreement getSLA(String slaId) throws JsonProcessingException {
+        ServiceLevelAgreementWrapper sla = slaRepository.findById(slaId)
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaId));
 
-        return objectMapper.readValue(sla.getProperties(), ServiceLevelAgreementDto.class);
+        return objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
     }
 
     @Override
     @Transactional
-    public UUID createSLA(ServiceLevelAgreementDto dto) throws JsonProcessingException {
+    public UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException {
 
         UUID slaHandle = uuidSource.newUUID();
 
-        try {
-            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaHandle);
-            identityClient.createDID(callbackUrl, authData.getAuthToken());
-        }
-        catch (Exception ex) {
-            throw new DIDCreationException(ex);
-        }
+//        try {
+//            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaHandle);
+//            identityClient.createDID(callbackUrl, authData.getAuthToken());
+//        }
+//        catch (Exception ex) {
+//            throw new DIDCreationException(ex);
+//        }
 
-        ServiceLevelAgreement sla = new ServiceLevelAgreement();
+        ServiceLevelAgreementWrapper sla = new ServiceLevelAgreementWrapper();
 
         //set temporary ID
         sla.setId(slaHandle.toString());
         sla.setHandle(slaHandle);
 
         dto.setId(slaHandle.toString());
+        dto.setState(EntityStatus.CREATING.toString());
 
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
@@ -101,7 +103,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     @Transactional
     public void completeSLACreation(UUID slaHandle, String did) throws JsonProcessingException {
 
-        ServiceLevelAgreement sla = slaRepository.findById(slaHandle.toString())
+        ServiceLevelAgreementWrapper sla = slaRepository.findById(slaHandle.toString())
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaHandle.toString()));
 
         if(sla.getStatus() != EntityStatus.CREATING) {
@@ -111,9 +113,9 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         sla.setId(did);
         sla.setStatus(EntityStatus.CREATED);
 
-        ServiceLevelAgreementDto dto = objectMapper.readValue(sla.getProperties(), ServiceLevelAgreementDto.class);
+        ServiceLevelAgreement dto = objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
         dto.setId(did);
-        dto.setState(EntityStatus.CREATED);
+        dto.setState(EntityStatus.CREATED.toString());
 
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
@@ -121,9 +123,9 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
     @Override
     @Transactional
-    public void updateSLA(String slaId, ServiceLevelAgreementDto dto) throws JsonProcessingException {
+    public void updateSLA(String slaId, ServiceLevelAgreement dto) throws JsonProcessingException {
 
-        ServiceLevelAgreement sla = slaRepository.findById(slaId)
+        ServiceLevelAgreementWrapper sla = slaRepository.findById(slaId)
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaId));
 
         if(sla.getStatus() != EntityStatus.CREATED) {

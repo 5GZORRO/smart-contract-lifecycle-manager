@@ -33,7 +33,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
     enabled: false
@@ -41,12 +41,12 @@ spring:
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 
-datasource:
-  url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
-  driverClassName: org.postgresql.Driver
-  username: 5gzorro_admin
-  password: 5gzorro
-  initialization-mode: never
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
+    driverClassName: org.postgresql.Driver
+    username: 5gzorro_admin
+    password: 5gzorro
+    initialization-mode: never
 
 integrations:
   identity-permissions:
