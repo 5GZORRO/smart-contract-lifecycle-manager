@@ -22,11 +22,11 @@ import java.util.UUID;
 )
 public class ServiceLevelAgreementWrapper {
     @Id
-    private String id;
+    private UUID id;
 
-    @NaturalId
-    @Column(name="handle", nullable = false, unique = true)
-    private UUID handle;
+    @NaturalId(mutable=true) //mutable to allow null -> did
+    @Column(name="did", nullable = true, unique = true)
+    private String did;
 
     private EntityStatus status = EntityStatus.CREATING;
     private LocalDateTime created = LocalDateTime.now();
@@ -40,20 +40,20 @@ public class ServiceLevelAgreementWrapper {
     public ServiceLevelAgreementWrapper() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public UUID getHandle() {
-        return handle;
+    public String getDid() {
+        return did;
     }
 
-    public void setHandle(UUID handle) {
-        this.handle = handle;
+    public void setDid(String did) {
+        this.did = did;
     }
 
     public String getProperties() {
@@ -93,19 +93,19 @@ public class ServiceLevelAgreementWrapper {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServiceLevelAgreementWrapper that = (ServiceLevelAgreementWrapper) o;
-        return id.equals(that.id) && handle.equals(that.handle) && properties.equals(that.properties);
+        return id.equals(that.id) && did.equals(that.did) && properties.equals(that.properties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, handle, properties);
+        return Objects.hash(id, did, properties);
     }
 
     @Override
     public String toString() {
         return "ServiceLevelAgreement{" +
                 "id='" + id + '\'' +
-                ", handle=" + handle +
+                ", did=" + did +
                 ", status=" + status +
                 ", created=" + created +
                 ", updated=" + updated +

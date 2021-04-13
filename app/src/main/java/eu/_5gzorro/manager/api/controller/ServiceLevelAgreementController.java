@@ -44,8 +44,8 @@ public interface ServiceLevelAgreementController {
             @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @GetMapping("{id}")
-    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String id) throws JsonProcessingException;
+    @GetMapping("{did}")
+    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String did) throws JsonProcessingException;
 
     @Operation(description = "Create a new Service Level Agreement definition")
     @ApiResponses(value = {
@@ -55,7 +55,7 @@ public interface ServiceLevelAgreementController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping
-    ResponseEntity<ServiceLevelAgreement> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreement sla) throws JsonProcessingException;
+    ResponseEntity<UUID> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreement sla) throws JsonProcessingException;
 
     @Operation(description = "Callback endpoint to handle processing async DID identifier generation")
     @ApiResponses(value = {
@@ -65,18 +65,18 @@ public interface ServiceLevelAgreementController {
             @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @PutMapping("{slaHandle}/identity}")
-    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaHandle, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
+    @PutMapping("{slaId}/identity")
+    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaId, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
 
 
-    @Operation(description = "Delete an SLA definition")
+    @Operation(description = "Delete an SLA definition by DID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The SLA was deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid parameters provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
+            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided DID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @DeleteMapping("{id}")
-    ResponseEntity<Void> removeServiceLevelAgreeement(@PathVariable String id);
+    ResponseEntity<Void> removeServiceLevelAgreeement(@PathVariable String did);
 }

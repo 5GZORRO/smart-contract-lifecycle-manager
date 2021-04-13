@@ -28,27 +28,28 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     }
 
     @Override
-    public ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(String id) throws JsonProcessingException {
-        ServiceLevelAgreement sla = slaService.getSLA(id);
-        return ResponseEntity.ok(sla);
+    public ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(String did) throws JsonProcessingException {
+        return ResponseEntity.ok(slaService.getSLAByDid(did));
     }
 
     @Override
-    public ResponseEntity<ServiceLevelAgreement> createServiceLevelAgreement(ServiceLevelAgreement sla) throws JsonProcessingException {
+    public ResponseEntity<UUID> createServiceLevelAgreement(ServiceLevelAgreement sla) throws JsonProcessingException {
 
-        slaService.createSLA(sla);
-        return ResponseEntity.accepted().build();
+        UUID id = slaService.createSLA(sla);
+        return ResponseEntity
+                .accepted()
+                .body(id);
     }
 
     @Override
-    public ResponseEntity<Void> updateTemplateIdentity(UUID slaHandle, DIDStateDto state) throws JsonProcessingException {
-        slaService.completeSLACreation(slaHandle, state.getDid());
+    public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, DIDStateDto state) throws JsonProcessingException {
+        slaService.completeSLACreation(slaId, state.getDid());
         return ResponseEntity.ok().build();
     }
 
     @Override
-    public ResponseEntity<Void> removeServiceLevelAgreeement(String id) {
-        slaService.deleteSLA(id);
+    public ResponseEntity<Void> removeServiceLevelAgreeement(String did) {
+        slaService.deleteSLA(did);
         return ResponseEntity.ok().build();
     }
 }

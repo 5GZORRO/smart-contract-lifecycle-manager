@@ -10,9 +10,10 @@ import java.util.UUID;
 public interface ServiceLevelAgreementService {
 
     Page<ServiceLevelAgreement> getSLAs(Pageable pageable);
-    ServiceLevelAgreement getSLA(String slaId) throws JsonProcessingException;
+    ServiceLevelAgreement getSLAById(UUID id) throws JsonProcessingException;
+    ServiceLevelAgreement getSLAByDid(String did) throws JsonProcessingException;
     UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException;
-    void completeSLACreation(UUID slaHandle, String did) throws JsonProcessingException;
-    void updateSLA(String slaId, ServiceLevelAgreement dto) throws JsonProcessingException;
-    void deleteSLA(String slaId);
+    void completeSLACreation(UUID id, String did) throws JsonProcessingException;
+    void updateSLA(String did, ServiceLevelAgreement dto) throws JsonProcessingException;
+    void deleteSLA(String did);
 }
