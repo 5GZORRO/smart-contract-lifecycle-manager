@@ -11,9 +11,9 @@ import java.util.UUID;
 public interface ServiceLevelAgreementService {
 
     Page<ServiceLevelAgreementDto> getSLAs(Pageable pageable);
-    ServiceLevelAgreementDto getSLA(String slaId);
+    ServiceLevelAgreementDto getSLA(String slaId) throws JsonProcessingException;
     UUID createSLA(ServiceLevelAgreementDto dto) throws JsonProcessingException;
-    void completeSLACreation(String slaId, String did);
+    void completeSLACreation(UUID slaHandle, String did) throws JsonProcessingException;
     void updateSLA(String slaId, ServiceLevelAgreementDto dto) throws JsonProcessingException;
     void deleteSLA(String slaId);
 }

@@ -16,6 +16,8 @@ configurations {
     runtime.exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
 }
 
+
+
 dependencies {
     implementation("org.hibernate.validator:hibernate-validator:6.0.13.Final")
 
@@ -48,6 +50,10 @@ dependencies {
     implementation("com.vladmihalcea:hibernate-types-52:$hibernate_types_52_version")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator:$spring_boot_version")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$spring_cloud_open_feign_version")
+    implementation("io.github.openfeign:feign-okhttp:$open_feign_version")
+    implementation("io.github.openfeign:feign-httpclient:$open_feign_version")
 }
 
 springBoot {

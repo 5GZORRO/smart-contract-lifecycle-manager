@@ -1,5 +1,6 @@
 package eu._5gzorro.manager.api.controller.dto;
 
+import eu._5gzorro.manager.api.model.enumureration.EntityStatus;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class ServiceLevelAgreementDto {
     private String version;
     private TimePeriod validFor;
     private TemplateRefDto templateRef;
-    private String state;
+    private EntityStatus state = EntityStatus.CREATING;
     private boolean approved;
     private LocalDateTime approvalDate;
     private List<RuleDto> rules;
@@ -79,11 +80,11 @@ public class ServiceLevelAgreementDto {
         this.templateRef = templateRef;
     }
 
-    public String getState() {
+    public EntityStatus getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(EntityStatus state) {
         this.state = state;
     }
 

@@ -1,6 +1,8 @@
 package eu._5gzorro.manager.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.controller.dto.ServiceLevelAgreementDto;
+import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
 import eu._5gzorro.manager.api.controller.dto.responses.ApiErrorResponse;
 import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
@@ -14,6 +16,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.UUID;
 
 @Tag(name = "Service Level Agreement")
 @RestController
@@ -41,30 +46,30 @@ public interface ServiceLevelAgreementController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @GetMapping("{id}")
-    ResponseEntity<ServiceLevelAgreementDto> getServiceLevelAgreement(@PathVariable final String id);
+    ResponseEntity<ServiceLevelAgreementDto> getServiceLevelAgreement(@PathVariable final String id) throws JsonProcessingException;
 
     @Operation(description = "Create a new Service Level Agreement definition")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "A SLA definition was created successfully.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)) }),
-            @ApiResponse(responseCode = "400", description = "Invalid Prose Template definition provided",
+            @ApiResponse(responseCode = "400", description = "Invalid SLA definition provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping
-    ResponseEntity<ServiceLevelAgreementDto> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreementDto sla);
+    ResponseEntity<ServiceLevelAgreementDto> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreementDto sla) throws JsonProcessingException;
 
-//    @Operation(description = "Approve/Reject a newly proposed template or proposal to remove a template", tags= { "admin" })
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "The prose template status was updated successfully"),
-//            @ApiResponse(responseCode = "400", description = "Invalid parameters provided",
-//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-//            @ApiResponse(responseCode = "404", description = "A prose template couldn't be found with the provided ID",
-//                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
-//    })
-//    @PutMapping("{id}/identity}")
-//    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID templateHandle, @Valid @RequestBody final DIDStateDto state);
-//
-//
+    @Operation(description = "Callback endpoint to handle processing async DID identifier generation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The SLA was updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid parameters provided",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
+    })
+    @PutMapping("{slaHandle}/identity}")
+    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaHandle, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
+
+
     @Operation(description = "Delete an SLA definition")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The SLA was deleted successfully"),
@@ -74,7 +79,7 @@ public interface ServiceLevelAgreementController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @DeleteMapping("{id}")
-    ResponseEntity<String> removeServiceLevelAgreeement(@PathVariable String id);
+    ResponseEntity<Void> removeServiceLevelAgreeement(@PathVariable String id);
 
 
 
