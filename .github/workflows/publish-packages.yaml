@@ -14,10 +14,132 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.RELEASE_VERSION }}
-      - name: Publish package
+      - name: Publish package cordapps
         run: ./gradlew -Pversion=${{ env.RELEASE_VERSION }} publish
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets._5GZORRO_PAF }}
       - name: Publish Spring API
         run: ./gradlew -Pversion=${{ env.RELEASE_VERSION }} jib -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+  deploy-cordapps-and-sclm:
+    name: Deploy cordapps and SCLM app to k8s cluster for all parties
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Test
+      run: echo ${{ env.RELEASE_VERSION }}
+    - run: mkdir ~/.kube/ && echo "${{ secrets.KUBECONFIG_FILE}}" | base64 -d > ~/.kube/config
+    - run: echo "${{ secrets.CA_CRT }}" | base64 -d > ca.crt
+    - run: echo "${{ secrets.TLS_KEY }}" | base64 -d > ta.key
+    - uses: azure/setup-helm@v1
+      with:
+        version: '3.1.2'
+      id: install
+    - uses: azure/setup-kubectl@v1
+      with:
+        version: 'v1.20.4'
+      id: install
+    - name: Install Open VPN
+      run: sudo apt-get update && sudo apt-get install openvpn openvpn-systemd-resolved -y
+    - name: Compile cordapp jars
+      run: ./gradlew -Pversion=${{ env.RELEASE_VERSION }} build -x test
+    - name: Connect to VPN
+      uses: "kota65535/github-openvpn-connect-action@v1"
+      with:
+        config_file: .github/vpn/config.ovpn
+        username: ${{ secrets.OVPN_USERNAME }}
+        password: ${{ secrets.OVPN_PASSWORD }}
+    - name: Deploy cordapps to operatora in K8s cluster
+      run: |
+          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
+              operatora-ns/$(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl cp ./corda-driver/workflows/build/libs/5gzorro-workflows-${{ env.RELEASE_VERSION }}.jar \
+              operatora-ns/$(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl -n operatora-ns delete pod $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2)
+    - name: Deploy SCLM api to operatora
+      run: |
+          helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
+            --namespace operatora-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set postgres.username=${{ secrets.OPERATORA_POSTGRES_USERNAME }} \
+            --set postgres.password=${{ secrets.OPERATORA_POSTGRES_PASSWORD }} \
+            --set postgres.name=operator_a_sclm \
+            --set service.prefix=/operatora \
+            --set corda.username=${{ secrets.OPERATORA_CORDA_USERNAME }} \
+            --set corda.password=${{ secrets.OPERATORA_CORDA_PASSWORD }} \
+            --set corda.host=operatora.operatora-ns.svc.cluster.local \
+            --dry-run
+    - name: Deploy cordapps to operatorb in K8s cluster
+      run: |
+          kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
+             operatorb-ns/$(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl cp ./corda-driver/workflows/build/libs/5gzorro-workflows-${{ env.RELEASE_VERSION }}.jar \
+             operatorb-ns/$(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl -n operatorb-ns delete pod $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2)
+    - name: Deploy SCLM api to operatorb
+      run: |
+          helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
+            --namespace operatorb-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set postgres.username=${{ secrets.OPERATORB_POSTGRES_USERNAME }} \
+            --set postgres.password=${{ secrets.OPERATORB_POSTGRES_PASSWORD }} \
+            --set postgres.name=operator_b_sclm \
+            --set service.prefix=/operatorb \
+            --set corda.username=${{ secrets.OPERATORB_CORDA_USERNAME }} \
+            --set corda.password=${{ secrets.OPERATORB_CORDA_PASSWORD }} \
+            --set corda.host=operatorb.operatorb-ns.svc.cluster.local \
+            --dry-run
+    - name: Deploy cordapps to operatorc in K8s cluster
+      run: |
+          kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
+             operatorc-ns/$(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl cp ./corda-driver/workflows/build/libs/5gzorro-workflows-${{ env.RELEASE_VERSION }}.jar \
+             operatorc-ns/$(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl -n operatorc-ns delete pod $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2)
+    - name: Deploy SCLM api to operatorc
+      run: |
+          helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
+            --namespace operatorc-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set postgres.username=${{ secrets.OPERATORC_POSTGRES_USERNAME }} \
+            --set postgres.password=${{ secrets.OPERATORC_POSTGRES_PASSWORD }} \
+            --set postgres.name=operator_c_sclm \
+            --set service.prefix=/operatorc \
+            --set corda.username=${{ secrets.OPERATORC_CORDA_USERNAME }} \
+            --set corda.password=${{ secrets.OPERATORC_CORDA_PASSWORD }} \
+            --set corda.host=operatorc.operatorc-ns.svc.cluster.local \
+            --dry-run
+    - name: Deploy cordapps to regulatora in K8s cluster
+      run: |
+          kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
+             regulatora-ns/$(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl cp ./corda-driver/workflows/build/libs/5gzorro-workflows-${{ env.RELEASE_VERSION }}.jar \
+             regulatora-ns/$(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+          kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+          kubectl -n regulatora-ns delete pod $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2)
+    - name: Deploy SCLM api to regulatora
+      run: |
+          helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
+            --namespace regulatora-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set postgres.username=${{ secrets.REGULATORA_POSTGRES_USERNAME }} \
+            --set postgres.password=${{ secrets.REGULATORA_POSTGRES_PASSWORD }} \
+            --set postgres.name=regulator_a_sclm \
+            --set service.prefix=/regulatora \
+            --set corda.username=${{ secrets.REGULATORA_CORDA_USERNAME }} \
+            --set corda.password=${{ secrets.REGULATORA_CORDA_PASSWORD }} \
+            --set corda.host=regulatora.regulatora-ns.svc.cluster.local \
+            --dry-run
