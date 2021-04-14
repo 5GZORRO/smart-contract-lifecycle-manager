@@ -75,8 +75,7 @@ jobs:
             --set service.prefix=/operatora \
             --set corda.username=${{ secrets.OPERATORA_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORA_CORDA_PASSWORD }} \
-            --set corda.host=operatora.operatora-ns.svc.cluster.local \
-            --dry-run
+            --set corda.host=operatora.operatora-ns.svc.cluster.local
     - name: Deploy cordapps to operatorb in K8s cluster
       run: |
           kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
@@ -97,8 +96,7 @@ jobs:
             --set service.prefix=/operatorb \
             --set corda.username=${{ secrets.OPERATORB_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORB_CORDA_PASSWORD }} \
-            --set corda.host=operatorb.operatorb-ns.svc.cluster.local \
-            --dry-run
+            --set corda.host=operatorb.operatorb-ns.svc.cluster.local
     - name: Deploy cordapps to operatorc in K8s cluster
       run: |
           kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
@@ -119,8 +117,7 @@ jobs:
             --set service.prefix=/operatorc \
             --set corda.username=${{ secrets.OPERATORC_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORC_CORDA_PASSWORD }} \
-            --set corda.host=operatorc.operatorc-ns.svc.cluster.local \
-            --dry-run
+            --set corda.host=operatorc.operatorc-ns.svc.cluster.local
     - name: Deploy cordapps to regulatora in K8s cluster
       run: |
           kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
@@ -141,5 +138,4 @@ jobs:
             --set service.prefix=/regulatora \
             --set corda.username=${{ secrets.REGULATORA_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.REGULATORA_CORDA_PASSWORD }} \
-            --set corda.host=regulatora.regulatora-ns.svc.cluster.local \
-            --dry-run
+            --set corda.host=regulatora.regulatora-ns.svc.cluster.local
