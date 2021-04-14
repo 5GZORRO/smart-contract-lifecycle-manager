@@ -1054,6 +1054,46 @@
   ],
   "openapi": "3.0.1",
   "paths": {
+    "/product-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOffering",
+        "responses": {
+          "200": {
+            "description": "Published product offering",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Product Offer"
+        ]
+      }
+    },
     "/product-offer/{offerId}": {
       "delete": {
         "operationId": "removeProductOffering",
@@ -1137,46 +1177,6 @@
             "required": true
           }
         ],
-        "tags": [
-          "Product Offer"
-        ]
-      }
-    },
-    "/product-offer": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PublishProductOfferingRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "operationId": "publishProductOffering",
-        "responses": {
-          "200": {
-            "description": "Published product offering",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
         "tags": [
           "Product Offer"
         ]
