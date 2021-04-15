@@ -69,6 +69,7 @@ jobs:
       run: |
           helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
             --namespace operatora-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set dockerTag=${{ env.RELEASE_VERSION }} \
             --set postgres.username=${{ secrets.OPERATORA_POSTGRES_USERNAME }} \
             --set postgres.password=${{ secrets.OPERATORA_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_a_sclm \
@@ -90,6 +91,7 @@ jobs:
       run: |
           helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
             --namespace operatorb-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set dockerTag=${{ env.RELEASE_VERSION }} \
             --set postgres.username=${{ secrets.OPERATORB_POSTGRES_USERNAME }} \
             --set postgres.password=${{ secrets.OPERATORB_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_b_sclm \
@@ -111,6 +113,7 @@ jobs:
       run: |
           helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
             --namespace operatorc-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set dockerTag=${{ env.RELEASE_VERSION }} \
             --set postgres.username=${{ secrets.OPERATORC_POSTGRES_USERNAME }} \
             --set postgres.password=${{ secrets.OPERATORC_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_c_sclm \
@@ -132,6 +135,7 @@ jobs:
       run: |
           helm upgrade smart-contract-lifecycle-manager-api ./helm/charts/smart-contract-lifecycle-manager/ \
             --namespace regulatora-ns --values ./helm/charts/smart-contract-lifecycle-manager/values.yaml \
+            --set dockerTag=${{ env.RELEASE_VERSION }} \
             --set postgres.username=${{ secrets.REGULATORA_POSTGRES_USERNAME }} \
             --set postgres.password=${{ secrets.REGULATORA_POSTGRES_PASSWORD }} \
             --set postgres.name=regulator_a_sclm \
