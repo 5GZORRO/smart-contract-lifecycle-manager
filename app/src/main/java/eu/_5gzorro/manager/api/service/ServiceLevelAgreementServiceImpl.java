@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu._5gzorro.manager.api.model.AuthData;
 import eu._5gzorro.manager.api.model.entity.ServiceLevelAgreementWrapper;
 import eu._5gzorro.manager.api.model.enumureration.EntityStatus;
+import eu._5gzorro.manager.api.model.exception.DIDCreationException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementStatusException;
 import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
@@ -84,13 +85,13 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         UUID slaId = uuidSource.newUUID();
 
-//        try {
-//            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
-//            identityClient.createDID(callbackUrl, authData.getAuthToken());
-//        }
-//        catch (Exception ex) {
-//            throw new DIDCreationException(ex);
-//        }
+        try {
+            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
+            identityClient.createDID(callbackUrl, authData.getAuthToken());
+        }
+        catch (Exception ex) {
+            throw new DIDCreationException(ex);
+        }
 
         ServiceLevelAgreementWrapper sla = new ServiceLevelAgreementWrapper();
         sla.setId(slaId);

@@ -28,8 +28,19 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     }
 
     @Override
-    public ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(String did) throws JsonProcessingException {
-        return ResponseEntity.ok(slaService.getSLAByDid(did));
+    public ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(String identifier) throws JsonProcessingException {
+
+        ServiceLevelAgreement sla;
+
+        try {
+            UUID id = UUID.fromString(identifier);
+            sla = slaService.getSLAById(id);
+        }
+        catch(IllegalArgumentException e) {
+            sla = slaService.getSLAByDid(identifier);
+        }
+
+        return ResponseEntity.ok(sla);
     }
 
     @Override

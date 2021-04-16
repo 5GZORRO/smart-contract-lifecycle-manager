@@ -6,16 +6,15 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name="service_level_agreement")
+@Table(name="service_level_agreement", indexes = {
+        @Index(name = "ix_did", unique = true, columnList = "did")
+})
 @TypeDef(
         name = "jsonb",
         typeClass = JsonBinaryType.class
@@ -25,7 +24,7 @@ public class ServiceLevelAgreementWrapper {
     private UUID id;
 
     @NaturalId(mutable=true) //mutable to allow null -> did
-    @Column(name="did", nullable = true, unique = true)
+    @Column(name="did", unique = true)
     private String did;
 
     private EntityStatus status = EntityStatus.CREATING;

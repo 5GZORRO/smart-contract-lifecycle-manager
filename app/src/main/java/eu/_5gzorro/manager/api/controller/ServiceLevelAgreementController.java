@@ -35,17 +35,17 @@ public interface ServiceLevelAgreementController {
     @PageableOperation
     ResponseEntity<PagedSlaResponse> getServiceLevelAgreements(final @Parameter(hidden = true) Pageable pageable);
 
-    @Operation(description = "Get an SLA by DID")
+    @Operation(description = "Get an SLA by id or DID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "An SLA matching the provided id",
+            @ApiResponse(responseCode = "200", description = "An SLA matching the provided identifier",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceLevelAgreement.class, name = "Service Level Agreement")) }),
             @ApiResponse(responseCode = "400", description = "Invalid id was provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
+            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided Identifier",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @GetMapping("{did}")
-    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String did) throws JsonProcessingException;
+    @GetMapping("{identifier}")
+    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String identifier) throws JsonProcessingException;
 
     @Operation(description = "Create a new Service Level Agreement definition")
     @ApiResponses(value = {
