@@ -1,17 +1,29 @@
 package eu._5gzorro.manager.api.controller.dto.requests;
 
 import eu._5gzorro.manager.domain.Invitation;
+import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
-import java.util.Collection;
-import java.util.Map;
+import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
+import eu._5gzorro.tm_forum.models.product.ProductSpecification;
+import eu._5gzorro.tm_forum.models.resource.ResourceSpecification;
+import eu._5gzorro.tm_forum.models.service.ServiceSpecification;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class PublishProductOfferingRequest {
-  @NotNull
-  private ProductOffering productOffering;
+  @NotNull private ProductOffering productOffering;
   private Map<String, Invitation> invitations;
   private Collection<VerifiableCredential> verifiableCredentials;
+  @NotBlank private String did;
+  @NotNull private List<ProductOfferingPrice> productOfferingPrices;
+  @NotNull private ProductSpecification productSpecification;
+  @NotNull private List<ResourceSpecification> resourceSpecifications;
+  @NotNull private List<ServiceSpecification> serviceSpecifications;
 
   public ProductOffering getProductOffering() {
     return productOffering;
@@ -41,5 +53,60 @@ public class PublishProductOfferingRequest {
       Collection<VerifiableCredential> verifiableCredentials) {
     this.verifiableCredentials = verifiableCredentials;
     return this;
+  }
+
+  public String getDid() {
+    return did;
+  }
+
+  public PublishProductOfferingRequest setDid(String did) {
+    this.did = did;
+    return this;
+  }
+
+  public List<ProductOfferingPrice> getProductOfferingPrices() {
+    return productOfferingPrices;
+  }
+
+  public PublishProductOfferingRequest setProductOfferingPrices(List<ProductOfferingPrice> productOfferingPrices) {
+    this.productOfferingPrices = productOfferingPrices;
+    return this;
+  }
+
+  public ProductSpecification getProductSpecification() {
+    return productSpecification;
+  }
+
+  public PublishProductOfferingRequest setProductSpecification(ProductSpecification productSpecification) {
+    this.productSpecification = productSpecification;
+    return this;
+  }
+
+  public List<ResourceSpecification> getResourceSpecifications() {
+    return resourceSpecifications;
+  }
+
+  public PublishProductOfferingRequest setResourceSpecifications(List<ResourceSpecification> resourceSpecifications) {
+    this.resourceSpecifications = resourceSpecifications;
+    return this;
+  }
+
+  public List<ServiceSpecification> getServiceSpecifications() {
+    return serviceSpecifications;
+  }
+
+  public PublishProductOfferingRequest setServiceSpecifications(List<ServiceSpecification> serviceSpecifications) {
+    this.serviceSpecifications = serviceSpecifications;
+    return this;
+  }
+
+  public ProductOfferDetails toOfferDetails() {
+    return new ProductOfferDetails()
+        .setProductOffering(productOffering)
+        .setProductSpecification(productSpecification)
+        .setResourceSpecifications(resourceSpecifications)
+        .setServiceSpecifications(serviceSpecifications)
+        .setProductOfferingPrices(productOfferingPrices)
+        .setDid(did);
   }
 }

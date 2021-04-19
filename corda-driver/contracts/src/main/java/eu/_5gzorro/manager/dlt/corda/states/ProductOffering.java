@@ -1,14 +1,10 @@
 package eu._5gzorro.manager.dlt.corda.states;
 
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract;
-import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
-import java.security.PublicKey;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import eu._5gzorro.manager.domain.Invitation;
+import eu._5gzorro.manager.domain.ProductOfferDetails;
+import eu._5gzorro.manager.domain.VerifiableCredential;
 import net.corda.core.contracts.BelongsToContract;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
@@ -16,13 +12,18 @@ import net.corda.core.identity.Party;
 import net.corda.core.serialization.CordaSerializable;
 import org.jetbrains.annotations.NotNull;
 
+import java.security.PublicKey;
+import java.util.*;
+import java.util.stream.Collectors;
+
 @BelongsToContract(ProductOfferingContract.class)
 @CordaSerializable
 public class ProductOffering extends PublicState {
   private OfferType offerType;
   private String name;
-  private eu._5gzorro.tm_forum.models.product.ProductOffering productOffering;
   private Map<String, Invitation> didInvitations;
+  private Collection<VerifiableCredential> verifiableCredentials;
+  private ProductOfferDetails offerDetails;
 
   private final Party governanceParty;
   private final Party spectrumOracle;
@@ -32,15 +33,17 @@ public class ProductOffering extends PublicState {
       @NotNull OfferType offerType,
       @NotNull String name,
       @NotNull Party owner,
-      @NotNull eu._5gzorro.tm_forum.models.product.ProductOffering productOffering,
       Map<String, Invitation> didInvitations,
+      Collection<VerifiableCredential> verifiableCredentials,
       @NotNull Party governanceParty,
-      Party spectrumOracle
+      Party spectrumOracle,
+      @NotNull ProductOfferDetails offerDetails
   ) {
     super(id, owner);
     this.offerType = offerType;
     this.name = name;
-    this.productOffering = productOffering;
+    this.verifiableCredentials = verifiableCredentials;
+    this.offerDetails = offerDetails;
     this.didInvitations = didInvitations;
     this.governanceParty = governanceParty;
     this.spectrumOracle = spectrumOracle;
@@ -54,13 +57,12 @@ public class ProductOffering extends PublicState {
     return name;
   }
 
-  public eu._5gzorro.tm_forum.models.product.ProductOffering getProductOffering() {
-    return productOffering;
+  public ProductOfferDetails getOfferDetails() {
+    return offerDetails;
   }
 
-  public ProductOffering setProductOffering(
-      eu._5gzorro.tm_forum.models.product.ProductOffering productOffering) {
-    this.productOffering = productOffering;
+  public ProductOffering setOfferDetails(ProductOfferDetails offerDetails) {
+    this.offerDetails = offerDetails;
     return this;
   }
 
@@ -88,6 +90,15 @@ public class ProductOffering extends PublicState {
 
   public ProductOffering setDidInvitations(Map<String, Invitation> didInvitations) {
     this.didInvitations = didInvitations;
+    return this;
+  }
+
+  public Collection<VerifiableCredential> getVerifiableCredentials() {
+    return verifiableCredentials;
+  }
+
+  public ProductOffering setVerifiableCredentials(Collection<VerifiableCredential> verifiableCredentials) {
+    this.verifiableCredentials = verifiableCredentials;
     return this;
   }
 
@@ -140,10 +151,11 @@ public class ProductOffering extends PublicState {
         offerType,
         name,
         getOwner(),
-        productOffering,
         didInvitations,
+        verifiableCredentials,
         governanceParty,
-        spectrumOracle
+        spectrumOracle,
+        offerDetails
     );
   }
 }

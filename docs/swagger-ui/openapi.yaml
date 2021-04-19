@@ -1,6 +1,38 @@
 {
   "components": {
     "schemas": {
+      "ResourceSpecRelationship": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
       "AgreementRef": {
         "type": "object",
         "properties": {
@@ -59,6 +91,76 @@
           },
           "baseType": {
             "type": "string"
+          }
+        }
+      },
+      "ServiceSpecCharacteristic": {
+        "type": "object",
+        "properties": {
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "isUnique": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "serviceSpecCharacteristicValue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecCharacteristicValue"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "valueSchemaLocation": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "maxCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "minCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "serviceSpecCharRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecCharRelationship"
+            }
+          },
+          "regex": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "extensible": {
+            "type": "boolean"
+          },
+          "configurable": {
+            "type": "boolean"
           }
         }
       },
@@ -151,44 +253,28 @@
           }
         }
       },
-      "Any": {
+      "Feature": {
         "type": "object",
         "properties": {
-          "alias": {
-            "type": "string"
+          "isBundle": {
+            "type": "boolean"
           },
-          "value": {
-            "type": "string"
-          }
-        }
-      },
-      "UpdateProductOfferingRequest": {
-        "type": "object",
-        "required": [
-          "productOffering"
-        ],
-        "properties": {
-          "productOffering": {
-            "$ref": "#/components/schemas/ProductOffering"
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
           },
-          "invitations": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Invitation"
-            },
-            "type": "object"
-          },
-          "verifiableCredentials": {
-            "$ref": "#/components/schemas/VerifiableCredential"
-          }
-        }
-      },
-      "TargetProductSchema": {
-        "type": "object",
-        "properties": {
           "schemaLocation": {
             "type": "string"
           },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
           "href": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           },
           "type": {
@@ -197,43 +283,78 @@
           "uuid": {
             "type": "string"
           },
+          "version": {
+            "type": "string"
+          },
           "baseType": {
             "type": "string"
           }
         }
       },
-      "VerifiableCredential": {
-        "type": "object"
-      },
-      "BundledProductOfferingOption": {
+      "ResourceSpecCharacteristic": {
         "type": "object",
         "properties": {
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
           "schemaLocation": {
             "type": "string"
           },
-          "numberRelOfferDefault": {
-            "format": "int32",
-            "type": "integer"
+          "isUnique": {
+            "type": "boolean"
           },
-          "numberRelOfferLowerLimit": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "numberRelOfferUpperLimit": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "href": {
+          "description": {
             "type": "string"
           },
           "type": {
             "type": "string"
           },
+          "valueSchemaLocation": {
+            "type": "string"
+          },
           "uuid": {
             "type": "string"
           },
+          "maxCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
           "baseType": {
             "type": "string"
+          },
+          "resourceSpecCharacteristicValue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecCharacteristicValue"
+            }
+          },
+          "minCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "resourceSpecCharRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecCharRelationship"
+            }
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "extensible": {
+            "type": "boolean"
+          },
+          "configurable": {
+            "type": "boolean"
           }
         }
       },
@@ -394,19 +515,22 @@
           }
         }
       },
-      "ProductSpecificationCharacteristicValue": {
+      "ServiceLevelSpecificationRef": {
         "type": "object",
         "properties": {
-          "valueTo": {
+          "referredType": {
             "type": "string"
-          },
-          "unitOfMeasure": {
-            "type": "string"
-          },
-          "validFor": {
-            "$ref": "#/components/schemas/TimePeriod"
           },
           "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
             "type": "string"
           },
           "type": {
@@ -415,29 +539,8 @@
           "uuid": {
             "type": "string"
           },
-          "valueFrom": {
-            "type": "string"
-          },
           "baseType": {
             "type": "string"
-          },
-          "rangeInterval": {
-            "type": "string"
-          },
-          "isDefault": {
-            "type": "boolean"
-          },
-          "regex": {
-            "type": "string"
-          },
-          "valueType": {
-            "type": "string"
-          },
-          "href": {
-            "type": "string"
-          },
-          "value": {
-            "$ref": "#/components/schemas/Any"
           }
         }
       },
@@ -498,26 +601,136 @@
           }
         }
       },
-      "PublishProductOfferingRequest": {
+      "TargetServiceSchema": {
         "type": "object",
-        "required": [
-          "productOffering"
-        ],
         "properties": {
-          "productOffering": {
-            "$ref": "#/components/schemas/ProductOffering"
+          "schemaLocation": {
+            "type": "string"
           },
-          "invitations": {
-            "additionalProperties": {
-              "$ref": "#/components/schemas/Invitation"
-            },
-            "type": "object"
+          "href": {
+            "type": "string"
           },
-          "verifiableCredentials": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/VerifiableCredential"
-            }
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "AttachmentRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSpecificationRelationship": {
+        "type": "object",
+        "properties": {
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceSpecCharacteristicValue": {
+        "type": "object",
+        "properties": {
+          "valueTo": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unitOfMeasure": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "valueFrom": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "rangeInterval": {
+            "type": "string"
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/Any"
           }
         }
       },
@@ -550,18 +763,6 @@
           "status": {
             "format": "int32",
             "type": "integer"
-          }
-        }
-      },
-      "Quantity": {
-        "type": "object",
-        "properties": {
-          "amount": {
-            "format": "float",
-            "type": "number"
-          },
-          "units": {
-            "type": "string"
           }
         }
       },
@@ -672,6 +873,1339 @@
             "type": "string"
           },
           "href": {
+            "type": "string"
+          }
+        }
+      },
+      "RelatedParty": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "extendedInfo": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceCandidateRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string"
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "BundledProductOffering": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "bundledProductOfferingOption": {
+            "$ref": "#/components/schemas/BundledProductOfferingOption"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSpecificationCharacteristicRelationship": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "charSpecSeq": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceSpecificationRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceSpecification": {
+        "type": "object",
+        "properties": {
+          "isBundle": {
+            "type": "boolean"
+          },
+          "targetServiceSchema": {
+            "$ref": "#/components/schemas/TargetServiceSchema"
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "serviceLevelSpecification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceLevelSpecificationRef"
+            }
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "resourceSpecification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecificationRef"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            }
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "attachment": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentRef"
+            }
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "serviceSpecCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecCharacteristic"
+            }
+          },
+          "serviceSpecRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecRelationship"
+            }
+          }
+        }
+      },
+      "ServiceSpecificationRef": {
+        "type": "object",
+        "properties": {
+          "targetServiceSchema": {
+            "$ref": "#/components/schemas/TargetServiceSchema"
+          },
+          "referredType": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceSpecRelationship": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "Any": {
+        "type": "object",
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateProductOfferingRequest": {
+        "type": "object",
+        "required": [
+          "did",
+          "productOffering",
+          "productOfferingPrices",
+          "productSpecification",
+          "resourceSpecifications",
+          "serviceSpecifications"
+        ],
+        "properties": {
+          "productOfferingPrices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferingPrice"
+            }
+          },
+          "productSpecification": {
+            "$ref": "#/components/schemas/ProductSpecification"
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOffering"
+          },
+          "invitations": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Invitation"
+            },
+            "type": "object"
+          },
+          "resourceSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecification"
+            }
+          },
+          "serviceSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecification"
+            }
+          },
+          "did": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductOfferingPrice": {
+        "type": "object",
+        "properties": {
+          "isBundle": {
+            "type": "boolean"
+          },
+          "popRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferingPriceRelationship"
+            }
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "recurringChargePeriodType": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "recurringChargePeriodLength": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "price": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "percentage": {
+            "format": "float",
+            "type": "number"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "place": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlaceRef"
+            }
+          },
+          "bundledPopRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BundledProductOfferingPriceRelationship"
+            }
+          },
+          "productOfferingTerm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferingTerm"
+            }
+          },
+          "prodSpecCharValueUse": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSpecificationCharacteristicValueUse"
+            }
+          },
+          "unitOfMeasure": {
+            "$ref": "#/components/schemas/Quantity"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "priceType": {
+            "type": "string"
+          },
+          "tax": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxItem"
+            }
+          },
+          "version": {
+            "type": "string"
+          },
+          "pricingLogicAlgorithm": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PricingLogicAlgorithm"
+            }
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "constraint": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConstraintRef"
+            }
+          }
+        }
+      },
+      "TargetProductSchema": {
+        "type": "object",
+        "properties": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "VerifiableCredential": {
+        "type": "object"
+      },
+      "Money": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "value": {
+            "format": "float",
+            "type": "number"
+          }
+        }
+      },
+      "BundledProductOfferingOption": {
+        "type": "object",
+        "properties": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "numberRelOfferDefault": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "numberRelOfferLowerLimit": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "numberRelOfferUpperLimit": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceSpecCharRelationship": {
+        "type": "object",
+        "properties": {
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          }
+        }
+      },
+      "BundledProductSpecification": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSpecificationCharacteristicValue": {
+        "type": "object",
+        "properties": {
+          "valueTo": {
+            "type": "string"
+          },
+          "unitOfMeasure": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "valueFrom": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "rangeInterval": {
+            "type": "string"
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/Any"
+          }
+        }
+      },
+      "ConstraintRef": {
+        "type": "object",
+        "properties": {
+          "referredType": {
+            "type": "string"
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "PublishProductOfferingRequest": {
+        "type": "object",
+        "required": [
+          "did",
+          "productOffering",
+          "productOfferingPrices",
+          "productSpecification",
+          "resourceSpecifications",
+          "serviceSpecifications"
+        ],
+        "properties": {
+          "productOfferingPrices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductOfferingPrice"
+            }
+          },
+          "productSpecification": {
+            "$ref": "#/components/schemas/ProductSpecification"
+          },
+          "productOffering": {
+            "$ref": "#/components/schemas/ProductOffering"
+          },
+          "invitations": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Invitation"
+            },
+            "type": "object"
+          },
+          "verifiableCredentials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VerifiableCredential"
+            }
+          },
+          "resourceSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecification"
+            }
+          },
+          "serviceSpecifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecification"
+            }
+          },
+          "did": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductOfferingPriceRelationship": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Quantity": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "format": "float",
+            "type": "number"
+          },
+          "units": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceSpecification": {
+        "type": "object",
+        "properties": {
+          "isBundle": {
+            "type": "boolean"
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            }
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "resourceSpecCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecCharacteristic"
+            }
+          },
+          "resourceSpecRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecRelationship"
+            }
+          },
+          "attachment": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentRef"
+            }
+          },
+          "feature": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feature"
+            }
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "targetResourceSchema": {
+            "$ref": "#/components/schemas/TargetResourceSchemaRef"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductSpecification": {
+        "type": "object",
+        "properties": {
+          "isBundle": {
+            "type": "boolean"
+          },
+          "productSpecCharacteristic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSpecificationCharacteristic"
+            }
+          },
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "targetProductSchema": {
+            "$ref": "#/components/schemas/TargetProductSchema"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "resourceSpecification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ResourceSpecificationRef"
+            }
+          },
+          "serviceSpecification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceSpecificationRef"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "productNumber": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedParty"
+            }
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "attachment": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentRefOrValue"
+            }
+          },
+          "bundledProductSpecification": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BundledProductSpecification"
+            }
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productSpecificationRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSpecificationRelationship"
+            }
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "brand": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceSpecCharacteristicValue": {
+        "type": "object",
+        "properties": {
+          "valueTo": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unitOfMeasure": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "valueFrom": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "rangeInterval": {
+            "type": "string"
+          },
+          "isDefault": {
+            "type": "boolean"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/Any"
+          }
+        }
+      },
+      "TaxItem": {
+        "type": "object",
+        "properties": {
+          "taxRate": {
+            "format": "float",
+            "type": "number"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "taxAmount": {
+            "$ref": "#/components/schemas/Money"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "taxCategory": {
+            "type": "string"
+          }
+        }
+      },
+      "BundledProductOfferingPriceRelationship": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceSpecCharRelationship": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "relationshipType": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "PricingLogicAlgorithm": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "plaSpecId": {
             "type": "string"
           }
         }
@@ -798,120 +2332,6 @@
           }
         }
       },
-      "ResourceCandidateRef": {
-        "type": "object",
-        "properties": {
-          "referredType": {
-            "type": "string"
-          },
-          "lifecycleStatus": {
-            "type": "string"
-          },
-          "validFor": {
-            "$ref": "#/components/schemas/TimePeriod"
-          },
-          "schemaLocation": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "baseType": {
-            "type": "string"
-          },
-          "lifecycleStatusEnum": {
-            "type": "string",
-            "enum": [
-              "In study",
-              "In design",
-              "In test",
-              "Active",
-              "Launched",
-              "Retired",
-              "Obsolete",
-              "Rejected"
-            ]
-          },
-          "lastUpdate": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "href": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        }
-      },
-      "BundledProductOffering": {
-        "type": "object",
-        "properties": {
-          "lifecycleStatus": {
-            "type": "string"
-          },
-          "validFor": {
-            "$ref": "#/components/schemas/TimePeriod"
-          },
-          "schemaLocation": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "version": {
-            "type": "string"
-          },
-          "baseType": {
-            "type": "string"
-          },
-          "bundledProductOfferingOption": {
-            "$ref": "#/components/schemas/BundledProductOfferingOption"
-          },
-          "lifecycleStatusEnum": {
-            "type": "string",
-            "enum": [
-              "In study",
-              "In design",
-              "In test",
-              "Active",
-              "Launched",
-              "Retired",
-              "Obsolete",
-              "Rejected"
-            ]
-          },
-          "lastUpdate": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "href": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          }
-        }
-      },
       "AttachmentRefOrValue": {
         "type": "object",
         "properties": {
@@ -984,6 +2404,92 @@
           }
         }
       },
+      "ProductSpecificationCharacteristic": {
+        "type": "object",
+        "properties": {
+          "lifecycleStatus": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "isUnique": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "maxCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "baseType": {
+            "type": "string"
+          },
+          "minCardinality": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "regex": {
+            "type": "string"
+          },
+          "lifecycleStatusEnum": {
+            "type": "string",
+            "enum": [
+              "In study",
+              "In design",
+              "In test",
+              "Active",
+              "Launched",
+              "Retired",
+              "Obsolete",
+              "Rejected"
+            ]
+          },
+          "lastUpdate": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "productSpecCharRelationship": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSpecificationCharacteristicRelationship"
+            }
+          },
+          "productSpecCharacteristicValue": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductSpecificationCharacteristicValue"
+            }
+          },
+          "href": {
+            "type": "string"
+          },
+          "extensible": {
+            "type": "boolean"
+          },
+          "configurable": {
+            "type": "boolean"
+          }
+        }
+      },
       "ProductSpecificationRef": {
         "type": "object",
         "properties": {
@@ -1040,6 +2546,26 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          }
+        }
+      },
+      "TargetResourceSchemaRef": {
+        "type": "object",
+        "properties": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
+            "type": "string"
+          },
+          "baseType": {
             "type": "string"
           }
         }

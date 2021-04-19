@@ -7,6 +7,7 @@ import eu._5gzorro.manager.api.controller.dto.requests.UpdateProductOfferingRequ
 import eu._5gzorro.manager.api.service.ProductOfferingService;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
+import eu._5gzorro.tm_forum.models.product.ProductSpecification;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Collections;
 
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -56,6 +58,11 @@ public class ProductOfferingControllerTest {
   public void testPublishProductOffering() throws Exception {
     PublishProductOfferingRequest request = new PublishProductOfferingRequest()
         .setProductOffering(new ProductOffering())
+        .setProductSpecification(new ProductSpecification())
+        .setProductOfferingPrices(emptyList())
+        .setResourceSpecifications(emptyList())
+        .setServiceSpecifications(emptyList())
+        .setDid("someDid")
         .setInvitations(Collections.emptyMap())
         .setVerifiableCredentials(null);
 
@@ -92,8 +99,12 @@ public class ProductOfferingControllerTest {
   public void testUpdateProductOffering() throws Exception {
     UpdateProductOfferingRequest request = new UpdateProductOfferingRequest()
         .setProductOffering(new ProductOffering())
-        .setInvitations(Collections.emptyMap())
-        .setVerifiableCredentials(null);
+        .setProductSpecification(new ProductSpecification())
+        .setProductOfferingPrices(emptyList())
+        .setResourceSpecifications(emptyList())
+        .setServiceSpecifications(emptyList())
+        .setDid("someDid")
+        .setInvitations(Collections.emptyMap());
 
     MvcResult mvcResult = mockMvc
         .perform(MockMvcRequestBuilders
