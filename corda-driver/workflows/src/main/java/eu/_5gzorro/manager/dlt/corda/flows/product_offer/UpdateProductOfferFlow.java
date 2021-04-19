@@ -44,10 +44,14 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
 
     Command<Update> command = new Command<>(new Update(), requiredSigners);
 
-    TransactionBuilder txBuilder = new TransactionBuilder(firstNotary())
-        .addCommand(command)
-        .addInputState(prevStateAndRef)
-        .addOutputState(productOffering);
+    TransactionBuilder txBuilder =
+        new TransactionBuilder(firstNotary())
+            .addCommand(command)
+            .addInputState(prevStateAndRef)
+            .addOutputState(
+                productOffering.setVerifiableCredentials(
+                    prevStateAndRef.getState().getData().getVerifiableCredentials())
+            );
 
     txBuilder.verify(getServiceHub());
 

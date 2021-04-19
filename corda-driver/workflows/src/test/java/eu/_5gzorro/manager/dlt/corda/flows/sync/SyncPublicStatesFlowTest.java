@@ -28,6 +28,7 @@ public class SyncPublicStatesFlowTest extends TwoOperatorTestCase {
         null,
         null,
         governanceParty,
+        null,
         null
     );
 

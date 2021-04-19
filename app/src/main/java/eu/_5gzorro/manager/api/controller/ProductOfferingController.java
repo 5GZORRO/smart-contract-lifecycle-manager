@@ -37,7 +37,7 @@ public class ProductOfferingController {
       @RequestBody @NotNull PublishProductOfferingRequest request) {
     driver
         .publishProductOffering(
-            request.getProductOffering(),
+            request.toOfferDetails(),
             request.getInvitations(),
             request.getVerifiableCredentials(),
             null
@@ -74,7 +74,7 @@ public class ProductOfferingController {
   ) {
     driver
         .updateProductOffer(
-            request.getProductOffering(),
+            request.toOfferDetails(),
             null
         );
     return ResponseEntity.ok().body(true);

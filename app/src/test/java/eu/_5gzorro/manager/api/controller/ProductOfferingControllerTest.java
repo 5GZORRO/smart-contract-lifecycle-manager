@@ -92,8 +92,7 @@ public class ProductOfferingControllerTest {
   public void testUpdateProductOffering() throws Exception {
     UpdateProductOfferingRequest request = new UpdateProductOfferingRequest()
         .setProductOffering(new ProductOffering())
-        .setInvitations(Collections.emptyMap())
-        .setVerifiableCredentials(null);
+        .setInvitations(Collections.emptyMap());
 
     MvcResult mvcResult = mockMvc
         .perform(MockMvcRequestBuilders
