@@ -1286,7 +1286,12 @@
       "UpdateProductOfferingRequest": {
         "type": "object",
         "required": [
-          "productOffering"
+          "did",
+          "productOffering",
+          "productOfferingPrices",
+          "productSpecification",
+          "resourceSpecifications",
+          "serviceSpecifications"
         ],
         "properties": {
           "productOfferingPrices": {
@@ -1690,7 +1695,12 @@
       "PublishProductOfferingRequest": {
         "type": "object",
         "required": [
-          "productOffering"
+          "did",
+          "productOffering",
+          "productOfferingPrices",
+          "productSpecification",
+          "resourceSpecifications",
+          "serviceSpecifications"
         ],
         "properties": {
           "productOfferingPrices": {
