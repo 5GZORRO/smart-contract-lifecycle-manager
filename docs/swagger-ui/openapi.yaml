@@ -446,6 +446,32 @@
           }
         }
       },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "offset": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "pageSize": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          }
+        }
+      },
       "MarketSegmentRef": {
         "type": "object",
         "properties": {
@@ -558,32 +584,6 @@
           },
           "baseType": {
             "type": "string"
-          }
-        }
-      },
-      "Pageable": {
-        "type": "object",
-        "properties": {
-          "paged": {
-            "type": "boolean"
-          },
-          "pageNumber": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "offset": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "pageSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "unpaged": {
-            "type": "boolean"
-          },
-          "sort": {
-            "$ref": "#/components/schemas/Sort"
           }
         }
       },
@@ -1082,6 +1082,32 @@
           }
         }
       },
+      "Rule": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "consequence": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "tolerance": {
+            "type": "string"
+          },
+          "referenceValue": {
+            "type": "string"
+          }
+        }
+      },
       "BundledProductOffering": {
         "type": "object",
         "properties": {
@@ -1228,32 +1254,6 @@
             "type": "string"
           },
           "baseType": {
-            "type": "string"
-          }
-        }
-      },
-      "Rule": {
-        "type": "object",
-        "properties": {
-          "unit": {
-            "type": "string"
-          },
-          "consequence": {
-            "type": "string"
-          },
-          "metric": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "operator": {
-            "type": "string"
-          },
-          "tolerance": {
-            "type": "string"
-          },
-          "referenceValue": {
             "type": "string"
           }
         }
@@ -1665,16 +1665,16 @@
             "format": "int32",
             "type": "integer"
           },
-          "size": {
-            "format": "int32",
-            "type": "integer"
-          },
           "numberOfElements": {
             "format": "int32",
             "type": "integer"
           },
           "last": {
             "type": "boolean"
+          },
+          "size": {
+            "format": "int32",
+            "type": "integer"
           },
           "totalPages": {
             "format": "int32",
