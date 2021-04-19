@@ -6,6 +6,8 @@ import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +36,7 @@ public class ProductOfferingController {
   })
   @PostMapping
   public ResponseEntity<Boolean> publishProductOffering(
-      @RequestBody @NotNull PublishProductOfferingRequest request) {
+      @Valid @RequestBody @NotNull PublishProductOfferingRequest request) {
     driver
         .publishProductOffering(
             request.toOfferDetails(),
@@ -70,7 +72,7 @@ public class ProductOfferingController {
   @PutMapping("/{offerId}")
   public ResponseEntity<Boolean> updateProductOffering(
       @PathVariable("offerId") String offerId,
-      @RequestBody UpdateProductOfferingRequest request
+      @Valid @RequestBody UpdateProductOfferingRequest request
   ) {
     driver
         .updateProductOffer(

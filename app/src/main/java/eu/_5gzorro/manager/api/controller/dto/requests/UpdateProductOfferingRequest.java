@@ -8,19 +8,19 @@ import eu._5gzorro.tm_forum.models.product.ProductSpecification;
 import eu._5gzorro.tm_forum.models.resource.ResourceSpecification;
 import eu._5gzorro.tm_forum.models.service.ServiceSpecification;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
 public class UpdateProductOfferingRequest {
-  @NotNull
-  private ProductOffering productOffering;
+  @NotNull private ProductOffering productOffering;
   private Map<String, Invitation> invitations;
-  private String did;
-  private List<ProductOfferingPrice> productOfferingPrices;
-  private ProductSpecification productSpecification;
-  private List<ResourceSpecification> resourceSpecifications;
-  private List<ServiceSpecification> serviceSpecifications;
+  @NotBlank private String did;
+  @NotNull private List<ProductOfferingPrice> productOfferingPrices;
+  @NotNull private ProductSpecification productSpecification;
+  @NotNull private List<ResourceSpecification> resourceSpecifications;
+  @NotNull private List<ServiceSpecification> serviceSpecifications;
 
   public ProductOffering getProductOffering() {
     return productOffering;
