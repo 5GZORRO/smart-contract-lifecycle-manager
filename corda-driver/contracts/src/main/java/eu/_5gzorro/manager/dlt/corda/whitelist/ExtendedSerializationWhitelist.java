@@ -1,10 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.whitelist;
 
-import eu._5gzorro.manager.domain.Invitation;
-import eu._5gzorro.manager.domain.Place;
-import eu._5gzorro.manager.domain.ProductOfferTerm;
-import eu._5gzorro.manager.domain.ServiceCandidate;
-import eu._5gzorro.manager.domain.ServiceLevelAgreement;
+import eu._5gzorro.manager.domain.*;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -28,8 +25,10 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
       whitelist.add(ProductOfferTerm.class);
       whitelist.add(ServiceCandidate.class);
       whitelist.add(ServiceLevelAgreement.class);
+      whitelist.add(ProductOfferDetails.class);
+      whitelist.add(VerifiableCredential.class);
 
-      whitelist.addAll(nextworksWhitelist());
+      whitelist.addAll(tmForumWhitelist());
       log.info("Corda Serialisation class whitelist: {}", whitelist);
       return new ArrayList<>(whitelist);
     } catch (Exception e) {
@@ -38,7 +37,7 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
     }
   }
 
-  private Set<Class<?>> nextworksWhitelist() {
+  private Set<Class<?>> tmForumWhitelist() {
     Set<Class<?>> whitelist = new HashSet<>();
     whitelist.add(eu._5gzorro.tm_forum.models.product.ExportJob.class);
     whitelist

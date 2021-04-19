@@ -3,19 +3,23 @@ package eu._5gzorro.manager.dlt.corda.utils;
 import static net.corda.testing.common.internal.ParametersUtilitiesKt.testNetworkParameters;
 
 import com.google.common.collect.ImmutableList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+
+import eu._5gzorro.manager.dlt.corda.utils.serialization.CustomSerializationEnvironment;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.node.NetworkParameters;
 import net.corda.core.node.NotaryInfo;
-import net.corda.testing.node.MockNetwork;
-import net.corda.testing.node.MockNetworkParameters;
-import net.corda.testing.node.StartedMockNode;
-import net.corda.testing.node.TestCordapp;
+import net.corda.testing.node.*;
+import net.corda.testing.node.internal.TestCordappInternal;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
@@ -37,21 +41,25 @@ public class TwoOperatorTestCase {
 
   @BeforeAll
   public void setup() {
-    Map<String, String> map = Stream.of(new String[][]{
-        {"apiUrl", "http://localhost:8082"},
-    }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+    Map<String, String> map =
+        Stream.of(
+                new String[][] {
+                  {"apiUrl", "http://localhost:8082"},
+                })
+            .collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
     List<NotaryInfo> notaryinfo = Arrays.asList();
     // minimum platform version of 4
     NetworkParameters myNetworkParameters = testNetworkParameters(notaryinfo, 4);
 
-    network = new MockNetwork(
-        new MockNetworkParameters(
-          ImmutableList.of(
-            TestCordapp.findCordapp("eu._5gzorro.manager.dlt.corda.contracts"),
-            TestCordapp.findCordapp("eu._5gzorro.manager.dlt.corda.flows").withConfig(map)
-          )
-        ).withNetworkParameters(myNetworkParameters));
+    network =
+        new ExtendedMockNetwork(
+            new MockNetworkParameters(
+                    ImmutableList.of(
+                        TestCordapp.findCordapp("eu._5gzorro.manager.dlt.corda.contracts"),
+                        TestCordapp.findCordapp("eu._5gzorro.manager.dlt.corda.flows")
+                            .withConfig(map)))
+                .withNetworkParameters(myNetworkParameters));
 
     operator1 = network.createNode(CordaX500Name.parse("O=Operator1,L=Sydney,C=AU"));
     operator2 = network.createNode(CordaX500Name.parse("O=Operator2,L=Madrid,C=ES"));
@@ -64,9 +72,47 @@ public class TwoOperatorTestCase {
     network.runNetwork();
   }
 
+  /**
+   * Simply ensures that resetSerializationEnvironment(cordapps) is called after the main
+   * mockNetwork is initialised to ensure that custom serializers are loaded correctly
+   */
+  public class ExtendedMockNetwork extends MockNetwork {
+    public ExtendedMockNetwork(@NotNull MockNetworkParameters parameters) {
+      super(parameters);
+
+      resetSerializationEnvironment(parameters.getCordappsForAllNodes());
+    }
+  }
+
+  /**
+   * Corda 4.4 MockNetwork implementation does not handle custom CorDapp serializers so reload
+   * SerializationEnvironment after MockNetwork is initialised with the correct ClassLoader
+   * including the cordapps (this ensures the class whitelist is correctly loaded)
+   *
+   * @param cordapps List of cordapps that are being used in the MockNetwork so serializers can be
+   *     loaded correctly
+   * @see <a
+   *     href="https://r3-cev.atlassian.net/browse/CORDA-3643">https://r3-cev.atlassian.net/browse/CORDA-3643</a>
+   */
+  public void resetSerializationEnvironment(@NotNull Collection<TestCordapp> cordapps) {
+    URL[] urls =
+        cordapps.stream()
+            .map(
+                app -> {
+                  try {
+                    return ((TestCordappInternal) app).getJarFile().toUri().toURL();
+                  } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    return null;
+                  }
+                })
+            .toArray(URL[]::new);
+
+    new CustomSerializationEnvironment(new URLClassLoader(urls));
+  }
+
   @AfterAll
   public void tearDown() {
     network.stopNodes();
   }
-
 }

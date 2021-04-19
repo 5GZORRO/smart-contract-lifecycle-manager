@@ -22,9 +22,10 @@ public class PublishedProductOfferTestCase extends TwoOperatorTestCase {
         OfferType.GENERAL,
         "testName",
         operator1Party,
-        null,
         mapOf(new Pair<>("something", new Invitation())),
+        null,
         governanceParty,
+        null,
         null
     );
 

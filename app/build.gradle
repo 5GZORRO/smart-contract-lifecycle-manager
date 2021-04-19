@@ -54,6 +54,8 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:$spring_cloud_open_feign_version")
     implementation("io.github.openfeign:feign-okhttp:$open_feign_version")
     implementation("io.github.openfeign:feign-httpclient:$open_feign_version")
+    implementation("org.springframework.boot:spring-boot-starter-validation:$spring_boot_version")
+
 }
 
 springBoot {
