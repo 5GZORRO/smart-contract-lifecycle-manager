@@ -1,7 +1,11 @@
 package eu._5gzorro.manager.api.controller.advice;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+
+import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
+import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementStatusException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -49,5 +54,26 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     return super.handleExceptionInternal(ex, response, headers, status, request);
+  }
+
+  @ExceptionHandler({ ServiceLevelAgreementNotFoundException.class })
+  @ResponseStatus(value=HttpStatus.NOT_FOUND)
+  @ResponseBody
+  protected ApiErrorResponse handleEntityNotFoundException(HttpServletRequest req, Exception ex) {
+    return new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+  }
+
+  @ExceptionHandler({ ServiceLevelAgreementStatusException.class })
+  @ResponseStatus(value=HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  protected ApiErrorResponse handleInvalidRequests(HttpServletRequest req, Exception ex) {
+    return new ApiErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+  }
+
+  @ExceptionHandler({ HttpServerErrorException.InternalServerError.class })
+  @ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
+  @ResponseBody
+  protected ApiErrorResponse handleErroredRequests(HttpServletRequest req, Exception ex) {
+    return new ApiErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
   }
 }

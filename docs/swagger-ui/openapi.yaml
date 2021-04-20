@@ -164,6 +164,23 @@
           }
         }
       },
+      "RelatedPartyRef": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "name": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
       "ChannelRef": {
         "type": "object",
         "properties": {
@@ -429,6 +446,32 @@
           }
         }
       },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "offset": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "pageSize": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          }
+        }
+      },
       "MarketSegmentRef": {
         "type": "object",
         "properties": {
@@ -541,6 +584,28 @@
           },
           "baseType": {
             "type": "string"
+          }
+        }
+      },
+      "PagedSlaResponse": {
+        "type": "object",
+        "properties": {
+          "pagedSLAs": {
+            "$ref": "#/components/schemas/PageServiceLevelAgreement"
+          }
+        }
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
           }
         }
       },
@@ -766,6 +831,54 @@
           }
         }
       },
+      "ServiceLevelAgreement": {
+        "type": "object",
+        "properties": {
+          "approved": {
+            "type": "boolean"
+          },
+          "templateRef": {
+            "$ref": "#/components/schemas/TemplateRef"
+          },
+          "approvalDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "validFor": {
+            "$ref": "#/components/schemas/TimePeriod"
+          },
+          "name": {
+            "type": "string"
+          },
+          "relatedPartyRefs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedPartyRef"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rule"
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
       "ServiceCandidateRef": {
         "type": "object",
         "properties": {
@@ -965,6 +1078,32 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Rule": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "consequence": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "tolerance": {
+            "type": "string"
+          },
+          "referenceValue": {
             "type": "string"
           }
         }
@@ -1237,6 +1376,17 @@
           }
         }
       },
+      "DIDStateDto": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "did": {
+            "type": "string"
+          }
+        }
+      },
       "ServiceSpecRelationship": {
         "type": "object",
         "properties": {
@@ -1505,6 +1655,52 @@
           },
           "baseType": {
             "type": "string"
+          }
+        }
+      },
+      "PageServiceLevelAgreement": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "numberOfElements": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "size": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "totalPages": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageable"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceLevelAgreement"
+            }
+          },
+          "totalElements": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "empty": {
+            "type": "boolean"
           }
         }
       },
@@ -2404,6 +2600,20 @@
           }
         }
       },
+      "TemplateRef": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
       "ProductSpecificationCharacteristic": {
         "type": "object",
         "properties": {
@@ -2580,6 +2790,387 @@
   ],
   "openapi": "3.0.1",
   "paths": {
+    "/api/v1/service-level-agreement/{id}": {
+      "delete": {
+        "description": "Delete an SLA definition by DID",
+        "operationId": "removeServiceLevelAgreeement",
+        "responses": {
+          "200": {
+            "description": "The SLA was deleted successfully"
+          },
+          "400": {
+            "description": "Invalid parameters provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An SLA couldn\u0027t be found with the provided DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "did",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Service Level Agreement"
+        ]
+      }
+    },
+    "/api/v1/service-level-agreement/{identifier}": {
+      "get": {
+        "description": "Get an SLA by id or DID",
+        "operationId": "getServiceLevelAgreement",
+        "responses": {
+          "200": {
+            "description": "An SLA matching the provided identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceLevelAgreement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id was provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An SLA couldn\u0027t be found with the provided Identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Service Level Agreement"
+        ]
+      }
+    },
+    "/api/v1/service-level-agreement": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceLevelAgreement"
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Create a new Service Level Agreement definition",
+        "operationId": "createServiceLevelAgreement",
+        "responses": {
+          "201": {
+            "description": "A SLA definition was created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid SLA definition provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Service Level Agreement"
+        ]
+      },
+      "get": {
+        "description": "Retrieve a paged collection of Service Level Agreements according to paging and filter parameters",
+        "operationId": "getServiceLevelAgreements",
+        "responses": {
+          "200": {
+            "description": "A Paged List of Service Level Agreements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedSlaResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid page or filter parameters provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "default": "0",
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "page",
+            "description": "Page you want to retrieve (0..N)"
+          },
+          {
+            "schema": {
+              "default": "20",
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "size",
+            "description": "Number of records per page."
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          }
+        ],
+        "tags": [
+          "Service Level Agreement"
+        ]
+      }
+    },
+    "/api/v1/service-level-agreement/{slaId}/identity": {
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DIDStateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "description": "Callback endpoint to handle processing async DID identifier generation",
+        "operationId": "updateTemplateIdentity",
+        "responses": {
+          "200": {
+            "description": "The SLA was updated successfully"
+          },
+          "400": {
+            "description": "Invalid parameters provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An SLA couldn\u0027t be found with the provided ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "slaId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Service Level Agreement"
+        ]
+      }
+    },
+    "/product-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOffering",
+        "responses": {
+          "200": {
+            "description": "Published product offering",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Product Offer"
+        ]
+      }
+    },
     "/product-offer/{offerId}": {
       "delete": {
         "operationId": "removeProductOffering",
@@ -2596,6 +3187,26 @@
           },
           "400": {
             "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "*/*": {
                 "schema": {
@@ -2651,6 +3262,26 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
           }
         },
         "parameters": [
@@ -2663,46 +3294,6 @@
             "required": true
           }
         ],
-        "tags": [
-          "Product Offer"
-        ]
-      }
-    },
-    "/product-offer": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PublishProductOfferingRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "operationId": "publishProductOffering",
-        "responses": {
-          "200": {
-            "description": "Published product offering",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
         "tags": [
           "Product Offer"
         ]

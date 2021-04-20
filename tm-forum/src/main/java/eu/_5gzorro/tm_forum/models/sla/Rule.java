@@ -1,8 +1,8 @@
-package eu._5gzorro.manager.api.controller.dto;
+package eu._5gzorro.tm_forum.models.sla;
 
 import java.util.Objects;
 
-public class RuleDto {
+public class Rule {
     private String id;
     private String metric;
     private String unit;
@@ -11,7 +11,7 @@ public class RuleDto {
     private String tolerance;
     private String consequence;
 
-    public RuleDto() {
+    public Rule() {
     }
 
     public String getId() {
@@ -74,7 +74,7 @@ public class RuleDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RuleDto ruleDto = (RuleDto) o;
+        Rule ruleDto = (Rule) o;
         return id.equals(ruleDto.id) && metric.equals(ruleDto.metric) && unit.equals(ruleDto.unit) && referenceValue.equals(ruleDto.referenceValue) && operator.equals(ruleDto.operator) && Objects.equals(tolerance, ruleDto.tolerance) && Objects.equals(consequence, ruleDto.consequence);
     }
 

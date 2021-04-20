@@ -4,7 +4,7 @@ buildscript {
 
     ext {
         corda_release_group = constants.getProperty("cordaReleaseGroup")
-        corda_core_release_group =  constants.getProperty("cordaCoreReleaseGroup")
+        corda_core_release_group = constants.getProperty("cordaCoreReleaseGroup")
         corda_release_version = constants.getProperty("cordaVersion")
         corda_core_release_version = constants.getProperty("cordaCoreVersion")
         corda_gradle_plugins_version = constants.getProperty("gradlePluginsVersion")
@@ -19,6 +19,10 @@ buildscript {
         h2_version = constants.getProperty("h2Version")
         corda_platform_version = constants.getProperty("platformVersion").toInteger()
         corbeans_version = constants.getProperty("corbeansVersion")
+        spring_cloud_version = constants.getProperty("springCloudVersion")
+        spring_cloud_dependencies_version = constants.getProperty("springCloudDependenciesVersion")
+        spring_cloud_open_feign_version = constants.getProperty("springCloudOpenFeignVersion")
+        open_feign_version = constants.getProperty("openFeignVersion")
 
         //springboot
         spring_boot_version = '2.2.12.RELEASE'
@@ -48,13 +52,26 @@ buildscript {
         classpath "net.corda.plugins:publish-utils:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:cordformation:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:quasar-utils:$corda_gradle_plugins_version"
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.4.RELEASE")
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_gradle_plugin_version"
+
     }
 }
 
 plugins {
     id 'com.adarshr.test-logger' version '2.1.1' apply false
     id 'com.google.cloud.tools.jib' version '2.7.1' apply false
+}
+
+//apply plugin: "java"
+//apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:$spring_cloud_version"
+        mavenBom "io.pivotal.spring.cloud:spring-cloud-services-dependencies:$spring_cloud_dependencies_version"
+    }
 }
 
 allprojects {

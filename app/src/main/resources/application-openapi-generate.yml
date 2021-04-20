@@ -7,3 +7,14 @@ spring:
     active:
       - default
       - openapi-generate
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:governance}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_DB_USER:5gzorro_admin}
+    password: ${POSTGRES_DB_PASSWORD:5gzorro}

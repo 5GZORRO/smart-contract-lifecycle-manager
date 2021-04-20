@@ -1,27 +1,26 @@
-package eu._5gzorro.manager.api.controller.dto;
+package eu._5gzorro.tm_forum.models.sla;
 
-import eu._5gzorro.manager.api.model.DateRange;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class ServiceLevelAgreementDto {
+public class ServiceLevelAgreement {
     private String id;
     private String href;
     private String name;
     private String description;
     private String version;
     private TimePeriod validFor;
-    private TemplateRefDto templateRef;
+    private TemplateRef templateRef;
     private String state;
     private boolean approved;
     private LocalDateTime approvalDate;
-    private List<RuleDto> rules;
-    private List<RelatedPartyRefDto> relatedPartyRefs;
+    private List<Rule> rules;
+    private List<RelatedPartyRef> relatedPartyRefs;
 
-    public ServiceLevelAgreementDto() {
+    public ServiceLevelAgreement() {
     }
 
     public String getId() {
@@ -72,11 +71,11 @@ public class ServiceLevelAgreementDto {
         this.validFor = validFor;
     }
 
-    public TemplateRefDto getTemplateRef() {
+    public TemplateRef getTemplateRef() {
         return templateRef;
     }
 
-    public void setTemplateRef(TemplateRefDto templateRef) {
+    public void setTemplateRef(TemplateRef templateRef) {
         this.templateRef = templateRef;
     }
 
@@ -104,19 +103,19 @@ public class ServiceLevelAgreementDto {
         this.approvalDate = approvalDate;
     }
 
-    public List<RuleDto> getRules() {
+    public List<Rule> getRules() {
         return rules;
     }
 
-    public void setRules(List<RuleDto> rules) {
+    public void setRules(List<Rule> rules) {
         this.rules = rules;
     }
 
-    public List<RelatedPartyRefDto> getRelatedPartyRefs() {
+    public List<RelatedPartyRef> getRelatedPartyRefs() {
         return relatedPartyRefs;
     }
 
-    public void setRelatedPartyRefs(List<RelatedPartyRefDto> relatedPartyRefs) {
+    public void setRelatedPartyRefs(List<RelatedPartyRef> relatedPartyRefs) {
         this.relatedPartyRefs = relatedPartyRefs;
     }
 
@@ -124,7 +123,7 @@ public class ServiceLevelAgreementDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ServiceLevelAgreementDto that = (ServiceLevelAgreementDto) o;
+        ServiceLevelAgreement that = (ServiceLevelAgreement) o;
         return approved == that.approved && id.equals(that.id) && href.equals(that.href) && name.equals(that.name) && Objects.equals(description, that.description) && Objects.equals(version, that.version) && Objects.equals(validFor, that.validFor) && Objects.equals(templateRef, that.templateRef) && state.equals(that.state) && Objects.equals(approvalDate, that.approvalDate) && Objects.equals(rules, that.rules) && Objects.equals(relatedPartyRefs, that.relatedPartyRefs);
     }
 
