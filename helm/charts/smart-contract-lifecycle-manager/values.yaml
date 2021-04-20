@@ -1,3 +1,7 @@
+kafkaTopics:
+  productOffer: dlt-product-offerings
+kafkaBootstrap: 172.28.3.196
+
 fullnameOverride: "sclm-app"
 
 corda:
