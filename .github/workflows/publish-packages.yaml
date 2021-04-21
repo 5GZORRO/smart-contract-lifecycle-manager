@@ -57,7 +57,7 @@ jobs:
     - name: Deploy cordapps to operatora in K8s cluster
       run: |
           kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
-          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- rm  /base/corda/cordapps/*.jar 
           kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
           kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
               operatora-ns/$(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
@@ -80,7 +80,7 @@ jobs:
             --set operatorName=operatora
     - name: Deploy cordapps to operatorb in K8s cluster
       run: |
-          kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) -- rm  /base/corda/cordapps/*.jar 
           kubectl -n operatorb-ns exec $(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
           kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
              operatorb-ns/$(kubectl get po --selector=app=operatorb -n operatorb-ns -o name | cut -d'/' -f2):/base/corda/cordapps
@@ -103,7 +103,7 @@ jobs:
             --set operatorName=operatorb
     - name: Deploy cordapps to operatorc in K8s cluster
       run: |
-          kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) -- rm  /base/corda/cordapps/*.jar 
           kubectl -n operatorc-ns exec $(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
           kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
              operatorc-ns/$(kubectl get po --selector=app=operatorc -n operatorc-ns -o name | cut -d'/' -f2):/base/corda/cordapps
@@ -126,7 +126,7 @@ jobs:
             --set operatorName=operatorc
     - name: Deploy cordapps to regulatora in K8s cluster
       run: |
-          kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) —- rm  /base/corda/cordapps/*.jar 
+          kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) -- rm  /base/corda/cordapps/*.jar 
           kubectl -n regulatora-ns exec $(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
           kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
              regulatora-ns/$(kubectl get po --selector=app=regulatora -n regulatora-ns -o name | cut -d'/' -f2):/base/corda/cordapps
