@@ -39,11 +39,11 @@ jobs:
     - uses: azure/setup-helm@v1
       with:
         version: '3.1.2'
-      id: install
+      id: install-helm
     - uses: azure/setup-kubectl@v1
       with:
         version: 'v1.20.4'
-      id: install
+      id: install-kubectl
     - name: Install Open VPN
       run: sudo apt-get update && sudo apt-get install openvpn openvpn-systemd-resolved -y
     - name: Compile cordapp jars
