@@ -46,10 +46,10 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
-      product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 integrations:
   identity-permissions:
     apiBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
 
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}
+  updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8080/api/v1/agreement/%s/identity}
