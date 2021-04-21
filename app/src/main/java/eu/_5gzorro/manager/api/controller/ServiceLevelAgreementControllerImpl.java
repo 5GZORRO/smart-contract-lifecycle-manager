@@ -59,7 +59,7 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     }
 
     @Override
-    public ResponseEntity<Void> removeServiceLevelAgreeement(String did) {
+    public ResponseEntity<Void> removeServiceLevelAgreement(String did) {
         slaService.deleteSLA(did);
         return ResponseEntity.ok().build();
     }

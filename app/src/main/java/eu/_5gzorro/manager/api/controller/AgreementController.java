@@ -3,9 +3,9 @@ package eu._5gzorro.manager.api.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
 import eu._5gzorro.manager.api.controller.dto.responses.ApiErrorResponse;
-import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
+import eu._5gzorro.manager.api.controller.dto.responses.PagedAgreementResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
-import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
+import eu._5gzorro.tm_forum.models.agreement.Agreement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,63 +20,63 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
-@Tag(name = "Service Level Agreement")
-@RequestMapping("/api/v1/service-level-agreement")
-public interface ServiceLevelAgreementController {
+@Tag(name = "Agreement")
+@RequestMapping("/api/v1/agreement")
+public interface AgreementController {
 
-    @Operation(description = "Retrieve a paged collection of Service Level Agreements according to paging and filter parameters")
+    @Operation(description = "Retrieve a paged collection of Agreements according to paging and filter parameters")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "A Paged List of Service Level Agreements",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PagedSlaResponse.class)) }),
+            @ApiResponse(responseCode = "200", description = "A Paged List of Agreements",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PagedAgreementResponse.class)) }),
             @ApiResponse(responseCode = "400", description = "Invalid page or filter parameters provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @GetMapping
     @PageableOperation
-    ResponseEntity<PagedSlaResponse> getServiceLevelAgreements(final @Parameter(hidden = true) Pageable pageable);
+    ResponseEntity<PagedAgreementResponse> getAgreements(final @Parameter(hidden = true) Pageable pageable);
 
-    @Operation(description = "Get an SLA by id or DID")
+    @Operation(description = "Get an agreement by id or DID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "An SLA matching the provided identifier",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceLevelAgreement.class, name = "Service Level Agreement")) }),
+            @ApiResponse(responseCode = "200", description = "An agreement matching the provided identifier",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Agreement.class, name = "Agreement")) }),
             @ApiResponse(responseCode = "400", description = "Invalid id was provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided Identifier",
+            @ApiResponse(responseCode = "404", description = "An  couldn't be found with the provided Identifier",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @GetMapping("{identifier}")
-    ResponseEntity<ServiceLevelAgreement> getServiceLevelAgreement(@PathVariable final String identifier) throws JsonProcessingException;
+    ResponseEntity<Agreement> getAgreement(@PathVariable final String identifier) throws JsonProcessingException;
 
     @Operation(description = "Create a new Service Level Agreement definition")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "A SLA definition was created successfully.",
+            @ApiResponse(responseCode = "201", description = "A Agreement definition was created successfully.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = String.class)) }),
-            @ApiResponse(responseCode = "400", description = "Invalid SLA definition provided",
+            @ApiResponse(responseCode = "400", description = "Invalid Agreement definition provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping
-    ResponseEntity<UUID> createServiceLevelAgreement(@RequestBody final ServiceLevelAgreement sla) throws JsonProcessingException;
+    ResponseEntity<UUID> createAgreement(@RequestBody final Agreement agreement) throws JsonProcessingException;
 
     @Operation(description = "Callback endpoint to handle processing async DID identifier generation")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The SLA was updated successfully"),
+            @ApiResponse(responseCode = "200", description = "The Agreement was updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid parameters provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
+            @ApiResponse(responseCode = "404", description = "An Agreement couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @PutMapping("{slaId}/identity")
-    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaId, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
+    @PutMapping("{id}/identity")
+    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID id, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
 
 
-    @Operation(description = "Delete an SLA definition by DID")
+    @Operation(description = "Delete an Agreement definition by DID")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The SLA was deleted successfully"),
+            @ApiResponse(responseCode = "200", description = "The Agreement was deleted successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid parameters provided",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided DID",
+            @ApiResponse(responseCode = "404", description = "An Agreement couldn't be found with the provided DID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @DeleteMapping("{id}")
-    ResponseEntity<Void> removeServiceLevelAgreement(@PathVariable String did);
+    ResponseEntity<Void> removeAgreement(@PathVariable String did);
 }

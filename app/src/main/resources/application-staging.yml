@@ -12,7 +12,7 @@ corda:
     password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
-    - "CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"
+    - "O=GovernanceNode,L=Madrid,C=ES"
 
 springdoc:
   api-docs:
@@ -53,3 +53,4 @@ integrations:
 
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}
+  updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8080/api/v1/agreement/%s/identity}
