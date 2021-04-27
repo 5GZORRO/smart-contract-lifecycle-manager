@@ -1398,12 +1398,12 @@
             "format": "int32",
             "type": "integer"
           },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "format": "int32",
             "type": "integer"
-          },
-          "last": {
-            "type": "boolean"
           },
           "size": {
             "format": "int32",
@@ -1873,12 +1873,12 @@
             "format": "int32",
             "type": "integer"
           },
+          "last": {
+            "type": "boolean"
+          },
           "numberOfElements": {
             "format": "int32",
             "type": "integer"
-          },
-          "last": {
-            "type": "boolean"
           },
           "size": {
             "format": "int32",
@@ -3172,67 +3172,6 @@
         ]
       }
     },
-    "/api/v1/agreement/{identifier}": {
-      "get": {
-        "description": "Get an agreement by id or DID",
-        "operationId": "getAgreement",
-        "responses": {
-          "200": {
-            "description": "An agreement matching the provided identifier",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Agreement"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid id was provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An  couldn\u0027t be found with the provided Identifier",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "identifier",
-            "required": true
-          }
-        ],
-        "tags": [
-          "Agreement"
-        ]
-      }
-    },
     "/api/v1/agreement/{id}/identity": {
       "put": {
         "requestBody": {
@@ -3290,6 +3229,67 @@
             },
             "in": "path",
             "name": "id",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Agreement"
+        ]
+      }
+    },
+    "/api/v1/agreement/{identifier}": {
+      "get": {
+        "description": "Get an agreement by id or DID",
+        "operationId": "getAgreement",
+        "responses": {
+          "200": {
+            "description": "An agreement matching the provided identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agreement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id was provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An  couldn\u0027t be found with the provided Identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
             "required": true
           }
         ],
@@ -3619,66 +3619,6 @@
         ]
       }
     },
-    "/product-offer": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PublishProductOfferingRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "operationId": "publishProductOffering",
-        "responses": {
-          "200": {
-            "description": "Published product offering",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Product Offer"
-        ]
-      }
-    },
     "/product-offer/{offerId}": {
       "delete": {
         "operationId": "removeProductOffering",
@@ -3802,6 +3742,66 @@
             "required": true
           }
         ],
+        "tags": [
+          "Product Offer"
+        ]
+      }
+    },
+    "/product-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOffering",
+        "responses": {
+          "200": {
+            "description": "Published product offering",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
         "tags": [
           "Product Offer"
         ]
