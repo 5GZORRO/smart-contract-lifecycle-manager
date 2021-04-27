@@ -12,7 +12,7 @@ corda:
     password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
-    - "O=GovernanceNode,L=Madrid,C=ES"
+    - "CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"
 
 springdoc:
   api-docs:
@@ -46,6 +46,7 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
+
 integrations:
   identity-permissions:
     apiBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
