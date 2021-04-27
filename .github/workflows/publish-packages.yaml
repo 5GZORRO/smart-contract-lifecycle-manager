@@ -14,8 +14,18 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.RELEASE_VERSION }}
+      - name: add cordapp signing info
+        run: echo "${{ secrets.CORDAPP_KEYSTORE_B64 }}" | base64 -d > ~/jarSignKeystore.pkcs12
       - name: Publish package cordapps
-        run: ./gradlew -Pversion=${{ env.RELEASE_VERSION }} publish
+        run: ./gradlew \
+          -Pversion=${{ env.RELEASE_VERSION }} \
+          -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+          -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+          -Dsigning.options.keystore="~/jarSignKeystore.pkcs12" \
+          -Dsigning.options.storetype="PKCS12" \
+          -Dsigning.options.alias="cordapp-signer" \
+          -Dsigning.enabled=true \
+          publish
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets._5GZORRO_PAF }}
@@ -33,6 +43,8 @@ jobs:
       run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
     - name: Test
       run: echo ${{ env.RELEASE_VERSION }}
+    - name: add cordapp signing info
+      run: echo "${{ secrets.CORDAPP_KEYSTORE_B64 }}" | base64 -d > ~/jarSignKeystore.pkcs12
     - run: mkdir ~/.kube/ && echo "${{ secrets.KUBECONFIG_FILE}}" | base64 -d > ~/.kube/config
     - run: echo "${{ secrets.CA_CRT }}" | base64 -d > ca.crt
     - run: echo "${{ secrets.TLS_KEY }}" | base64 -d > ta.key
@@ -47,7 +59,15 @@ jobs:
     - name: Install Open VPN
       run: sudo apt-get update && sudo apt-get install openvpn openvpn-systemd-resolved -y
     - name: Compile cordapp jars
-      run: ./gradlew -Pversion=${{ env.RELEASE_VERSION }} build -x test
+      run: ./gradlew \
+        -Pversion=${{ env.RELEASE_VERSION }} \
+        -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+        -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+        -Dsigning.options.keystore="~/jarSignKeystore.pkcs12" \
+        -Dsigning.options.storetype="PKCS12" \
+        -Dsigning.options.alias="cordapp-signer" \
+        -Dsigning.enabled=true \
+        build -x test
     - name: Connect to VPN
       uses: "kota65535/github-openvpn-connect-action@v1"
       with:

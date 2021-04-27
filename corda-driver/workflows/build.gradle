@@ -31,6 +31,9 @@ cordapp {
         vendor "Bartr Technologies"
         versionId 1
     }
+    signing {
+        enabled false
+    }
 }
 
 sourceSets {
