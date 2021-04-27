@@ -20,12 +20,10 @@ jobs:
         run: |
           ./gradlew \
           -Pversion=${{ env.RELEASE_VERSION }} \
-          -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
-          -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
-          -Dsigning.options.keystore="~/jarSignKeystore.pkcs12" \
-          -Dsigning.options.storetype="PKCS12" \
-          -Dsigning.options.alias="cordapp-signer" \
-          -Dsigning.enabled=true \
+          -PsigningStorepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+          -PsigningKeypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+          -PsigningKeystore="$HOME/jarSignKeystore.pkcs12" \
+          -PenabledSigning=true \
           publish
         env:
           GITHUB_USERNAME: ${{ github.actor }}
@@ -63,12 +61,10 @@ jobs:
       run: |
         ./gradlew \
         -Pversion=${{ env.RELEASE_VERSION }} \
-        -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
-        -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
-        -Dsigning.options.keystore="~/jarSignKeystore.pkcs12" \
-        -Dsigning.options.storetype="PKCS12" \
-        -Dsigning.options.alias="cordapp-signer" \
-        -Dsigning.enabled=true \
+        -PsigningStorepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+        -PsigningKeypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
+        -PsigningKeystore="$HOME/jarSignKeystore.pkcs12" \
+        -PenabledSigning=true \
         build -x test
     - name: Connect to VPN
       uses: "kota65535/github-openvpn-connect-action@v1"

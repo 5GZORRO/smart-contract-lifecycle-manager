@@ -4,10 +4,14 @@ apply plugin: 'maven-publish'
 
 group 'eu._5gzorro'
 
-
 jar {
     baseName '5gzorro-contracts'
 }
+
+ext.enabledSigning = project.hasProperty('enabledSigning') ? project.getProperty('enabledSigning') : false
+ext.storePassVar = project.hasProperty('signingStorepass') ? project.getProperty('signingStorepass') : ''
+ext.keyPassVar = project.hasProperty('signingKeypass') ? project.getProperty('signingKeypass') : ''
+ext.keyStoreVar = project.hasProperty('signingKeystore') ? project.getProperty('signingKeystore') : ''
 
 repositories {
     mavenLocal()
@@ -25,6 +29,16 @@ cordapp {
         name "5GZorro CorDapp"
         vendor "Bartr Technologies"
         versionId 1
+    }
+    signing {
+        enabled enabledSigning
+        options {
+            storetype 'PKCS12'
+            alias 'cordapp-signer'
+            storepass storePassVar
+            keypass keyPassVar
+            keystore keyStoreVar
+        }
     }
 }
 
