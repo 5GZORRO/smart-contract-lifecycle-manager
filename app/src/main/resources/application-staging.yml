@@ -12,7 +12,7 @@ corda:
     password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
-    - "O=GovernanceNode,L=Madrid,C=ES"
+    - "CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"
 
 springdoc:
   api-docs:
