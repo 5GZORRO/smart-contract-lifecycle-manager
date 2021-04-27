@@ -17,7 +17,8 @@ jobs:
       - name: add cordapp signing info
         run: echo "${{ secrets.CORDAPP_KEYSTORE_B64 }}" | base64 -d > ~/jarSignKeystore.pkcs12
       - name: Publish package cordapps
-        run: ./gradlew \
+        run: |
+          ./gradlew \
           -Pversion=${{ env.RELEASE_VERSION }} \
           -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
           -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
@@ -59,7 +60,8 @@ jobs:
     - name: Install Open VPN
       run: sudo apt-get update && sudo apt-get install openvpn openvpn-systemd-resolved -y
     - name: Compile cordapp jars
-      run: ./gradlew \
+      run: |
+        ./gradlew \
         -Pversion=${{ env.RELEASE_VERSION }} \
         -Dsigning.options.storepass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
         -Dsigning.options.keypass="${{ secrets.CORDAPP_SIGNING_PASSWORD}}" \
