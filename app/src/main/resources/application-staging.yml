@@ -45,7 +45,7 @@ spring:
     enabled: true
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
-      product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
+      product-offering: ${PRODUCT_OFFER_TOPIC:dlt-product-offerings}
 
 integrations:
   identity-permissions:
