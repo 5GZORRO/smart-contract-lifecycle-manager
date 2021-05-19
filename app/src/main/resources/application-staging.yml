@@ -1,5 +1,6 @@
 server:
   port: ${SERVER_PORT:8087}
+  forward-headers-strategy: framework
 
 dlt:
   driver: corda
