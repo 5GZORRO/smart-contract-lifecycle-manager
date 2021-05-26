@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.flows.utils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import kotlin.collections.CollectionsKt;
@@ -64,5 +65,13 @@ public abstract class ExtendedFlowLogic<T> extends FlowLogic<T> {
         .getVaultService()
         .queryBy(type, inputCriteria)
         .getStates().get(0);
+  }
+
+  public AbstractParty findCounterParty(List<AbstractParty> partyList) {
+    Party ourParty = getServiceHub().getMyInfo().getLegalIdentities().get(0);
+    return partyList.stream()
+        .filter(party -> !party.getOwningKey().equals(ourParty.getOwningKey()))
+        .findAny()
+        .get();
   }
 }

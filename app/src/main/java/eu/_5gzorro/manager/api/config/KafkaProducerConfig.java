@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
+import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
@@ -38,23 +39,27 @@ public class KafkaProducerConfig {
     return props;
   }
 
-  public JsonSerializer<ProductOfferingUpdateEvent> jsonSerializer() {
-    ObjectMapper objectMapper = new ObjectMapper()
-            .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+  public <T> JsonSerializer<T> jsonSerializer() {
+    ObjectMapper objectMapper =
+        new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
     objectMapper.registerModule(new JavaTimeModule());
     return new JsonSerializer<>(objectMapper);
   }
 
-  @Bean
-  public ProducerFactory<String, ProductOfferingUpdateEvent> producerFactory() {
-    DefaultKafkaProducerFactory<String, ProductOfferingUpdateEvent> factory
-            = new DefaultKafkaProducerFactory<>(producerConfigs());
+  public <T> ProducerFactory<String, T> producerFactory() {
+    DefaultKafkaProducerFactory<String, T> factory =
+        new DefaultKafkaProducerFactory<>(producerConfigs());
     factory.setValueSerializer(jsonSerializer());
     return factory;
   }
 
   @Bean
-  public KafkaTemplate<String, ProductOfferingUpdateEvent> kafkaTemplate() {
+  public KafkaTemplate<String, ProductOfferingUpdateEvent> offerKafkaTemplate() {
+    return new KafkaTemplate<>(producerFactory());
+  }
+
+  @Bean
+  public KafkaTemplate<String, ProductOrderUpdateEvent> orderKafkaTemplate() {
     return new KafkaTemplate<>(producerFactory());
   }
 }

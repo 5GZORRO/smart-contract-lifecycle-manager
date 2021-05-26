@@ -46,6 +46,7 @@ spring:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:dlt-product-offerings}
+      product-order: ${PRODUCT_ORDER_TOPIC:"dlt-product-orders"}
 
 integrations:
   identity-permissions:

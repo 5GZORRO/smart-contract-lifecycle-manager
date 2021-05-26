@@ -8,6 +8,7 @@ import eu._5gzorro.manager.api.repository.AgreementRepository;
 import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
 import eu._5gzorro.manager.api.service.*;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
+import eu._5gzorro.manager.service.ProductOrderDriver;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -36,6 +37,12 @@ public class OpenApiGenerateConfig {
   @Bean
   public ProductOfferingService productOfferingService() {
     return mock(ProductOfferingService.class);
+  }
+
+  @Primary
+  @Bean
+  public ProductOrderDriver productOrderDriver() {
+    return mock(ProductOrderDriver.class);
   }
 
   @Primary

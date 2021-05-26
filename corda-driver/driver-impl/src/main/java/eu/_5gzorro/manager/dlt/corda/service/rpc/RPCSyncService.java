@@ -32,7 +32,8 @@ public abstract class RPCSyncService<T extends ContractState> {
       Consumer<StateAndRef<T>> forEachRecordOnStartup
   ) {
     client.getClient()
-        .vaultQueryByCriteria(criteria, typeParameterClass).getStates()
+        .vaultQueryByCriteria(criteria, typeParameterClass)
+        .getStates()
         .forEach(forEachRecordOnStartup);
 
     DataFeed<Page<T>, Update<T>> dataFeed

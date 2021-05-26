@@ -72,6 +72,16 @@ jobs:
         config_file: .github/vpn/config.ovpn
         username: ${{ secrets.OVPN_USERNAME }}
         password: ${{ secrets.OVPN_PASSWORD }}
+    - name: Deploy cordapps to notary in K8s cluster * note this is so public states can be distributed to everyone
+      run: |
+        kubectl -n operator-a-ns exec $(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2) -- sh -c 'rm  /base/corda/cordapps/*.jar'
+        kubectl -n operator-a-ns exec $(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+        kubectl cp ./corda-driver/contracts/build/libs/5gzorro-contracts-${{ env.RELEASE_VERSION }}.jar \
+           operator-a-ns/$(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+        kubectl cp ./corda-driver/workflows/build/libs/5gzorro-workflows-${{ env.RELEASE_VERSION }}.jar \
+           operator-a-ns/$(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2):/base/corda/cordapps
+        kubectl -n operator-a-ns exec $(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
+        kubectl -n operator-a-ns delete pod $(kubectl get po --selector=app=notary -n operator-a-ns -o name | cut -d'/' -f2)
     - name: Deploy cordapps to operatora in K8s cluster
       run: |
           kubectl -n operatora-ns exec $(kubectl get po --selector=app=operatora -n operatora-ns -o name | cut -d'/' -f2) -- ls -ltr /base/corda/cordapps
