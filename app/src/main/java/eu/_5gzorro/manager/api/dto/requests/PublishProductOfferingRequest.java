@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.api.controller.dto.requests;
+package eu._5gzorro.manager.api.dto.requests;
 
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOfferDetails;

@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.api.controller.dto.identityPermisssions;
+package eu._5gzorro.manager.api.dto.identityPermisssions;
 
 import java.util.Objects;
 

@@ -1,8 +1,8 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
-import eu._5gzorro.manager.api.controller.dto.responses.PagedAgreementResponse;
+import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateDto;
+import eu._5gzorro.manager.api.dto.responses.PagedAgreementResponse;
 import eu._5gzorro.manager.api.service.AgreementService;
 import eu._5gzorro.tm_forum.models.agreement.Agreement;
 import org.springframework.beans.factory.annotation.Autowired;

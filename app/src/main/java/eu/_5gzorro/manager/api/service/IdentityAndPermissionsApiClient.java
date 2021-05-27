@@ -1,5 +1,7 @@
 package eu._5gzorro.manager.api.service;
 
+import eu._5gzorro.manager.api.httpClient.requests.CreateDidRequest;
+
 public interface IdentityAndPermissionsApiClient {
-    void createDID(String callbackUrl, String authToken);
+    void createDID(CreateDidRequest request);
 }

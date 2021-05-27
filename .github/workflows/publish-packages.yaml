@@ -92,6 +92,9 @@ jobs:
             --set postgres.password=${{ secrets.OPERATORA_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_a_sclm \
             --set service.prefix=/operatora \
+            --set identityBaseUrl="http://172.28.3.153:6200" \
+            --set callbacks.updateSlaIdentity="http://172.28.3.111/operatora/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity" \
+            --set callbacks.updateAgreementIdentity="http://172.28.3.111/operatora/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity" \
             --set corda.username=${{ secrets.OPERATORA_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORA_CORDA_PASSWORD }} \
             --set corda.host=operatora.operatora-ns.svc.cluster.local \
@@ -115,6 +118,9 @@ jobs:
             --set postgres.password=${{ secrets.OPERATORB_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_b_sclm \
             --set service.prefix=/operatorb \
+            --set identityBaseUrl="http://172.28.3.153:6800" \
+            --set callbacks.updateSlaIdentity="http://172.28.3.111/operatorb/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity" \
+            --set callbacks.updateAgreementIdentity="http://172.28.3.111/operatorb/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity" \
             --set corda.username=${{ secrets.OPERATORB_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORB_CORDA_PASSWORD }} \
             --set corda.host=operatorb.operatorb-ns.svc.cluster.local \
@@ -138,6 +144,9 @@ jobs:
             --set postgres.password=${{ secrets.OPERATORC_POSTGRES_PASSWORD }} \
             --set postgres.name=operator_c_sclm \
             --set service.prefix=/operatorc \
+            --set identityBaseUrl="http://172.28.3.153:6800" \
+            --set callbacks.updateSlaIdentity="http://172.28.3.111/operatorc/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity" \
+            --set callbacks.updateAgreementIdentity="http://172.28.3.111/operatorc/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity" \
             --set corda.username=${{ secrets.OPERATORC_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.OPERATORC_CORDA_PASSWORD }} \
             --set corda.host=operatorc.operatorc-ns.svc.cluster.local \
@@ -161,6 +170,9 @@ jobs:
             --set postgres.password=${{ secrets.REGULATORA_POSTGRES_PASSWORD }} \
             --set postgres.name=regulator_a_sclm \
             --set service.prefix=/regulatora \
+            --set identityBaseUrl="http://172.28.3.153:6300" \
+            --set callbacks.updateSlaIdentity="http://172.28.3.111/regulatora/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity" \
+            --set callbacks.updateAgreementIdentity="http://172.28.3.111/regulatora/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity" \
             --set corda.username=${{ secrets.REGULATORA_CORDA_USERNAME }} \
             --set corda.password=${{ secrets.REGULATORA_CORDA_PASSWORD }} \
             --set corda.host=regulatora.regulatora-ns.svc.cluster.local \

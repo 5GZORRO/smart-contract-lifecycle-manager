@@ -1,9 +1,9 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
-import eu._5gzorro.manager.api.controller.dto.responses.ApiErrorResponse;
-import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
+import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateDto;
+import eu._5gzorro.manager.api.dto.responses.ApiErrorResponse;
+import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.swagger.v3.oas.annotations.Operation;

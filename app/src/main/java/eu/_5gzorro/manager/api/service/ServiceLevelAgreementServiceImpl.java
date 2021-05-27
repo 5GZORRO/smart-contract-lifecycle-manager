@@ -2,8 +2,10 @@ package eu._5gzorro.manager.api.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu._5gzorro.manager.api.httpClient.requests.CreateDidRequest;
 import eu._5gzorro.manager.api.model.AuthData;
 import eu._5gzorro.manager.api.model.entity.ServiceLevelAgreementWrapper;
+import eu._5gzorro.manager.api.model.enumureration.CredentialRequestType;
 import eu._5gzorro.manager.api.model.enumureration.EntityStatus;
 import eu._5gzorro.manager.api.model.exception.DIDCreationException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,7 +90,12 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         try {
             String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
-            identityClient.createDID(callbackUrl, authData.getAuthToken());
+            CreateDidRequest request = new CreateDidRequest()
+                    .callbackUrl(callbackUrl)
+                    .claims(Collections.emptyList())
+                    .type(CredentialRequestType.SLA);
+
+            identityClient.createDID(request);
         }
         catch (Exception ex) {
             throw new DIDCreationException(ex);
