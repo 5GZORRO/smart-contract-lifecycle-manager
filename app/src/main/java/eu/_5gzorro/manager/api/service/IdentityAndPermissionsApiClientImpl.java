@@ -14,13 +14,18 @@ public class IdentityAndPermissionsApiClientImpl implements IdentityAndPermissio
 
     private StakeholderStatusDto myStakeholderStatus;
 
-    public IdentityAndPermissionsApiClientImpl() {
-        this.myStakeholderStatus = didClient.getMyStakeholderCredential();
-    }
+    public IdentityAndPermissionsApiClientImpl() {}
 
     @Override
     public void createDID(CreateDidRequest request) {
-        request.authToken(myStakeholderStatus.getAuthToken());
+        request.authToken(getAuthToken());
         didClient.create(request);
+    }
+
+    private String getAuthToken() {
+        if(myStakeholderStatus == null) {
+            this.myStakeholderStatus = didClient.getMyStakeholderCredential();
+        }
+        return myStakeholderStatus.getAuthToken();
     }
 }
