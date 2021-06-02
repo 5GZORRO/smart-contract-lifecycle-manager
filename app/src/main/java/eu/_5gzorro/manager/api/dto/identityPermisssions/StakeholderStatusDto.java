@@ -8,6 +8,10 @@ public class StakeholderStatusDto {
 
     @JsonProperty("id_token")
     private String authToken;
+    private String timestamp;
+    private String state;
+    @JsonProperty("credential_definition_id")
+    private String credentialDefinitionId;
     private StakeholderClaimDto stakeholderClaim;
 
     public StakeholderStatusDto() {
@@ -29,24 +33,51 @@ public class StakeholderStatusDto {
         this.authToken = authToken;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCredentialDefinitionId() {
+        return credentialDefinitionId;
+    }
+
+    public void setCredentialDefinitionId(String credentialDefinitionId) {
+        this.credentialDefinitionId = credentialDefinitionId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StakeholderStatusDto that = (StakeholderStatusDto) o;
-        return stakeholderClaim.equals(that.stakeholderClaim) && authToken.equals(that.authToken);
+        return credentialDefinitionId.equals(that.credentialDefinitionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stakeholderClaim, authToken);
+        return Objects.hash(credentialDefinitionId);
     }
 
     @Override
     public String toString() {
         return "StakeholderStatusDto{" +
-                "stakeholderClaim='" + stakeholderClaim + '\'' +
-                ", authToken='" + authToken + '\'' +
+                "authToken='" + authToken + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                ", state='" + state + '\'' +
+                ", credentialDefinitionId='" + credentialDefinitionId + '\'' +
+                ", stakeholderClaim=" + stakeholderClaim +
                 '}';
     }
 }
