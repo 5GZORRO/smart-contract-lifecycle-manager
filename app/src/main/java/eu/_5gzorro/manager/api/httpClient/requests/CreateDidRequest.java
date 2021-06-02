@@ -13,7 +13,6 @@ public class CreateDidRequest {
     private String authToken;
     private CredentialRequestType type;
     private List<ClaimDto> claims;
-
     @JsonProperty("handler_url")
     private String callbackUrl;
 
