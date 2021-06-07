@@ -66,4 +66,11 @@ public class OpenApiGenerateConfig {
   public AgreementRepository agreementRepository() {
     return mock(AgreementRepository.class);
   }
+
+
+  @Primary
+  @Bean
+  public ProductOrderService productOrderService() {
+    return mock(ProductOrderService.class);
+  }
 }

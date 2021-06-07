@@ -57,7 +57,7 @@ public class ProductOrderController {
   }
 
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Reject change product order")})
-  @PutMapping("/{orderId}/acceptChange")
+  @PutMapping("/{orderId}/rejectChange")
   public ResponseEntity<Boolean> rejectChangeProductOrder(
       @Valid @RequestParam("orderId") @NotNull String orderId) {
     driver.rejectChangeProductOrder(orderId);
