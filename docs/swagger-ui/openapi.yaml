@@ -644,6 +644,32 @@
           }
         }
       },
+      "Rule": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "consequence": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "tolerance": {
+            "type": "string"
+          },
+          "referenceValue": {
+            "type": "string"
+          }
+        }
+      },
       "BundledProductOffering": {
         "type": "object",
         "properties": {
@@ -790,32 +816,6 @@
             "type": "string"
           },
           "baseType": {
-            "type": "string"
-          }
-        }
-      },
-      "Rule": {
-        "type": "object",
-        "properties": {
-          "unit": {
-            "type": "string"
-          },
-          "consequence": {
-            "type": "string"
-          },
-          "metric": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "operator": {
-            "type": "string"
-          },
-          "tolerance": {
-            "type": "string"
-          },
-          "referenceValue": {
             "type": "string"
           }
         }
@@ -1845,6 +1845,32 @@
           }
         }
       },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "offset": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "pageSize": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          }
+        }
+      },
       "MarketSegmentRef": {
         "type": "object",
         "properties": {
@@ -1931,32 +1957,6 @@
           }
         }
       },
-      "Pageable": {
-        "type": "object",
-        "properties": {
-          "paged": {
-            "type": "boolean"
-          },
-          "pageNumber": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "offset": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "pageSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "unpaged": {
-            "type": "boolean"
-          },
-          "sort": {
-            "$ref": "#/components/schemas/Sort"
-          }
-        }
-      },
       "Sort": {
         "type": "object",
         "properties": {
@@ -2036,26 +2036,6 @@
           }
         }
       },
-      "TargetServiceSchema": {
-        "type": "object",
-        "properties": {
-          "schemaLocation": {
-            "type": "string"
-          },
-          "href": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "uuid": {
-            "type": "string"
-          },
-          "baseType": {
-            "type": "string"
-          }
-        }
-      },
       "AgreementSpecificationRef": {
         "type": "object",
         "properties": {
@@ -2078,6 +2058,26 @@
             "type": "string"
           },
           "type": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
+      "TargetServiceSchema": {
+        "type": "object",
+        "properties": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "uuid": {
             "type": "string"
           },
           "baseType": {
@@ -2155,10 +2155,6 @@
           "localTime": {
             "$ref": "#/components/schemas/LocalTime"
           },
-          "dayOfMonthIndicator": {
-            "format": "int32",
-            "type": "integer"
-          },
           "dayOfWeek": {
             "type": "string",
             "enum": [
@@ -2170,6 +2166,10 @@
               "SATURDAY",
               "SUNDAY"
             ]
+          },
+          "dayOfMonthIndicator": {
+            "format": "int32",
+            "type": "integer"
           },
           "month": {
             "type": "string",
@@ -2276,6 +2276,29 @@
           }
         }
       },
+      "Characteristic": {
+        "type": "object",
+        "properties": {
+          "schemaLocation": {
+            "type": "string"
+          },
+          "valueType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "baseType": {
+            "type": "string"
+          }
+        }
+      },
       "Channel": {
         "type": "object",
         "properties": {
@@ -2296,22 +2319,23 @@
           }
         }
       },
-      "Characteristic": {
+      "AgreementAuthorization": {
         "type": "object",
         "properties": {
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
           "schemaLocation": {
             "type": "string"
           },
-          "valueType": {
-            "type": "string"
-          },
-          "name": {
+          "state": {
             "type": "string"
           },
           "type": {
             "type": "string"
           },
-          "value": {
+          "signaturePresentation": {
             "type": "string"
           },
           "baseType": {
@@ -2362,30 +2386,6 @@
             "items": {
               "$ref": "#/components/schemas/PriceAlteration"
             }
-          }
-        }
-      },
-      "AgreementAuthorization": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "format": "date-time",
-            "type": "string"
-          },
-          "schemaLocation": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "signaturePresentation": {
-            "type": "string"
-          },
-          "baseType": {
-            "type": "string"
           }
         }
       },
@@ -2630,15 +2630,15 @@
             "format": "int32",
             "type": "integer"
           },
+          "dayOfYear": {
+            "format": "int32",
+            "type": "integer"
+          },
           "dayOfMonth": {
             "format": "int32",
             "type": "integer"
           },
           "year": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "dayOfYear": {
             "format": "int32",
             "type": "integer"
           },
@@ -2846,15 +2846,15 @@
             "format": "int32",
             "type": "integer"
           },
+          "dayOfYear": {
+            "format": "int32",
+            "type": "integer"
+          },
           "dayOfMonth": {
             "format": "int32",
             "type": "integer"
           },
           "year": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "dayOfYear": {
             "format": "int32",
             "type": "integer"
           },
@@ -4257,66 +4257,6 @@
         ]
       }
     },
-    "/product-order/{orderId}/approve": {
-      "put": {
-        "operationId": "approveProductOrder",
-        "responses": {
-          "200": {
-            "description": "Approve product order",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "orderId",
-            "required": true
-          }
-        ],
-        "tags": [
-          "Product Order"
-        ]
-      }
-    },
     "/api/v1/agreement/{identifier}": {
       "get": {
         "description": "Get an agreement by id or DID",
@@ -4378,22 +4318,12 @@
         ]
       }
     },
-    "/product-order": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PublishProductOrderRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "operationId": "publishProductOrder",
+    "/product-order/{orderId}/approve": {
+      "put": {
+        "operationId": "approveProductOrder",
         "responses": {
           "200": {
-            "description": "Published product order",
+            "description": "Approve product order",
             "content": {
               "*/*": {
                 "schema": {
@@ -4433,6 +4363,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderId",
+            "required": true
+          }
+        ],
         "tags": [
           "Product Order"
         ]
@@ -4499,6 +4439,66 @@
         ]
       }
     },
+    "/product-order": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOrder",
+        "responses": {
+          "200": {
+            "description": "Published product order",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Product Order"
+        ]
+      }
+    },
     "/api/v1/agreement/{id}": {
       "delete": {
         "description": "Delete an Agreement definition by DID",
@@ -4550,6 +4550,66 @@
         ],
         "tags": [
           "Agreement"
+        ]
+      }
+    },
+    "/product-order/{orderId}/end": {
+      "put": {
+        "operationId": "endProductOrder",
+        "responses": {
+          "200": {
+            "description": "End product order",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "orderId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Product Order"
         ]
       }
     },
@@ -4623,12 +4683,22 @@
         ]
       }
     },
-    "/product-order/{orderId}/end": {
-      "put": {
-        "operationId": "endProductOrder",
+    "/product-offer": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishProductOfferingRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "operationId": "publishProductOffering",
         "responses": {
           "200": {
-            "description": "End product order",
+            "description": "Published product offering",
             "content": {
               "*/*": {
                 "schema": {
@@ -4668,18 +4738,8 @@
             }
           }
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "orderId",
-            "required": true
-          }
-        ],
         "tags": [
-          "Product Order"
+          "Product Offer"
         ]
       }
     },
@@ -4806,66 +4866,6 @@
             "required": true
           }
         ],
-        "tags": [
-          "Product Offer"
-        ]
-      }
-    },
-    "/product-offer": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PublishProductOfferingRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "operationId": "publishProductOffering",
-        "responses": {
-          "200": {
-            "description": "Published product offering",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
         "tags": [
           "Product Offer"
         ]
@@ -5004,7 +5004,7 @@
           "required": true
         },
         "description": "Callback endpoint to handle processing async DID identifier generation",
-        "operationId": "updateTemplateIdentity_1",
+        "operationId": "updateTemplateIdentity",
         "responses": {
           "200": {
             "description": "The Agreement was updated successfully"
@@ -5210,7 +5210,7 @@
           "required": true
         },
         "description": "Callback endpoint to handle processing async DID identifier generation",
-        "operationId": "updateTemplateIdentity",
+        "operationId": "updateTemplateIdentity_1",
         "responses": {
           "200": {
             "description": "The SLA was updated successfully"
