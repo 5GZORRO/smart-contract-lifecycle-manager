@@ -1,31 +1,29 @@
 package eu._5gzorro.manager.api.dto.identityPermisssions;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Objects;
 
 public class DIDStateDto {
-    private String did;
-//    private DIDStateEnum state;
+    @JsonProperty("credential_exchange_id")
+    private String credentialExchangeId;
+
+    @JsonProperty("credential_offer_dict")
+    private CredentialOfferDto credentialOffer;
+
+    @JsonProperty("created_at")
+    private String createdAt;
+
+    @JsonProperty("updated_at")
+    private String updatedAt;
+
+    @JsonProperty("schema_id")
+    private String schemaId;
+
     private String state;
 
     public DIDStateDto() {
     }
-
-    public String getDid() {
-        return did;
-    }
-
-    public void setDid(String did) {
-        this.did = did;
-    }
-
-//    public DIDStateEnum getState() {
-//        return state;
-//    }
-//
-//    public void setState(DIDStateEnum state) {
-//        this.state = state;
-//    }
-
 
     public String getState() {
         return state;
@@ -35,24 +33,68 @@ public class DIDStateDto {
         this.state = state;
     }
 
+    public String getCredentialExchangeId() {
+        return credentialExchangeId;
+    }
+
+    public void setCredentialExchangeId(String credentialExchangeId) {
+        this.credentialExchangeId = credentialExchangeId;
+    }
+
+    public CredentialOfferDto getCredentialOffer() {
+        return credentialOffer;
+    }
+
+    public void setCredentialOffer(CredentialOfferDto credentialOffer) {
+        this.credentialOffer = credentialOffer;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getSchemaId() {
+        return schemaId;
+    }
+
+    public void setSchemaId(String schemaId) {
+        this.schemaId = schemaId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DIDStateDto that = (DIDStateDto) o;
-        return did.equals(that.did) && state == that.state;
+        return credentialExchangeId.equals(that.credentialExchangeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(did, state);
+        return Objects.hash(credentialExchangeId);
     }
 
     @Override
     public String toString() {
         return "DIDStateDto{" +
-                "did='" + did + '\'' +
-                ", state=" + state +
+                "credentialExchangeId='" + credentialExchangeId + '\'' +
+                ", credentialOffer=" + credentialOffer +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", schemaId='" + schemaId + '\'' +
+                ", state='" + state + '\'' +
                 '}';
     }
 }

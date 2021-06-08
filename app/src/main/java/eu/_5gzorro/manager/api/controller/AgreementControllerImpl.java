@@ -54,7 +54,14 @@ public class AgreementControllerImpl implements AgreementController {
 
     @Override
     public ResponseEntity<Void> updateTemplateIdentity(UUID id, DIDStateDto state) throws JsonProcessingException {
-        agreementService.completeAgreementCreation(id, state.getDid());
+
+        String did = state.getCredentialOffer().getCredentialPreview().getDid();
+
+        if(did == null)
+            return ResponseEntity.badRequest().build();
+
+        agreementService.completeAgreementCreation(id, did);
+
         return ResponseEntity.ok().build();
     }
 

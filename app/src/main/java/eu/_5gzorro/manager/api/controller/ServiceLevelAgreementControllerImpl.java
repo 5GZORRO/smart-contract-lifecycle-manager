@@ -1,6 +1,9 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialAttributeDto;
+import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialPreviewDto;
+import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialSubjectDto;
 import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateDto;
 import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,7 +58,13 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
 
     @Override
     public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, DIDStateDto state) throws JsonProcessingException {
-        slaService.completeSLACreation(slaId, state.getDid());
+
+        String did = state.getCredentialOffer().getCredentialPreview().getDid();
+
+        if(did == null)
+            return ResponseEntity.badRequest().build();
+
+        slaService.completeSLACreation(slaId, did);
         return ResponseEntity.ok().build();
     }
 

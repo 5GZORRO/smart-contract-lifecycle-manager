@@ -65,7 +65,7 @@ public interface ServiceLevelAgreementController {
             @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @PutMapping("{slaId}/identity")
+    @PostMapping("{slaId}/identity")
     ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaId, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
 
 

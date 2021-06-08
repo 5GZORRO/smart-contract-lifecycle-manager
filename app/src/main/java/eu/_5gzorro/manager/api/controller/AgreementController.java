@@ -65,7 +65,7 @@ public interface AgreementController {
             @ApiResponse(responseCode = "404", description = "An Agreement couldn't be found with the provided ID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @PutMapping("{id}/identity")
+    @PostMapping("{id}/identity")
     ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID id, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
 
 
