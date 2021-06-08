@@ -1,10 +1,7 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialAttributeDto;
-import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialPreviewDto;
-import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialSubjectDto;
-import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateDto;
+import eu._5gzorro.manager.api.dto.identityPermisssions.*;
 import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
@@ -58,6 +55,17 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
 
     @Override
     public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, DIDStateDto state) throws JsonProcessingException {
+
+        CredentialOfferDto offer = state.getCredentialOffer();
+
+        // return oK for status updates prior to the credential being issued
+        if(offer == null)
+            return ResponseEntity.ok().build();
+
+        CredentialPreviewDto preview = offer.getCredentialPreview();
+
+        if(preview == null)
+            return ResponseEntity.ok().build();
 
         String did = state.getCredentialOffer().getCredentialPreview().getDid();
 

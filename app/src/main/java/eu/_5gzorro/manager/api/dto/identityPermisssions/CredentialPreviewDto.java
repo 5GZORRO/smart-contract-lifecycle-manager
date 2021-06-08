@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class CredentialPreviewDto {
@@ -25,9 +26,12 @@ public class CredentialPreviewDto {
 
     public String getDid()  {
         try {
-            CredentialAttributeDto attr = attributes.stream().filter(a -> a.getName().equals("credentialSubject")).findFirst().get();
+            Optional<CredentialAttributeDto> attr = attributes.stream().filter(a -> a.getName().equals("credentialSubject")).findFirst();
 
-            String valToDeserialise = attr.getValue().replace("'", "\"");
+            if(!attr.isPresent())
+                return null;
+
+            String valToDeserialise = attr.get().getValue().replace("'", "\"");
             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             CredentialSubjectDto subject = mapper.readValue(valToDeserialise, CredentialSubjectDto.class);
             return subject.getId();
