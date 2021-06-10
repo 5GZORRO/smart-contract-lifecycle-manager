@@ -132,6 +132,9 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
     whitelist
         .add(eu._5gzorro.tm_forum.models.product.ProductOfferingPriceCreate.class);
     whitelist.add(eu._5gzorro.tm_forum.models.service.ServiceSpecification.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.GeographicAddress.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.GeographicLocation.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.GeographicPoint.class);
     whitelist
         .add(eu._5gzorro.tm_forum.models.product.CategoryDeleteEventPayload.class);
     whitelist.add(eu._5gzorro.tm_forum.models.product.CatalogBatchEvent.class);
