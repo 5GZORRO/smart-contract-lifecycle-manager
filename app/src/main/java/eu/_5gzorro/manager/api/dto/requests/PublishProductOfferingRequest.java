@@ -3,6 +3,7 @@ package eu._5gzorro.manager.api.dto.requests;
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
+import eu._5gzorro.tm_forum.models.GeographicAddress;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
 import eu._5gzorro.tm_forum.models.product.ProductSpecification;
@@ -24,6 +25,7 @@ public class PublishProductOfferingRequest {
   @NotNull private ProductSpecification productSpecification;
   @NotNull private List<ResourceSpecification> resourceSpecifications;
   @NotNull private List<ServiceSpecification> serviceSpecifications;
+  @NotNull private List<GeographicAddress> geographicAddresses;
 
   public ProductOffering getProductOffering() {
     return productOffering;
@@ -100,6 +102,15 @@ public class PublishProductOfferingRequest {
     return this;
   }
 
+  public List<GeographicAddress> getGeographicAddresses() {
+    return geographicAddresses;
+  }
+
+  public PublishProductOfferingRequest setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
+    this.geographicAddresses = geographicAddresses;
+    return this;
+  }
+
   public ProductOfferDetails toOfferDetails() {
     return new ProductOfferDetails()
         .setProductOffering(productOffering)
@@ -107,6 +118,7 @@ public class PublishProductOfferingRequest {
         .setResourceSpecifications(resourceSpecifications)
         .setServiceSpecifications(serviceSpecifications)
         .setProductOfferingPrices(productOfferingPrices)
+        .setGeographicAddresses(geographicAddresses)
         .setDid(did);
   }
 }

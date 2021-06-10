@@ -151,6 +151,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
               .setProductOfferingPrices(offerDetails.getProductOfferingPrices())
               .setResourceSpecifications(offerDetails.getResourceSpecifications())
               .setServiceSpecifications(offerDetails.getServiceSpecifications())
+              .setGeographicAddresses(offerDetails.getGeographicAddresses())
               .setInvitations(productOffering.getDidInvitations())
               .setIdentifier(productOffering.getLinearId().getId().toString());
         });

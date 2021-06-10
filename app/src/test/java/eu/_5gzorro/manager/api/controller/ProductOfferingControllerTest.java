@@ -51,6 +51,7 @@ public class ProductOfferingControllerTest {
         .setProductOfferingPrices(emptyList())
         .setResourceSpecifications(emptyList())
         .setServiceSpecifications(emptyList())
+        .setGeographicAddresses(emptyList())
         .setDid("someDid")
         .setInvitations(Collections.emptyMap())
         .setVerifiableCredentials(null);
@@ -92,6 +93,7 @@ public class ProductOfferingControllerTest {
         .setProductOfferingPrices(emptyList())
         .setResourceSpecifications(emptyList())
         .setServiceSpecifications(emptyList())
+        .setGeographicAddresses(emptyList())
         .setDid("someDid")
         .setInvitations(Collections.emptyMap());
 

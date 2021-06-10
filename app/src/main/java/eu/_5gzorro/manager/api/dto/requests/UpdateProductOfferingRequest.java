@@ -2,6 +2,7 @@ package eu._5gzorro.manager.api.dto.requests;
 
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOfferDetails;
+import eu._5gzorro.tm_forum.models.GeographicAddress;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
 import eu._5gzorro.tm_forum.models.product.ProductSpecification;
@@ -21,6 +22,8 @@ public class UpdateProductOfferingRequest {
   @NotNull private ProductSpecification productSpecification;
   @NotNull private List<ResourceSpecification> resourceSpecifications;
   @NotNull private List<ServiceSpecification> serviceSpecifications;
+  @NotNull private List<GeographicAddress> geographicAddresses;
+
 
   public ProductOffering getProductOffering() {
     return productOffering;
@@ -87,12 +90,22 @@ public class UpdateProductOfferingRequest {
     return this;
   }
 
+  public List<GeographicAddress> getGeographicAddresses() {
+    return geographicAddresses;
+  }
+
+  public UpdateProductOfferingRequest setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
+    this.geographicAddresses = geographicAddresses;
+    return this;
+  }
+
   public ProductOfferDetails toOfferDetails() {
     return new ProductOfferDetails()
         .setProductOffering(productOffering)
         .setProductSpecification(productSpecification)
         .setResourceSpecifications(resourceSpecifications)
         .setServiceSpecifications(serviceSpecifications)
+        .setGeographicAddresses(geographicAddresses)
         .setProductOfferingPrices(productOfferingPrices)
         .setDid(did);
   }

@@ -1,12 +1,12 @@
 package eu._5gzorro.manager.domain;
 
+import eu._5gzorro.tm_forum.models.GeographicAddress;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
 import eu._5gzorro.tm_forum.models.product.ProductSpecification;
 import eu._5gzorro.tm_forum.models.resource.ResourceSpecification;
 import eu._5gzorro.tm_forum.models.service.ServiceSpecification;
 
-import java.util.Collection;
 import java.util.List;
 
 public class ProductOfferDetails {
@@ -15,6 +15,8 @@ public class ProductOfferDetails {
   private ProductSpecification productSpecification;
   private List<ResourceSpecification> resourceSpecifications;
   private List<ServiceSpecification> serviceSpecifications;
+  private List<GeographicAddress> geographicAddresses;
+
   private String did;
 
   public ProductOffering getProductOffering() {
@@ -59,6 +61,15 @@ public class ProductOfferDetails {
 
   public ProductOfferDetails setServiceSpecifications(List<ServiceSpecification> serviceSpecifications) {
     this.serviceSpecifications = serviceSpecifications;
+    return this;
+  }
+
+  public List<GeographicAddress> getGeographicAddresses() {
+    return geographicAddresses;
+  }
+
+  public ProductOfferDetails setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
+    this.geographicAddresses = geographicAddresses;
     return this;
   }
 
