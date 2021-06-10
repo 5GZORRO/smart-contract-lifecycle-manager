@@ -357,6 +357,23 @@
           }
         }
       },
+      "GeographicPoint": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "string"
+          },
+          "y": {
+            "type": "string"
+          },
+          "z": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
       "ResourceSpecCharacteristic": {
         "type": "object",
         "properties": {
@@ -421,6 +438,17 @@
           },
           "configurable": {
             "type": "boolean"
+          }
+        }
+      },
+      "CredentialAttributeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
           }
         }
       },
@@ -636,6 +664,14 @@
           }
         }
       },
+      "CredentialOfferDto": {
+        "type": "object",
+        "properties": {
+          "credential_preview": {
+            "$ref": "#/components/schemas/CredentialPreviewDto"
+          }
+        }
+      },
       "PagedSlaResponse": {
         "type": "object",
         "properties": {
@@ -711,6 +747,20 @@
             "type": "string"
           },
           "id": {
+            "type": "string"
+          }
+        }
+      },
+      "CredentialPreviewDto": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CredentialAttributeDto"
+            }
+          },
+          "did": {
             "type": "string"
           }
         }
@@ -896,6 +946,41 @@
           }
         }
       },
+      "GeographicLocation": {
+        "type": "object",
+        "properties": {
+          "spatialRef": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "accuracy": {
+            "type": "string"
+          },
+          "geometry": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeographicPoint"
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "geometryType": {
+            "type": "string"
+          }
+        }
+      },
       "Characteristic": {
         "type": "object",
         "properties": {
@@ -983,16 +1068,10 @@
           "name": {
             "type": "string"
           },
-          "relatedPartyRefs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RelatedPartyRef"
-            }
-          },
           "description": {
             "type": "string"
           },
-          "rules": {
+          "rule": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Rule"
@@ -1006,6 +1085,12 @@
           },
           "state": {
             "type": "string"
+          },
+          "relatedParty": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RelatedPartyRef"
+            }
           },
           "version": {
             "type": "string"
@@ -1587,10 +1672,22 @@
       "DIDStateDto": {
         "type": "object",
         "properties": {
+          "updated_at": {
+            "type": "string"
+          },
+          "credential_offer_dict": {
+            "$ref": "#/components/schemas/CredentialOfferDto"
+          },
+          "schema_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
           "state": {
             "type": "string"
           },
-          "did": {
+          "credential_exchange_id": {
             "type": "string"
           }
         }
@@ -1645,6 +1742,7 @@
         "type": "object",
         "required": [
           "did",
+          "geographicAddresses",
           "productOffering",
           "productOfferingPrices",
           "productSpecification",
@@ -1680,6 +1778,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ServiceSpecification"
+            }
+          },
+          "geographicAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeographicAddress"
             }
           },
           "did": {
@@ -1992,6 +2096,62 @@
           }
         }
       },
+      "GeographicAddress": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string"
+          },
+          "streetType": {
+            "type": "string"
+          },
+          "geographicLocation": {
+            "$ref": "#/components/schemas/GeographicLocation"
+          },
+          "city": {
+            "type": "string"
+          },
+          "streetNr": {
+            "type": "string"
+          },
+          "schemaLocation": {
+            "type": "string"
+          },
+          "locality": {
+            "type": "string"
+          },
+          "postcode": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "streetNrLast": {
+            "type": "string"
+          },
+          "streetNrSuffix": {
+            "type": "string"
+          },
+          "streetName": {
+            "type": "string"
+          },
+          "stateOrProvince": {
+            "type": "string"
+          },
+          "streetNrLastSuffix": {
+            "type": "string"
+          },
+          "streetSuffix": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
       "ProductSpecificationCharacteristicValue": {
         "type": "object",
         "properties": {
@@ -2100,6 +2260,7 @@
         "type": "object",
         "required": [
           "did",
+          "geographicAddresses",
           "productOffering",
           "productOfferingPrices",
           "productSpecification",
@@ -2141,6 +2302,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ServiceSpecification"
+            }
+          },
+          "geographicAddresses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GeographicAddress"
             }
           },
           "did": {
@@ -3172,8 +3339,69 @@
         ]
       }
     },
+    "/api/v1/agreement/{identifier}": {
+      "get": {
+        "description": "Get an agreement by id or DID",
+        "operationId": "getAgreement",
+        "responses": {
+          "200": {
+            "description": "An agreement matching the provided identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agreement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id was provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An  couldn\u0027t be found with the provided Identifier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "identifier",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Agreement"
+        ]
+      }
+    },
     "/api/v1/agreement/{id}/identity": {
-      "put": {
+      "post": {
         "requestBody": {
           "content": {
             "application/json": {
@@ -3229,67 +3457,6 @@
             },
             "in": "path",
             "name": "id",
-            "required": true
-          }
-        ],
-        "tags": [
-          "Agreement"
-        ]
-      }
-    },
-    "/api/v1/agreement/{identifier}": {
-      "get": {
-        "description": "Get an agreement by id or DID",
-        "operationId": "getAgreement",
-        "responses": {
-          "200": {
-            "description": "An agreement matching the provided identifier",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Agreement"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid id was provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An  couldn\u0027t be found with the provided Identifier",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "identifier",
             "required": true
           }
         ],
@@ -3555,7 +3722,7 @@
       }
     },
     "/api/v1/service-level-agreement/{slaId}/identity": {
-      "put": {
+      "post": {
         "requestBody": {
           "content": {
             "application/json": {
