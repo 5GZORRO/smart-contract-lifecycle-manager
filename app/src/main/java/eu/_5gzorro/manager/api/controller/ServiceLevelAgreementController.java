@@ -77,6 +77,6 @@ public interface ServiceLevelAgreementController {
             @ApiResponse(responseCode = "404", description = "An SLA couldn't be found with the provided DID",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
-    @DeleteMapping("{id}")
+    @DeleteMapping("{did}")
     ResponseEntity<Void> removeServiceLevelAgreement(@PathVariable String did);
 }
