@@ -133,6 +133,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         ServiceLevelAgreement dto = objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
         dto.setId(did);
+        dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + slaId.toString());
         dto.setState(EntityStatus.CREATED.toString());
 
         sla.setProperties(objectMapper.writeValueAsString(dto));
