@@ -39,7 +39,7 @@ imagePullSecrets:
     [name: regcred]
 
 postgres:
-    host: postgresql.postgres-fix.svc.cluster.local
+    host: postgres.postgres-fix.svc.cluster.local
     port: 5432
 
 probePath: /actuator/health
