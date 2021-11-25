@@ -72,7 +72,7 @@ openApi {
 
 jib {
     to {
-        image = "docker.pkg.github.com/5gzorro/smart-contract-lifecycle-manager/lifecycle-manager-api:${version}"
+        image = "docker.pkg.github.com/mike-no/smart-contract-lifecycle-manager/lifecycle-manager-api:${version}"
     }
     container {
         mainClass = 'eu._5gzorro.manager.api.ManagerApplication'
