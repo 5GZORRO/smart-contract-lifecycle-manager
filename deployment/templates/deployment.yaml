@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "smart-contract-lifecycle-mgr-api.fullname" . }}
+  labels:
+    {{- include "smart-contract-lifecycle-mgr-api.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+  selector:
+    matchLabels:
+      {{- include "smart-contract-lifecycle-mgr-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "smart-contract-lifecycle-mgr-api.fullname" . }}
+        {{- include "smart-contract-lifecycle-mgr-api.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "smart-contract-lifecycle-mgr-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        image: "docker.pkg.github.com/mike-no/smart-contract-lifecycle-manager/lifecycle-manager-api:{{ .Values.dockerTag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+          - containerPort: 8087
+            protocol: TCP
+        env:
+        - name: SERVER_HOSTNAME
+          value: "{{ .Values.hostname }}"
+        # [SQL Configuration]
+        - name: POSTGRES_DB_HOST
+          value: {{ .Values.postgres.host }}
+        - name: POSTGRES_DB_PORT
+          value: "{{ .Values.postgres.port }}"
+        - name: POSTGRES_DB_USER
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-db-credentials
+                  key: username
+        - name: POSTGRES_DB_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-db-credentials
+                  key: password
+        - name: POSTGRES_DB_NAME
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-db-credentials
+                  key: name
+        - name: IDENTITY_BASE_URL
+          value: {{ .Values.identityBaseUrl }}
+        - name: UPDATE_SLA_CALLBACK_URL
+          value: {{ .Values.callbacks.updateSlaIdentity }}
+        - name: UPDATE_AGREEMENT_CALLBACK_URL
+          value: {{ .Values.callbacks.updateAgreementIdentity }}
+        - name: CORDA_RPC_HOST
+          value: "{{ .Values.corda.host }}"
+        - name: CORDA_RPC_PORT
+          value: "{{ .Values.corda.port }}"
+        - name: CORDA_RPC_USERNAME
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-corda-credentials
+                  key: username
+        - name: CORDA_RPC_PASSWORD
+          valueFrom:
+              secretKeyRef:
+                  name: smart-contract-lifecycle-mgr-api-corda-credentials
+                  key: password
+        # [Application Environment Variables]
+        - name: SPRING_PROFILES_ACTIVE
+          value: {{ .Values.spring.profiles }}
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: {{ .Values.kafkaBootstrap }}
+        - name: PRODUCT_OFFER_TOPIC
+          value: {{ .Values.operatorName }}-{{ .Values.kafkaTopics.productOffer }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.probePath }}
+            port: {{ .Values.service.appPort }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          failureThreshold:  {{ .Values.livenessProbe.failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.probePath }}
+            port: {{ .Values.service.appPort }}
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          failureThreshold:  {{ .Values.livenessProbe.failureThreshold }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
