@@ -6,7 +6,7 @@ import net.corda.core.serialization.internal.CheckpointSerializationContext;
 import net.corda.core.serialization.internal.CheckpointSerializer;
 import net.corda.core.serialization.internal.SerializationEnvironment;
 import net.corda.core.serialization.internal.SerializationEnvironmentKt;
-import net.corda.testing.internal.InternalSerializationTestHelpersKt;
+import net.corda.coretesting.internal.InternalSerializationTestHelpersKt;
 import org.jetbrains.annotations.NotNull;
 
 public class CustomSerializationEnvironment implements SerializationEnvironment, AutoCloseable {
