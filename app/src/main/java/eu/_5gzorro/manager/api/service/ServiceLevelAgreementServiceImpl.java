@@ -31,6 +31,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
     private static final Logger log = LoggerFactory.getLogger(ServiceLevelAgreementServiceImpl.class);
 
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
@@ -48,9 +49,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     @Value("${callbacks.updateSLAIdentity}")
     private String updateSLAIdentityCallbackUrl;
 
-    public ServiceLevelAgreementServiceImpl() {
-        this.objectMapper = new ObjectMapper();
-    }
+    @Value("${server.hostname}")
+    private String hostname;
 
     @Override
     public Page<ServiceLevelAgreement> getSLAs(Pageable pageable) {
@@ -87,6 +87,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     public UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException {
 
         UUID slaId = uuidSource.newUUID();
+        dto.setId(slaId.toString());
+        dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + slaId.toString());
 
         try {
             String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
@@ -131,6 +133,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         ServiceLevelAgreement dto = objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
         dto.setId(did);
+        dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + did);
         dto.setState(EntityStatus.CREATED.toString());
 
         sla.setProperties(objectMapper.writeValueAsString(dto));

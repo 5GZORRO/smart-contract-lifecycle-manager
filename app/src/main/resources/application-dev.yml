@@ -1,4 +1,5 @@
 server:
+  hostname: ${SERVER_HOSTNAME:localhost:8087}
   port: ${SERVER_PORT:8087}
 
 dlt:
@@ -37,7 +38,7 @@ spring:
 
   kafka:
     enabled: false
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:http://localhost:9092}
     update-topics:
       product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
 
@@ -50,7 +51,7 @@ spring:
 
 integrations:
   identity-permissions:
-    myAgentBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
+    myAgentBaseUrl: ${IDENTITY_BASE_URL:http://172.28.3.153:6200}
 
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}

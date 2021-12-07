@@ -1,7 +1,8 @@
 server:
   hostname: ${SERVER_HOSTNAME:localhost:8087}
   port: ${SERVER_PORT:8087}
-  forward-headers-strategy: framework
+  servlet:
+    context-path: /smart-contract-lifecycle-manager
 
 dlt:
   driver: corda
@@ -14,7 +15,7 @@ corda:
     password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
-    - "CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"
+    - "CN=OperatorA,OU=DLT,O=DLT,L=51.50/-0.11/London,C=GB"
 
 springdoc:
   api-docs:
@@ -27,7 +28,7 @@ springdoc:
 spring:
   profiles:
     active:
-      - staging
+      - deploy
 
   application:
     name: smart-contract-lifecycle-manager
@@ -54,5 +55,5 @@ integrations:
     myAgentBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
 
 callbacks:
-  updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}
-  updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8080/api/v1/agreement/%s/identity}
+  updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity}
+  updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity}

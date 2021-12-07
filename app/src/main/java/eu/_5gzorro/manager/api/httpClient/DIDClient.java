@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @FeignClient(value="didClient", url = "${integrations.identity-permissions.myAgentBaseUrl}")
 public interface DIDClient {
 
@@ -14,5 +16,5 @@ public interface DIDClient {
     void create(@RequestBody CreateDidRequest request);
 
     @RequestMapping(method = RequestMethod.GET, value = "/holder/read_stakeholder_status")
-    StakeholderStatusDto getMyStakeholderCredential();
+    List<StakeholderStatusDto> getMyStakeholderCredential();
 }

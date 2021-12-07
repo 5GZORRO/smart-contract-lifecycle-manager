@@ -3,7 +3,7 @@ package eu._5gzorro.manager.dlt.corda.utils.serialization;
 import net.corda.core.internal.ToggleField;
 import net.corda.core.serialization.internal.SerializationEnvironment;
 import net.corda.core.serialization.internal.SerializationEnvironmentKt;
-import net.corda.testing.internal.InternalSerializationTestHelpersKt;
+import net.corda.coretesting.internal.InternalSerializationTestHelpersKt;
 
 import java.util.List;
 

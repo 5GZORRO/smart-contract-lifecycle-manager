@@ -23,9 +23,6 @@ public class IdentityAndPermissionsApiClientImpl implements IdentityAndPermissio
     }
 
     private String getAuthToken() {
-        if(myStakeholderStatus == null) {
-            this.myStakeholderStatus = didClient.getMyStakeholderCredential();
-        }
-        return myStakeholderStatus.getAuthToken();
+        return didClient.getMyStakeholderCredential().get(0).getAuthToken();
     }
 }

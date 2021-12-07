@@ -1,6 +1,6 @@
 kafkaTopics:
   productOffer: dlt-product-offerings
-kafkaBootstrap: 172.28.3.196:9092
+kafkaBootstrap: 10.4.2.61:9092
 
 fullnameOverride: "sclm-app"
 
@@ -17,9 +17,9 @@ serviceAccount:
 replicaCount: 1
 service:
     name: sclm-app
-    type: ClusterIP
+    type: NodePort
     appPort: 8087
-    extAppPort: 80
+    extAppPort: 31080
 
 image:
     pullPolicy: Always
@@ -36,16 +36,16 @@ podSecurityContext: {}
 securityContext: {}
 
 imagePullSecrets:
-    [name: regcred]
+    [name: regcred-sclcm]
 
 postgres:
-    host: postgres.postgres-fix.svc.cluster.local
+    host: postgres.postgres.svc.cluster.local
     port: 5432
 
-probePath: /actuator/health
+probePath: /smart-contract-lifecycle-manager/actuator/health
 
 spring:
-    profiles: staging
+    profiles: deploy
 
 livenessProbe:
   initialDelaySeconds: 30
