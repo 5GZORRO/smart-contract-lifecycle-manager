@@ -1,3 +1,6 @@
+server:
+  hostname: ${SERVER_HOSTNAME:localhost:8087}
+
 dlt:
   driver: nothing
 spring:

@@ -523,6 +523,32 @@
           }
         }
       },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "offset": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "pageSize": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/Sort"
+          }
+        }
+      },
       "MarketSegmentRef": {
         "type": "object",
         "properties": {
@@ -638,32 +664,6 @@
           }
         }
       },
-      "Pageable": {
-        "type": "object",
-        "properties": {
-          "paged": {
-            "type": "boolean"
-          },
-          "pageNumber": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "offset": {
-            "format": "int64",
-            "type": "integer"
-          },
-          "pageSize": {
-            "format": "int32",
-            "type": "integer"
-          },
-          "unpaged": {
-            "type": "boolean"
-          },
-          "sort": {
-            "$ref": "#/components/schemas/Sort"
-          }
-        }
-      },
       "CredentialOfferDto": {
         "type": "object",
         "properties": {
@@ -691,6 +691,20 @@
           },
           "empty": {
             "type": "boolean"
+          }
+        }
+      },
+      "CredentialPreviewDto": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CredentialAttributeDto"
+            }
+          },
+          "did": {
+            "type": "string"
           }
         }
       },
@@ -747,20 +761,6 @@
             "type": "string"
           },
           "id": {
-            "type": "string"
-          }
-        }
-      },
-      "CredentialPreviewDto": {
-        "type": "object",
-        "properties": {
-          "attributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CredentialAttributeDto"
-            }
-          },
-          "did": {
             "type": "string"
           }
         }
@@ -1300,6 +1300,32 @@
           }
         }
       },
+      "Rule": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "string"
+          },
+          "consequence": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          },
+          "tolerance": {
+            "type": "string"
+          },
+          "referenceValue": {
+            "type": "string"
+          }
+        }
+      },
       "BundledProductOffering": {
         "type": "object",
         "properties": {
@@ -1450,32 +1476,6 @@
           }
         }
       },
-      "Rule": {
-        "type": "object",
-        "properties": {
-          "unit": {
-            "type": "string"
-          },
-          "consequence": {
-            "type": "string"
-          },
-          "metric": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "operator": {
-            "type": "string"
-          },
-          "tolerance": {
-            "type": "string"
-          },
-          "referenceValue": {
-            "type": "string"
-          }
-        }
-      },
       "PageAgreement": {
         "type": "object",
         "properties": {
@@ -1483,16 +1483,16 @@
             "format": "int32",
             "type": "integer"
           },
-          "last": {
-            "type": "boolean"
+          "size": {
+            "format": "int32",
+            "type": "integer"
           },
           "numberOfElements": {
             "format": "int32",
             "type": "integer"
           },
-          "size": {
-            "format": "int32",
-            "type": "integer"
+          "last": {
+            "type": "boolean"
           },
           "totalPages": {
             "format": "int32",
@@ -1977,16 +1977,16 @@
             "format": "int32",
             "type": "integer"
           },
-          "last": {
-            "type": "boolean"
+          "size": {
+            "format": "int32",
+            "type": "integer"
           },
           "numberOfElements": {
             "format": "int32",
             "type": "integer"
           },
-          "size": {
-            "format": "int32",
-            "type": "integer"
+          "last": {
+            "type": "boolean"
           },
           "totalPages": {
             "format": "int32",
@@ -3285,60 +3285,6 @@
   ],
   "openapi": "3.0.1",
   "paths": {
-    "/api/v1/service-level-agreement/{id}": {
-      "delete": {
-        "description": "Delete an SLA definition by DID",
-        "operationId": "removeServiceLevelAgreement",
-        "responses": {
-          "200": {
-            "description": "The SLA was deleted successfully"
-          },
-          "400": {
-            "description": "Invalid parameters provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "An SLA couldn\u0027t be found with the provided DID",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "did",
-            "required": true
-          }
-        ],
-        "tags": [
-          "Service Level Agreement"
-        ]
-      }
-    },
     "/api/v1/agreement/{identifier}": {
       "get": {
         "description": "Get an agreement by id or DID",
@@ -3778,6 +3724,60 @@
             },
             "in": "path",
             "name": "slaId",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Service Level Agreement"
+        ]
+      }
+    },
+    "/api/v1/service-level-agreement/{did}": {
+      "delete": {
+        "description": "Delete an SLA definition by DID",
+        "operationId": "removeServiceLevelAgreement",
+        "responses": {
+          "200": {
+            "description": "The SLA was deleted successfully"
+          },
+          "400": {
+            "description": "Invalid parameters provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An SLA couldn\u0027t be found with the provided DID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "did",
             "required": true
           }
         ],
