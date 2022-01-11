@@ -23,24 +23,24 @@ service:
     extAppPort: 80
 
 image:
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 resources:
     limits:
-        cpu: 2
-        memory: 4G
+        cpu: 1
+        memory: 1.5G
     requests:
         cpu: 1
-        memory: 2G
+        memory: 1.5G
 
 podSecurityContext: {}
 securityContext: {}
 
 imagePullSecrets:
-    [name: regcred-zorro]
+    [name: regcred]
 
 postgres:
-    host: postgresql.postgres.svc.cluster.local
+    host: postgres.postgres-fix.svc.cluster.local
     port: 5432
 
 probePath: /actuator/health

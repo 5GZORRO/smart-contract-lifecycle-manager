@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.api.controller.dto.responses;
+package eu._5gzorro.manager.api.dto.responses;
 
 import java.util.HashMap;
 

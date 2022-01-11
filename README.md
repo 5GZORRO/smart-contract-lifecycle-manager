@@ -20,7 +20,7 @@ You can access swagger-ui by running the API and navigating to `http://localhost
 
 An open-api schema is also available under `docs/swagger-ui` from the root of the project.
 
-### Running corda node locally
+### Running corda nodes locally
 
 To package and run nodes locally run `./gradlew clean deployNodes` from the root directory
 then navigate to `corda-driver/build/nodes` and run `./runnodes` on Mac/Linux or `runnodes.bat` on 
@@ -28,6 +28,11 @@ Windows. This broadly follows the steps outlined [here](https://docs.corda.net/d
 
 Nodes are configured (for example what nodes to deploy, cordApps included and config properties) 
 at `corda-driver/build.gradle` under the deployNodes task 
+
+### Running the Lifecycle Manager API
+Once the nodes are up and running, you need to spin up a local postgres instance by 
+running `docker-compose up` in `/app/src/`.  Once this has started you can run the `ManagerApplication`.
+It should be run with the dev profile active (`-Dspring.profiles.active=dev`) 
 
 ### Updating OpenAPI swagger-ui file
 

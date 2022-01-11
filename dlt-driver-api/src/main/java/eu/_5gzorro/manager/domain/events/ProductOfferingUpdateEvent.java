@@ -3,6 +3,7 @@ package eu._5gzorro.manager.domain.events;
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
+import eu._5gzorro.tm_forum.models.GeographicAddress;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
 import eu._5gzorro.tm_forum.models.product.ProductSpecification;
@@ -23,6 +24,8 @@ public class ProductOfferingUpdateEvent {
   private ProductSpecification productSpecification;
   private List<ResourceSpecification> resourceSpecifications;
   private List<ServiceSpecification> serviceSpecifications;
+  private List<GeographicAddress> geographicAddresses;
+
   private UpdateType updateType;
   private String deduplicationId;
 
@@ -118,6 +121,15 @@ public class ProductOfferingUpdateEvent {
     return this;
   }
 
+  public List<GeographicAddress> getGeographicAddresses() {
+    return geographicAddresses;
+  }
+
+  public ProductOfferingUpdateEvent setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
+    this.geographicAddresses = geographicAddresses;
+    return this;
+  }
+
   public Collection<VerifiableCredential> getVerifiableCredentials() {
     return verifiableCredentials;
   }
@@ -139,6 +151,7 @@ public class ProductOfferingUpdateEvent {
         ", productSpecification=" + productSpecification +
         ", resourceSpecifications=" + resourceSpecifications +
         ", serviceSpecifications=" + serviceSpecifications +
+        ", geographicAddresses=" + geographicAddresses +
         ", updateType=" + updateType +
         ", deduplicationId='" + deduplicationId + '\'' +
         '}';

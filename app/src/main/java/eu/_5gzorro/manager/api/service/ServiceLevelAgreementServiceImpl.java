@@ -2,8 +2,10 @@ package eu._5gzorro.manager.api.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu._5gzorro.manager.api.httpClient.requests.CreateDidRequest;
 import eu._5gzorro.manager.api.model.AuthData;
 import eu._5gzorro.manager.api.model.entity.ServiceLevelAgreementWrapper;
+import eu._5gzorro.manager.api.model.enumureration.CredentialRequestType;
 import eu._5gzorro.manager.api.model.enumureration.EntityStatus;
 import eu._5gzorro.manager.api.model.exception.DIDCreationException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +31,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
     private static final Logger log = LoggerFactory.getLogger(ServiceLevelAgreementServiceImpl.class);
 
+    @Autowired
     private ObjectMapper objectMapper;
 
     @Autowired
@@ -45,9 +49,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     @Value("${callbacks.updateSLAIdentity}")
     private String updateSLAIdentityCallbackUrl;
 
-    public ServiceLevelAgreementServiceImpl() {
-        this.objectMapper = new ObjectMapper();
-    }
+    @Value("${server.hostname}")
+    private String hostname;
 
     @Override
     public Page<ServiceLevelAgreement> getSLAs(Pageable pageable) {
@@ -84,10 +87,17 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     public UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException {
 
         UUID slaId = uuidSource.newUUID();
+        dto.setId(slaId.toString());
+        dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + slaId.toString());
 
         try {
             String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
-            identityClient.createDID(callbackUrl, authData.getAuthToken());
+            CreateDidRequest request = new CreateDidRequest()
+                    .callbackUrl(callbackUrl)
+                    .claims(Collections.emptyList())
+                    .type(CredentialRequestType.SLA);
+
+            identityClient.createDID(request);
         }
         catch (Exception ex) {
             throw new DIDCreationException(ex);
@@ -123,6 +133,7 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         ServiceLevelAgreement dto = objectMapper.readValue(sla.getProperties(), ServiceLevelAgreement.class);
         dto.setId(did);
+        dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + did);
         dto.setState(EntityStatus.CREATED.toString());
 
         sla.setProperties(objectMapper.writeValueAsString(dto));

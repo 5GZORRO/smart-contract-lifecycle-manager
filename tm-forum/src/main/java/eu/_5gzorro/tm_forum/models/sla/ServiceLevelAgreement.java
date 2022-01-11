@@ -1,5 +1,6 @@
 package eu._5gzorro.tm_forum.models.sla;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,10 @@ public class ServiceLevelAgreement {
     private String state;
     private boolean approved;
     private LocalDateTime approvalDate;
+    @JsonProperty("rule")
     private List<Rule> rules;
+
+    @JsonProperty("relatedParty")
     private List<RelatedPartyRef> relatedPartyRefs;
 
     public ServiceLevelAgreement() {

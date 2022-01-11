@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.api.controller.dto.responses;
+package eu._5gzorro.manager.api.dto.responses;
 
 import eu._5gzorro.tm_forum.models.agreement.Agreement;
 import org.springframework.data.domain.Page;

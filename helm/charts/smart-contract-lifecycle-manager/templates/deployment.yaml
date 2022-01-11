@@ -36,6 +36,8 @@ spec:
           - containerPort: 8087
             protocol: TCP
         env:
+        - name: SERVER_HOSTNAME
+          value: "{{ .Values.hostname }}"
         # [SQL Configuration]
         - name: POSTGRES_DB_HOST
           value: {{ .Values.postgres.host }}
@@ -56,6 +58,12 @@ spec:
               secretKeyRef:
                   name: smart-contract-lifecycle-mgr-api-db-credentials
                   key: name
+        - name: IDENTITY_BASE_URL
+          value: {{ .Values.identityBaseUrl }}
+        - name: UPDATE_SLA_CALLBACK_URL
+          value: {{ .Values.callbacks.updateSlaIdentity }}
+        - name: UPDATE_AGREEMENT_CALLBACK_URL
+          value: {{ .Values.callbacks.updateAgreementIdentity }}
         - name: CORDA_RPC_HOST
           value: "{{ .Values.corda.host }}"
         - name: CORDA_RPC_PORT

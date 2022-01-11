@@ -1,0 +1,59 @@
+server:
+  hostname: ${SERVER_HOSTNAME:localhost:8087}
+  port: ${SERVER_PORT:8087}
+  servlet:
+    context-path: /smart-contract-lifecycle-manager
+
+dlt:
+  driver: corda
+
+corda:
+  rpc:
+    host: ${CORDA_RPC_HOST:localhost}
+    rpcPort: ${CORDA_RPC_PORT:10006}
+    username: ${CORDA_RPC_USERNAME:user1}
+    password: ${CORDA_RPC_PASSWORD:test}
+
+  governanceNodeNames: # Corda X500 names of valid governance nodes
+    - "CN=OperatorA,OU=DLT,O=DLT,L=51.50/-0.11/London,C=GB"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui
+    enabled: true
+
+spring:
+  profiles:
+    active:
+      - deploy
+
+  application:
+    name: smart-contract-lifecycle-manager
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_DB_HOST:localhost}:${POSTGRES_DB_PORT:5432}/${POSTGRES_DB_NAME:governance}
+    driverClassName: org.postgresql.Driver
+    username: ${POSTGRES_DB_USER:5gzorro_admin}
+    password: ${POSTGRES_DB_PASSWORD:5gzorro}
+
+  kafka:
+    enabled: true
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    update-topics:
+      product-offering: ${PRODUCT_OFFER_TOPIC:dlt-product-offerings}
+
+integrations:
+  identity-permissions:
+    myAgentBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
+
+callbacks:
+  updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity}
+  updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity}

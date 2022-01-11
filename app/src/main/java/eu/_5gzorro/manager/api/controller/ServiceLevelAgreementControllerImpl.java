@@ -1,8 +1,8 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.controller.dto.identityPermisssions.DIDStateDto;
-import eu._5gzorro.manager.api.controller.dto.responses.PagedSlaResponse;
+import eu._5gzorro.manager.api.dto.identityPermisssions.*;
+import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,7 +55,24 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
 
     @Override
     public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, DIDStateDto state) throws JsonProcessingException {
-        slaService.completeSLACreation(slaId, state.getDid());
+
+        CredentialOfferDto offer = state.getCredentialOffer();
+
+        // return oK for status updates prior to the credential being issued
+        if(offer == null)
+            return ResponseEntity.ok().build();
+
+        CredentialPreviewDto preview = offer.getCredentialPreview();
+
+        if(preview == null)
+            return ResponseEntity.ok().build();
+
+        String did = state.getCredentialOffer().getCredentialPreview().getDid();
+
+        if(did == null)
+            return ResponseEntity.badRequest().build();
+
+        slaService.completeSLACreation(slaId, did);
         return ResponseEntity.ok().build();
     }
 

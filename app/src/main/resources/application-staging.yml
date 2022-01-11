@@ -1,5 +1,7 @@
 server:
+  hostname: ${SERVER_HOSTNAME:localhost:8087}
   port: ${SERVER_PORT:8087}
+  forward-headers-strategy: framework
 
 dlt:
   driver: corda
@@ -50,7 +52,7 @@ spring:
 
 integrations:
   identity-permissions:
-    apiBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
+    myAgentBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
 
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}
