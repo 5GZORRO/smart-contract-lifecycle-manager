@@ -129,6 +129,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         ServiceLevelAgreementWrapper sla = slaRepository.findById(slaId)
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaId.toString()));
 
+        log.info("SLA {} retrieved", slaId);
+
         if(sla.getStatus() != EntityStatus.CREATING) {
             throw new ServiceLevelAgreementStatusException(EntityStatus.CREATING, sla.getStatus());
         }
@@ -143,6 +145,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
+
+        log.info("SLA {} updated with DID {}", slaId, did);
     }
 
     @Override
