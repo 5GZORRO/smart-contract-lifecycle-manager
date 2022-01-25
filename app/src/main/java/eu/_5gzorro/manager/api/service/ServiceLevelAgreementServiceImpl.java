@@ -101,8 +101,11 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
 
+        log.info("SLA {} stored in SCLCM.", slaId);
+
         try {
             String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
+            log.info("Requesting DID for SLA {}, the DID will be received on {}", slaId, callbackUrl);
             CreateDidRequest request = new CreateDidRequest()
                     .callbackUrl(callbackUrl)
                     .claims(Collections.emptyList())
@@ -120,6 +123,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     @Override
     @Transactional
     public void completeSLACreation(UUID slaId, String did) throws JsonProcessingException {
+
+        log.info("Updating SLA {} with DID {}", slaId, did);
 
         ServiceLevelAgreementWrapper sla = slaRepository.findById(slaId)
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaId.toString()));
