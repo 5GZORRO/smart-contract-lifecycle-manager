@@ -90,6 +90,17 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         dto.setId(slaId.toString());
         dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + slaId.toString());
 
+        ServiceLevelAgreementWrapper sla = new ServiceLevelAgreementWrapper();
+        sla.setId(slaId);
+        sla.setStatus(EntityStatus.CREATING);
+
+        dto.setState(EntityStatus.CREATING.toString());
+
+        dto.getRules().stream().forEach(rule -> rule.setId(uuidSource.newUUID().toString()));
+
+        sla.setProperties(objectMapper.writeValueAsString(dto));
+        slaRepository.save(sla);
+
         try {
             String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
             CreateDidRequest request = new CreateDidRequest()
@@ -102,17 +113,6 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         catch (Exception ex) {
             throw new DIDCreationException(ex);
         }
-
-        ServiceLevelAgreementWrapper sla = new ServiceLevelAgreementWrapper();
-        sla.setId(slaId);
-        sla.setStatus(EntityStatus.CREATING);
-
-        dto.setState(EntityStatus.CREATING.toString());
-
-        dto.getRules().stream().forEach(rule -> rule.setId(uuidSource.newUUID().toString()));
-
-        sla.setProperties(objectMapper.writeValueAsString(dto));
-        slaRepository.save(sla);
 
         return slaId;
     }
