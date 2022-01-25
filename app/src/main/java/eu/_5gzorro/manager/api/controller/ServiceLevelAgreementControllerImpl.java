@@ -54,9 +54,13 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     }
 
     @Override
-    public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, CredentialSubjectDto state) throws JsonProcessingException {
+    public ResponseEntity<Void> updateTemplateIdentity(UUID slaId, DIDStateCSDto state) throws JsonProcessingException {
 
-        String did = state.getId();
+        CredentialSubjectDto credentialSubjectDto = state.getCredentialSubjectDto();
+        if(credentialSubjectDto == null)
+            return ResponseEntity.badRequest().build();
+
+        String did = credentialSubjectDto.getId();
 
         if(did == null)
             return ResponseEntity.badRequest().build();
