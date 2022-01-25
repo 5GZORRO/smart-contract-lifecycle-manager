@@ -83,7 +83,6 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     }
 
     @Override
-    @Transactional
     public UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException {
 
         UUID slaId = uuidSource.newUUID();
