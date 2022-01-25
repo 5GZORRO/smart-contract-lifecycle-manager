@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateDto;
+import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialSubjectDto;
 import eu._5gzorro.manager.api.dto.responses.ApiErrorResponse;
 import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
@@ -66,7 +66,7 @@ public interface ServiceLevelAgreementController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ApiErrorResponse.class)))
     })
     @PostMapping("{slaId}/identity")
-    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaId, @Valid @RequestBody final DIDStateDto state) throws JsonProcessingException;
+    ResponseEntity<Void> updateTemplateIdentity(@PathVariable final UUID slaId, @Valid @RequestBody final CredentialSubjectDto state) throws JsonProcessingException;
 
 
     @Operation(description = "Delete an SLA definition by DID")
