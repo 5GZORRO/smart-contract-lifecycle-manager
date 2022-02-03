@@ -83,25 +83,11 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     }
 
     @Override
-    @Transactional
     public UUID createSLA(ServiceLevelAgreement dto) throws JsonProcessingException {
 
         UUID slaId = uuidSource.newUUID();
         dto.setId(slaId.toString());
         dto.setHref("http://" + hostname + "/api/v1/service-level-agreement/" + slaId.toString());
-
-        try {
-            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
-            CreateDidRequest request = new CreateDidRequest()
-                    .callbackUrl(callbackUrl)
-                    .claims(Collections.emptyList())
-                    .type(CredentialRequestType.SLA);
-
-            identityClient.createDID(request);
-        }
-        catch (Exception ex) {
-            throw new DIDCreationException(ex);
-        }
 
         ServiceLevelAgreementWrapper sla = new ServiceLevelAgreementWrapper();
         sla.setId(slaId);
@@ -114,6 +100,22 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
 
+        log.info("SLA {} stored in SCLCM.", slaId);
+
+        try {
+            String callbackUrl = String.format(updateSLAIdentityCallbackUrl, slaId);
+            log.info("Requesting DID for SLA {}, the DID will be received on {}", slaId, callbackUrl);
+            CreateDidRequest request = new CreateDidRequest()
+                    .callbackUrl(callbackUrl)
+                    .claims(Collections.emptyList())
+                    .type(CredentialRequestType.SLA);
+
+            identityClient.createDID(request);
+        }
+        catch (Exception ex) {
+            throw new DIDCreationException(ex);
+        }
+
         return slaId;
     }
 
@@ -121,8 +123,12 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
     @Transactional
     public void completeSLACreation(UUID slaId, String did) throws JsonProcessingException {
 
+        log.info("Updating SLA {} with DID {}", slaId, did);
+
         ServiceLevelAgreementWrapper sla = slaRepository.findById(slaId)
                 .orElseThrow(() -> new ServiceLevelAgreementNotFoundException(slaId.toString()));
+
+        log.info("SLA {} retrieved", slaId);
 
         if(sla.getStatus() != EntityStatus.CREATING) {
             throw new ServiceLevelAgreementStatusException(EntityStatus.CREATING, sla.getStatus());
@@ -138,6 +144,8 @@ public class ServiceLevelAgreementServiceImpl implements ServiceLevelAgreementSe
 
         sla.setProperties(objectMapper.writeValueAsString(dto));
         slaRepository.save(sla);
+
+        log.info("SLA {} updated with DID {}", slaId, did);
     }
 
     @Override

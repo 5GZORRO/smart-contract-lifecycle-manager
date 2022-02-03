@@ -1,6 +1,8 @@
 package eu._5gzorro.manager.dlt.corda.service.rpc;
 
 import static kotlin.collections.SetsKt.setOf;
+import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_NUM;
+import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;
 
 import javax.annotation.PostConstruct;
 import net.corda.client.rpc.CordaRPCClient;
@@ -67,7 +69,7 @@ public class NodeRPC {
 
   public <T extends ContractState> DataFeed<Page<T>, Update<T>>
   startTracking(Class<T> clazz, QueryCriteria queryCriteria) {
-    PageSpecification pageSpecification = new PageSpecification();
+    PageSpecification pageSpecification = new PageSpecification(DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE);
     SortAttribute sortAttribute = new SortAttribute.Standard(Sort.CommonStateAttribute.STATE_REF_TXN_ID);
     Sort sort = new Sort(setOf(new Sort.SortColumn(sortAttribute, Sort.Direction.ASC)));
 
