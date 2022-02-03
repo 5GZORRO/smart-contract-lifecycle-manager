@@ -1,11 +1,11 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.ArrayList;
 
 import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
-import org.threeten.bp.OffsetDateTime;
 
 public class ProductOrder {
   private String id;
@@ -24,8 +24,8 @@ public class ProductOrder {
   private String atBaseType;
   private String atType;
   private String atSchemaLocation;
-  private Channel channel;
-  private Note note;
+  private List<Channel> channel;
+  private List<Note> note;
   private List<RelatedPartyRef> relatedParty = null;
   private List<PaymentRef> payment = null;
   private BillingAccountRef billingAccount;
@@ -322,7 +322,7 @@ public class ProductOrder {
     this.atSchemaLocation = atSchemaLocation;
   }
 
-  public ProductOrder channel(Channel channel) {
+  public ProductOrder channel(List<Channel> channel) {
     this.channel = channel;
     return this;
   }
@@ -332,15 +332,15 @@ public class ProductOrder {
    *
    * @return channel
    */
-  public Channel getChannel() {
+  public List<Channel> getChannel() {
     return channel;
   }
 
-  public void setChannel(Channel channel) {
+  public void setChannel(List<Channel> channel) {
     this.channel = channel;
   }
 
-  public ProductOrder note(Note note) {
+  public ProductOrder note(List<Note> note) {
     this.note = note;
     return this;
   }
@@ -350,11 +350,11 @@ public class ProductOrder {
    *
    * @return note
    */
-  public Note getNote() {
+  public List<Note> getNote() {
     return note;
   }
 
-  public void setNote(Note note) {
+  public void setNote(List<Note> note) {
     this.note = note;
   }
 

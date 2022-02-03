@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class CordaConfigurationProperties {
   private List<String> governanceNodeNames;
   private DriverConfigurationProperties rpc;
-  private String governanceBaseUrl;
+  private String identityBaseUrl;
 
   public List<String> getGovernanceNodeNames() {
     return governanceNodeNames;
@@ -29,12 +29,12 @@ public class CordaConfigurationProperties {
     return this;
   }
 
-  public String getGovernanceBaseUrl() {
-    return governanceBaseUrl;
+  public String getIdentityBaseUrl() {
+    return identityBaseUrl;
   }
 
-  public CordaConfigurationProperties setGovernanceBaseUrl(String governanceBaseUrl) {
-    this.governanceBaseUrl = governanceBaseUrl;
+  public CordaConfigurationProperties setIdentityBaseUrl(String identityBaseUrl) {
+    this.identityBaseUrl = identityBaseUrl;
     return this;
   }
 }

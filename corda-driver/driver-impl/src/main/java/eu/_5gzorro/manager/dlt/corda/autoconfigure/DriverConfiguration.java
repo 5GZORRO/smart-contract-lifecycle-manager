@@ -57,6 +57,6 @@ public class DriverConfiguration {
   }
 
   private DIDToDLTIdentityService didToDLTIdentityService() {
-    return new DIDToCordaDLTIdentityService(cordaProps.getGovernanceBaseUrl());
+    return new DIDToCordaDLTIdentityService(cordaProps.getIdentityBaseUrl());
   }
 }

@@ -250,8 +250,7 @@ public class CordaProductOrderDriver
               orderDetails.getValidFor(),
               invitations);
 
-      rpcClient.startFlowDynamic(
-          PublishProductOrderFlow.PublishProductOrderInitiator.class, productOrderState, supplier);
+      rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class, productOrderState);
     } catch (IOException e) {
       e.printStackTrace();
     }

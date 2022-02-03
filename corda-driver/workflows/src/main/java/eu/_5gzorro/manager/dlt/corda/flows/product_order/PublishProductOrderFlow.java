@@ -69,7 +69,7 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     public UniqueIdentifier call() throws FlowException {
       // Open sessions with all other nodes as we want to share product offering with them
       Set<FlowSession> sessions =
-          initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
+          initiateFlows(SetsKt.setOf(productOrder.getBuyer(), productOrder.getSeller(), productOrder.getGovernanceParty()));
 
       return subFlow(new PublishProductOrderFlow(productOrder, sessions));
     }
