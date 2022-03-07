@@ -39,7 +39,7 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
             .productOrderObservable()
             .subscribe(
                 productOrderUpdateEvent -> {
-                  log.info("ProductOffering Kafka update: {}", productOrderUpdateEvent);
+                  log.info("ProductOrder Kafka update: {}", productOrderUpdateEvent);
                   super.send(
                       productOrderTopic,
                       productOrderUpdateEvent.getDeduplicationId(),

@@ -8,12 +8,14 @@ dlt:
 corda:
   rpc:
     host: ${CORDA_RPC_HOST:localhost}
-    rpcPort: ${CORDA_RPC_PORT:10006}
+    rpcPort: ${CORDA_RPC_PORT:10009}
     username: ${CORDA_RPC_USERNAME:user1}
     password: ${CORDA_RPC_PASSWORD:test}
 
   governanceNodeNames: # Corda X500 names of valid governance nodes
     - "O=GovernanceNode,L=Madrid,C=ES"
+
+  identityBaseUrl: http://172.28.3.153:6200
 
 springdoc:
   api-docs:
@@ -46,8 +48,8 @@ spring:
   datasource:
     url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
     driverClassName: org.postgresql.Driver
-    username: 5gzorro_admin
-    password: 5gzorro
+    username: postgres
+    password: postgres
     initialization-mode: never
 
 integrations:

@@ -1,6 +1,10 @@
 package eu._5gzorro.manager.dlt.corda.service.product_order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
+import eu._5gzorro.config.CustomInstantDeserializer;
+import eu._5gzorro.config.CustomOffsetDateTimeSerializer;
 import eu._5gzorro.manager.dlt.corda.flows.product_order.*;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.models.types.OrderState;
@@ -30,6 +34,7 @@ import net.corda.core.node.services.vault.QueryCriteria;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.threeten.bp.OffsetDateTime;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -57,6 +62,7 @@ public class CordaProductOrderDriver
     this.didToDLTIdentityService = didToDLTIdentityService;
     this.rpcClient = nodeRPC.getClient();
     this.governanceNodeNames = governanceNodeNames;
+    setup();
   }
 
   @Override
@@ -210,9 +216,12 @@ public class CordaProductOrderDriver
         updateWrapper -> {
           ProductOrder productOrder = updateWrapper.getProductOrder();
 
-          ProductOrderDetails order =
-              ZipUtils.unzipObject(
-                  rpcClient.openAttachment(productOrder.getModel()), new ObjectMapper());
+          ObjectMapper objectMapper = new ObjectMapper();
+          ThreeTenModule module = new ThreeTenModule();
+          module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
+          objectMapper.registerModule(module);
+          ProductOrderDetails order = objectMapper.convertValue(ZipUtils.unzipObject(
+                  rpcClient.openAttachment(productOrder.getModel()), objectMapper), ProductOrderDetails.class);
 
           return new ProductOrderUpdateEvent()
               .setUpdateType(updateWrapper.getUpdateType())
@@ -230,9 +239,17 @@ public class CordaProductOrderDriver
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential) {
+    log.info("Publishing Product Order.");
+
+    log.info("Retrieving Ledger Identity for Supplier DID {}.", orderDetails.getSupplierDid());
     String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
+    log.info("Ledger Identity retrieved.");
 
     Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+    ObjectMapper objectMapper = new ObjectMapper();
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(OffsetDateTime.class, new CustomOffsetDateTimeSerializer());
+    objectMapper.registerModule(module);
 
     try {
       ProductOrder productOrderState =
@@ -243,7 +260,7 @@ public class CordaProductOrderDriver
               findGovernanceNode(),
               null, // spectrumRegulator
               null, // TODO
-              rpcClient.uploadAttachment(ZipUtils.zipObject(orderDetails, new ObjectMapper())),
+              rpcClient.uploadAttachment(ZipUtils.zipObject(orderDetails, objectMapper)),
               null,
               OrderState.PROPOSED,
               OfferType.GENERAL, // TODO

@@ -1,6 +1,7 @@
 package eu._5gzorro.tm_forum.models.agreement;
 
-import java.time.OffsetDateTime;
+import org.threeten.bp.OffsetDateTime;
+
 import java.util.Objects;
 
 public class AgreementAuthorization {

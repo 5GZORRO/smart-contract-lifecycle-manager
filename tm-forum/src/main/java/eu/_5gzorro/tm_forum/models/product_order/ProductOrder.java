@@ -1,11 +1,11 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.ArrayList;
 
 import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
+import org.threeten.bp.OffsetDateTime;
 
 public class ProductOrder {
   private String id;
