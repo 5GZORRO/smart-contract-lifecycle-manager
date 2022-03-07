@@ -39,11 +39,11 @@ spring:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   kafka:
-    enabled: false
+    enabled: true
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:http://localhost:9092}
     update-topics:
-      product-offering: ${PRODUCT_OFFER_TOPIC:"dlt-product-offerings"}
-      product-order: ${PRODUCT_ORDER_TOPIC:"dlt-product-orders"}
+      product-offering: ${PRODUCT_OFFER_TOPIC:dlt-product-offerings}
+      product-order: ${PRODUCT_ORDER_TOPIC:dlt-product-orders}
 
   datasource:
     url: "jdbc:postgresql://localhost:5432/lifecycle_manager"
