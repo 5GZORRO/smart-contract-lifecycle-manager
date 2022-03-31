@@ -1,22 +1,40 @@
 package eu._5gzorro.manager.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.controller.dto.requests.ChangeProductOrderRequest;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
+import eu._5gzorro.manager.api.httpClient.RSOCClient;
+import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
+import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOrderDriver;
+import eu._5gzorro.tm_forum.models.product.ProductOffering;
+import eu._5gzorro.tm_forum.models.product_order.OrderItem;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @Tag(name = "Product Order")
 @RestController
 @RequestMapping("/product-order")
 public class ProductOrderController {
   private final ProductOrderDriver driver;
+
+  @Autowired
+  private RSOCClient rsocClient;
+
+  @Autowired
+  private ServiceLevelAgreementService serviceLevelAgreementService;
 
   public ProductOrderController(ProductOrderDriver driver) {
     this.driver = driver;
@@ -27,11 +45,25 @@ public class ProductOrderController {
   @PostMapping
   public ResponseEntity<Boolean> publishProductOrder(
       @Valid @RequestBody @NotNull PublishProductOrderRequest request) {
+    List<OrderItem> orderItems = request.getProductOrder().getOrderItem();
+    List<ServiceLevelAgreement> serviceLevelAgreements = new ArrayList<>();
+    for(OrderItem orderItem : orderItems) {
+      ProductOffering po = rsocClient.getPoById(URI.create(orderItem.getProductOffering().getHref()));
+      try {
+        serviceLevelAgreements.add(serviceLevelAgreementService.getSLAByDid(po.getServiceLevelAgreement().getId()));
+      } catch (JsonProcessingException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+      } catch (ServiceLevelAgreementNotFoundException ignored) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+      }
+    }
+
     driver.publishProductOrder(
         request.toOrderDetails(),
         request.getInvitations(),
         request.getVerifiableCredentials(),
-        null);
+        null,
+        serviceLevelAgreements);
 
     return ResponseEntity.ok().body(true);
   }

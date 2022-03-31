@@ -20,6 +20,7 @@ import eu._5gzorro.manager.domain.events.enums.OrderUpdateType;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.manager.utils.ZipUtils;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
@@ -238,7 +239,8 @@ public class CordaProductOrderDriver
       ProductOrderDetails orderDetails,
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential) {
+      VerifiableCredential identityCredential,
+      List<ServiceLevelAgreement> serviceLevelAgreements) {
     log.info("Publishing Product Order.");
 
     log.info("Retrieving Ledger Identity for Supplier DID {}.", orderDetails.getSupplierDid());
@@ -246,6 +248,8 @@ public class CordaProductOrderDriver
     log.info("Ledger Identity retrieved.");
 
     Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+    log.info("supplier: {}", supplier.toString());
+
     ObjectMapper objectMapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
     module.addSerializer(OffsetDateTime.class, new CustomOffsetDateTimeSerializer());
@@ -254,7 +258,7 @@ public class CordaProductOrderDriver
     try {
       ProductOrder productOrderState =
           new ProductOrder(
-              UniqueIdentifier.Companion.fromString(orderDetails.getOfferDid()),
+              new UniqueIdentifier(),
               rpcClient.nodeInfo().getLegalIdentities().get(0),
               supplier,
               findGovernanceNode(),
@@ -267,7 +271,10 @@ public class CordaProductOrderDriver
               orderDetails.getValidFor(),
               invitations);
 
-      rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class, productOrderState);
+      log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
+
+      rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
+              productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements);
     } catch (IOException e) {
       e.printStackTrace();
     }

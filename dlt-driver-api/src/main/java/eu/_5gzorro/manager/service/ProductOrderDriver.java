@@ -4,9 +4,11 @@ import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOrderDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public interface ProductOrderDriver {
@@ -23,10 +25,11 @@ public interface ProductOrderDriver {
    *     and ensure they have permission to perform action
    */
   void publishProductOrder(
-      ProductOrderDetails orderDetails,
-      Map<String, Invitation> invitations,
-      Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential);
+          ProductOrderDetails orderDetails,
+          Map<String, Invitation> invitations,
+          Collection<VerifiableCredential> verifiableCredentials,
+          VerifiableCredential identityCredential,
+          List<ServiceLevelAgreement> serviceLevelAgreements);
 
   void approveProductOrder(String orderId);
 

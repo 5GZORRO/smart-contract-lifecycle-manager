@@ -2,9 +2,13 @@ package eu._5gzorro.manager.dlt.corda.flows.product_order;
 
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOrderContract;
+import eu._5gzorro.manager.dlt.corda.flows.sla.PublishServiceLevelAgreementFLow;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
+import eu._5gzorro.manager.dlt.corda.models.types.SLAState;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
+import eu._5gzorro.manager.dlt.corda.states.ServiceLevelAgreementState;
+import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import kotlin.collections.SetsKt;
 import net.corda.core.contracts.Command;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -20,12 +24,20 @@ import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 @InitiatingFlow
 public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> {
-  private final ProductOrder productOrder;
-  private final Set<FlowSession> sessions;
 
-  public PublishProductOrderFlow(ProductOrder productOrder, Set<FlowSession> sessions) {
+  private final ProductOrder productOrder;
+  private final String productOrderDID;
+  private final Set<FlowSession> sessions;
+  private final List<ServiceLevelAgreement> serviceLevelAgreements;
+
+  public PublishProductOrderFlow(ProductOrder productOrder,
+                                 String productOrderDID,
+                                 Set<FlowSession> sessions,
+                                 List<ServiceLevelAgreement> serviceLevelAgreements) {
     this.productOrder = productOrder;
+    this.productOrderDID = productOrderDID;
     this.sessions = sessions;
+    this.serviceLevelAgreements = serviceLevelAgreements;
   }
 
   @Suspendable
@@ -52,16 +64,40 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     signedTransaction = subFlow(new CollectSignaturesFlow(signedTransaction, sessions));
 
     subFlow(new FinalityFlow(signedTransaction, sessions));
+
+    for(ServiceLevelAgreement serviceLevelAgreement : serviceLevelAgreements) {
+      ServiceLevelAgreementState serviceLevelAgreementState =
+              new ServiceLevelAgreementState(
+                      new UniqueIdentifier(),
+                      serviceLevelAgreement,
+                      SLAState.IN_PLACE,
+                      productOrderDID,
+                      productOrder.getBuyer(),
+                      productOrder.getSeller(),
+                      productOrder.getGovernanceParty());
+
+      subFlow(new PublishServiceLevelAgreementFLow
+              .PublishServiceLevelAgreementFLowInitiator(serviceLevelAgreementState));
+    }
+
+
     return productOrder.getLinearId();
   }
 
   @InitiatingFlow
   @StartableByRPC
   public static class PublishProductOrderInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final ProductOrder productOrder;
 
-    public PublishProductOrderInitiator(ProductOrder productOrder) {
+    private final ProductOrder productOrder;
+    private final String productOrderDID;
+    private final List<ServiceLevelAgreement> serviceLevelAgreements;
+
+    public PublishProductOrderInitiator(ProductOrder productOrder,
+                                        String productOrderDID,
+                                        List<ServiceLevelAgreement> serviceLevelAgreements) {
       this.productOrder = productOrder;
+      this.productOrderDID = productOrderDID;
+      this.serviceLevelAgreements = serviceLevelAgreements;
     }
 
     @Suspendable
@@ -71,7 +107,7 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
       Set<FlowSession> sessions =
           initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
 
-      return subFlow(new PublishProductOrderFlow(productOrder, sessions));
+      return subFlow(new PublishProductOrderFlow(productOrder, productOrderDID, sessions, serviceLevelAgreements));
     }
   }
 
@@ -95,7 +131,7 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
                     ProductOrder productOrder =
                         (ProductOrder) stx.getCoreTransaction().getOutput(0);
 
-                    // TODO perfrom various checks here i.e if spectrum party then check operator
+                    // TODO perform various checks here i.e if spectrum party then check operator
                     // authorised on this spectrum
 
                     return null;
