@@ -16,14 +16,14 @@ import java.security.PublicKey;
 import java.util.List;
 import java.util.Set;
 
-public class PublishServiceLevelAgreementFLow {
+public class PublishServiceLevelAgreementFlow {
 
     @InitiatingFlow
-    public static class PublishServiceLevelAgreementFLowInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
+    public static class PublishServiceLevelAgreementFlowInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
 
         private final ServiceLevelAgreementState serviceLevelAgreementState;
 
-        public PublishServiceLevelAgreementFLowInitiator(ServiceLevelAgreementState serviceLevelAgreementState) {
+        public PublishServiceLevelAgreementFlowInitiator(ServiceLevelAgreementState serviceLevelAgreementState) {
             this.serviceLevelAgreementState = serviceLevelAgreementState;
         }
 
@@ -52,13 +52,13 @@ public class PublishServiceLevelAgreementFLow {
         }
     }
 
-    @InitiatedBy(PublishServiceLevelAgreementFLowInitiator.class)
-    public static class PublishServiceLevelAgreementFLowInitiatorResponder
+    @InitiatedBy(PublishServiceLevelAgreementFlowInitiator.class)
+    public static class PublishServiceLevelAgreementFlowInitiatorResponder
             extends ExtendedFlowLogic<SignedTransaction> {
 
         private final FlowSession counterParty;
 
-        public PublishServiceLevelAgreementFLowInitiatorResponder(FlowSession counterParty) {
+        public PublishServiceLevelAgreementFlowInitiatorResponder(FlowSession counterParty) {
             this.counterParty = counterParty;
         }
 
