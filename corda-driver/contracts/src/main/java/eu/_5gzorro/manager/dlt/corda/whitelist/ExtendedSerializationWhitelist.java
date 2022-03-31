@@ -101,7 +101,10 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
         eu._5gzorro.tm_forum.models.product.ProductOfferingStateChangeEvent.class);
     whitelist.add(
         eu._5gzorro.tm_forum.models.product.ProductSpecificationCreateEventPayload.class);
-    whitelist.add(eu._5gzorro.manager.domain.ServiceLevelAgreement.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.RelatedPartyRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.Rule.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.TemplateRef.class);
     whitelist.add(eu._5gzorro.tm_forum.models.service.URL.class);
     whitelist.add(eu._5gzorro.tm_forum.models.product.ImportJobCreate.class);
     whitelist.add(
