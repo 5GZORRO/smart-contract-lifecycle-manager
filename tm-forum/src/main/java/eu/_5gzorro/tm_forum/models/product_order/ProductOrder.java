@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
 import org.threeten.bp.OffsetDateTime;
 
@@ -30,6 +31,7 @@ public class ProductOrder {
   private List<PaymentRef> payment = null;
   private BillingAccountRef billingAccount;
   private List<OrderPrice> orderTotalPrice = null;
+  @JsonProperty(value = "productOrderItem")
   private List<OrderItem> orderItem = new ArrayList<>();
 
   public ProductOrder id(String id) {
