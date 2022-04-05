@@ -2,6 +2,7 @@ package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateCSDto;
+import eu._5gzorro.manager.api.dto.requests.UpdateSLAStateRequest;
 import eu._5gzorro.manager.api.dto.responses.ApiErrorResponse;
 import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
@@ -79,4 +80,12 @@ public interface ServiceLevelAgreementController {
     })
     @DeleteMapping("{did}")
     ResponseEntity<Void> removeServiceLevelAgreement(@PathVariable String did);
+
+    @Operation(description = "Update the state of an SLA in the DLT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "The SLA state has been updated."),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @PatchMapping
+    ResponseEntity<Void> updateSLAState(@RequestBody @Valid UpdateSLAStateRequest request);
 }
