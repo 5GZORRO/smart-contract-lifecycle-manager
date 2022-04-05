@@ -3,6 +3,7 @@ package eu._5gzorro.manager.dlt.corda.autoconfigure;
 import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferingDriver;
 import eu._5gzorro.manager.dlt.corda.service.product_order.CordaProductOrderDriver;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
+import eu._5gzorro.manager.dlt.corda.service.sla.CordaServiceLevelAgreementDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
@@ -54,6 +55,13 @@ public class DriverConfiguration {
         rpc,
         cordaProps.getGovernanceNodeNames()
     );
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public CordaServiceLevelAgreementDriver cordaServiceLevelAgreementDriver(NodeRPC rpc) {
+    return new CordaServiceLevelAgreementDriver(rpc);
   }
 
   private DIDToDLTIdentityService didToDLTIdentityService() {
