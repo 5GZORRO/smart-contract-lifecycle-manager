@@ -2,6 +2,7 @@ package eu._5gzorro.manager.dlt.corda.states;
 
 import eu._5gzorro.manager.dlt.corda.contracts.ServiceLevelAgreementContract;
 import eu._5gzorro.manager.dlt.corda.models.types.SLAState;
+import eu._5gzorro.manager.dlt.corda.states.schemes.ServiceLevelAgreementSchemaV1;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import net.corda.core.contracts.BelongsToContract;
 import net.corda.core.contracts.ContractState;
@@ -9,6 +10,9 @@ import net.corda.core.contracts.LinearState;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
+import net.corda.core.schemas.MappedSchema;
+import net.corda.core.schemas.PersistentState;
+import net.corda.core.schemas.QueryableState;
 import net.corda.core.serialization.CordaSerializable;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +23,7 @@ import java.util.stream.Collectors;
 
 @BelongsToContract(ServiceLevelAgreementContract.class)
 @CordaSerializable
-public class ServiceLevelAgreementState implements ContractState, LinearState {
+public class ServiceLevelAgreementState implements ContractState, LinearState, QueryableState {
 
     private final UniqueIdentifier identifier;
 
@@ -94,5 +98,21 @@ public class ServiceLevelAgreementState implements ContractState, LinearState {
         return getParticipants().stream()
                 .map(AbstractParty::getOwningKey)
                 .collect(Collectors.toList());
+    }
+
+    @NotNull
+    @Override
+    public PersistentState generateMappedObject(@NotNull MappedSchema schema) {
+        if(schema instanceof ServiceLevelAgreementSchemaV1)
+            return new ServiceLevelAgreementSchemaV1.ServiceLevelAgreement(identifier.getId(),
+                    ProductOrderDID, serviceLevelAgreement.getId());
+        else
+            throw new IllegalArgumentException("Unrecognised schema " + schema);
+    }
+
+    @NotNull
+    @Override
+    public Iterable<MappedSchema> supportedSchemas() {
+        return Arrays.asList(new ServiceLevelAgreementSchemaV1());
     }
 }
