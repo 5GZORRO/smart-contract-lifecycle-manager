@@ -2,12 +2,11 @@ package eu._5gzorro.manager.api.config;
 
 import static org.mockito.Mockito.mock;
 
-import eu._5gzorro.manager.api.controller.ServiceLevelAgreementController;
-import eu._5gzorro.manager.api.controller.ServiceLevelAgreementControllerImpl;
 import eu._5gzorro.manager.api.repository.AgreementRepository;
 import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
 import eu._5gzorro.manager.api.service.*;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
+import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -58,5 +57,10 @@ public class OpenApiGenerateConfig {
   @Bean
   public AgreementRepository agreementRepository() {
     return mock(AgreementRepository.class);
+  }
+
+  @Bean
+  public PrimitiveSpectokenDriver spectokenDriver() {
+    return mock(PrimitiveSpectokenDriver.class);
   }
 }

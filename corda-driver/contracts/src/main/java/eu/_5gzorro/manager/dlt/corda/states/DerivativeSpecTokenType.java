@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.dlt.corda.models.types;
+package eu._5gzorro.manager.dlt.corda.states;
 
 import eu._5gzorro.tm_forum.models.GeographicAddress;
 import net.corda.core.contracts.UniqueIdentifier;

@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
 import com.r3.corda.lib.tokens.contracts.EvolvableTokenContract;
-import eu._5gzorro.manager.dlt.corda.models.types.PrimitiveSpecTokenType;
+import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
 import net.corda.core.contracts.Contract;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
@@ -35,8 +35,8 @@ public class PrimitiveSpecTokenContract extends EvolvableTokenContract implement
             require.using("End DL frequency cannot be updated.", outputSpecTokenType.getEndDl().equals(inputSpecTokenType.getEndDl()));
             require.using("Start UL frequency cannot be updated.", outputSpecTokenType.getStartUl().equals(inputSpecTokenType.getStartUl()));
             require.using("End DL frequency cannot be updated.", outputSpecTokenType.getEndUl().equals(inputSpecTokenType.getEndUl()));
-            require.using("Start time cannot be updated.", outputSpecTokenType.getStartTime().equals(inputSpecTokenType.getStartTime()));
-            require.using("End time cannot be updated.", outputSpecTokenType.getEndTime().equals(inputSpecTokenType.getEndTime()));
+            require.using("Start time cannot be updated.", outputSpecTokenType.getStartDate().equals(inputSpecTokenType.getStartDate()));
+            require.using("End time cannot be updated.", outputSpecTokenType.getEndDate().equals(inputSpecTokenType.getEndDate()));
             require.using("Duplex mode cannot be updated.", outputSpecTokenType.getDuplexMode().equals(inputSpecTokenType.getDuplexMode()));
             require.using("Band cannot be updated.", outputSpecTokenType.getBand().equals(inputSpecTokenType.getBand()));
             require.using("Technology cannot be updated.", outputSpecTokenType.getTechnology().equals(inputSpecTokenType.getTechnology()));

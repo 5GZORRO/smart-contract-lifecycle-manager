@@ -2,7 +2,7 @@ package eu._5gzorro.manager.dlt.corda.flows.spectoken;
 
 import co.paralleluniverse.fibers.Suspendable;
 import com.r3.corda.lib.tokens.workflows.flows.rpc.UpdateEvolvableToken;
-import eu._5gzorro.manager.dlt.corda.models.types.SpecTokenType;
+import eu._5gzorro.manager.dlt.corda.states.SpecTokenType;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.FlowLogic;
@@ -36,8 +36,8 @@ public class UpdateSpecTokenTypeFlow extends FlowLogic<SignedTransaction> {
                 spectoken.getEndDl(),
                 spectoken.getStartUl(),
                 spectoken.getEndUl(),
-                spectoken.getStartTime(),
-                spectoken.getEndTime(),
+                spectoken.getStartDate(),
+                spectoken.getEndDate(),
                 spectoken.getDuplexMode(),
                 spectoken.getBand(),
                 spectoken.getTechnology(),

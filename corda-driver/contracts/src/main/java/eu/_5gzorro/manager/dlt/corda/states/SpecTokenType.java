@@ -1,14 +1,17 @@
-package eu._5gzorro.manager.dlt.corda.models.types;
+package eu._5gzorro.manager.dlt.corda.states;
 
 import com.r3.corda.lib.tokens.contracts.states.EvolvableTokenType;
 import eu._5gzorro.tm_forum.models.GeographicAddress;
 import net.corda.core.contracts.UniqueIdentifier;
+import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
 import org.jetbrains.annotations.NotNull;
 
+import java.security.PublicKey;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class SpecTokenType extends EvolvableTokenType {
 
@@ -36,10 +39,10 @@ public class SpecTokenType extends EvolvableTokenType {
     private final Double endUl;
 
     @NotNull
-    private final Date startTime;
+    private final Date startDate;
 
     @NotNull
-    private final Date endTime;
+    private final Date endDate;
 
     @NotNull
     private final String duplexMode;
@@ -79,8 +82,8 @@ public class SpecTokenType extends EvolvableTokenType {
         this.endDl = endDl;
         this.startUl = startUl;
         this.endUl = endUl;
-        this.startTime = startDate;
-        this.endTime = endDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.duplexMode = duplexMode;
         this.band = band;
         this.technology = technology;
@@ -132,13 +135,13 @@ public class SpecTokenType extends EvolvableTokenType {
     }
 
     @NotNull
-    public Date getStartTime() {
-        return startTime;
+    public Date getStartDate() {
+        return startDate;
     }
 
     @NotNull
-    public Date getEndTime() {
-        return endTime;
+    public Date getEndDate() {
+        return endDate;
     }
 
     @NotNull
@@ -165,16 +168,22 @@ public class SpecTokenType extends EvolvableTokenType {
         return ownerDid;
     }
 
+    public List<PublicKey> getRequiredSigners() {
+        return getParticipants().stream()
+                .map(AbstractParty::getOwningKey)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SpecTokenType that = (SpecTokenType) o;
-        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getDid().equals(that.getDid()) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartTime().equals(that.getStartTime()) && getEndTime().equals(that.getEndTime()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getGeographicAddress().equals(that.getGeographicAddress()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
+        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getDid().equals(that.getDid()) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getGeographicAddress().equals(that.getGeographicAddress()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaintainers(), uniqueIdentifier, getDid(), getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartTime(), getEndTime(), getDuplexMode(), getBand(), getTechnology(), getGeographicAddress(), getOwnerDid());
+        return Objects.hash(getMaintainers(), uniqueIdentifier, getDid(), getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getGeographicAddress(), getOwnerDid());
     }
 }

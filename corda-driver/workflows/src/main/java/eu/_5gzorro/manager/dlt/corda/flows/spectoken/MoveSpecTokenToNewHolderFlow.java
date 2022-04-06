@@ -3,7 +3,7 @@ package eu._5gzorro.manager.dlt.corda.flows.spectoken;
 import com.r3.corda.lib.tokens.contracts.types.TokenPointer;
 import com.r3.corda.lib.tokens.workflows.flows.rpc.MoveNonFungibleTokens;
 import com.r3.corda.lib.tokens.workflows.types.PartyAndToken;
-import eu._5gzorro.manager.dlt.corda.models.types.SpecTokenType;
+import eu._5gzorro.manager.dlt.corda.states.SpecTokenType;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.FlowLogic;
 import net.corda.core.identity.AbstractParty;

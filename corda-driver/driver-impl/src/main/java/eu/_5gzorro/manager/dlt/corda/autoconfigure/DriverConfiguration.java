@@ -2,7 +2,9 @@ package eu._5gzorro.manager.dlt.corda.autoconfigure;
 
 import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferingDriver;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
+import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaPrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
+import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,5 +40,12 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public ProductOfferingDriver productOfferingDriver(NodeRPC rpc) {
     return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames());
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public PrimitiveSpectokenDriver spectokenDriver(NodeRPC rpc) {
+    return new CordaPrimitiveSpectokenDriver(rpc, cordaProps.getGovernanceNodeNames());
   }
 }
