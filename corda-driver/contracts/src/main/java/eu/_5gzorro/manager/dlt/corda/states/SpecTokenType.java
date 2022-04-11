@@ -55,7 +55,7 @@ public class SpecTokenType extends EvolvableTokenType {
 
 
     @NotNull
-    private final GeographicAddress geographicAddress;
+    private final String country;
 
     private final String ownerDid;
 
@@ -72,7 +72,7 @@ public class SpecTokenType extends EvolvableTokenType {
             @NotNull final String duplexMode,
             @NotNull final Integer band,
             @NotNull final String technology,
-            @NotNull final GeographicAddress geographicAddress,
+            @NotNull final String country,
             final String ownerDid
     ) {
         this.maintainers = maintainers;
@@ -87,7 +87,7 @@ public class SpecTokenType extends EvolvableTokenType {
         this.duplexMode = duplexMode;
         this.band = band;
         this.technology = technology;
-        this.geographicAddress = geographicAddress;
+        this.country = country;
         this.ownerDid = ownerDid;
     }
 
@@ -160,8 +160,8 @@ public class SpecTokenType extends EvolvableTokenType {
     }
 
     @NotNull
-    public GeographicAddress getGeographicAddress() {
-        return geographicAddress;
+    public String getCountry() {
+        return country;
     }
 
     public String getOwnerDid() {
@@ -179,11 +179,11 @@ public class SpecTokenType extends EvolvableTokenType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SpecTokenType that = (SpecTokenType) o;
-        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getDid().equals(that.getDid()) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getGeographicAddress().equals(that.getGeographicAddress()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
+        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getDid().equals(that.getDid()) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getCountry().equals(that.getCountry()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaintainers(), uniqueIdentifier, getDid(), getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getGeographicAddress(), getOwnerDid());
+        return Objects.hash(getMaintainers(), uniqueIdentifier, getDid(), getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getCountry(), getOwnerDid());
     }
 }

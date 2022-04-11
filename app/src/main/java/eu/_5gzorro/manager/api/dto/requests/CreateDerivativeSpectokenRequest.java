@@ -1,11 +1,10 @@
 package eu._5gzorro.manager.api.dto.requests;
 
-import eu._5gzorro.tm_forum.models.GeographicAddress;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 
-public class CreatePrimitiveSpectokenRequest {
+public class CreateDerivativeSpectokenRequest {
 
     @NotNull
     private final String did;
@@ -43,9 +42,9 @@ public class CreatePrimitiveSpectokenRequest {
     private final String ownerDid;
 
     @NotNull
-    private final String license;
+    private final String primitiveDid;
 
-    public CreatePrimitiveSpectokenRequest(@NotNull String did, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String license) {
+    public CreateDerivativeSpectokenRequest(@NotNull String did, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String primitiveDid) {
         this.did = did;
         this.startDl = startDl;
         this.endDl = endDl;
@@ -58,7 +57,7 @@ public class CreatePrimitiveSpectokenRequest {
         this.technology = technology;
         this.country = country;
         this.ownerDid = ownerDid;
-        this.license = license;
+        this.primitiveDid = primitiveDid;
     }
 
     @NotNull
@@ -121,8 +120,8 @@ public class CreatePrimitiveSpectokenRequest {
     }
 
     @NotNull
-    public String getLicense() {
-        return license;
+    public String getPrimitiveDid() {
+        return primitiveDid;
     }
 
 }

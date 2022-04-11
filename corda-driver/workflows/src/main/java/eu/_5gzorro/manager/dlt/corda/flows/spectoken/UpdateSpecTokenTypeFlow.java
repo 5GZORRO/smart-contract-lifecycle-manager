@@ -41,7 +41,7 @@ public class UpdateSpecTokenTypeFlow extends FlowLogic<SignedTransaction> {
                 spectoken.getDuplexMode(),
                 spectoken.getBand(),
                 spectoken.getTechnology(),
-                spectoken.getGeographicAddress(),
+                spectoken.getCountry(),
                 spectoken.getOwnerDid()
         );
         return subFlow(new UpdateEvolvableToken(spectokenRef, updatedSpectoken, observers));

@@ -1,23 +1,23 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
 import com.r3.corda.lib.tokens.contracts.EvolvableTokenContract;
-import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
+import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
 import net.corda.core.contracts.Contract;
 import net.corda.core.node.services.Vault;
-import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
+import net.corda.core.node.services.vault.QueryCriteria;
 import net.corda.core.transactions.LedgerTransaction;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
-public class PrimitiveSpecTokenContract extends EvolvableTokenContract implements Contract {
+public class DerivativeSpecTokenContract extends EvolvableTokenContract implements Contract {
 
-    VaultQueryCriteria generalCriteria = new VaultQueryCriteria(Vault.StateStatus.ALL);
+    QueryCriteria.VaultQueryCriteria generalCriteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.ALL);
 
     @Override
     public void additionalCreateChecks(@NotNull final LedgerTransaction tx) {
-        final PrimitiveSpecTokenType outputSpecTokenType = tx.outputsOfType(PrimitiveSpecTokenType.class).get(0);
+        final DerivativeSpecTokenType outputSpecTokenType = tx.outputsOfType(DerivativeSpecTokenType.class).get(0);
         requireThat(require -> {
             require.using("Start DL frequency cannot be 0.", outputSpecTokenType.getStartDl() > 0L);
             require.using("End DL frequency cannot be 0.", outputSpecTokenType.getEndDl() > 0L);
@@ -29,15 +29,15 @@ public class PrimitiveSpecTokenContract extends EvolvableTokenContract implement
             require.using("Band cannot be 0.", outputSpecTokenType.getBand() > 0);
             require.using("Technology cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getTechnology()));
             require.using("Country cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getCountry()));
-            require.using("License cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getLicense()));
+            require.using("Primitive DID cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getPrimitiveDid()));
             return null;
         });
     }
 
     @Override
     public void additionalUpdateChecks(@NotNull final LedgerTransaction tx) {
-        final PrimitiveSpecTokenType inputSpecTokenType = tx.inputsOfType(PrimitiveSpecTokenType.class).get(0);
-        final PrimitiveSpecTokenType outputSpecTokenType = tx.outputsOfType(PrimitiveSpecTokenType.class).get(0);
+        final DerivativeSpecTokenType inputSpecTokenType = tx.inputsOfType(DerivativeSpecTokenType.class).get(0);
+        final DerivativeSpecTokenType outputSpecTokenType = tx.outputsOfType(DerivativeSpecTokenType.class).get(0);
         requireThat(require -> {
             require.using("Start DL frequency cannot be updated.", outputSpecTokenType.getStartDl().equals(inputSpecTokenType.getStartDl()));
             require.using("End DL frequency cannot be updated.", outputSpecTokenType.getEndDl().equals(inputSpecTokenType.getEndDl()));
@@ -49,9 +49,7 @@ public class PrimitiveSpecTokenContract extends EvolvableTokenContract implement
             require.using("Band cannot be updated.", outputSpecTokenType.getBand().equals(inputSpecTokenType.getBand()));
             require.using("Technology cannot be updated.", outputSpecTokenType.getTechnology().equals(inputSpecTokenType.getTechnology()));
             require.using("Country cannot be updated.", outputSpecTokenType.getCountry().equals(inputSpecTokenType.getCountry()));
-            require.using("License cannot be updated.", outputSpecTokenType.getLicense().equals(inputSpecTokenType.getLicense()));
             return null;
         });
     }
-
 }

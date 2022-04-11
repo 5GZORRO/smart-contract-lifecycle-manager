@@ -1,11 +1,12 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenTypeFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
+import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
 import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
-import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
+import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -21,15 +22,15 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecTokenType>
-        implements PrimitiveSpectokenDriver {
+public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpecTokenType>
+        implements DerivativeSpectokenDriver {
     private final CordaRPCOps rpcClient;
     private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
     private final List<String> governanceNodeNames;
 
-    public CordaPrimitiveSpectokenDriver(NodeRPC nodeRPC, List<String> governanceNodeNames) {
-        super(nodeRPC, PrimitiveSpecTokenType.class);
+    public CordaDerivativeSpectokenDriver(NodeRPC nodeRPC, List<String> governanceNodeNames) {
+        super(nodeRPC, DerivativeSpecTokenType.class);
         this.rpcClient = nodeRPC.getClient();
         this.governanceNodeNames = governanceNodeNames;
         setup();
@@ -49,11 +50,11 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                                         .setUpdateType(UpdateType.CREATE_UPDATE)));
     }
 
-    private void handleUpdate(Vault.Update<PrimitiveSpecTokenType> primitiveSpecTokenTypeUpdate) {
+    private void handleUpdate(Vault.Update<DerivativeSpecTokenType> derivativeSpecTokenTypeUpdate) {
     }
 
     @Override
-    public void createPrimitiveSpectoken(
+    public void createDerivativeSpectoken(
             @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
@@ -65,13 +66,13 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             @NotNull final Integer band,
             @NotNull final String technology,
             @NotNull final String country,
-            final String ownerDid,
-            @NotNull final String license
+            @NotNull final String ownerDid,
+            @NotNull final String primitiveDid
     ) {
         Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 
-        PrimitiveSpecTokenType primitiveSpecTokenType =
-                new PrimitiveSpecTokenType(
+        DerivativeSpecTokenType derivativeSpecTokenType =
+                new DerivativeSpecTokenType(
                         Collections.singletonList(ourIdentity),
                         new UniqueIdentifier(),
                         did,
@@ -86,10 +87,10 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                         technology,
                         country,
                         ownerDid,
-                        license
+                        primitiveDid
                 );
 
-        rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType);
+        rpcClient.startFlowDynamic(IssueDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType);
     }
 
 //  @Override
@@ -150,16 +151,16 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     public static class UpdateWrapper {
-        private StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef;
+        private StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef;
         private UpdateType updateType;
 
-        public StateAndRef<PrimitiveSpecTokenType> getPrimitiveSpecTokenTypeStateAndRef() {
-            return primitiveSpecTokenTypeStateAndRef;
+        public StateAndRef<DerivativeSpecTokenType> getDerivativeSpecTokenTypeStateAndRef() {
+            return derivativeSpecTokenTypeStateAndRef;
         }
 
         public UpdateWrapper setSpectokenStateAndRef(
-                StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef) {
-            this.primitiveSpecTokenTypeStateAndRef = primitiveSpecTokenTypeStateAndRef;
+                StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef) {
+            this.derivativeSpecTokenTypeStateAndRef = derivativeSpecTokenTypeStateAndRef;
             return this;
         }
 
