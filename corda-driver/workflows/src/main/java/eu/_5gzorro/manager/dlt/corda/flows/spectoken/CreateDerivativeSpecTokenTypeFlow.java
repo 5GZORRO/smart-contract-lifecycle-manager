@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 
 @InitiatingFlow
 @StartableByRPC
-public class IssueDerivativeSpecTokenTypeFlow extends ExtendedFlowLogic<SignedTransaction> {
+public class CreateDerivativeSpecTokenTypeFlow extends ExtendedFlowLogic<SignedTransaction> {
 
     private final DerivativeSpecTokenType derivativeSpecTokenType;
 
-    public IssueDerivativeSpecTokenTypeFlow(DerivativeSpecTokenType derivativeSpecTokenType) {
+    public CreateDerivativeSpecTokenTypeFlow(DerivativeSpecTokenType derivativeSpecTokenType) {
         this.derivativeSpecTokenType = derivativeSpecTokenType;
     }
 

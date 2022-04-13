@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
@@ -89,7 +90,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                         license
                 );
 
-        rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType);
+        rpcClient.startFlowDynamic(CreatePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType);
     }
 
 //  @Override

@@ -1,10 +1,9 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
-import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
@@ -90,7 +89,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
                         primitiveDid
                 );
 
-        rpcClient.startFlowDynamic(IssueDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType);
+        rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType);
     }
 
 //  @Override
