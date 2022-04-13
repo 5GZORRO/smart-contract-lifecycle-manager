@@ -2,8 +2,10 @@ package eu._5gzorro.manager.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.dto.identityPermisssions.*;
+import eu._5gzorro.manager.api.dto.requests.UpdateSLAStateRequest;
 import eu._5gzorro.manager.api.dto.responses.PagedSlaResponse;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
+import eu._5gzorro.manager.service.ServiceLevelAgreementDriver;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,14 +13,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
 public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreementController {
 
     @Autowired
-    ServiceLevelAgreementService slaService;
+    private ServiceLevelAgreementService slaService;
+
+    @Autowired
+    private ServiceLevelAgreementDriver serviceLevelAgreementDriver;
 
     @Override
     public ResponseEntity<PagedSlaResponse> getServiceLevelAgreements(Pageable pageable) {
@@ -73,5 +78,13 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
     public ResponseEntity<Void> removeServiceLevelAgreement(String did) {
         slaService.deleteSLA(did);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> updateSLAState(@Valid UpdateSLAStateRequest request) {
+        serviceLevelAgreementDriver.updateSLAState(request.getProductOrderDID(),
+                request.getServiceLevelAgreementDID(), request.getState().toString());
+
+        return ResponseEntity.noContent().build();
     }
 }

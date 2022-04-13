@@ -1,5 +1,6 @@
 kafkaTopics:
   productOffer: dlt-product-offerings
+  productOrder: dlt-product-order
 kafkaBootstrap: 172.28.3.196:9092
 
 fullnameOverride: "sclm-app"

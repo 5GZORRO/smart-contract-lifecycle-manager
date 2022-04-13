@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,6 +24,8 @@ public class ServiceLevelAgreement {
 
     @JsonProperty("relatedParty")
     private List<RelatedPartyRef> relatedPartyRefs;
+
+    private List<AutoscalingPolicy> autoscalingPolicies;
 
     public ServiceLevelAgreement() {
     }
@@ -123,17 +126,45 @@ public class ServiceLevelAgreement {
         this.relatedPartyRefs = relatedPartyRefs;
     }
 
+    public List<AutoscalingPolicy> getAutoscalingPolicies() { return autoscalingPolicies; }
+
+    public void setAutoscalingPolicies(List<AutoscalingPolicy> autoscalingPolicies) {
+        this.autoscalingPolicies = autoscalingPolicies;
+    }
+
+    public ServiceLevelAgreement addAutoscalingPolicy(AutoscalingPolicy autoscalingPolicy) {
+        if(autoscalingPolicies == null)
+            autoscalingPolicies = new ArrayList<>();
+
+        autoscalingPolicies.add(autoscalingPolicy);
+
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ServiceLevelAgreement that = (ServiceLevelAgreement) o;
-        return approved == that.approved && id.equals(that.id) && href.equals(that.href) && name.equals(that.name) && Objects.equals(description, that.description) && Objects.equals(version, that.version) && Objects.equals(validFor, that.validFor) && Objects.equals(templateRef, that.templateRef) && state.equals(that.state) && Objects.equals(approvalDate, that.approvalDate) && Objects.equals(rules, that.rules) && Objects.equals(relatedPartyRefs, that.relatedPartyRefs);
+        return approved == that.approved &&
+                id.equals(that.id) &&
+                href.equals(that.href) &&
+                name.equals(that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(validFor, that.validFor) &&
+                Objects.equals(templateRef, that.templateRef) &&
+                state.equals(that.state) &&
+                Objects.equals(approvalDate, that.approvalDate) &&
+                Objects.equals(rules, that.rules) &&
+                Objects.equals(relatedPartyRefs, that.relatedPartyRefs) &&
+                Objects.equals(autoscalingPolicies, that.autoscalingPolicies);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, href, name, description, version, validFor, templateRef, state, approved, approvalDate, rules, relatedPartyRefs);
+        return Objects.hash(id, href, name, description, version, validFor, templateRef, state, approved,
+                approvalDate, rules, relatedPartyRefs, autoscalingPolicies);
     }
 
     @Override
@@ -151,6 +182,7 @@ public class ServiceLevelAgreement {
                 ", approvalDate=" + approvalDate +
                 ", rules=" + rules +
                 ", relatedPartyRefs=" + relatedPartyRefs +
+                ", autoscalingPolicies=" + autoscalingPolicies +
                 '}';
     }
 }

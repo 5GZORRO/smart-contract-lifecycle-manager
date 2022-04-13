@@ -18,4 +18,6 @@ dependencies {
     }
 
     implementation(project(":tm-forum"))
+
+    implementation("$corda_release_group:corda-jackson:$corda_release_version")
 }

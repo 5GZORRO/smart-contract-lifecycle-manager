@@ -6,6 +6,7 @@ import eu._5gzorro.manager.api.service.*;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
+import eu._5gzorro.manager.service.ProductOrderDriver;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -59,6 +60,12 @@ public class OpenApiGenerateConfig {
     @Bean
     public AgreementRepository agreementRepository() {
         return mock(AgreementRepository.class);
+    }
+
+    @Primary
+    @Bean
+    public ProductOrderService productOrderService() {
+      return mock(ProductOrderService.class);
     }
 
     @Bean

@@ -1,12 +1,17 @@
 package eu._5gzorro.manager.dlt.corda.autoconfigure;
 
 import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferingDriver;
+import eu._5gzorro.manager.dlt.corda.service.product_order.CordaProductOrderDriver;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
+import eu._5gzorro.manager.dlt.corda.service.sla.CordaServiceLevelAgreementDriver;
 import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaDerivativeSpectokenDriver;
 import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaPrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
-import eu._5gzorro.manager.service.ProductOfferingDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
+import eu._5gzorro.manager.service.ProductOfferingDriver;
+import eu._5gzorro.manager.service.ProductOrderDriver;
+import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
+import eu._5gzorro.service.DIDToCordaDLTIdentityService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -54,7 +59,29 @@ public class DriverConfiguration {
   @Primary
   @Bean
   @ConditionalOnMissingBean
+  public ProductOrderDriver productOrderDriver(NodeRPC rpc) {
+    return new CordaProductOrderDriver(
+        didToDLTIdentityService(),
+        rpc,
+        cordaProps.getGovernanceNodeNames()
+    );
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
   public DerivativeSpectokenDriver derivativeSpectokenDriver(NodeRPC rpc) {
     return new CordaDerivativeSpectokenDriver(rpc, cordaProps.getGovernanceNodeNames());
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public CordaServiceLevelAgreementDriver cordaServiceLevelAgreementDriver(NodeRPC rpc) {
+    return new CordaServiceLevelAgreementDriver(rpc);
+  }
+
+  private DIDToDLTIdentityService didToDLTIdentityService() {
+    return new DIDToCordaDLTIdentityService(cordaProps.getIdentityBaseUrl());
   }
 }

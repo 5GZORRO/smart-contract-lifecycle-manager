@@ -3,8 +3,8 @@ package eu._5gzorro.tm_forum.models.agreement;
 import eu._5gzorro.tm_forum.models.RelatedParty;
 import eu._5gzorro.tm_forum.models.TimePeriod;
 import eu._5gzorro.tm_forum.models.product.AgreementRef;
+import org.threeten.bp.OffsetDateTime;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 

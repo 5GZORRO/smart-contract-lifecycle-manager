@@ -27,6 +27,7 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
       whitelist.add(ServiceLevelAgreement.class);
       whitelist.add(ProductOfferDetails.class);
       whitelist.add(VerifiableCredential.class);
+      whitelist.add(ProductOrderDetails.class);
 
       whitelist.addAll(tmForumWhitelist());
       log.info("Corda Serialisation class whitelist: {}", whitelist);
@@ -100,7 +101,11 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
         eu._5gzorro.tm_forum.models.product.ProductOfferingStateChangeEvent.class);
     whitelist.add(
         eu._5gzorro.tm_forum.models.product.ProductSpecificationCreateEventPayload.class);
-    whitelist.add(eu._5gzorro.manager.domain.ServiceLevelAgreement.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.AutoscalingPolicy.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.RelatedPartyRef.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.Rule.class);
+    whitelist.add(eu._5gzorro.tm_forum.models.sla.TemplateRef.class);
     whitelist.add(eu._5gzorro.tm_forum.models.service.URL.class);
     whitelist.add(eu._5gzorro.tm_forum.models.product.ImportJobCreate.class);
     whitelist.add(
@@ -307,6 +312,55 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
         eu._5gzorro.tm_forum.models.product.ProductOfferingAttributeValueChangeEvent.class);
     whitelist.add(
         eu._5gzorro.tm_forum.models.product.ProductOfferingPriceDeleteEventPayload.class);
+
+
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.ActionType.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.AppointmentRef.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.BillingAccountRef.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.Channel.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.Note.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.OrderItem.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.OrderItemRelationShip.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.OrderPrice.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.OrderTerm.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.PaymentRef.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.Price.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.PriceAlteration.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.PriceType.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.PriorityType.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.Product.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.ProductOfferingRef.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.ProductOrder.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.QualificationRef.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.StateType.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.RelationShipType.class);
+
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.Place.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.ProductCharacteristic.class);
+    whitelist.add(
+        eu._5gzorro.tm_forum.models.product_order.ProductRelationship.class);
 
     return whitelist;
   }

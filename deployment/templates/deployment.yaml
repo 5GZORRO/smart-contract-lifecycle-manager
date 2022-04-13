@@ -85,6 +85,8 @@ spec:
           value: {{ .Values.kafkaBootstrap }}
         - name: PRODUCT_OFFER_TOPIC
           value: {{ .Values.operatorName }}-{{ .Values.kafkaTopics.productOffer }}
+        - name: PRODUCT_ORDER_TOPIC
+          value: {{ .Values.operatorName }}-{{ .Values.kafkaTopics.productOrder }}
         livenessProbe:
           httpGet:
             path: {{ .Values.probePath }}
