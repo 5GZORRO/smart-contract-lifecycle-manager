@@ -1,11 +1,13 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
+import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -21,15 +23,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpecTokenType>
-        implements DerivativeSpectokenDriver {
+public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpecTokenType> implements DerivativeSpectokenDriver {
+    private final DIDToDLTIdentityService didToDLTIdentityService;
     private final CordaRPCOps rpcClient;
     private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
     private final List<String> governanceNodeNames;
 
-    public CordaDerivativeSpectokenDriver(NodeRPC nodeRPC, List<String> governanceNodeNames) {
+    public CordaDerivativeSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC, List<String> governanceNodeNames) {
         super(nodeRPC, DerivativeSpecTokenType.class);
+        this.didToDLTIdentityService = didToDLTIdentityService;
         this.rpcClient = nodeRPC.getClient();
         this.governanceNodeNames = governanceNodeNames;
         setup();
@@ -68,11 +71,11 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             @NotNull final String ownerDid,
             @NotNull final String primitiveDid
     ) {
-        Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
-
+        String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
+        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
         DerivativeSpecTokenType derivativeSpecTokenType =
                 new DerivativeSpecTokenType(
-                        Collections.singletonList(ourIdentity),
+                        Collections.singletonList(provider),
                         new UniqueIdentifier(),
                         did,
                         startDl,
@@ -89,7 +92,9 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
                         primitiveDid
                 );
 
+
         rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType);
+//        rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, provider, provider);
     }
 
 //  @Override

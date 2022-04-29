@@ -4,6 +4,7 @@ import co.paralleluniverse.fibers.Suspendable;
 import com.r3.corda.lib.tokens.contracts.states.NonFungibleToken;
 import com.r3.corda.lib.tokens.contracts.types.IssuedTokenType;
 import com.r3.corda.lib.tokens.contracts.types.TokenPointer;
+import com.r3.corda.lib.tokens.contracts.utilities.TransactionUtilitiesKt;
 import com.r3.corda.lib.tokens.workflows.flows.rpc.IssueTokens;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
@@ -35,10 +36,9 @@ public class IssuePrimitiveSpecTokenToHolderFlow extends ExtendedFlowLogic<Signe
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        getServiceHub().getNetworkMapCache().getNodeByLegalIdentity(issuer);
         final TokenPointer<PrimitiveSpecTokenType> primitiveSpecTokenTypeTokenPointer = primitiveSpecTokenType.toPointer(PrimitiveSpecTokenType.class);
-        final IssuedTokenType issuedSpectoken = new IssuedTokenType(issuer, primitiveSpecTokenTypeTokenPointer);
-        final NonFungibleToken spectokenNft = new NonFungibleToken(issuedSpectoken, holder, new UniqueIdentifier(), null);
-        return subFlow(new IssueTokens(Collections.singletonList(spectokenNft)));
+        final IssuedTokenType issuedPrimitiveSpectoken = new IssuedTokenType(issuer, primitiveSpecTokenTypeTokenPointer);
+        final NonFungibleToken primitiveSpectokenNft = new NonFungibleToken(issuedPrimitiveSpectoken, holder, new UniqueIdentifier(), TransactionUtilitiesKt.getAttachmentIdForGenericParam(primitiveSpecTokenTypeTokenPointer));
+        return subFlow(new IssueTokens(Collections.singletonList(primitiveSpectokenNft)));
     }
 }

@@ -7,6 +7,7 @@ import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.concurrent.ExecutionException;
 
 @Tag(name = "Spectoken")
 @RestController
@@ -37,21 +39,25 @@ public class SpectokenController {
     @PostMapping("/primitive")
     public ResponseEntity<Boolean> createPrimitiveSpectoken(
             @Valid @RequestBody @NotNull CreatePrimitiveSpectokenRequest request) {
-        primitiveSpectokenDriver.createPrimitiveSpectoken(
-                request.getDid(),
-                request.getStartDl(),
-                request.getEndDl(),
-                request.getStartUl(),
-                request.getEndUl(),
-                request.getStartDate(),
-                request.getEndDate(),
-                request.getDuplexMode(),
-                request.getBand(),
-                request.getTechnology(),
-                request.getCountry(),
-                request.getOwnerDid(),
-                request.getLicense()
-        );
+        try {
+            primitiveSpectokenDriver.createPrimitiveSpectoken(
+                    request.getDid(),
+                    request.getStartDl(),
+                    request.getEndDl(),
+                    request.getStartUl(),
+                    request.getEndUl(),
+                    request.getStartDate(),
+                    request.getEndDate(),
+                    request.getDuplexMode(),
+                    request.getBand(),
+                    request.getTechnology(),
+                    request.getCountry(),
+                    request.getOwnerDid(),
+                    request.getLicense()
+            );
+        } catch (ExecutionException | InterruptedException e) {
+            ResponseEntity.status(500).body(e.getMessage());
+        }
         return ResponseEntity.ok().body(true);
     }
 

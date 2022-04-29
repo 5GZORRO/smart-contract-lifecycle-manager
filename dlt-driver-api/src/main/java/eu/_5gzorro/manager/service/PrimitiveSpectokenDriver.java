@@ -2,6 +2,7 @@ package eu._5gzorro.manager.service;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public interface PrimitiveSpectokenDriver {
 
@@ -22,6 +23,6 @@ public interface PrimitiveSpectokenDriver {
             @NotNull final String country,
             final String ownerDid,
             @NotNull final String license
-    );
+    ) throws ExecutionException, InterruptedException;
 
 }
