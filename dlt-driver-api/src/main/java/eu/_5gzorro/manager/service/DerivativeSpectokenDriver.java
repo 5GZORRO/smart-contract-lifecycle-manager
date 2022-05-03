@@ -10,7 +10,6 @@ public interface DerivativeSpectokenDriver {
      * API Endpoint for a provider to create a new Spectoken to the DLT
      */
     void createDerivativeSpectoken(
-            @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
             @NotNull final Double startUl,
@@ -22,7 +21,8 @@ public interface DerivativeSpectokenDriver {
             @NotNull final String technology,
             @NotNull final String country,
             final String ownerDid,
-            @NotNull final String primitiveDid
+            @NotNull final String primitiveDid,
+            final Float price
     );
 
 }

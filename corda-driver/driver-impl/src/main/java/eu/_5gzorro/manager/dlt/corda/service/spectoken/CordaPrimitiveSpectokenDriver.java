@@ -10,7 +10,6 @@ import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
-import net.corda.core.concurrent.CordaFuture;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.CordaX500Name;
@@ -37,7 +36,6 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
 
     private final List<String> governanceNodeNames;
 
-    private Party provider;
     private final Party ourIdentity;
 
     private static final Logger log = LoggerFactory.getLogger(CordaPrimitiveSpectokenDriver.class);
@@ -66,18 +64,10 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     private void handleUpdate(Vault.Update<PrimitiveSpecTokenType> primitiveSpecTokenTypeUpdate) {
-//        Optional<StateAndRef<PrimitiveSpecTokenType>> optionalProduced =
-//                primitiveSpecTokenTypeUpdate.getProduced().stream().findAny();
-//
-//        if (optionalProduced.isPresent()) {
-//            PrimitiveSpecTokenType primitiveSpecTokenType = optionalProduced.get().getState().getData();
-//            rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, primitiveSpecTokenType, ourIdentity, provider);
-//        }
     }
 
     @Override
     public void createPrimitiveSpectoken(
-            @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
             @NotNull final Double startUl,
@@ -92,12 +82,11 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             @NotNull final String license
     ) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
-        provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
         PrimitiveSpecTokenType primitiveSpecTokenType =
                 new PrimitiveSpecTokenType(
                         Collections.singletonList(ourIdentity),
                         new UniqueIdentifier(),
-                        did,
                         startDl,
                         endDl,
                         startUl,
@@ -115,56 +104,19 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreatePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType).getReturnValue().toCompletableFuture();
         try {
             PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
-            log.info(resolvedPrimitiveSpecTokenType.toString());
             rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, resolvedPrimitiveSpecTokenType, ourIdentity, provider);
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
-            return;
         }
     }
 
-//  @Override
-//  public void updateProductOffer(
-//      ProductOfferDetails offerDetails, VerifiableCredential identityCredential) {
-//    Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
-//
-//    ProductOffering productOfferingState =
-//        new ProductOffering(
-//            new UniqueIdentifier(),
-//            OfferType.GENERAL,
-//            offerDetails.getProductOffering().getName(),
-//            ourIdentity,
-//            null, // TODO how will we update these?
-//            null,
-//            findGovernanceNode(),
-//            null,
-//            offerDetails
-//        );
-//
-//    rpcClient.startFlowDynamic(UpdateProductOfferInitiator.class, productOfferingState);
-//  }
-//
-//  @Override
-//  public void removeProductOffer(String offerId, VerifiableCredential identityCredential) {
-//    rpcClient.startFlowDynamic(RetireProductOfferInitiator.class, new UniqueIdentifier(offerId));
-//  }
-//
-
-  public Observable<PrimitiveSpecTokenType> primitiveSpecTokenTypeObservable() {
-    return subject.map(
-        updateWrapper -> {
-          StateAndRef<PrimitiveSpecTokenType> stateAndRef = updateWrapper.getPrimitiveSpecTokenTypeStateAndRef();
-          return stateAndRef.getState().getData();
-        });
-  }
-
-//    private Party findGovernanceNode() {
-//        return governanceNodeNames.stream()
-//                .map(CordaX500Name::parse)
-//                .map(rpcClient::wellKnownPartyFromX500Name)
-//                .findAny()
-//                .orElseThrow(() -> new RuntimeException("No governance node was found"));
-//    }
+    public Observable<PrimitiveSpecTokenType> primitiveSpecTokenTypeObservable() {
+        return subject.map(
+                updateWrapper -> {
+                    StateAndRef<PrimitiveSpecTokenType> stateAndRef = updateWrapper.getPrimitiveSpecTokenTypeStateAndRef();
+                    return stateAndRef.getState().getData();
+                });
+    }
 
     public static class UpdateWrapper {
         private StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef;

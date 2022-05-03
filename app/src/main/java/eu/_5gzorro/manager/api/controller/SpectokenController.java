@@ -7,7 +7,6 @@ import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +40,6 @@ public class SpectokenController {
             @Valid @RequestBody @NotNull CreatePrimitiveSpectokenRequest request) {
         try {
             primitiveSpectokenDriver.createPrimitiveSpectoken(
-                    request.getDid(),
                     request.getStartDl(),
                     request.getEndDl(),
                     request.getStartUl(),
@@ -71,7 +69,6 @@ public class SpectokenController {
     public ResponseEntity<Boolean> createDerivativeSpectoken(
             @Valid @RequestBody @NotNull CreateDerivativeSpectokenRequest request) {
         derivativeSpectokenDriver.createDerivativeSpectoken(
-                request.getDid(),
                 request.getStartDl(),
                 request.getEndDl(),
                 request.getStartUl(),
@@ -83,7 +80,8 @@ public class SpectokenController {
                 request.getTechnology(),
                 request.getCountry(),
                 request.getOwnerDid(),
-                request.getPrimitiveDid()
+                request.getPrimitiveDid(),
+                request.getPrice()
         );
         return ResponseEntity.ok().body(true);
     }

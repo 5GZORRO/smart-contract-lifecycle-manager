@@ -30,6 +30,7 @@ public class DerivativeSpecTokenContract extends EvolvableTokenContract implemen
             require.using("Technology cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getTechnology()));
             require.using("Country cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getCountry()));
             require.using("Primitive DID cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getPrimitiveDid()));
+            require.using("Price cannot be 0.", outputSpecTokenType.getPrice() > 0L);
             return null;
         });
     }
@@ -49,6 +50,7 @@ public class DerivativeSpecTokenContract extends EvolvableTokenContract implemen
             require.using("Band cannot be updated.", outputSpecTokenType.getBand().equals(inputSpecTokenType.getBand()));
             require.using("Technology cannot be updated.", outputSpecTokenType.getTechnology().equals(inputSpecTokenType.getTechnology()));
             require.using("Country cannot be updated.", outputSpecTokenType.getCountry().equals(inputSpecTokenType.getCountry()));
+            require.using("Price cannot be updated.", outputSpecTokenType.getPrice().equals(inputSpecTokenType.getPrice()));
             return null;
         });
     }

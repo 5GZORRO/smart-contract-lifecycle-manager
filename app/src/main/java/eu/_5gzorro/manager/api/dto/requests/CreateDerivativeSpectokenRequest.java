@@ -7,9 +7,6 @@ import java.util.Date;
 public class CreateDerivativeSpectokenRequest {
 
     @NotNull
-    private final String did;
-
-    @NotNull
     private final Double startDl;
 
     @NotNull
@@ -44,8 +41,9 @@ public class CreateDerivativeSpectokenRequest {
     @NotNull
     private final String primitiveDid;
 
-    public CreateDerivativeSpectokenRequest(@NotNull String did, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String primitiveDid) {
-        this.did = did;
+    private final Float price;
+
+    public CreateDerivativeSpectokenRequest(@NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String primitiveDid, Float price) {
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -58,11 +56,7 @@ public class CreateDerivativeSpectokenRequest {
         this.country = country;
         this.ownerDid = ownerDid;
         this.primitiveDid = primitiveDid;
-    }
-
-    @NotNull
-    public String getDid() {
-        return did;
+        this.price = price;
     }
 
     @NotNull
@@ -124,4 +118,7 @@ public class CreateDerivativeSpectokenRequest {
         return primitiveDid;
     }
 
+    public Float getPrice() {
+        return price;
+    }
 }

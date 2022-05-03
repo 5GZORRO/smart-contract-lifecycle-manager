@@ -31,7 +31,6 @@ public class UpdateSpecTokenTypeFlow extends FlowLogic<SignedTransaction> {
         final SpecTokenType updatedSpectoken = new SpecTokenType(
                 spectoken.getMaintainers(),
                 spectoken.getLinearId(),
-                spectoken.getDid(),
                 spectoken.getStartDl(),
                 spectoken.getEndDl(),
                 spectoken.getStartUl(),

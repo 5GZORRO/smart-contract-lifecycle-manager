@@ -1,7 +1,8 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenToHolderFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
@@ -17,11 +18,16 @@ import net.corda.core.messaging.CordaRPCOps;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
+import net.corda.core.transactions.SignedTransaction;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpecTokenType> implements DerivativeSpectokenDriver {
     private final DIDToDLTIdentityService didToDLTIdentityService;
@@ -30,11 +36,16 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
 
     private final List<String> governanceNodeNames;
 
+    private final Party ourIdentity;
+
+    private static final Logger log = LoggerFactory.getLogger(CordaDerivativeSpectokenDriver.class);
+
     public CordaDerivativeSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC, List<String> governanceNodeNames) {
         super(nodeRPC, DerivativeSpecTokenType.class);
         this.didToDLTIdentityService = didToDLTIdentityService;
         this.rpcClient = nodeRPC.getClient();
         this.governanceNodeNames = governanceNodeNames;
+        this.ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
         setup();
     }
 
@@ -57,7 +68,6 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
 
     @Override
     public void createDerivativeSpectoken(
-            @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
             @NotNull final Double startUl,
@@ -69,7 +79,8 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             @NotNull final String technology,
             @NotNull final String country,
             @NotNull final String ownerDid,
-            @NotNull final String primitiveDid
+            @NotNull final String primitiveDid,
+            final Float price
     ) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
@@ -77,7 +88,6 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
                 new DerivativeSpecTokenType(
                         Collections.singletonList(provider),
                         new UniqueIdentifier(),
-                        did,
                         startDl,
                         endDl,
                         startUl,
@@ -89,69 +99,18 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
                         technology,
                         country,
                         ownerDid,
-                        primitiveDid
+                        primitiveDid,
+                        price
                 );
 
 
-        rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType);
-//        rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, provider, provider);
-    }
-
-//  @Override
-//  public void updateProductOffer(
-//      ProductOfferDetails offerDetails, VerifiableCredential identityCredential) {
-//    Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
-//
-//    ProductOffering productOfferingState =
-//        new ProductOffering(
-//            new UniqueIdentifier(),
-//            OfferType.GENERAL,
-//            offerDetails.getProductOffering().getName(),
-//            ourIdentity,
-//            null, // TODO how will we update these?
-//            null,
-//            findGovernanceNode(),
-//            null,
-//            offerDetails
-//        );
-//
-//    rpcClient.startFlowDynamic(UpdateProductOfferInitiator.class, productOfferingState);
-//  }
-//
-//  @Override
-//  public void removeProductOffer(String offerId, VerifiableCredential identityCredential) {
-//    rpcClient.startFlowDynamic(RetireProductOfferInitiator.class, new UniqueIdentifier(offerId));
-//  }
-//
-//  @Override
-//  public Observable<ProductOfferingUpdateEvent> productOfferObservable() {
-//    return subject.map(
-//        updateWrapper -> {
-//          StateAndRef<ProductOffering> stateAndRef = updateWrapper.getProductOfferingStateAndRef();
-//          ProductOffering productOffering = stateAndRef.getState().getData();
-//          ProductOfferDetails offerDetails = productOffering.getOfferDetails();
-//          return new ProductOfferingUpdateEvent()
-//              .setUpdateType(updateWrapper.getUpdateType())
-//              .setDeduplicationId(stateAndRef.getRef().getTxhash().toString())
-//              .setProductOffering(offerDetails.getProductOffering())
-//              .setVerifiableCredentials(productOffering.getVerifiableCredentials())
-//              .setDid(offerDetails.getDid())
-//              .setProductSpecification(offerDetails.getProductSpecification())
-//              .setProductOfferingPrices(offerDetails.getProductOfferingPrices())
-//              .setResourceSpecifications(offerDetails.getResourceSpecifications())
-//              .setServiceSpecifications(offerDetails.getServiceSpecifications())
-//              .setGeographicAddresses(offerDetails.getGeographicAddresses())
-//              .setInvitations(productOffering.getDidInvitations())
-//              .setIdentifier(productOffering.getLinearId().getId().toString());
-//        });
-//  }
-
-    private Party findGovernanceNode() {
-        return governanceNodeNames.stream()
-                .map(CordaX500Name::parse)
-                .map(rpcClient::wellKnownPartyFromX500Name)
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("No governance node was found"));
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType).getReturnValue().toCompletableFuture();
+        try {
+            DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
+            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, provider);
+        } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
+        }
     }
 
     public static class UpdateWrapper {

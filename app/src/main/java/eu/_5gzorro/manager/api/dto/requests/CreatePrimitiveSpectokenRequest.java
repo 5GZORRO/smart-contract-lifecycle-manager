@@ -8,9 +8,6 @@ import java.util.Date;
 public class CreatePrimitiveSpectokenRequest {
 
     @NotNull
-    private final String did;
-
-    @NotNull
     private final Double startDl;
 
     @NotNull
@@ -45,8 +42,7 @@ public class CreatePrimitiveSpectokenRequest {
     @NotNull
     private final String license;
 
-    public CreatePrimitiveSpectokenRequest(@NotNull String did, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String license) {
-        this.did = did;
+    public CreatePrimitiveSpectokenRequest(@NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String license) {
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -59,11 +55,6 @@ public class CreatePrimitiveSpectokenRequest {
         this.country = country;
         this.ownerDid = ownerDid;
         this.license = license;
-    }
-
-    @NotNull
-    public String getDid() {
-        return did;
     }
 
     @NotNull

@@ -10,7 +10,6 @@ public interface PrimitiveSpectokenDriver {
      * API Endpoint for a provider to create a new Spectoken to the DLT
      */
     void createPrimitiveSpectoken(
-            @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
             @NotNull final Double startUl,

@@ -24,9 +24,6 @@ public class SpecTokenType extends EvolvableTokenType {
     private final UniqueIdentifier uniqueIdentifier;
 
     @NotNull
-    private final String did;
-
-    @NotNull
     private final Double startDl;
 
     @NotNull
@@ -62,7 +59,6 @@ public class SpecTokenType extends EvolvableTokenType {
     public SpecTokenType(
             @NotNull final List<Party> maintainers,
             @NotNull final UniqueIdentifier uniqueIdentifier,
-            @NotNull final String did,
             @NotNull final Double startDl,
             @NotNull final Double endDl,
             @NotNull final Double startUl,
@@ -77,7 +73,6 @@ public class SpecTokenType extends EvolvableTokenType {
     ) {
         this.maintainers = maintainers;
         this.uniqueIdentifier = uniqueIdentifier;
-        this.did = did;
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -107,11 +102,6 @@ public class SpecTokenType extends EvolvableTokenType {
     @Override
     public UniqueIdentifier getLinearId() {
         return uniqueIdentifier;
-    }
-
-    @NotNull
-    public String getDid() {
-        return did;
     }
 
     @NotNull
@@ -179,11 +169,11 @@ public class SpecTokenType extends EvolvableTokenType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SpecTokenType that = (SpecTokenType) o;
-        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getDid().equals(that.getDid()) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getCountry().equals(that.getCountry()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
+        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getCountry().equals(that.getCountry()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaintainers(), uniqueIdentifier, getDid(), getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getCountry(), getOwnerDid());
+        return Objects.hash(getMaintainers(), uniqueIdentifier, getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getCountry(), getOwnerDid());
     }
 }
