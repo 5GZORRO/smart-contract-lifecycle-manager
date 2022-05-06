@@ -83,10 +83,11 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             final Float price
     ) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
-        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+//        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"));
         DerivativeSpecTokenType derivativeSpecTokenType =
                 new DerivativeSpecTokenType(
-                        Collections.singletonList(provider),
+                        Collections.singletonList(ourIdentity),
                         new UniqueIdentifier(),
                         startDl,
                         endDl,
@@ -107,7 +108,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType).getReturnValue().toCompletableFuture();
         try {
             DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
-            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, provider);
+            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, consumer);
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }
