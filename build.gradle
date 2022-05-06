@@ -23,6 +23,10 @@ buildscript {
         spring_cloud_dependencies_version = constants.getProperty("springCloudDependenciesVersion")
         spring_cloud_open_feign_version = constants.getProperty("springCloudOpenFeignVersion")
         open_feign_version = constants.getProperty("openFeignVersion")
+        tokens_release_version = constants.getProperty("tokensReleaseVersion")
+        tokens_release_group = constants.getProperty("tokensReleaseGroup")
+        confidential_id_release_version = constants.getProperty("confidentialIdReleaseVersion")
+        confidential_id_release_group = constants.getProperty("confidentialIdReleaseGroup")
 
         //springboot
         spring_boot_version = '2.2.12.RELEASE'
@@ -43,6 +47,7 @@ buildscript {
         maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-releases' }
         maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib' }
         maven { url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-lib-dev' }
+
     }
 
     dependencies {
@@ -52,6 +57,9 @@ buildscript {
         classpath "net.corda.plugins:publish-utils:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:cordformation:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:quasar-utils:$corda_gradle_plugins_version"
+        classpath "$tokens_release_group:tokens-contracts:$tokens_release_version"
+        classpath "$tokens_release_group:tokens-workflows:$tokens_release_version"
+        classpath "$tokens_release_group:tokens-selection:$tokens_release_version"
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.4.RELEASE")
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_gradle_plugin_version"
 
@@ -86,6 +94,9 @@ allprojects {
         mavenCentral()
         maven { url 'https://software.r3.com/artifactory/corda' }
         maven { url 'https://jitpack.io' }
+        maven { url 'https://software.r3.com/artifactory/corda-lib' }
+        maven { url 'https://software.r3.com/artifactory/corda-releases' }
+        maven { url 'https://software.r3.com/artifactory/corda-lib-dev' }
 //        maven {
 //            name = "GitHubPackages"
 //            url = uri("https://maven.pkg.github.com/5gzorro/resource-and-service-offer-catalog")

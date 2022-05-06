@@ -4,6 +4,10 @@ import eu._5gzorro.manager.dlt.corda.service.product_offering.CordaProductOfferi
 import eu._5gzorro.manager.dlt.corda.service.product_order.CordaProductOrderDriver;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.sla.CordaServiceLevelAgreementDriver;
+import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaDerivativeSpectokenDriver;
+import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaPrimitiveSpectokenDriver;
+import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
+import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
@@ -45,16 +49,36 @@ public class DriverConfiguration {
     return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames());
   }
 
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public PrimitiveSpectokenDriver primitiveSpectokenDriver(NodeRPC rpc) {
+    return new CordaPrimitiveSpectokenDriver(
+            didToDLTIdentityService(),
+            rpc,
+            cordaProps.getGovernanceNodeNames()
+    );
+  }
 
   @Primary
   @Bean
   @ConditionalOnMissingBean
   public ProductOrderDriver productOrderDriver(NodeRPC rpc) {
     return new CordaProductOrderDriver(
-        didToDLTIdentityService(),
-        rpc,
-        cordaProps.getGovernanceNodeNames()
+            didToDLTIdentityService(),
+            rpc,
+            cordaProps.getGovernanceNodeNames()
     );
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public DerivativeSpectokenDriver derivativeSpectokenDriver(NodeRPC rpc) {
+    return new CordaDerivativeSpectokenDriver(
+            didToDLTIdentityService(),
+            rpc,
+            cordaProps.getGovernanceNodeNames());
   }
 
   @Primary
