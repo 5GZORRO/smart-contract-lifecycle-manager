@@ -79,7 +79,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             @NotNull final String technology,
             @NotNull final String country,
             @NotNull final String ownerDid,
-            @NotNull final String primitiveDid,
+            @NotNull final String primitiveId,
             final Float price
     ) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
@@ -100,7 +100,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
                         technology,
                         country,
                         ownerDid,
-                        primitiveDid,
+                        primitiveId,
                         price
                 );
 

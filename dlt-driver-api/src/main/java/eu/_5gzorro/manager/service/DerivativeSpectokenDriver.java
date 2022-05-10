@@ -21,7 +21,7 @@ public interface DerivativeSpectokenDriver {
             @NotNull final String technology,
             @NotNull final String country,
             final String ownerDid,
-            @NotNull final String primitiveDid,
+            @NotNull final String primitiveId,
             final Float price
     );
 

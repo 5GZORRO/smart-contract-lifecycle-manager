@@ -80,7 +80,7 @@ public class SpectokenController {
                 request.getTechnology(),
                 request.getCountry(),
                 request.getOwnerDid(),
-                request.getPrimitiveDid(),
+                request.getPrimitiveId(),
                 request.getPrice()
         );
         return ResponseEntity.ok().body(true);

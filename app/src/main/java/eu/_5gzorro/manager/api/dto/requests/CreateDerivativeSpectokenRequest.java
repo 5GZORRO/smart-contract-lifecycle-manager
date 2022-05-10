@@ -39,11 +39,11 @@ public class CreateDerivativeSpectokenRequest {
     private final String ownerDid;
 
     @NotNull
-    private final String primitiveDid;
+    private final String primitiveId;
 
     private final Float price;
 
-    public CreateDerivativeSpectokenRequest(@NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String primitiveDid, Float price) {
+    public CreateDerivativeSpectokenRequest(@NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String primitiveId, Float price) {
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -55,7 +55,7 @@ public class CreateDerivativeSpectokenRequest {
         this.technology = technology;
         this.country = country;
         this.ownerDid = ownerDid;
-        this.primitiveDid = primitiveDid;
+        this.primitiveId = primitiveId;
         this.price = price;
     }
 
@@ -114,8 +114,8 @@ public class CreateDerivativeSpectokenRequest {
     }
 
     @NotNull
-    public String getPrimitiveDid() {
-        return primitiveDid;
+    public String getPrimitiveId() {
+        return primitiveId;
     }
 
     public Float getPrice() {
