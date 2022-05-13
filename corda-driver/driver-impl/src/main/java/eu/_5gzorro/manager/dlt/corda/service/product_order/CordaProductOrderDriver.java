@@ -254,7 +254,7 @@ public class CordaProductOrderDriver
     try {
       ProductOrder productOrderState =
           new ProductOrder(
-              UniqueIdentifier.Companion.fromString(orderDetails.getOfferDid()),
+              new UniqueIdentifier(),
               rpcClient.nodeInfo().getLegalIdentities().get(0),
               supplier,
               findGovernanceNode(),
