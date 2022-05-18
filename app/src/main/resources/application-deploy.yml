@@ -17,6 +17,8 @@ corda:
   governanceNodeNames: # Corda X500 names of valid governance nodes
     - "CN=OperatorA,OU=DLT,O=DLT,L=51.50/-0.11/London,C=GB"
 
+  identityBaseUrl: http://172.28.3.153:6200
+
 springdoc:
   api-docs:
     path: /api-docs
