@@ -245,6 +245,7 @@ public class CordaProductOrderDriver
 
     log.info("Retrieving Ledger Identity for Supplier DID {}.", orderDetails.getSupplierDid());
     String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
+    log.info("x500 name Ledger Identity: " + x500Name);
     log.info("Ledger Identity retrieved.");
 
     Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
