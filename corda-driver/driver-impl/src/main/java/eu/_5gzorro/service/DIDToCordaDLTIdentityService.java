@@ -8,6 +8,7 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -25,9 +26,16 @@ public class DIDToCordaDLTIdentityService implements DIDToDLTIdentityService {
   @Override
   public String resolveIdentity(String did) {
 
-    ResponseEntity<String> response =
-        restTemplate.getForEntity(
-            identityBaseUrl + "/holder/read_stakeholder?stakeholder_did=" + did, String.class);
+    log.info("Requesting Stakeholder Identity - resolveIdentity method");
+
+    ResponseEntity<String> response = null;
+    try {
+      response = restTemplate.getForEntity(identityBaseUrl + "/holder/read_stakeholder?stakeholder_did="
+              + did, String.class);
+    } catch(RestClientException restClientException) {
+      log.error(restClientException.getMessage());
+      return "callException";
+    }
 
     JSONParser jsonParser = new JSONParser();
     String ledgerIdentity = "";
