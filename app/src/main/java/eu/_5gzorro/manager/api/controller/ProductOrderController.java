@@ -1,9 +1,9 @@
 package eu._5gzorro.manager.api.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu._5gzorro.manager.api.controller.dto.requests.ChangeProductOrderRequest;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
 import eu._5gzorro.manager.api.httpClient.RSOCClient;
+import eu._5gzorro.manager.api.httpClient.requests.SLAClient;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOrderDriver;
@@ -34,6 +34,9 @@ public class ProductOrderController {
   private RSOCClient rsocClient;
 
   @Autowired
+  private SLAClient slaClient;
+
+  @Autowired
   private ServiceLevelAgreementService serviceLevelAgreementService;
 
   public ProductOrderController(ProductOrderDriver driver) {
@@ -50,9 +53,7 @@ public class ProductOrderController {
     for(OrderItem orderItem : orderItems) {
       ProductOffering po = rsocClient.getPoById(URI.create(orderItem.getProductOffering().getHref()));
       try {
-        serviceLevelAgreements.add(serviceLevelAgreementService.getSLAByDid(po.getServiceLevelAgreement().getId()));
-      } catch (JsonProcessingException e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        serviceLevelAgreements.add(slaClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
       } catch (ServiceLevelAgreementNotFoundException ignored) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       }
