@@ -53,7 +53,8 @@ public class ProductOrderController {
     for(OrderItem orderItem : orderItems) {
       ProductOffering po = rsocClient.getPoById(URI.create(orderItem.getProductOffering().getHref()));
       try {
-        serviceLevelAgreements.add(slaClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
+        if(po.getServiceLevelAgreement() != null)
+          serviceLevelAgreements.add(slaClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
       } catch (ServiceLevelAgreementNotFoundException ignored) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       }
