@@ -241,12 +241,11 @@ public class CordaProductOrderDriver
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential,
       List<ServiceLevelAgreement> serviceLevelAgreements) {
-    String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
 
     log.info("Publishing Product Order.");
 
     log.info("Retrieving Ledger Identity for Supplier DID {}.", orderDetails.getSupplierDid());
-    x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
+    String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
     log.info("x500 name Ledger Identity: " + x500Name);
     log.info("Ledger Identity retrieved.");
 

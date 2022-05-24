@@ -2,6 +2,7 @@ package eu._5gzorro.service;
 
 import eu._5gzorro.manager.dlt.corda.service.product_order.CordaProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -30,7 +31,7 @@ public class DIDToCordaDLTIdentityService implements DIDToDLTIdentityService {
 
     ResponseEntity<String> response = null;
     try {
-      response = restTemplate.getForEntity(identityBaseUrl + "/holder/read_stakeholder?stakeholder_did="
+      response = restTemplate.getForEntity(identityBaseUrl + "/issuer/stakeholder?state=approved"
               + did, String.class);
     } catch(RestClientException restClientException) {
       log.error(restClientException.getMessage());
@@ -43,10 +44,15 @@ public class DIDToCordaDLTIdentityService implements DIDToDLTIdentityService {
 
       log.info("Stakeholder info: " + response.getBody());
 
-      JSONObject jsonObject = (JSONObject) jsonParser.parse(response.getBody());
-      jsonObject = (JSONObject) jsonObject.get("stakeholderClaim");
-      jsonObject = (JSONObject) jsonObject.get("stakeholderProfile");
-      ledgerIdentity = jsonObject.get("ledgerIdentity").toString();
+      JSONArray jsonArray = (JSONArray) jsonParser.parse(response.getBody());
+      for (int i=0; i < jsonArray.size(); i++) {
+        JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+        jsonObject = (JSONObject) jsonObject.get("stakeholderClaim");
+        if(!jsonObject.get("stakeholderDID").toString().equals(did))
+          continue;
+        jsonObject = (JSONObject) jsonObject.get("stakeholderProfile");
+        ledgerIdentity = jsonObject.get("ledgerIdentity").toString();
+      }
     } catch (ParseException e) {
       ledgerIdentity = "ParseException";
     }
