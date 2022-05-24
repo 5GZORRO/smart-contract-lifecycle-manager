@@ -31,8 +31,7 @@ public class DIDToCordaDLTIdentityService implements DIDToDLTIdentityService {
 
     ResponseEntity<String> response = null;
     try {
-      response = restTemplate.getForEntity(identityBaseUrl + "/issuer/stakeholder?state=approved"
-              + did, String.class);
+      response = restTemplate.getForEntity(identityBaseUrl + "/issuer/stakeholder?state=approved", String.class);
     } catch(RestClientException restClientException) {
       log.error(restClientException.getMessage());
       return "callException";
