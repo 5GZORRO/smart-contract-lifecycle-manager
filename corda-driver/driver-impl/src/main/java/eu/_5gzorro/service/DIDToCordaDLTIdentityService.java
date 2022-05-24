@@ -55,6 +55,30 @@ public class DIDToCordaDLTIdentityService implements DIDToDLTIdentityService {
     } catch (ParseException e) {
       ledgerIdentity = "ParseException";
     }
+
+    if(ledgerIdentity.equals("")) {
+      try {
+        response = restTemplate.getForEntity(identityBaseUrl + "/holder/read_stakeholder?stakeholder_did="
+                + did, String.class);
+      } catch(RestClientException restClientException) {
+        log.error(restClientException.getMessage());
+        return "callException";
+      }
+
+      jsonParser = new JSONParser();
+      try {
+
+        log.info("Stakeholder info: " + response.getBody());
+
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(response.getBody());
+        jsonObject = (JSONObject) jsonObject.get("stakeholderClaim");
+        jsonObject = (JSONObject) jsonObject.get("stakeholderProfile");
+        ledgerIdentity = jsonObject.get("ledgerIdentity").toString();
+      } catch (ParseException e) {
+        ledgerIdentity = "ParseException";
+      }
+    }
+
     return ledgerIdentity;
   }
 }
