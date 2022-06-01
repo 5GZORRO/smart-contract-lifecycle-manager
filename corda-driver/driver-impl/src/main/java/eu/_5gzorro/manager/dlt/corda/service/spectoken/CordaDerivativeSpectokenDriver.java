@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFromOfferFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
@@ -22,6 +22,7 @@ import net.corda.core.transactions.SignedTransaction;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.threeten.bp.OffsetDateTime;
 
 import java.util.Collections;
 import java.util.Date;
@@ -109,6 +110,18 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
         try {
             DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
             rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, consumer);
+        } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public void createDerivativeSpectokenFromOffer(String offerId, OffsetDateTime requestedStartDate, OffsetDateTime requestedCompletionDate, Party buyer) {
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFromOfferFlow.class, offerId, requestedStartDate, requestedCompletionDate, buyer)
+                .getReturnValue().toCompletableFuture();
+        try {
+            DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
+            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, buyer);
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }

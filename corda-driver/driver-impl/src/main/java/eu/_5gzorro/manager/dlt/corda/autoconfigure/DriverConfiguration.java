@@ -67,7 +67,12 @@ public class DriverConfiguration {
     return new CordaProductOrderDriver(
             didToDLTIdentityService(),
             rpc,
-            cordaProps.getGovernanceNodeNames()
+            cordaProps.getGovernanceNodeNames(),
+            new CordaDerivativeSpectokenDriver(
+                    didToDLTIdentityService(),
+                    rpc,
+                    cordaProps.getGovernanceNodeNames()
+            )
     );
   }
 
