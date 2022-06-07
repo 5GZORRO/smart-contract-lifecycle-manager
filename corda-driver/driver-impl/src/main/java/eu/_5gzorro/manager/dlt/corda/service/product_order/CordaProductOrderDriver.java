@@ -17,11 +17,9 @@ import eu._5gzorro.manager.domain.ProductOrderDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
 import eu._5gzorro.manager.domain.events.enums.OrderUpdateType;
-import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.manager.utils.ZipUtils;
-import eu._5gzorro.tm_forum.models.product_order.ProductOfferingRef;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
@@ -56,18 +54,15 @@ public class CordaProductOrderDriver
       ReplaySubject.create();
 
   private final List<String> governanceNodeNames;
-  private final DerivativeSpectokenDriver derivativeSpectokenDriver;
 
   public CordaProductOrderDriver(
       DIDToDLTIdentityService didToDLTIdentityService,
       NodeRPC nodeRPC,
-      List<String> governanceNodeNames,
-      DerivativeSpectokenDriver derivativeSpectokenDriver) {
+      List<String> governanceNodeNames) {
     super(nodeRPC, eu._5gzorro.manager.dlt.corda.states.ProductOrder.class);
     this.didToDLTIdentityService = didToDLTIdentityService;
     this.rpcClient = nodeRPC.getClient();
     this.governanceNodeNames = governanceNodeNames;
-    this.derivativeSpectokenDriver = derivativeSpectokenDriver;
     setup();
   }
 
@@ -136,31 +131,6 @@ public class CordaProductOrderDriver
                         .setProductOrder(produced.getState().getData())
                         .setDeduplicationId(produced.getRef().getTxhash().toString())
                         .setUpdateType(finalUpdateType)));
-
-    if (optionalProduced.isPresent()) {
-      ProductOrder productOrder = optionalProduced.get().getState().getData();
-      ObjectMapper objectMapper = new ObjectMapper();
-      if (productOrder.getSeller().getName().equals(rpcClient.nodeInfo().getLegalIdentities().get(0).getName())) {
-        ThreeTenModule module = new ThreeTenModule();
-        module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
-        objectMapper.registerModule(module);
-        try {
-          ProductOrderDetails order = objectMapper.convertValue(ZipUtils.unzipObject(
-                  rpcClient.openAttachment(productOrder.getModel()), objectMapper), ProductOrderDetails.class);
-
-          ProductOfferingRef productOfferingRef = order.getProductOrder().getOrderItem().get(0).getProductOffering();
-          OffsetDateTime requestedStartDate = order.getProductOrder().getRequestedStartDate();
-          OffsetDateTime requestedCompletionDate = order.getProductOrder().getRequestedCompletionDate();
-          derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(
-                  productOfferingRef.getId(),
-                  requestedStartDate,
-                  requestedCompletionDate,
-                  productOrder.getBuyer());
-        } catch (IOException e) {
-          log.error(e.getMessage());
-        }
-      }
-    }
   }
 
   public static class UpdateWrapper {
@@ -271,14 +241,15 @@ public class CordaProductOrderDriver
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential,
       List<ServiceLevelAgreement> serviceLevelAgreements) {
+
     log.info("Publishing Product Order.");
 
     log.info("Retrieving Ledger Identity for Supplier DID {}.", orderDetails.getSupplierDid());
-//    String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
+    String x500Name = didToDLTIdentityService.resolveIdentity(orderDetails.getSupplierDid());
+    log.info("x500 name Ledger Identity: " + x500Name);
     log.info("Ledger Identity retrieved.");
 
-//    Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
-    Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"));
+    Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
     log.info("supplier: {}", supplier.toString());
 
     ObjectMapper objectMapper = new ObjectMapper();
