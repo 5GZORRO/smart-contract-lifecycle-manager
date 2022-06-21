@@ -33,7 +33,7 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
 
   @PostConstruct
   public void setup() {
-    log.info("Starting kafka updates for product offerings");
+    log.info("Starting kafka updates for product order");
     kafkaPublishDisposable =
         driver
             .productOrderObservable()
