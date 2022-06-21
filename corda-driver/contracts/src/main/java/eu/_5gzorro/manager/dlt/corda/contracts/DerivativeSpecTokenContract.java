@@ -23,8 +23,6 @@ public class DerivativeSpecTokenContract extends EvolvableTokenContract implemen
             require.using("End DL frequency cannot be 0.", outputSpecTokenType.getEndDl() > 0L);
             require.using("Start UL frequency cannot be 0.", outputSpecTokenType.getStartUl() > 0L);
             require.using("End DL frequency cannot be 0.", outputSpecTokenType.getEndUl() > 0L);
-            require.using("Start time cannot be after end time", outputSpecTokenType.getStartDate().before(outputSpecTokenType.getEndDate()));
-            require.using("End time cannot be before start time.", outputSpecTokenType.getEndDate().after(outputSpecTokenType.getStartDate()));
             require.using("Duplex mode cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getDuplexMode()));
             require.using("Band cannot be 0.", outputSpecTokenType.getBand() > 0);
             require.using("Technology cannot be empty.", !StringUtils.isBlank(outputSpecTokenType.getTechnology()));

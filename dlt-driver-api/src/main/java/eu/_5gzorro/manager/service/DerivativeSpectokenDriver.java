@@ -1,8 +1,7 @@
 package eu._5gzorro.manager.service;
 
 
-import net.corda.core.identity.Party;
-import org.threeten.bp.OffsetDateTime;
+import eu._5gzorro.manager.domain.ProductOfferDetails;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -28,11 +27,6 @@ public interface DerivativeSpectokenDriver {
             final Float price
     );
 
-    void createDerivativeSpectokenFromOffer(
-            @NotNull final String offerId,
-            @NotNull final OffsetDateTime requestedStartDate,
-            @NotNull final OffsetDateTime requestedCompletionDate,
-            @NotNull final Party buyer
-    );
+    boolean createDerivativeSpectokenFromOffer(@NotNull final ProductOfferDetails productOfferDetails);
 
 }

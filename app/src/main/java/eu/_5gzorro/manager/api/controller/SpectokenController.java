@@ -65,7 +65,7 @@ public class SpectokenController {
                     description = "Create derivative Spectoken"
             )
     })
-    @PostMapping("derivative")
+    @PostMapping("derivative/create")
     public ResponseEntity<Boolean> createDerivativeSpectoken(
             @Valid @RequestBody @NotNull CreateDerivativeSpectokenRequest request) {
         derivativeSpectokenDriver.createDerivativeSpectoken(
@@ -83,6 +83,32 @@ public class SpectokenController {
                 request.getPrimitiveId(),
                 request.getPrice()
         );
+        return ResponseEntity.ok().body(true);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Issue derivative Spectoken"
+            )
+    })
+    @PostMapping("derivative/issue")
+    public ResponseEntity<Boolean> issueDerivativeSpectoken(/*TODO*/) {
+//        derivativeSpectokenDriver.issueDerivativeSpectoken(
+//                request.getStartDl(),
+//                request.getEndDl(),
+//                request.getStartUl(),
+//                request.getEndUl(),
+//                request.getStartDate(),
+//                request.getEndDate(),
+//                request.getDuplexMode(),
+//                request.getBand(),
+//                request.getTechnology(),
+//                request.getCountry(),
+//                request.getOwnerDid(),
+//                request.getPrimitiveId(),
+//                request.getPrice()
+//        );
         return ResponseEntity.ok().body(true);
     }
 

@@ -46,7 +46,10 @@ public class DriverConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public ProductOfferingDriver productOfferingDriver(NodeRPC rpc) {
-    return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames());
+    return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames(), new CordaDerivativeSpectokenDriver(
+            didToDLTIdentityService(),
+            rpc,
+            cordaProps.getGovernanceNodeNames()));
   }
 
   @Primary
@@ -67,12 +70,7 @@ public class DriverConfiguration {
     return new CordaProductOrderDriver(
             didToDLTIdentityService(),
             rpc,
-            cordaProps.getGovernanceNodeNames(),
-            new CordaDerivativeSpectokenDriver(
-                    didToDLTIdentityService(),
-                    rpc,
-                    cordaProps.getGovernanceNodeNames()
-            )
+            cordaProps.getGovernanceNodeNames()
     );
   }
 
