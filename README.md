@@ -57,7 +57,7 @@ To run the application using Gradle simply execute the following from the comman
 ./gradlew bootRun
 ```
 
-I'll have to run an SCLCM application for each Corda Node deployed with the previous instructions.
+You'll have to run an SCLCM Spring application for each Corda Node deployed with the previous instructions.
 
 ### Helm
 The following instructions consider the Corda Nodes already deployed in Kubernetes environments through
@@ -80,3 +80,18 @@ helm install smart-contract-lifecycle-manager-api ./deployment/
     --set corda.host=operatora.operatora-ns.svc.cluster.local             
     --set operatorName=opa
 ```
+
+You'll have to run an SCLCM Spring application for each Corda Node deployed with the previous instructions changing 
+the `values.yaml` file, and the variables of the helm command accordingly. 
+
+## Configuration
+No particular configurations are needed.
+
+## Maintainers
+**Pietro Giuseppe Giardina** - *Design* - p.giardina@nextworks.it </br>
+**Adriana Fernandez** - *Design* - adriana.fernandez@i2cat.net </br>
+**Michael De Angelis** - *Develop and Design* - m.deangelis@nextworks.it </br>
+**Daniel Bautista Miralles** - *Design and Develop* - daniel.bautista@i2cat.net
+
+## License
+This module is distributed under [Apache 2.0 License](LICENSE) terms.
