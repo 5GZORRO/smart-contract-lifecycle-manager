@@ -25,7 +25,7 @@ driver implementation at: `corda-driver/driver-impl`
 ### Software dependencies
 - PostgreSQL </br>
   ```bash
-  docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+  docker run --name some-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres
   ```
 - Apache Kafka </br>
   [Deploy Kafka on docker](https://www.baeldung.com/ops/kafka-docker-setup)
