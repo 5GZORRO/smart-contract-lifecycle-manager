@@ -40,6 +40,16 @@ driver implementation at: `corda-driver/driver-impl`
 - [Identity and Permission Manager](https://github.com/5GZORRO/identity)
 
 ## Installation
+Both the installation procedures reported below require the creation of the required databases in the running
+postgres instance. Run the following commands in order to create them:
+```bash
+docker exec -it <postgres_docker_id> /bin/bash
+su postgres
+createdb operator_a_sclm;
+createdb operator_b_sclm;
+createdb operator_c_sclm;
+createdb regulator_a_sclm;
+```
 
 ### Local Machine
 #### Running Corda nodes locally
