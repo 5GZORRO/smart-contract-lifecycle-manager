@@ -6,9 +6,11 @@ import eu._5gzorro.tm_forum.models.product.ProductOfferingPrice;
 import eu._5gzorro.tm_forum.models.product.ProductSpecification;
 import eu._5gzorro.tm_forum.models.resource.ResourceSpecification;
 import eu._5gzorro.tm_forum.models.service.ServiceSpecification;
+import net.corda.core.serialization.CordaSerializable;
 
 import java.util.List;
 
+@CordaSerializable
 public class ProductOfferDetails {
   private ProductOffering productOffering;
   private List<ProductOfferingPrice> productOfferingPrices;
