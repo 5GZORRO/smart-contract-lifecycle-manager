@@ -25,7 +25,8 @@ public interface ProductOfferingDriver {
       ProductOfferDetails offerDetails,
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential
+      VerifiableCredential identityCredential,
+      String did
   );
 
   /**
