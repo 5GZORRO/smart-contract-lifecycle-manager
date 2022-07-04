@@ -92,7 +92,8 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
       ProductOfferDetails offerDetails,
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential) {
+      VerifiableCredential identityCredential,
+      String did) {
     Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 
     ProductOffering productOfferingState =
@@ -108,7 +109,12 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
             offerDetails
         );
 
-    if (derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails)) {
+    if ("Spectrum".equals(offerDetails.getProductOffering().getCategory().get(0).getName())) {
+      boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
+      if (isDerivativeSpectokenCreated) {
+        rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+      }
+    } else {
       rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
     }
   }

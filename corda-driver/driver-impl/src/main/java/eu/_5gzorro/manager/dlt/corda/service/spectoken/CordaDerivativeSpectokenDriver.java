@@ -116,8 +116,8 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails) {
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails)
+    public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails, String offerDid) {
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid)
                 .getReturnValue().toCompletableFuture();
         try {
             DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);

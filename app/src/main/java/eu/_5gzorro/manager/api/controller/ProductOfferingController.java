@@ -42,7 +42,8 @@ public class ProductOfferingController {
             request.toOfferDetails(),
             request.getInvitations(),
             request.getVerifiableCredentials(),
-            null
+            null,
+            request.getDid()
         );
     return ResponseEntity.ok().body(true);
   }

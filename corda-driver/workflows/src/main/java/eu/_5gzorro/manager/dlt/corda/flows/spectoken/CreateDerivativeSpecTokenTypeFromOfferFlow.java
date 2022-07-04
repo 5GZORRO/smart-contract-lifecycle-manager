@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogic<SignedTransaction> {
 
     private final ProductOfferDetails productOfferDetails;
+    private final String offerDid;
 
     private static final String START_DL = "startFreqDl";
     private static final String END_DL = "endFreqDl";
@@ -47,14 +48,22 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         }
     });
 
-    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails) {
+    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails, String offerDid) {
         this.productOfferDetails = productOfferDetails;
+        this.offerDid = offerDid;
     }
 
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(productOfferDetails);
+        QueryCriteria.VaultQueryCriteria criteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
+        PrimitiveSpecTokenType primitiveSpecTokenType = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class, criteria).getStates().get(0).getState().getData();
+        DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString());
+
+        if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
+            throw new FlowException("Derivative's data does not match with Primitive's");
+        }
+
         List<Party> allOtherParties = getServiceHub()
                 .getNetworkMapCache()
                 .getAllNodes()
@@ -66,12 +75,9 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         return subFlow(new CreateEvolvableTokens(transactionState, allOtherParties));
     }
 
-    private DerivativeSpecTokenType derivativeSpectokenBuild(ProductOfferDetails productOfferDetails) {
+    private DerivativeSpecTokenType derivativeSpectokenBuild(String primitiveLinearId) {
         ResourceSpecification resourceSpecification = productOfferDetails.getResourceSpecifications().get(0);
         Map<String, ResourceSpecCharacteristic> resourceSpecCharacteristicMap = new HashMap<>();
-
-        QueryCriteria.VaultQueryCriteria criteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
-        PrimitiveSpecTokenType primitiveSpecTokenType = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class, criteria).getStates().get(0).getState().getData();
 
         for (ResourceSpecCharacteristic resourceSpecCharacteristic : resourceSpecification.getResourceSpecCharacteristic()) {
             if (CHARACTERISTIC_NAMES.contains(resourceSpecCharacteristic.getName())) {
@@ -92,9 +98,18 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
                 resourceSpecCharacteristicMap.get(TECHNOLOGY).getResourceSpecCharacteristicValue().get(0).getValue().getValue(),
                 productOfferDetails.getGeographicAddresses().get(0).getCountry(),
                 null,
-                primitiveSpecTokenType.getLinearId().toString(),
-                productOfferDetails.getProductOfferingPrices().get(0).getPrice().getValue()
+                primitiveLinearId,
+                productOfferDetails.getProductOfferingPrices().get(0).getPrice().getValue(),
+                offerDid
         );
+    }
+
+    private boolean doesDerivativeMatchPrimitive(PrimitiveSpecTokenType primitiveSpecTokenType, DerivativeSpecTokenType derivativeSpecTokenType) {
+        return derivativeSpecTokenType.getStartDl() >= primitiveSpecTokenType.getStartDl()
+                && derivativeSpecTokenType.getEndDl() <= primitiveSpecTokenType.getEndDl()
+                && derivativeSpecTokenType.getStartUl() >= primitiveSpecTokenType.getStartUl()
+                && derivativeSpecTokenType.getEndUl() <= primitiveSpecTokenType.getEndUl()
+                && derivativeSpecTokenType.getCountry().equals(primitiveSpecTokenType.getCountry());
     }
 
 }

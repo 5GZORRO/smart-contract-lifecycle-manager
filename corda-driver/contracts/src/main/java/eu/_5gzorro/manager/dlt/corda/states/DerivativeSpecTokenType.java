@@ -17,10 +17,14 @@ public class DerivativeSpecTokenType extends SpecTokenType {
     @NotNull
     private final String primitiveId;
 
-    public DerivativeSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, Date startDate, Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, String primitiveId, Float price) {
+    @NotNull
+    private final String offerDid;
+
+    public DerivativeSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, Date startDate, Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, String primitiveId, Float price, @NotNull String offerDid) {
         super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country, ownerDid);
         this.primitiveId = primitiveId;
         this.price = price;
+        this.offerDid = offerDid;
     }
 
     @NotNull

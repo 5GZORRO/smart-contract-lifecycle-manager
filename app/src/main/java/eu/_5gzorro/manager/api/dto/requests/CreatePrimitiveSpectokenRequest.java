@@ -1,6 +1,5 @@
 package eu._5gzorro.manager.api.dto.requests;
 
-import eu._5gzorro.tm_forum.models.GeographicAddress;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;

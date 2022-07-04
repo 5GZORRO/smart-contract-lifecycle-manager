@@ -27,6 +27,6 @@ public interface DerivativeSpectokenDriver {
             final Float price
     );
 
-    boolean createDerivativeSpectokenFromOffer(@NotNull final ProductOfferDetails productOfferDetails);
+    boolean createDerivativeSpectokenFromOffer(@NotNull final ProductOfferDetails productOfferDetails, @NotNull String offerDid);
 
 }
