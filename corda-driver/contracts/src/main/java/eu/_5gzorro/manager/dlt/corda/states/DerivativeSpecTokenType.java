@@ -36,4 +36,8 @@ public class DerivativeSpecTokenType extends SpecTokenType {
         return price;
     }
 
+    @NotNull
+    public String getOfferDid() {
+        return offerDid;
+    }
 }

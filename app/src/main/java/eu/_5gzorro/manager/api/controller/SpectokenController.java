@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.api.controller;
 
-import eu._5gzorro.manager.api.dto.requests.CreateDerivativeSpectokenRequest;
 import eu._5gzorro.manager.api.dto.requests.CreatePrimitiveSpectokenRequest;
+import eu._5gzorro.manager.api.dto.requests.IssueDerivativeSpectokenRequest;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -62,53 +62,15 @@ public class SpectokenController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Create derivative Spectoken"
-            )
-    })
-    @PostMapping("derivative/create")
-    public ResponseEntity<Boolean> createDerivativeSpectoken(
-            @Valid @RequestBody @NotNull CreateDerivativeSpectokenRequest request) {
-        derivativeSpectokenDriver.createDerivativeSpectoken(
-                request.getStartDl(),
-                request.getEndDl(),
-                request.getStartUl(),
-                request.getEndUl(),
-                request.getStartDate(),
-                request.getEndDate(),
-                request.getDuplexMode(),
-                request.getBand(),
-                request.getTechnology(),
-                request.getCountry(),
-                request.getOwnerDid(),
-                request.getPrimitiveId(),
-                request.getPrice()
-        );
-        return ResponseEntity.ok().body(true);
-    }
-
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
                     description = "Issue derivative Spectoken"
             )
     })
     @PostMapping("derivative/issue")
-    public ResponseEntity<Boolean> issueDerivativeSpectoken(/*TODO*/) {
-//        derivativeSpectokenDriver.issueDerivativeSpectoken(
-//                request.getStartDl(),
-//                request.getEndDl(),
-//                request.getStartUl(),
-//                request.getEndUl(),
-//                request.getStartDate(),
-//                request.getEndDate(),
-//                request.getDuplexMode(),
-//                request.getBand(),
-//                request.getTechnology(),
-//                request.getCountry(),
-//                request.getOwnerDid(),
-//                request.getPrimitiveId(),
-//                request.getPrice()
-//        );
+    public ResponseEntity<Boolean> issueDerivativeSpectoken(@Valid @RequestBody @NotNull IssueDerivativeSpectokenRequest request) {
+        derivativeSpectokenDriver.issueDerivativeSpectoken(
+                request.getOfferDid(),
+                request.getOwnerDid()
+        );
         return ResponseEntity.ok().body(true);
     }
 

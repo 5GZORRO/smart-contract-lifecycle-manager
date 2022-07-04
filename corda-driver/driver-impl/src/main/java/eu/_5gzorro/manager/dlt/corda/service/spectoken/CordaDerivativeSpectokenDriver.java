@@ -68,51 +68,10 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public void createDerivativeSpectoken(
-            @NotNull final Double startDl,
-            @NotNull final Double endDl,
-            @NotNull final Double startUl,
-            @NotNull final Double endUl,
-            @NotNull final Date startDate,
-            @NotNull final Date endDate,
-            @NotNull final String duplexMode,
-            @NotNull final Integer band,
-            @NotNull final String technology,
-            @NotNull final String country,
-            @NotNull final String ownerDid,
-            @NotNull final String primitiveId,
-            final Float price
-    ) {
+    public void issueDerivativeSpectoken(String offerDid, String ownerDid) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
-//        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"));
-        DerivativeSpecTokenType derivativeSpecTokenType =
-                new DerivativeSpecTokenType(
-                        Collections.singletonList(ourIdentity),
-                        new UniqueIdentifier(),
-                        startDl,
-                        endDl,
-                        startUl,
-                        endUl,
-                        startDate,
-                        endDate,
-                        duplexMode,
-                        band,
-                        technology,
-                        country,
-                        ownerDid,
-                        primitiveId,
-                        price
-                );
-
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType).getReturnValue().toCompletableFuture();
-        try {
-            DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
-            log.info("Derivative SpecToken created with id: " + resolvedDerivativeSpecTokenType.getLinearId());
-            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, consumer);
-        } catch (InterruptedException | ExecutionException e) {
-            log.error(e.getMessage());
-        }
+        rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, offerDid, ourIdentity, consumer);
     }
 
     @Override
