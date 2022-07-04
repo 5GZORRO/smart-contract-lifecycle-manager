@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
-import org.threeten.bp.OffsetDateTime;
 
 public class ProductOrder {
   private String id;
@@ -16,11 +15,11 @@ public class ProductOrder {
   private String description;
   private String category;
   private StateType state;
-  private OffsetDateTime orderDate;
-  private OffsetDateTime completionDate;
-  private OffsetDateTime requestedStartDate;
-  private OffsetDateTime requestedCompletionDate;
-  private OffsetDateTime expectedCompletionDate;
+  private String orderDate;
+  private String completionDate;
+  private String requestedStartDate;
+  private String requestedCompletionDate;
+  private String expectedCompletionDate;
   private String notificationContact;
   private String atBaseType;
   private String atType;
@@ -162,7 +161,7 @@ public class ProductOrder {
     this.state = state;
   }
 
-  public ProductOrder orderDate(OffsetDateTime orderDate) {
+  public ProductOrder orderDate(String orderDate) {
     this.orderDate = orderDate;
     return this;
   }
@@ -172,15 +171,15 @@ public class ProductOrder {
    *
    * @return orderDate
    */
-  public OffsetDateTime getOrderDate() {
+  public String getOrderDate() {
     return orderDate;
   }
 
-  public void setOrderDate(OffsetDateTime orderDate) {
+  public void setOrderDate(String orderDate) {
     this.orderDate = orderDate;
   }
 
-  public ProductOrder completionDate(OffsetDateTime completionDate) {
+  public ProductOrder completionDate(String completionDate) {
     this.completionDate = completionDate;
     return this;
   }
@@ -190,15 +189,15 @@ public class ProductOrder {
    *
    * @return completionDate
    */
-  public OffsetDateTime getCompletionDate() {
+  public String getCompletionDate() {
     return completionDate;
   }
 
-  public void setCompletionDate(OffsetDateTime completionDate) {
+  public void setCompletionDate(String completionDate) {
     this.completionDate = completionDate;
   }
 
-  public ProductOrder requestedStartDate(OffsetDateTime requestedStartDate) {
+  public ProductOrder requestedStartDate(String requestedStartDate) {
     this.requestedStartDate = requestedStartDate;
     return this;
   }
@@ -208,15 +207,15 @@ public class ProductOrder {
    *
    * @return requestedStartDate
    */
-  public OffsetDateTime getRequestedStartDate() {
+  public String getRequestedStartDate() {
     return requestedStartDate;
   }
 
-  public void setRequestedStartDate(OffsetDateTime requestedStartDate) {
+  public void setRequestedStartDate(String requestedStartDate) {
     this.requestedStartDate = requestedStartDate;
   }
 
-  public ProductOrder requestedCompletionDate(OffsetDateTime requestedCompletionDate) {
+  public ProductOrder requestedCompletionDate(String requestedCompletionDate) {
     this.requestedCompletionDate = requestedCompletionDate;
     return this;
   }
@@ -226,15 +225,15 @@ public class ProductOrder {
    *
    * @return requestedCompletionDate
    */
-  public OffsetDateTime getRequestedCompletionDate() {
+  public String getRequestedCompletionDate() {
     return requestedCompletionDate;
   }
 
-  public void setRequestedCompletionDate(OffsetDateTime requestedCompletionDate) {
+  public void setRequestedCompletionDate(String requestedCompletionDate) {
     this.requestedCompletionDate = requestedCompletionDate;
   }
 
-  public ProductOrder expectedCompletionDate(OffsetDateTime expectedCompletionDate) {
+  public ProductOrder expectedCompletionDate(String expectedCompletionDate) {
     this.expectedCompletionDate = expectedCompletionDate;
     return this;
   }
@@ -244,11 +243,11 @@ public class ProductOrder {
    *
    * @return expectedCompletionDate
    */
-  public OffsetDateTime getExpectedCompletionDate() {
+  public String getExpectedCompletionDate() {
     return expectedCompletionDate;
   }
 
-  public void setExpectedCompletionDate(OffsetDateTime expectedCompletionDate) {
+  public void setExpectedCompletionDate(String expectedCompletionDate) {
     this.expectedCompletionDate = expectedCompletionDate;
   }
 

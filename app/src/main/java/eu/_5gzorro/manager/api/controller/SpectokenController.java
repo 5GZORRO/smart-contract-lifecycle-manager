@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.api.controller;
 
-import eu._5gzorro.manager.api.dto.requests.CreateDerivativeSpectokenRequest;
 import eu._5gzorro.manager.api.dto.requests.CreatePrimitiveSpectokenRequest;
+import eu._5gzorro.manager.api.dto.requests.IssueDerivativeSpectokenRequest;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -62,26 +62,14 @@ public class SpectokenController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Create derivative Spectoken"
+                    description = "Issue derivative Spectoken"
             )
     })
-    @PostMapping("derivative")
-    public ResponseEntity<Boolean> createDerivativeSpectoken(
-            @Valid @RequestBody @NotNull CreateDerivativeSpectokenRequest request) {
-        derivativeSpectokenDriver.createDerivativeSpectoken(
-                request.getStartDl(),
-                request.getEndDl(),
-                request.getStartUl(),
-                request.getEndUl(),
-                request.getStartDate(),
-                request.getEndDate(),
-                request.getDuplexMode(),
-                request.getBand(),
-                request.getTechnology(),
-                request.getCountry(),
-                request.getOwnerDid(),
-                request.getPrimitiveDid(),
-                request.getPrice()
+    @PostMapping("derivative/issue")
+    public ResponseEntity<Boolean> issueDerivativeSpectoken(@Valid @RequestBody @NotNull IssueDerivativeSpectokenRequest request) {
+        derivativeSpectokenDriver.issueDerivativeSpectoken(
+                request.getOfferDid(),
+                request.getOwnerDid()
         );
         return ResponseEntity.ok().body(true);
     }

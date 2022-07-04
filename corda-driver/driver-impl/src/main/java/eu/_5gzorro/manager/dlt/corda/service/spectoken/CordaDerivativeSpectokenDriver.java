@@ -1,11 +1,12 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFromOfferFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
+import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
@@ -67,51 +68,25 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public void createDerivativeSpectoken(
-            @NotNull final Double startDl,
-            @NotNull final Double endDl,
-            @NotNull final Double startUl,
-            @NotNull final Double endUl,
-            @NotNull final Date startDate,
-            @NotNull final Date endDate,
-            @NotNull final String duplexMode,
-            @NotNull final Integer band,
-            @NotNull final String technology,
-            @NotNull final String country,
-            @NotNull final String ownerDid,
-            @NotNull final String primitiveDid,
-            final Float price
-    ) {
+    public void issueDerivativeSpectoken(String offerDid, String ownerDid) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
-//        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"));
-        DerivativeSpecTokenType derivativeSpecTokenType =
-                new DerivativeSpecTokenType(
-                        Collections.singletonList(ourIdentity),
-                        new UniqueIdentifier(),
-                        startDl,
-                        endDl,
-                        startUl,
-                        endUl,
-                        startDate,
-                        endDate,
-                        duplexMode,
-                        band,
-                        technology,
-                        country,
-                        ownerDid,
-                        primitiveDid,
-                        price
-                );
+        rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, offerDid, ourIdentity, consumer);
+    }
 
-
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFlow.class, derivativeSpecTokenType).getReturnValue().toCompletableFuture();
+    @Override
+    public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails, String offerDid) {
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid)
+                .getReturnValue().toCompletableFuture();
         try {
             DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
-            rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, resolvedDerivativeSpecTokenType, ourIdentity, consumer);
+            if (resolvedDerivativeSpecTokenType != null) {
+                return true;
+            }
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }
+        return false;
     }
 
     public static class UpdateWrapper {

@@ -1,7 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
 import eu._5gzorro.manager.dlt.corda.models.types.OrderState;
-import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
 import eu._5gzorro.manager.dlt.corda.states.RejectionReason;
 import net.corda.core.contracts.CommandData;

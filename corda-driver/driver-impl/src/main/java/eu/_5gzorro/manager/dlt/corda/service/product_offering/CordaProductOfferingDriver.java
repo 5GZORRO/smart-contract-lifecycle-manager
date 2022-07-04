@@ -12,6 +12,7 @@ import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
+import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
@@ -36,11 +37,13 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
   private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
   private final List<String> governanceNodeNames;
+  private final DerivativeSpectokenDriver derivativeSpectokenDriver;
 
-  public CordaProductOfferingDriver(NodeRPC nodeRPC, List<String> governanceNodeNames) {
+  public CordaProductOfferingDriver(NodeRPC nodeRPC, List<String> governanceNodeNames, DerivativeSpectokenDriver derivativeSpectokenDriver) {
     super(nodeRPC, ProductOffering.class);
     this.rpcClient = nodeRPC.getClient();
     this.governanceNodeNames = governanceNodeNames;
+    this.derivativeSpectokenDriver = derivativeSpectokenDriver;
     setup();
   }
 
@@ -89,7 +92,8 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
       ProductOfferDetails offerDetails,
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential) {
+      VerifiableCredential identityCredential,
+      String did) {
     Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 
     ProductOffering productOfferingState =
@@ -105,7 +109,14 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
             offerDetails
         );
 
-    rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+    if ("Spectrum".equals(offerDetails.getProductOffering().getCategory().get(0).getName())) {
+      boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
+      if (isDerivativeSpectokenCreated) {
+        rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+      }
+    } else {
+      rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+    }
   }
 
   @Override

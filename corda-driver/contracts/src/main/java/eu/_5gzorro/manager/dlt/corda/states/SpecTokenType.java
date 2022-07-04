@@ -35,10 +35,8 @@ public class SpecTokenType extends EvolvableTokenType {
     @NotNull
     private final Double endUl;
 
-    @NotNull
     private final Date startDate;
 
-    @NotNull
     private final Date endDate;
 
     @NotNull
