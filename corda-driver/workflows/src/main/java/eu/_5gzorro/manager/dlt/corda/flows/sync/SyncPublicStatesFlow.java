@@ -1,24 +1,12 @@
 package eu._5gzorro.manager.dlt.corda.flows.sync;
 
-import static java.util.stream.Collectors.toList;
-
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.states.PublicState;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import kotlin.collections.SetsKt;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.StateRef;
-import net.corda.core.flows.FlowException;
-import net.corda.core.flows.FlowSession;
-import net.corda.core.flows.InitiatedBy;
-import net.corda.core.flows.InitiatingFlow;
-import net.corda.core.flows.ReceiveTransactionFlow;
-import net.corda.core.flows.SendTransactionFlow;
-import net.corda.core.flows.StartableByService;
+import net.corda.core.flows.*;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.node.StatesToRecord;
 import net.corda.core.node.services.Vault.StateStatus;
@@ -35,6 +23,13 @@ import net.corda.core.node.services.vault.Sort.VaultStateAttribute;
 import net.corda.core.node.services.vault.SortAttribute;
 import net.corda.core.serialization.CordaSerializable;
 import net.corda.core.transactions.SignedTransaction;
+
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Flow expects the contract state being synced to be extended from PublicState

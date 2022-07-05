@@ -1,9 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.flows.utils;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.ContractState;
 import net.corda.core.contracts.StateAndRef;
@@ -17,6 +13,11 @@ import net.corda.core.identity.Party;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria;
 import net.corda.core.node.services.vault.QueryCriteria.LinearStateQueryCriteria;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Extends Corda's FlowLogic class to provide extra utility functions such as finding the first notary or

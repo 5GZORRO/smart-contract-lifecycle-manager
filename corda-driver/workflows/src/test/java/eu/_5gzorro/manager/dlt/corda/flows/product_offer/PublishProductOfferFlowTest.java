@@ -1,17 +1,15 @@
 package eu._5gzorro.manager.dlt.corda.flows.product_offer;
 
 
-import static kotlin.collections.CollectionsKt.listOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.utils.PublishedProductOfferTestCase;
 import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.StateAndRef;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class PublishProductOfferFlowTest extends PublishedProductOfferTestCase {
 

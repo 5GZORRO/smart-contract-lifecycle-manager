@@ -1,9 +1,5 @@
 package eu._5gzorro.manager.api.controller.advice;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementStatusException;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

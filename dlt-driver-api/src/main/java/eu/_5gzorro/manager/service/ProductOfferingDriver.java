@@ -5,7 +5,7 @@ import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
 import io.reactivex.rxjava3.core.Observable;
-import eu._5gzorro.tm_forum.models.product.ProductOffering;
+
 import java.util.Collection;
 import java.util.Map;
 

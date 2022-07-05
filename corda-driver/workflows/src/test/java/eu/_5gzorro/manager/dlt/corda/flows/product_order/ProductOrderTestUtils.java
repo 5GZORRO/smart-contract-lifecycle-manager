@@ -1,14 +1,9 @@
 package eu._5gzorro.manager.dlt.corda.flows.product_order;
 
-import eu._5gzorro.manager.dlt.corda.flows.product_offer.PublishProductOfferFlow.PublishProductOfferInitiator;
-import eu._5gzorro.manager.dlt.corda.flows.product_offer.RetireProductOfferFlow.RetireProductOfferInitiator;
-import eu._5gzorro.manager.dlt.corda.flows.product_offer.UpdateProductOfferFlow.UpdateProductOfferInitiator;
-import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
 import net.corda.core.concurrent.CordaFuture;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FlowLogic;
-import net.corda.core.identity.Party;
 import net.corda.testing.node.MockNetwork;
 import net.corda.testing.node.StartedMockNode;
 

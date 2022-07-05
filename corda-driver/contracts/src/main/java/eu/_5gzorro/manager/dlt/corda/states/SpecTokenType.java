@@ -1,7 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.states;
 
 import com.r3.corda.lib.tokens.contracts.states.EvolvableTokenType;
-import eu._5gzorro.tm_forum.models.GeographicAddress;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;

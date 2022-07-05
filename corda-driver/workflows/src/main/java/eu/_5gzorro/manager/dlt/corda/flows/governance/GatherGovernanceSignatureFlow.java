@@ -1,18 +1,14 @@
 package eu._5gzorro.manager.dlt.corda.flows.governance;
 
-import static net.corda.core.contracts.ContractsDSL.requireThat;
-
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
-import java.util.Collections;
-import net.corda.core.flows.CollectSignaturesFlow;
-import net.corda.core.flows.FlowException;
-import net.corda.core.flows.FlowSession;
-import net.corda.core.flows.InitiatedBy;
-import net.corda.core.flows.InitiatingFlow;
-import net.corda.core.flows.SignTransactionFlow;
+import net.corda.core.flows.*;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
+
+import java.util.Collections;
+
+import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 @InitiatingFlow
 public class GatherGovernanceSignatureFlow extends ExtendedFlowLogic<SignedTransaction> {

@@ -1,8 +1,8 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.ArrayList;
 
 /**
  * An amount, usually of money, that represents the actual price paid by the Customer for this item

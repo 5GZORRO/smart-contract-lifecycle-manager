@@ -8,9 +8,7 @@ import net.corda.core.contracts.TransactionState;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.InitiatingFlow;
 import net.corda.core.flows.StartableByRPC;
-import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
-import net.corda.core.node.services.vault.QueryCriteria;
 import net.corda.core.transactions.SignedTransaction;
 
 import java.util.List;

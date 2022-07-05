@@ -1,8 +1,8 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
-import java.util.Objects;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /** An identified part of the order. A product order is decomposed into one or more order items. */
 public class OrderItem {

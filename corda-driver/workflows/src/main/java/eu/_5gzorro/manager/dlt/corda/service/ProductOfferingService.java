@@ -2,8 +2,6 @@ package eu._5gzorro.manager.dlt.corda.service;
 
 import eu._5gzorro.manager.dlt.corda.flows.sync.SyncPublicStatesFlow.SyncPublicStatesInitiator;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
-import java.util.List;
-import java.util.stream.Collectors;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
 import net.corda.core.node.AppServiceHub;
@@ -12,6 +10,9 @@ import net.corda.core.node.services.ServiceLifecycleEvent;
 import net.corda.core.serialization.SingletonSerializeAsToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CordaService
 public class ProductOfferingService extends SingletonSerializeAsToken {

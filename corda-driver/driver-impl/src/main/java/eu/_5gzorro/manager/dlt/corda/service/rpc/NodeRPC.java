@@ -1,10 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.service.rpc;
 
-import static kotlin.collections.SetsKt.setOf;
-import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_NUM;
-import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;
-
-import javax.annotation.PostConstruct;
 import net.corda.client.rpc.CordaRPCClient;
 import net.corda.client.rpc.CordaRPCConnection;
 import net.corda.client.rpc.GracefulReconnect;
@@ -21,6 +16,12 @@ import net.corda.core.utilities.NetworkHostAndPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+
+import static kotlin.collections.SetsKt.setOf;
+import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_NUM;
+import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;
 
 @Service
 public class NodeRPC {
