@@ -1,13 +1,14 @@
 package eu._5gzorro.manager.dlt.corda.flows.product_offer;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.utils.PublishedProductOfferTestCase;
-import java.util.concurrent.ExecutionException;
 import net.corda.core.contracts.StateAndRef;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ExecutionException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class UpdateProductOfferFlowTest extends PublishedProductOfferTestCase {
 

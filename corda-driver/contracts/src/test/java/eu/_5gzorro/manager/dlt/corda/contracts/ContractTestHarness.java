@@ -1,14 +1,15 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
-import static net.corda.testing.node.internal.InternalTestUtilsKt.setDriverSerialization;
-
-import java.util.Collections;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.testing.core.TestIdentity;
 import net.corda.testing.node.MockServices;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+
+import java.util.Collections;
+
+import static net.corda.testing.node.internal.InternalTestUtilsKt.setDriverSerialization;
 
 @TestInstance(Lifecycle.PER_CLASS)
 public class ContractTestHarness {

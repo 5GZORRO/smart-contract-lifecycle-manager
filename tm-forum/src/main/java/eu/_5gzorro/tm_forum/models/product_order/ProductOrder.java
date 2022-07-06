@@ -1,11 +1,11 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class ProductOrder {
   private String id;

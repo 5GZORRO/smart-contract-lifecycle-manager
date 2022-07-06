@@ -1,8 +1,6 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**

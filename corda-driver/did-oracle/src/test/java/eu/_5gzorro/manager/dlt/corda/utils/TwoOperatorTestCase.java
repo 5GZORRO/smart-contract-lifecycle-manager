@@ -1,13 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.utils;
 
-import static net.corda.testing.common.internal.ParametersUtilitiesKt.testNetworkParameters;
-
 import com.google.common.collect.ImmutableList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.node.NetworkParameters;
@@ -18,6 +11,14 @@ import net.corda.testing.node.StartedMockNode;
 import net.corda.testing.node.TestCordapp;
 import org.junit.After;
 import org.junit.Before;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static net.corda.testing.common.internal.ParametersUtilitiesKt.testNetworkParameters;
 
 public class TwoOperatorTestCase {
 

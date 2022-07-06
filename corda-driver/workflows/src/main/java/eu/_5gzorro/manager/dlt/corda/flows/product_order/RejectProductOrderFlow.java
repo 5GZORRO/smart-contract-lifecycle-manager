@@ -20,7 +20,6 @@ import java.security.PublicKey;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @InitiatingFlow
 public class RejectProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> {

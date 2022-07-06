@@ -1,7 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
-import static net.corda.testing.node.NodeTestUtils.ledger;
-
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Publish;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Retire;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Update;
@@ -13,6 +11,8 @@ import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.Party;
 import net.corda.testing.core.DummyCommandData;
 import org.junit.jupiter.api.Test;
+
+import static net.corda.testing.node.NodeTestUtils.ledger;
 
 public class ProductOfferingContractTest extends ContractTestHarness {
   @Test

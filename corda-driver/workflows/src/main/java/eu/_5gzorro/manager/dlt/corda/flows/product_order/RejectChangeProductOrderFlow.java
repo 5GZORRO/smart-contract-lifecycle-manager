@@ -2,7 +2,6 @@ package eu._5gzorro.manager.dlt.corda.flows.product_order;
 
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOrderContract;
-import eu._5gzorro.manager.dlt.corda.flows.governance.GatherGovernanceSignatureFlow;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.models.types.OrderState;

@@ -6,16 +6,10 @@ import eu._5gzorro.manager.dlt.corda.models.types.OrderState;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
 import eu._5gzorro.manager.dlt.corda.states.RejectionReason;
 import eu._5gzorro.manager.dlt.corda.utils.PublishedProductOrderTestCase;
-import eu._5gzorro.manager.domain.Invitation;
-import eu._5gzorro.tm_forum.models.TimePeriod;
 import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.StateAndRef;
-import net.corda.core.contracts.UniqueIdentifier;
-import net.corda.core.crypto.SecureHash;
-import net.corda.core.identity.Party;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static java.time.LocalDateTime.now;

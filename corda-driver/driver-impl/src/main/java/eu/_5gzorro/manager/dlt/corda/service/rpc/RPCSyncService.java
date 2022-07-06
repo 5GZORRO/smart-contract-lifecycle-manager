@@ -1,9 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.service.rpc;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 import net.corda.core.contracts.ContractState;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.messaging.DataFeed;
@@ -15,6 +11,10 @@ import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.functions.Action1;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_NUM;
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.DEFAULT_PAGE_SIZE;

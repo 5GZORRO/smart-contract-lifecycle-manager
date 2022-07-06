@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static net.corda.core.node.services.vault.QueryCriteriaUtils.getField;
 import static net.corda.core.node.services.vault.QueryCriteriaUtils.*;
 
 public class UpdateServiceLevelAgreementFlow {

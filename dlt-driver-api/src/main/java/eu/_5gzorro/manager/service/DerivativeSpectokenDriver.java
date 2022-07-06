@@ -4,7 +4,6 @@ package eu._5gzorro.manager.service;
 import eu._5gzorro.manager.domain.ProductOfferDetails;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 public interface DerivativeSpectokenDriver {
 

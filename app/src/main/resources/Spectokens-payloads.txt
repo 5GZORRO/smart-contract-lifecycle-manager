@@ -1,0 +1,35 @@
+{
+  "startDl": 3600,
+  "endDl": 3650,
+  "startUl": 3600,
+  "endUl": 3650,
+  "startDate": "2021-05-17T09:00:00.007Z",
+  "endDate": "2036-05-16T09:00:00.007Z",
+  "duplexMode": "TDD",
+  "band": 78,
+  "technology": "5G",
+  "country": "Spain",
+  "ownerDid": "M10KauVlQwdMu7Ho9Wk5mp",
+  "primitiveId": "f08fb8f6-9748-4dfc-ab26-add8130eb011",
+  "price": 9000
+}
+
+run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType
+run vaultQuery contractStateType: com.r3.corda.lib.tokens.contracts.states.NonFungibleToken
+run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType
+
+
+{
+  "startDl": 750,
+  "endDl": 800,
+  "startUl": 700,
+  "endUl": 750,
+  "startDate": "2021-05-17T09:00:00.007Z",
+  "endDate": "2036-05-16T09:00:00.007Z",
+  "duplexMode": "FDD",
+  "band": 28,
+  "technology": "5G",
+  "country": "Japan",
+  "ownerDid": "M10KauVlQwdMu7Ho9Wk5mp",
+  "license": "3yLdYwrZyxX3NoYtCAgtfNJAnVk4X98X9KtwMQDtiXMS"
+}

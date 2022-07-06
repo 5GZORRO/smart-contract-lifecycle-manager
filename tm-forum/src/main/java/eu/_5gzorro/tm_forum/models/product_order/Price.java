@@ -1,9 +1,8 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import eu._5gzorro.tm_forum.models.product.Money;
+
+import java.util.Objects;
 
 /**
  * Provides all amounts (tax included, duty free, tax rate), used currency and percentage to apply

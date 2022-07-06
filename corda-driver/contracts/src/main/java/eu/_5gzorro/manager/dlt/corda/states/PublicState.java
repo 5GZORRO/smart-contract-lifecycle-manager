@@ -1,13 +1,14 @@
 package eu._5gzorro.manager.dlt.corda.states;
 
-import java.util.Arrays;
-import java.util.List;
 import net.corda.core.contracts.ContractState;
 import net.corda.core.contracts.LinearState;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.Party;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PublicState implements ContractState, LinearState {
 

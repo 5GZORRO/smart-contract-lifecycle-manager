@@ -1,18 +1,19 @@
 package eu._5gzorro.manager.dlt.corda.flows.sync;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import eu._5gzorro.manager.dlt.corda.flows.product_offer.ProductOfferingTestUtils;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.utils.TwoOperatorTestCase;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.testing.node.StartedMockNode;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class SyncPublicStatesFlowTest extends TwoOperatorTestCase {
 

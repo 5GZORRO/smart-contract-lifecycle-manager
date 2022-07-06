@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.oracle.flow;
 
 import co.paralleluniverse.fibers.Suspendable;
+import eu._5gzorro.manager.dlt.corda.oracle.service.Oracle;
 import net.corda.core.crypto.TransactionSignature;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.FlowLogic;
@@ -9,7 +10,6 @@ import net.corda.core.transactions.FilteredTransaction;
 import net.corda.core.transactions.FilteredTransactionVerificationException;
 import net.corda.core.utilities.ProgressTracker;
 import org.jetbrains.annotations.Nullable;
-import eu._5gzorro.manager.dlt.corda.oracle.service.Oracle;
 
 //@InitiatedBy(Object.class)
 public class SignHandler extends FlowLogic<Void> {

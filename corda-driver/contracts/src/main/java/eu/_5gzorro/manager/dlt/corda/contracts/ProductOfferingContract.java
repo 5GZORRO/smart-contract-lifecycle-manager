@@ -1,17 +1,17 @@
 package eu._5gzorro.manager.dlt.corda.contracts;
 
-import static net.corda.core.contracts.ContractsDSL.requireSingleCommand;
-import static net.corda.core.contracts.ContractsDSL.requireThat;
-import static net.corda.core.contracts.ContractsDSL.select;
-
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
-import java.security.PublicKey;
-import java.util.List;
 import net.corda.core.contracts.CommandData;
 import net.corda.core.contracts.CommandWithParties;
 import net.corda.core.contracts.Contract;
 import net.corda.core.transactions.LedgerTransaction;
 import org.jetbrains.annotations.NotNull;
+
+import java.security.PublicKey;
+import java.util.List;
+
+import static net.corda.core.contracts.ContractsDSL.requireSingleCommand;
+import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 public class ProductOfferingContract implements Contract {
   public static final String ID = "eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract";

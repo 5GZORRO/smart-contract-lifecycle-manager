@@ -1,15 +1,14 @@
 package eu._5gzorro.manager.dlt.corda.flows.product_offer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.google.common.collect.ImmutableList;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.utils.PublishedProductOfferTestCase;
-import java.util.concurrent.ExecutionException;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ExecutionException;
 
 public class RetireProductOfferFlowTest extends PublishedProductOfferTestCase {
 

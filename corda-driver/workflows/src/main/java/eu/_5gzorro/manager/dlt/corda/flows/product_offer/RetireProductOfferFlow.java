@@ -4,24 +4,19 @@ import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Retire;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
+import net.corda.core.contracts.Command;
+import net.corda.core.contracts.StateAndRef;
+import net.corda.core.contracts.UniqueIdentifier;
+import net.corda.core.flows.*;
+import net.corda.core.node.StatesToRecord;
+import net.corda.core.transactions.SignedTransaction;
+import net.corda.core.transactions.TransactionBuilder;
+
 import java.security.PublicKey;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import net.corda.core.contracts.Command;
-import net.corda.core.contracts.StateAndRef;
-import net.corda.core.contracts.UniqueIdentifier;
-import net.corda.core.flows.FinalityFlow;
-import net.corda.core.flows.FlowException;
-import net.corda.core.flows.FlowSession;
-import net.corda.core.flows.InitiatedBy;
-import net.corda.core.flows.InitiatingFlow;
-import net.corda.core.flows.ReceiveFinalityFlow;
-import net.corda.core.flows.StartableByRPC;
-import net.corda.core.node.StatesToRecord;
-import net.corda.core.transactions.SignedTransaction;
-import net.corda.core.transactions.TransactionBuilder;
 
 @InitiatingFlow
 public class RetireProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> {

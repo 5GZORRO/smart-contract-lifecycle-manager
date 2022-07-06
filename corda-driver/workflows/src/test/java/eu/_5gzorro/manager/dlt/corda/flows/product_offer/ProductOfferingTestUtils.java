@@ -4,11 +4,12 @@ import eu._5gzorro.manager.dlt.corda.flows.product_offer.PublishProductOfferFlow
 import eu._5gzorro.manager.dlt.corda.flows.product_offer.RetireProductOfferFlow.RetireProductOfferInitiator;
 import eu._5gzorro.manager.dlt.corda.flows.product_offer.UpdateProductOfferFlow.UpdateProductOfferInitiator;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
-import java.util.concurrent.ExecutionException;
 import net.corda.core.concurrent.CordaFuture;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.testing.node.MockNetwork;
 import net.corda.testing.node.StartedMockNode;
+
+import java.util.concurrent.ExecutionException;
 
 public class ProductOfferingTestUtils {
   public static UniqueIdentifier publishProductOffering(StartedMockNode proposer, MockNetwork network, ProductOffering offering)

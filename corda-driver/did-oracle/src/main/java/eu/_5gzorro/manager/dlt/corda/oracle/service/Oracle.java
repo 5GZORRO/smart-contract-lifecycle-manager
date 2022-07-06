@@ -1,6 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.oracle.service;
 
-import java.security.PublicKey;
 import net.corda.core.crypto.TransactionSignature;
 import net.corda.core.identity.Party;
 import net.corda.core.node.AppServiceHub;
@@ -11,6 +10,8 @@ import net.corda.core.transactions.FilteredTransaction;
 import net.corda.core.transactions.FilteredTransactionVerificationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.security.PublicKey;
 
 /*
     TODO Skeleton of checks oracle needs to perform, remove this module if no oracle needed

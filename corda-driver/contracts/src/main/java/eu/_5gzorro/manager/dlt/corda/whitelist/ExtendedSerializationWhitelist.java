@@ -1,15 +1,15 @@
 package eu._5gzorro.manager.dlt.corda.whitelist;
 
 import eu._5gzorro.manager.domain.*;
+import net.corda.core.serialization.SerializationWhitelist;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import net.corda.core.serialization.SerializationWhitelist;
-import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ExtendedSerializationWhitelist implements SerializationWhitelist {
 
