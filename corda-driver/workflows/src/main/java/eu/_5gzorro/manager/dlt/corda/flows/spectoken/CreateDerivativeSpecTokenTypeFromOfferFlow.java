@@ -59,7 +59,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         if (states.isEmpty()) {
             throw new FlowException("Primitive Spectoken not found.");
         }
-        PrimitiveSpecTokenType primitiveSpecTokenType = states.get(0).getState().getData();
+        PrimitiveSpecTokenType primitiveSpecTokenType = states.get(states.size() - 1).getState().getData();
         DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString());
         if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
             throw new FlowException("Derivative's data does not match with Primitive's.");
