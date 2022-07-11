@@ -8,14 +8,13 @@ import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
 import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.tm_forum.models.resource.ResourceSpecCharacteristic;
 import eu._5gzorro.tm_forum.models.resource.ResourceSpecification;
+import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.TransactionState;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.InitiatingFlow;
 import net.corda.core.flows.StartableByRPC;
 import net.corda.core.identity.Party;
-import net.corda.core.node.services.Vault;
-import net.corda.core.node.services.vault.QueryCriteria;
 import net.corda.core.transactions.SignedTransaction;
 
 import java.util.*;
@@ -56,8 +55,8 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        QueryCriteria.VaultQueryCriteria criteria = new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
-        PrimitiveSpecTokenType primitiveSpecTokenType = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class, criteria).getStates().get(0).getState().getData();
+        List<StateAndRef<PrimitiveSpecTokenType>> states = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class).getStates();
+        PrimitiveSpecTokenType primitiveSpecTokenType = states.get(states.size() - 1).getState().getData();
         DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString());
 
         if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
