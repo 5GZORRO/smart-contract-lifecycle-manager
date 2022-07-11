@@ -1,6 +1,5 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFromOfferFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
@@ -12,7 +11,6 @@ import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
-import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.messaging.CordaRPCOps;
@@ -20,12 +18,9 @@ import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import net.corda.core.transactions.SignedTransaction;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -75,18 +70,12 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails, String offerDid) {
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid)
-                .getReturnValue().toCompletableFuture();
-        try {
-            DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
-            if (resolvedDerivativeSpecTokenType != null) {
-                return true;
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            log.error(e.getMessage());
-        }
-        return false;
+    public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails, String offerDid) throws ExecutionException, InterruptedException {
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(
+            CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid
+        ).getReturnValue().toCompletableFuture();
+        DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
+        return resolvedDerivativeSpecTokenType != null;
     }
 
     public static class UpdateWrapper {
