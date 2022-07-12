@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
     implements ProductOfferingDriver {
@@ -93,7 +94,7 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
       Map<String, Invitation> invitations,
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential,
-      String did) {
+      String did) throws ExecutionException, InterruptedException {
     Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
 
     ProductOffering productOfferingState =

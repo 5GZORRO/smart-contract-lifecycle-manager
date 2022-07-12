@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public interface ProductOfferingDriver {
 
@@ -27,7 +28,7 @@ public interface ProductOfferingDriver {
       Collection<VerifiableCredential> verifiableCredentials,
       VerifiableCredential identityCredential,
       String did
-  );
+  ) throws ExecutionException, InterruptedException;
 
   /**
    * API Endpoint for a provider to update one of their product offerings on the DLT and subsequently be
