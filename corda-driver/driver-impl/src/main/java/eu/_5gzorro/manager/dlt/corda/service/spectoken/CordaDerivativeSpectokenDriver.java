@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFromOfferFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.GetDerivativeSpecTokensFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
@@ -9,6 +10,7 @@ import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
+import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.identity.CordaX500Name;
@@ -21,6 +23,7 @@ import net.corda.core.transactions.SignedTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -50,13 +53,13 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
         VaultQueryCriteria criteria = new VaultQueryCriteria(StateStatus.UNCONSUMED);
 
         this.beginTracking(
-                criteria,
-                this::handleUpdate,
-                stateAndRef ->
-                        subject.onNext(
-                                new UpdateWrapper()
-                                        .setSpectokenStateAndRef(stateAndRef)
-                                        .setUpdateType(UpdateType.CREATE_UPDATE)));
+            criteria,
+            this::handleUpdate,
+            stateAndRef ->
+                subject.onNext(
+                    new UpdateWrapper()
+                        .setSpectokenStateAndRef(stateAndRef)
+                        .setUpdateType(UpdateType.CREATE_UPDATE)));
     }
 
     private void handleUpdate(Vault.Update<DerivativeSpecTokenType> derivativeSpecTokenTypeUpdate) {
@@ -66,6 +69,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     public void issueDerivativeSpectoken(String offerDid, String ownerDid) {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
+//        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
         rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, offerDid, ourIdentity, consumer);
     }
 
@@ -78,6 +82,37 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
         return resolvedDerivativeSpecTokenType != null;
     }
 
+    @Override
+    public List<GetDerivativeSpectokenResponse> getDerivativeSpectokens() throws ExecutionException, InterruptedException {
+        List<StateAndRef<DerivativeSpecTokenType>> statesAndRefs = rpcClient.startFlowDynamic(
+            GetDerivativeSpecTokensFlow.class
+        ).getReturnValue().toCompletableFuture().get();
+        List<GetDerivativeSpectokenResponse> derivativeSpectokens = new ArrayList<>();
+        for (StateAndRef<DerivativeSpecTokenType> stateAndRef : statesAndRefs) {
+            derivativeSpectokens.add(convertToResponse(stateAndRef.getState().getData()));
+        }
+        return derivativeSpectokens;
+    }
+
+    private GetDerivativeSpectokenResponse convertToResponse(DerivativeSpecTokenType derivativeSpecTokenType) {
+        return new GetDerivativeSpectokenResponse(
+            derivativeSpecTokenType.getStartDl(),
+            derivativeSpecTokenType.getEndDl(),
+            derivativeSpecTokenType.getStartUl(),
+            derivativeSpecTokenType.getEndUl(),
+            derivativeSpecTokenType.getStartDate(),
+            derivativeSpecTokenType.getEndDate(),
+            derivativeSpecTokenType.getDuplexMode(),
+            derivativeSpecTokenType.getBand(),
+            derivativeSpecTokenType.getTechnology(),
+            derivativeSpecTokenType.getCountry(),
+            derivativeSpecTokenType.getOwnerDid(),
+            derivativeSpecTokenType.getPrice(),
+            derivativeSpecTokenType.getPrimitiveId(),
+            derivativeSpecTokenType.getOfferDid()
+        );
+    }
+
     public static class UpdateWrapper {
         private StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef;
         private UpdateType updateType;
@@ -87,7 +122,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
         }
 
         public UpdateWrapper setSpectokenStateAndRef(
-                StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef) {
+            StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef) {
             this.derivativeSpecTokenTypeStateAndRef = derivativeSpecTokenTypeStateAndRef;
             return this;
         }

@@ -84,9 +84,9 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             if (CHARACTERISTIC_NAMES.contains(resourceSpecCharacteristic.getName())) {
                 resourceSpecCharacteristicMap.put(resourceSpecCharacteristic.getName(), resourceSpecCharacteristic);
             }
-            if (resourceSpecCharacteristicMap.keySet().size() != CHARACTERISTIC_NAMES.size()) {
-                throw new FlowException("Product Offer is missing some Resource Specification Characteristic.");
-            }
+        }
+        if (resourceSpecCharacteristicMap.keySet().size() != CHARACTERISTIC_NAMES.size()) {
+            throw new FlowException("Product Offer is missing some Resource Specification Characteristic.");
         }
         return new DerivativeSpecTokenType(
             Collections.singletonList(getOurIdentity()),
