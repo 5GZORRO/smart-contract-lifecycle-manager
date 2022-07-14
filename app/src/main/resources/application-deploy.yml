@@ -56,6 +56,7 @@ spring:
 integrations:
   identity-permissions:
     myAgentBaseUrl: ${IDENTITY_BASE_URL:http://localhost:6200}
+    did: ${IDENTITY_DID:OD1ndI3xw0Pi6Sl4rgoa6F}
 
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity}

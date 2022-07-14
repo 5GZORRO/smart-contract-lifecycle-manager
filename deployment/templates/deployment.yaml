@@ -60,6 +60,8 @@ spec:
                   key: name
         - name: IDENTITY_BASE_URL
           value: {{ .Values.identityBaseUrl }}
+        - name: IDENTITY_DID
+          value: { { .Values.identityDID } }
         - name: UPDATE_SLA_CALLBACK_URL
           value: {{ .Values.callbacks.updateSlaIdentity }}
         - name: UPDATE_AGREEMENT_CALLBACK_URL

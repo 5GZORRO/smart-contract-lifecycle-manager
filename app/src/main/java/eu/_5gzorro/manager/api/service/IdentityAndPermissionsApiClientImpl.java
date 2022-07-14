@@ -4,6 +4,7 @@ import eu._5gzorro.manager.api.dto.identityPermisssions.StakeholderStatusDto;
 import eu._5gzorro.manager.api.httpClient.DIDClient;
 import eu._5gzorro.manager.api.httpClient.requests.CreateDidRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +15,9 @@ public class IdentityAndPermissionsApiClientImpl implements IdentityAndPermissio
 
     private StakeholderStatusDto myStakeholderStatus;
 
+    @Value("${integrations.identity-permissions.did}")
+    String did;
+
     public IdentityAndPermissionsApiClientImpl() {}
 
     @Override
@@ -23,6 +27,6 @@ public class IdentityAndPermissionsApiClientImpl implements IdentityAndPermissio
     }
 
     private String getAuthToken() {
-        return didClient.getMyStakeholderCredential().get(0).getAuthToken();
+        return didClient.getMyStakeholderCredential(did).getAuthToken();
     }
 }
