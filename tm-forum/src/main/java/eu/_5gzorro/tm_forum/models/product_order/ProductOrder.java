@@ -1,7 +1,7 @@
 package eu._5gzorro.tm_forum.models.product_order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eu._5gzorro.tm_forum.models.sla.RelatedPartyRef;
+import eu._5gzorro.tm_forum.models.RelatedParty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class ProductOrder {
   private String atSchemaLocation;
   private List<Channel> channel;
   private List<Note> note;
-  private List<RelatedPartyRef> relatedParty = null;
+  private List<RelatedParty> relatedParty = null;
   private List<PaymentRef> payment = null;
   private BillingAccountRef billingAccount;
   private List<OrderPrice> orderTotalPrice = null;
@@ -359,12 +359,12 @@ public class ProductOrder {
     this.note = note;
   }
 
-  public ProductOrder relatedParty(List<RelatedPartyRef> relatedParty) {
+  public ProductOrder relatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
     return this;
   }
 
-  public ProductOrder addRelatedPartyItem(RelatedPartyRef relatedPartyItem) {
+  public ProductOrder addRelatedPartyItem(RelatedParty relatedPartyItem) {
     if (this.relatedParty == null) {
       this.relatedParty = new ArrayList<>();
     }
@@ -377,11 +377,11 @@ public class ProductOrder {
    *
    * @return relatedParty
    */
-  public List<RelatedPartyRef> getRelatedParty() {
+  public List<RelatedParty> getRelatedParty() {
     return relatedParty;
   }
 
-  public void setRelatedParty(List<RelatedPartyRef> relatedParty) {
+  public void setRelatedParty(List<RelatedParty> relatedParty) {
     this.relatedParty = relatedParty;
   }
 
