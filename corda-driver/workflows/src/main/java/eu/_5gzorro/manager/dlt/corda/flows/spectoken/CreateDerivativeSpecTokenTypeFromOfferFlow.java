@@ -17,6 +17,7 @@ import net.corda.core.flows.StartableByRPC;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 
+import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -88,6 +89,9 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         if (resourceSpecCharacteristicMap.keySet().size() != CHARACTERISTIC_NAMES.size()) {
             throw new FlowException("Product Offer is missing some Resource Specification Characteristic.");
         }
+
+        Date offerStartDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getStartDateTime()).toInstant().toEpochMilli());
+        Date offerEndDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getEndDateTime()).toInstant().toEpochMilli());
         return new DerivativeSpecTokenType(
             Collections.singletonList(getOurIdentity()),
             new UniqueIdentifier(),
@@ -95,8 +99,8 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             Double.valueOf(resourceSpecCharacteristicMap.get(END_DL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             Double.valueOf(resourceSpecCharacteristicMap.get(START_UL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             Double.valueOf(resourceSpecCharacteristicMap.get(END_UL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
-            null,
-            null,
+            offerStartDate,
+            offerEndDate,
             resourceSpecCharacteristicMap.get(DUPLEX_MODE).getResourceSpecCharacteristicValue().get(0).getValue().getValue(),
             Integer.valueOf(resourceSpecCharacteristicMap.get(BAND).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             resourceSpecCharacteristicMap.get(TECHNOLOGY).getResourceSpecCharacteristicValue().get(0).getValue().getValue(),
@@ -113,7 +117,9 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             && derivativeSpecTokenType.getEndDl() <= primitiveSpecTokenType.getEndDl()
             && derivativeSpecTokenType.getStartUl() >= primitiveSpecTokenType.getStartUl()
             && derivativeSpecTokenType.getEndUl() <= primitiveSpecTokenType.getEndUl()
-            && derivativeSpecTokenType.getCountry().equals(primitiveSpecTokenType.getCountry());
+            && derivativeSpecTokenType.getCountry().equals(primitiveSpecTokenType.getCountry())
+            && (derivativeSpecTokenType.getStartDate().equals(primitiveSpecTokenType.getStartDate()) || derivativeSpecTokenType.getStartDate().after(primitiveSpecTokenType.getStartDate()))
+            && (derivativeSpecTokenType.getEndDate().equals(primitiveSpecTokenType.getEndDate()) || derivativeSpecTokenType.getEndDate().before(primitiveSpecTokenType.getEndDate()));
     }
 
 }
