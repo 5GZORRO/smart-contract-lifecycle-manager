@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface LicenseTermRepository extends JpaRepository<LicenseTermWrapper, UUID> {
     Optional<LicenseTermWrapper> findByDid(String did);
-    boolean existsById(String did);
+    boolean existsByDid(String did);
     void deleteByDid(String did);
 }
