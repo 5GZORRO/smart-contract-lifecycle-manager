@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface LicenseTermRepository extends JpaRepository<LicenseTermWrapper, UUID> {
-    Optional<LicenseTermWrapper> findById(String did);
+    Optional<LicenseTermWrapper> findByDid(String did);
     boolean existsById(String did);
     void deleteByDid(String did);
 }
