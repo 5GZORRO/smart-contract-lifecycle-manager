@@ -30,6 +30,9 @@ public class LicenseTerm {
     @JsonProperty("amountType")
     private String amountType;
 
+    @JsonProperty("state")
+    private String state;
+
     public void setId(String id) { this.id = id; }
 
     public LicenseTerm id(String id) {
@@ -102,6 +105,15 @@ public class LicenseTerm {
 
     public String getAmountType() { return amountType; }
 
+    public void setState(String state) { this.state = state; }
+
+    public LicenseTerm state(String state) {
+        this.state = state;
+        return this;
+    }
+
+    public String getState() { return state; }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if(this == o)
@@ -118,12 +130,13 @@ public class LicenseTerm {
                 Objects.equals(this.durationLimit, licenseTerm.durationLimit) &&
                 Objects.equals(this.current, licenseTerm.current) &&
                 Objects.equals(this.lastUsage, licenseTerm.lastUsage) &&
-                Objects.equals(this.amountType, licenseTerm.amountType);
+                Objects.equals(this.amountType, licenseTerm.amountType) &&
+                Objects.equals(this.state, licenseTerm.state);
     }
 
     @Override
     public int hashCode() { return Objects.hash(id, href, type, amountLimit,
-            durationLimit, current, lastUsage, amountType);
+            durationLimit, current, lastUsage, amountType, state);
     }
 
     @Override
@@ -139,6 +152,7 @@ public class LicenseTerm {
         sb.append("    current: ").append(toIndentedString(current)).append("\n");
         sb.append("    lastUsage: ").append(toIndentedString(lastUsage)).append("\n");
         sb.append("    amountType: ").append(toIndentedString(amountType)).append("\n");
+        sb.append("    state: ").append(toIndentedString(state)).append("\n");
         sb.append("}");
 
         return sb.toString();
