@@ -33,6 +33,9 @@ public class LicenseTerm {
     @JsonProperty("state")
     private String state;
 
+    @JsonProperty("templateRef")
+    private String templateRef;
+
     public void setId(String id) { this.id = id; }
 
     public LicenseTerm id(String id) {
@@ -114,6 +117,15 @@ public class LicenseTerm {
 
     public String getState() { return state; }
 
+    public void setTemplateRef(String templateRef) { this.templateRef = templateRef; }
+
+    public LicenseTerm templateRef(String templateRef) {
+        this.templateRef = templateRef;
+        return this;
+    }
+
+    public String getTemplateRef() { return templateRef; }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if(this == o)
@@ -131,12 +143,13 @@ public class LicenseTerm {
                 Objects.equals(this.current, licenseTerm.current) &&
                 Objects.equals(this.lastUsage, licenseTerm.lastUsage) &&
                 Objects.equals(this.amountType, licenseTerm.amountType) &&
-                Objects.equals(this.state, licenseTerm.state);
+                Objects.equals(this.state, licenseTerm.state) &&
+                Objects.equals(this.templateRef, licenseTerm.templateRef);
     }
 
     @Override
     public int hashCode() { return Objects.hash(id, href, type, amountLimit,
-            durationLimit, current, lastUsage, amountType, state);
+            durationLimit, current, lastUsage, amountType, state, templateRef);
     }
 
     @Override
@@ -153,6 +166,7 @@ public class LicenseTerm {
         sb.append("    lastUsage: ").append(toIndentedString(lastUsage)).append("\n");
         sb.append("    amountType: ").append(toIndentedString(amountType)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    templateRef: ").append(toIndentedString(templateRef)).append("\n");
         sb.append("}");
 
         return sb.toString();
