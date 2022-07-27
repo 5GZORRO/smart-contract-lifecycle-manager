@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.api.config;
 
 import eu._5gzorro.manager.api.repository.AgreementRepository;
+import eu._5gzorro.manager.api.repository.LicenseTermRepository;
 import eu._5gzorro.manager.api.repository.ServiceLevelAgreementRepository;
 import eu._5gzorro.manager.api.service.*;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
@@ -48,6 +49,17 @@ public class OpenApiGenerateConfig {
     @Bean
     public ServiceLevelAgreementRepository serviceLevelAgreementRepository() {
         return mock(ServiceLevelAgreementRepository.class);
+    }
+
+    @Primary
+    @Bean
+    public LicenseTermService licenseTermService() {
+        return mock(LicenseTermServiceImpl.class);
+    }
+
+    @Bean
+    public LicenseTermRepository licenseTermRepository() {
+        return mock(LicenseTermRepository.class);
     }
 
     @Primary
