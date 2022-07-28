@@ -109,7 +109,8 @@ public class ProductOrderController {
   }
 
   @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
-  @PutMapping("/{orderId}/end")
+  //@PutMapping("/{orderId}/end")
+  @PutMapping("/end")
   public ResponseEntity<Boolean> endProductOrder(
       @Valid @RequestParam("orderId") @NotNull String orderId) {
     driver.endProductOrder(orderId);
