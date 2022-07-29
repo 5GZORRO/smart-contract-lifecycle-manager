@@ -1,5 +1,7 @@
 package eu._5gzorro.manager.api.controller.advice;
 
+import eu._5gzorro.manager.api.model.exception.LicenseTermNotFoundException;
+import eu._5gzorro.manager.api.model.exception.LicenseTermStatusException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementStatusException;
 import org.springframework.http.HttpHeaders;
@@ -57,14 +59,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     return super.handleExceptionInternal(ex, response, headers, status, request);
   }
 
-  @ExceptionHandler({ ServiceLevelAgreementNotFoundException.class })
+  @ExceptionHandler({ ServiceLevelAgreementNotFoundException.class, LicenseTermNotFoundException.class })
   @ResponseStatus(value=HttpStatus.NOT_FOUND)
   @ResponseBody
   protected ApiErrorResponse handleEntityNotFoundException(HttpServletRequest req, Exception ex) {
     return new ApiErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
   }
 
-  @ExceptionHandler({ ServiceLevelAgreementStatusException.class })
+  @ExceptionHandler({ ServiceLevelAgreementStatusException.class, LicenseTermStatusException.class})
   @ResponseStatus(value=HttpStatus.BAD_REQUEST)
   @ResponseBody
   protected ApiErrorResponse handleInvalidRequests(HttpServletRequest req, Exception ex) {
