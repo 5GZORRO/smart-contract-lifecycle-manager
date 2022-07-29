@@ -24,15 +24,13 @@ public class GetDerivativeSpectokenResponse {
 
     private final String country;
 
-    private final String ownerDid;
-
     private final Float price;
 
     private final String primitiveId;
 
     private final String offerDid;
 
-    public GetDerivativeSpectokenResponse(Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, String ownerDid, Float price, String primitiveId, String offerDid) {
+    public GetDerivativeSpectokenResponse(Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, Float price, String primitiveId, String offerDid) {
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -43,7 +41,6 @@ public class GetDerivativeSpectokenResponse {
         this.band = band;
         this.technology = technology;
         this.country = country;
-        this.ownerDid = ownerDid;
         this.price = price;
         this.primitiveId = primitiveId;
         this.offerDid = offerDid;
@@ -88,10 +85,6 @@ public class GetDerivativeSpectokenResponse {
 
     public String getCountry() {
         return country;
-    }
-
-    public String getOwnerDid() {
-        return ownerDid;
     }
 
     public Float getPrice() {

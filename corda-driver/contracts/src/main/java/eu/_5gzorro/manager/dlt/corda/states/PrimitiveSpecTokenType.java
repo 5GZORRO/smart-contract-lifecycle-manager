@@ -15,9 +15,12 @@ public class PrimitiveSpecTokenType extends SpecTokenType {
     @NotNull
     private final String license;
 
-    public PrimitiveSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, String ownerDid, @NotNull String license) {
-        super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country, ownerDid);
+    private final String ownerDid;
+
+    public PrimitiveSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, @NotNull String license, String ownerDid) {
+        super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country);
         this.license = license;
+        this.ownerDid = ownerDid;
     }
 
     @NotNull
@@ -25,4 +28,7 @@ public class PrimitiveSpecTokenType extends SpecTokenType {
         return license;
     }
 
+    public String getOwnerDid() {
+        return ownerDid;
+    }
 }

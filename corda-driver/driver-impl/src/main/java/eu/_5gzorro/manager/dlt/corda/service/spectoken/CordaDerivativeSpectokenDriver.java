@@ -106,7 +106,6 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             derivativeSpecTokenType.getBand(),
             derivativeSpecTokenType.getTechnology(),
             derivativeSpecTokenType.getCountry(),
-            derivativeSpecTokenType.getOwnerDid(),
             derivativeSpecTokenType.getPrice(),
             derivativeSpecTokenType.getPrimitiveId(),
             derivativeSpecTokenType.getOfferDid()

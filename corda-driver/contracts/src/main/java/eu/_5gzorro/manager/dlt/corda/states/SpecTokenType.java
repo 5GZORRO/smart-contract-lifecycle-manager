@@ -51,22 +51,19 @@ public class SpecTokenType extends EvolvableTokenType {
     @NotNull
     private final String country;
 
-    private final String ownerDid;
-
     public SpecTokenType(
-            @NotNull final List<Party> maintainers,
-            @NotNull final UniqueIdentifier uniqueIdentifier,
-            @NotNull final Double startDl,
-            @NotNull final Double endDl,
-            @NotNull final Double startUl,
-            @NotNull final Double endUl,
-            @NotNull final Date startDate,
-            @NotNull final Date endDate,
-            @NotNull final String duplexMode,
-            @NotNull final Integer band,
-            @NotNull final String technology,
-            @NotNull final String country,
-            final String ownerDid
+        @NotNull final List<Party> maintainers,
+        @NotNull final UniqueIdentifier uniqueIdentifier,
+        @NotNull final Double startDl,
+        @NotNull final Double endDl,
+        @NotNull final Double startUl,
+        @NotNull final Double endUl,
+        @NotNull final Date startDate,
+        @NotNull final Date endDate,
+        @NotNull final String duplexMode,
+        @NotNull final Integer band,
+        @NotNull final String technology,
+        @NotNull final String country
     ) {
         this.maintainers = maintainers;
         this.uniqueIdentifier = uniqueIdentifier;
@@ -80,7 +77,6 @@ public class SpecTokenType extends EvolvableTokenType {
         this.band = band;
         this.technology = technology;
         this.country = country;
-        this.ownerDid = ownerDid;
     }
 
 
@@ -151,14 +147,10 @@ public class SpecTokenType extends EvolvableTokenType {
         return country;
     }
 
-    public String getOwnerDid() {
-        return ownerDid;
-    }
-
     public List<PublicKey> getRequiredSigners() {
         return getParticipants().stream()
-                .map(AbstractParty::getOwningKey)
-                .collect(Collectors.toList());
+            .map(AbstractParty::getOwningKey)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -166,11 +158,11 @@ public class SpecTokenType extends EvolvableTokenType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SpecTokenType that = (SpecTokenType) o;
-        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getCountry().equals(that.getCountry()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
+        return getMaintainers().equals(that.getMaintainers()) && uniqueIdentifier.equals(that.uniqueIdentifier) && getStartDl().equals(that.getStartDl()) && getEndDl().equals(that.getEndDl()) && getStartUl().equals(that.getStartUl()) && getEndUl().equals(that.getEndUl()) && getStartDate().equals(that.getStartDate()) && getEndDate().equals(that.getEndDate()) && getDuplexMode().equals(that.getDuplexMode()) && getBand().equals(that.getBand()) && getTechnology().equals(that.getTechnology()) && getCountry().equals(that.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaintainers(), uniqueIdentifier, getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getCountry(), getOwnerDid());
+        return Objects.hash(getMaintainers(), uniqueIdentifier, getStartDl(), getEndDl(), getStartUl(), getEndUl(), getStartDate(), getEndDate(), getDuplexMode(), getBand(), getTechnology(), getCountry());
     }
 }

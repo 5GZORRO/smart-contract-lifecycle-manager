@@ -101,8 +101,8 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                 band,
                 technology,
                 country,
-                ownerDid,
-                license
+                license,
+                ownerDid
             );
 
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreatePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType).getReturnValue().toCompletableFuture();
