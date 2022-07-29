@@ -136,6 +136,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
 
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
         return new GetPrimitiveSpectokenResponse(
+            primitiveSpecTokenType.getLinearId().toString(),
             primitiveSpecTokenType.getStartDl(),
             primitiveSpecTokenType.getEndDl(),
             primitiveSpecTokenType.getStartUl(),
