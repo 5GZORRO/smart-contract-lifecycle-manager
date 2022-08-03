@@ -73,6 +73,7 @@ dependencies {
     compile(project(":dlt-driver-api"))
 
     implementation(project(":tm-forum"))
+    implementation(project(":im"))
 }
 
 test {
