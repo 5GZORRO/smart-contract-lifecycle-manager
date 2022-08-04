@@ -90,6 +90,7 @@ dependencies {
     testImplementation("com.squareup.okhttp3:mockwebserver:$okhttp_version")
 
     implementation(project(":tm-forum"))
+    implementation(project(":im"))
 }
 
 task integrationTest(type: Test, dependsOn: []) {
