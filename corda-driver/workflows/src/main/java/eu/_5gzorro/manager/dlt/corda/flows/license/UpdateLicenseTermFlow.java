@@ -121,26 +121,26 @@ public class UpdateLicenseTermFlow {
 
             return licenseTermState.getLinearId();
         }
+    }
 
-        @InitiatedBy(UpdateLicenseTermFlowInitiator.class)
-        public static class UpdateLicenseTermFlowResponder extends ExtendedFlowLogic<SignedTransaction> {
+    @InitiatedBy(UpdateLicenseTermFlowInitiator.class)
+    public static class UpdateLicenseTermFlowResponder extends ExtendedFlowLogic<SignedTransaction> {
 
-            private final FlowSession counterParty;
+        private final FlowSession counterParty;
 
-            public UpdateLicenseTermFlowResponder(FlowSession counterParty) {
-                this.counterParty = counterParty;
-            }
+        public UpdateLicenseTermFlowResponder(FlowSession counterParty) {
+            this.counterParty = counterParty;
+        }
 
-            @Suspendable
-            @Override
-            public SignedTransaction call() throws FlowException {
-                subFlow(new SignTransactionFlow(counterParty) {
-                    @Override
-                    protected void checkTransaction(@NotNull SignedTransaction stx) {}
-                });
+        @Suspendable
+        @Override
+        public SignedTransaction call() throws FlowException {
+            subFlow(new SignTransactionFlow(counterParty) {
+                @Override
+                protected void checkTransaction(@NotNull SignedTransaction stx) {}
+            });
 
-                return subFlow(new ReceiveFinalityFlow(counterParty));
-            }
+            return subFlow(new ReceiveFinalityFlow(counterParty));
         }
     }
 }
