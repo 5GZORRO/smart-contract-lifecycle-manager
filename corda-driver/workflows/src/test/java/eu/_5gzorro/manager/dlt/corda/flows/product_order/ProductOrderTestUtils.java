@@ -13,7 +13,7 @@ public class ProductOrderTestUtils {
   public static UniqueIdentifier publishProductOrder(StartedMockNode proposer, MockNetwork network, ProductOrder order)
       throws ExecutionException, InterruptedException {
     PublishProductOrderFlow.PublishProductOrderInitiator flow =
-            new PublishProductOrderFlow.PublishProductOrderInitiator(order, null, null);
+            new PublishProductOrderFlow.PublishProductOrderInitiator(order, null, null, null);
     CordaFuture<UniqueIdentifier> future = proposer.startFlow(flow);
 
     network.runNetwork();

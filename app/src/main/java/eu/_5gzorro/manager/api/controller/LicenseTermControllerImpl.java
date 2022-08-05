@@ -6,6 +6,7 @@ import eu._5gzorro.manager.api.dto.identityPermisssions.CredentialSubjectDto;
 import eu._5gzorro.manager.api.dto.identityPermisssions.DIDStateCSDto;
 import eu._5gzorro.manager.api.dto.requests.UpdateLicenseTermStateRequest;
 import eu._5gzorro.manager.api.service.LicenseTermService;
+import eu._5gzorro.manager.service.LicenseTermDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,10 @@ import java.util.UUID;
 public class LicenseTermControllerImpl implements LicenseTermController {
 
     @Autowired
-    LicenseTermService licenseTermService;
+    private LicenseTermService licenseTermService;
+
+    @Autowired
+    private LicenseTermDriver licenseTermDriver;
 
     @Override
     public ResponseEntity<?> getLicenseTerms() {
@@ -69,6 +73,9 @@ public class LicenseTermControllerImpl implements LicenseTermController {
 
     @Override
     public ResponseEntity<Void> updateLicenseTermState(@Valid UpdateLicenseTermStateRequest request) {
-        return null;
+        licenseTermDriver.updateLicenseTermState(request.getProductOrderDID(),
+                request.getProductOfferingDID(), request.getCurrent(), request.getState().toString());
+
+        return ResponseEntity.noContent().build();
     }
 }

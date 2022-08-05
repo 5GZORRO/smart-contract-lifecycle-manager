@@ -50,6 +50,7 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:$rxjava3_version")
 
     compile(project(":tm-forum"))
+    compile(project(":im"))
 }
 
 test {

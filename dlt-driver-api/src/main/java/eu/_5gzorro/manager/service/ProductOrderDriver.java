@@ -1,11 +1,13 @@
 package eu._5gzorro.manager.service;
 
+import eu._5gzorro.elicense.models.LicenseTerm;
 import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOrderDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
+import kotlin.Pair;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,7 +31,8 @@ public interface ProductOrderDriver {
           Map<String, Invitation> invitations,
           Collection<VerifiableCredential> verifiableCredentials,
           VerifiableCredential identityCredential,
-          List<ServiceLevelAgreement> serviceLevelAgreements);
+          List<ServiceLevelAgreement> serviceLevelAgreements,
+          List<Pair<LicenseTerm, String>> licenseTerms);
 
   void approveProductOrder(String orderId);
 
