@@ -54,15 +54,18 @@ public class CordaProductOrderDriver
       ReplaySubject.create();
 
   private final List<String> governanceNodeNames;
+  private final List<String> regulatorNodeNames;
 
   public CordaProductOrderDriver(
       DIDToDLTIdentityService didToDLTIdentityService,
       NodeRPC nodeRPC,
-      List<String> governanceNodeNames) {
+      List<String> governanceNodeNames,
+      List<String> regulatorNodeNames) {
     super(nodeRPC, eu._5gzorro.manager.dlt.corda.states.ProductOrder.class);
     this.didToDLTIdentityService = didToDLTIdentityService;
     this.rpcClient = nodeRPC.getClient();
     this.governanceNodeNames = governanceNodeNames;
+    this.regulatorNodeNames = regulatorNodeNames;
     setup();
   }
 
@@ -211,6 +214,14 @@ public class CordaProductOrderDriver
         .orElseThrow(() -> new RuntimeException("No governance node was found"));
   }
 
+  private Party findRegulatorNode() {
+    return regulatorNodeNames.stream()
+        .map(CordaX500Name::parse)
+        .map(rpcClient::wellKnownPartyFromX500Name)
+        .findAny()
+        .orElseThrow(() -> new RuntimeException("No regulator node was found"));
+  }
+
   @Override
   public Observable<ProductOrderUpdateEvent> productOrderObservable() {
     return subject.map(
@@ -257,6 +268,13 @@ public class CordaProductOrderDriver
     module.addSerializer(OffsetDateTime.class, new CustomOffsetDateTimeSerializer());
     objectMapper.registerModule(module);
 
+    OfferType offerType;
+    if ("Spectrum".equals(orderDetails.getProductOrder().getCategory())) {
+      offerType = OfferType.SPECTRUM;
+    } else {
+      offerType = OfferType.GENERAL;
+    }
+
     try {
       ProductOrder productOrderState =
           new ProductOrder(
@@ -264,12 +282,12 @@ public class CordaProductOrderDriver
               rpcClient.nodeInfo().getLegalIdentities().get(0),
               supplier,
               findGovernanceNode(),
-              null, // spectrumRegulator
+              findRegulatorNode(),
               null, // TODO
               rpcClient.uploadAttachment(ZipUtils.zipObject(orderDetails, objectMapper)),
               null,
               OrderState.PROPOSED,
-              OfferType.GENERAL, // TODO
+              offerType,
               orderDetails.getValidFor(),
               invitations);
 

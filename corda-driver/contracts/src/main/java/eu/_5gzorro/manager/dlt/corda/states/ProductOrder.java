@@ -14,10 +14,7 @@ import net.corda.core.serialization.CordaSerializable;
 import org.jetbrains.annotations.NotNull;
 
 import java.security.PublicKey;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @BelongsToContract(ProductOrderContract.class)
@@ -117,7 +114,10 @@ public class ProductOrder implements ContractState, LinearState {
   @NotNull
   @Override
   public List<AbstractParty> getParticipants() {
-    List<AbstractParty> parties = Arrays.asList(buyer, seller, governanceParty);
+    List<AbstractParty> parties = new ArrayList<>();
+    parties.add(buyer);
+    parties.add(seller);
+    parties.add(governanceParty);
 
     if(offerType == OfferType.SPECTRUM) {
       parties.add(spectrumRegulator);

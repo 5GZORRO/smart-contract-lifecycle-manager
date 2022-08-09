@@ -56,11 +56,6 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     // Signing the transaction.
     SignedTransaction signedTransaction = getServiceHub().signInitialTransaction(txBuilder);
 
-    // Add spectrum session if spectrum offer
-    if (productOrder.getOfferType() == OfferType.SPECTRUM) {
-      sessions.add(initiateFlow(productOrder.getSpectrumRegulator()));
-    }
-
     signedTransaction = subFlow(new CollectSignaturesFlow(signedTransaction, sessions));
 
     subFlow(new FinalityFlow(signedTransaction, sessions));
@@ -102,9 +97,12 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     @Suspendable
     @Override
     public UniqueIdentifier call() throws FlowException {
-      // Open sessions with all other nodes as we want to share product offering with them
-      Set<FlowSession> sessions =
-          initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
+      Set<FlowSession> sessions;
+      if (OfferType.SPECTRUM.equals(productOrder.getOfferType())) {
+        sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty(), productOrder.getSpectrumRegulator()));
+      } else {
+        sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
+      }
 
       return subFlow(new PublishProductOrderFlow(productOrder, productOrderDID, sessions, serviceLevelAgreements));
     }

@@ -7,6 +7,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "corda")
 public class CordaConfigurationProperties {
   private List<String> governanceNodeNames;
+  private List<String> regulatorNodeNames;
   private DriverConfigurationProperties rpc;
   private String identityBaseUrl;
 
@@ -14,9 +15,18 @@ public class CordaConfigurationProperties {
     return governanceNodeNames;
   }
 
+  public List<String> getRegulatorNodeNames() {
+    return regulatorNodeNames;
+  }
+
   public CordaConfigurationProperties setGovernanceNodeNames(
       List<String> governanceNodeNames) {
     this.governanceNodeNames = governanceNodeNames;
+    return this;
+  }
+
+  public CordaConfigurationProperties setRegulatorNodeNames(List<String> regulatorNodeNames) {
+    this.regulatorNodeNames = regulatorNodeNames;
     return this;
   }
 

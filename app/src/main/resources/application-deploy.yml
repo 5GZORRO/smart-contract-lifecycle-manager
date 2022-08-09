@@ -17,6 +17,9 @@ corda:
   governanceNodeNames: # Corda X500 names of valid governance nodes
     - "CN=OperatorA,OU=DLT,O=DLT,L=51.50/-0.11/London,C=GB"
 
+  regulatorNodeNames:
+    - "O=RegulatorA,OU=Haifa,L=32.79/34.98/Haifa,C=IL"
+
   identityBaseUrl: ${IDENTITY_BASE_URL:http://172.28.3.153:6200}
 
 springdoc:

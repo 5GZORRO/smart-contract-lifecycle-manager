@@ -47,9 +47,9 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public ProductOfferingDriver productOfferingDriver(NodeRPC rpc) {
     return new CordaProductOfferingDriver(rpc, cordaProps.getGovernanceNodeNames(), new CordaDerivativeSpectokenDriver(
-            didToDLTIdentityService(),
-            rpc,
-            cordaProps.getGovernanceNodeNames()));
+        didToDLTIdentityService(),
+        rpc,
+        cordaProps.getGovernanceNodeNames()));
   }
 
   @Primary
@@ -57,9 +57,9 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public PrimitiveSpectokenDriver primitiveSpectokenDriver(NodeRPC rpc) {
     return new CordaPrimitiveSpectokenDriver(
-            didToDLTIdentityService(),
-            rpc,
-            cordaProps.getGovernanceNodeNames()
+        didToDLTIdentityService(),
+        rpc,
+        cordaProps.getGovernanceNodeNames()
     );
   }
 
@@ -68,9 +68,10 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public ProductOrderDriver productOrderDriver(NodeRPC rpc) {
     return new CordaProductOrderDriver(
-            didToDLTIdentityService(),
-            rpc,
-            cordaProps.getGovernanceNodeNames()
+        didToDLTIdentityService(),
+        rpc,
+        cordaProps.getGovernanceNodeNames(),
+        cordaProps.getRegulatorNodeNames()
     );
   }
 
@@ -79,9 +80,9 @@ public class DriverConfiguration {
   @ConditionalOnMissingBean
   public DerivativeSpectokenDriver derivativeSpectokenDriver(NodeRPC rpc) {
     return new CordaDerivativeSpectokenDriver(
-            didToDLTIdentityService(),
-            rpc,
-            cordaProps.getGovernanceNodeNames());
+        didToDLTIdentityService(),
+        rpc,
+        cordaProps.getGovernanceNodeNames());
   }
 
   @Primary
