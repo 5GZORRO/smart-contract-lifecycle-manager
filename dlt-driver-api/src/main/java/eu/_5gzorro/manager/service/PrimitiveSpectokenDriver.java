@@ -29,4 +29,5 @@ public interface PrimitiveSpectokenDriver {
 
     List<GetPrimitiveSpectokenResponse> getPrimitiveSpectokens() throws ExecutionException, InterruptedException;
 
+    void redeemPrimitiveSpectoken(String licenseId);
 }
