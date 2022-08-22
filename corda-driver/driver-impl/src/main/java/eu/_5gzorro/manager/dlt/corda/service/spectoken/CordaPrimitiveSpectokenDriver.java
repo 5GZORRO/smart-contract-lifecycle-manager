@@ -1,10 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import com.r3.corda.lib.tokens.workflows.flows.rpc.RedeemNonFungibleTokens;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.GetPrimitiveSpecTokensFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenToHolderFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.RedeemPrimitiveSpecTokenFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.*;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
@@ -103,6 +99,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                 band,
                 technology,
                 country,
+                true,
                 license,
                 ownerDid
             );
@@ -136,9 +133,8 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public void redeemPrimitiveSpectoken(String licenseId) {
-        Party issuer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
-        rpcClient.startFlowDynamic(RedeemPrimitiveSpecTokenFlow.class, licenseId, issuer);
+    public void invalidatePrimitiveSpectoken(String licenseId) {
+        rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId);
     }
 
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {

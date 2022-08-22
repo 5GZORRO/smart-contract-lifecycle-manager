@@ -116,6 +116,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             Integer.valueOf(resourceSpecCharacteristicMap.get(BAND).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             resourceSpecCharacteristicMap.get(TECHNOLOGY).getResourceSpecCharacteristicValue().get(0).getValue().getValue(),
             productOfferDetails.getGeographicAddresses().get(0).getCountry(),
+            true,
             primitiveLinearId,
             productOfferDetails.getProductOfferingPrices().get(0).getPrice().getValue(),
             offerDid

@@ -122,8 +122,8 @@ public class SpectokenController {
         )
     })
     @PutMapping("primitive/redeem/{licenseId}")
-    public ResponseEntity<Boolean> redeemPrimitiveSpectoken(@Valid @RequestParam("licenseId") @NotNull String licenseId) {
-        primitiveSpectokenDriver.redeemPrimitiveSpectoken(licenseId);
+    public ResponseEntity<Boolean> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseId") @NotNull String licenseId) {
+        primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseId);
         return ResponseEntity.ok().body(true);
     }
 

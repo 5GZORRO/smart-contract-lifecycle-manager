@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @BelongsToContract(PrimitiveSpecTokenContract.class)
 public class PrimitiveSpecTokenType extends SpecTokenType {
@@ -17,8 +18,8 @@ public class PrimitiveSpecTokenType extends SpecTokenType {
 
     private final String ownerDid;
 
-    public PrimitiveSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, @NotNull String license, String ownerDid) {
-        super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country);
+    public PrimitiveSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, @NotNull Date startDate, @NotNull Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, boolean valid, @NotNull String license, String ownerDid) {
+        super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country, valid);
         this.license = license;
         this.ownerDid = ownerDid;
     }
@@ -31,4 +32,19 @@ public class PrimitiveSpecTokenType extends SpecTokenType {
     public String getOwnerDid() {
         return ownerDid;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PrimitiveSpecTokenType that = (PrimitiveSpecTokenType) o;
+        return getLicense().equals(that.getLicense()) && Objects.equals(getOwnerDid(), that.getOwnerDid());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getLicense(), getOwnerDid());
+    }
+
 }
