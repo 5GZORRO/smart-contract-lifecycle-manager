@@ -33,17 +33,17 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     private final CordaRPCOps rpcClient;
     private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
-    private final List<String> governanceNodeNames;
+    private final List<String> regulatorNodeNames;
 
     private final Party ourIdentity;
 
     private static final Logger log = LoggerFactory.getLogger(CordaDerivativeSpectokenDriver.class);
 
-    public CordaDerivativeSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC, List<String> governanceNodeNames) {
+    public CordaDerivativeSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC, List<String> regulatorNodeNames) {
         super(nodeRPC, DerivativeSpecTokenType.class);
         this.didToDLTIdentityService = didToDLTIdentityService;
         this.rpcClient = nodeRPC.getClient();
-        this.governanceNodeNames = governanceNodeNames;
+        this.regulatorNodeNames = regulatorNodeNames;
         this.ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
         setup();
     }
@@ -76,7 +76,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     @Override
     public boolean createDerivativeSpectokenFromOffer(ProductOfferDetails productOfferDetails, String offerDid) throws ExecutionException, InterruptedException {
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(
-            CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid
+            CreateDerivativeSpecTokenTypeFromOfferFlow.class, productOfferDetails, offerDid, findRegulatorNode()
         ).getReturnValue().toCompletableFuture();
         DerivativeSpecTokenType resolvedDerivativeSpecTokenType = completableFuture.get().getTx().outputsOfType(DerivativeSpecTokenType.class).get(0);
         return resolvedDerivativeSpecTokenType != null;
@@ -92,6 +92,14 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             derivativeSpectokens.add(convertToResponse(stateAndRef.getState().getData()));
         }
         return derivativeSpectokens;
+    }
+
+    private Party findRegulatorNode() {
+        return regulatorNodeNames.stream()
+            .map(CordaX500Name::parse)
+            .map(rpcClient::wellKnownPartyFromX500Name)
+            .findAny()
+            .orElseThrow(() -> new RuntimeException("No regulator node was found"));
     }
 
     private GetDerivativeSpectokenResponse convertToResponse(DerivativeSpecTokenType derivativeSpecTokenType) {

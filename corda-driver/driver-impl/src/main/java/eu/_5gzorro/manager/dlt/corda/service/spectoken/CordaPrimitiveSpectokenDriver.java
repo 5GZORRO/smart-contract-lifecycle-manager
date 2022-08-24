@@ -134,7 +134,13 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
 
     @Override
     public void invalidatePrimitiveSpectoken(String licenseId) {
-        rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId);
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
+        try {
+            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+            rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString());
+        } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
+        }
     }
 
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {

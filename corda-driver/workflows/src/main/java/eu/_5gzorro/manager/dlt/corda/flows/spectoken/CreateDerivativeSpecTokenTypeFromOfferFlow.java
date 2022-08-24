@@ -27,6 +27,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
 
     private final ProductOfferDetails productOfferDetails;
     private final String offerDid;
+    private final Party regulatorNode;
 
     private static final String START_DL = "startFreqDl";
     private static final String END_DL = "endFreqDl";
@@ -50,9 +51,10 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         }
     });
 
-    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails, String offerDid) {
+    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails, String offerDid, Party regulatorNode) {
         this.productOfferDetails = productOfferDetails;
         this.offerDid = offerDid;
+        this.regulatorNode = regulatorNode;
     }
 
     @Suspendable
@@ -72,17 +74,20 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
 
         List<StateAndRef<PrimitiveSpecTokenType>> states = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class).getStates();
         if (states.isEmpty()) {
-            throw new FlowException("Primitive Spectoken not found.");
+            throw new FlowException("Any Primitive Spectoken found.");
         }
         PrimitiveSpecTokenType primitiveSpecTokenType = null;
+        String offerLicense = resourceSpecCharacteristicMap.get(LICENSE_DID).getResourceSpecCharacteristicValue().get(0).getValue().getValue();
         for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : states) {
-            if (resourceSpecCharacteristicMap.get(LICENSE_DID).getResourceSpecCharacteristicValue().get(0).getValue().getValue().equals(primitiveSpecTokenTypeStateAndRef.getState().getData().getLicense())) {
-                primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
+            primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
+            if (offerLicense.equals(primitiveSpecTokenType.getLicense()) && primitiveSpecTokenType.isValid()) {
                 break;
+            } else {
+                primitiveSpecTokenType = null;
             }
         }
         if (primitiveSpecTokenType == null) {
-            throw new FlowException("Incorrect license DID.");
+            throw new FlowException("Valid Primitive Spectoken not found for licence " + offerLicense);
         }
         DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString(), resourceSpecCharacteristicMap);
         if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
@@ -96,6 +101,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             .flatMap(c -> c.getLegalIdentities().stream())
             .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
             .collect(Collectors.toList());
+
         TransactionState<DerivativeSpecTokenType> transactionState = new TransactionState<>(derivativeSpecTokenType, firstNotary());
         return subFlow(new CreateEvolvableTokens(transactionState, allOtherParties));
     }
@@ -104,7 +110,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         Date offerStartDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getStartDateTime()).toInstant().toEpochMilli());
         Date offerEndDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getEndDateTime()).toInstant().toEpochMilli());
         return new DerivativeSpecTokenType(
-            Collections.singletonList(getOurIdentity()),
+            Arrays.asList(getOurIdentity(), regulatorNode),
             new UniqueIdentifier(),
             Double.valueOf(resourceSpecCharacteristicMap.get(START_DL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             Double.valueOf(resourceSpecCharacteristicMap.get(END_DL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),

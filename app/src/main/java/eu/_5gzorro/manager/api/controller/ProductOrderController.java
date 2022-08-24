@@ -4,23 +4,19 @@ import eu._5gzorro.manager.api.controller.dto.requests.ChangeProductOrderRequest
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
 import eu._5gzorro.manager.api.httpClient.RSOCClient;
 import eu._5gzorro.manager.api.httpClient.requests.SLAClient;
-import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOrderDriver;
-import eu._5gzorro.tm_forum.models.product.ProductOffering;
 import eu._5gzorro.tm_forum.models.product_order.OrderItem;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
