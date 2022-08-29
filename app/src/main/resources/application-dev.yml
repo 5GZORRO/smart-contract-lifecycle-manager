@@ -29,6 +29,9 @@ spring:
   profiles:
     active:
       - dev
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 
   application:
     name: smart-contract-lifecycle-manager
