@@ -109,4 +109,12 @@ public interface LicenseTermController {
             @ApiResponse(responseCode = "500", description = "Error occurred while updating License Term DLT state")
     })
     ResponseEntity<Void> updateLicenseTermState(@RequestBody @Valid UpdateLicenseTermStateRequest request);
+
+    @Operation(description = "Get the License Term states stored in the DLT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "License Term states"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @GetMapping("dlt")
+    ResponseEntity<?> getLicenseTermStates();
 }

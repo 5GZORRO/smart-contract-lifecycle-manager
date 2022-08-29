@@ -78,4 +78,9 @@ public class LicenseTermControllerImpl implements LicenseTermController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<?> getLicenseTermStates() {
+        return ResponseEntity.ok(licenseTermDriver.getLicenseTermStates());
+    }
 }
