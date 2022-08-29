@@ -88,4 +88,13 @@ public interface ServiceLevelAgreementController {
     })
     @PatchMapping
     ResponseEntity<Void> updateSLAState(@RequestBody @Valid UpdateSLAStateRequest request);
+
+    @Operation(description = "Get the SLAs stored in the DLT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Service Level Agreement states"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @GetMapping("dlt")
+    ResponseEntity<?> getServiceLevelAgreementStates();
+
 }
