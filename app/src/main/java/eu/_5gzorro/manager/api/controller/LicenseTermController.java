@@ -108,6 +108,7 @@ public interface LicenseTermController {
             @ApiResponse(responseCode = "204", description = "License Term state updated successfully"),
             @ApiResponse(responseCode = "500", description = "Error occurred while updating License Term DLT state")
     })
+    @PatchMapping
     ResponseEntity<Void> updateLicenseTermState(@RequestBody @Valid UpdateLicenseTermStateRequest request);
 
     @Operation(description = "Get the License Term states stored in the DLT")
