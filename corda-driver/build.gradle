@@ -85,7 +85,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         cordapp(project(':corda-driver:contracts'))
     }
     node {
-        name "CN=OperatorA,OU=DLT,O=DLT,L=London,C=GB"
+        name "CN=OperatorA,OU=DLT,O=DLT,L=51.50/-0.11/London,C=GB"
         p2pPort 10005
         rpcSettings {
             address("localhost:10006")
