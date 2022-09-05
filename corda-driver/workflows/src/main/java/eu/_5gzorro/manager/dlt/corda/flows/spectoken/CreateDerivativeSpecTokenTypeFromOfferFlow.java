@@ -87,7 +87,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             }
         }
         if (primitiveSpecTokenType == null) {
-            throw new FlowException("Valid Primitive Spectoken not found for licence " + offerLicense);
+            throw new FlowException("Valid Primitive Spectoken not found for license " + offerLicense);
         }
         DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString(), resourceSpecCharacteristicMap);
         if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {

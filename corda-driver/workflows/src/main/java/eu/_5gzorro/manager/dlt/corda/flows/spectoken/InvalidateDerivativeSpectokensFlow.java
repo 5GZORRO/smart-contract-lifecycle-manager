@@ -41,8 +41,8 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<Signed
             .collect(Collectors.toList());
 
         for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenStateAndRef : states) {
-            if (primitiveId.equals(derivativeSpecTokenStateAndRef.getState().getData().getPrimitiveId())) {
-                derivativeSpecTokenType = derivativeSpecTokenStateAndRef.getState().getData();
+            derivativeSpecTokenType = derivativeSpecTokenStateAndRef.getState().getData();
+            if (primitiveId.equals(derivativeSpecTokenType.getPrimitiveId()) && derivativeSpecTokenType.isValid()) {
                 DerivativeSpecTokenType newDerivativeSpecTokenType = new DerivativeSpecTokenType(
                     derivativeSpecTokenType.getMaintainers(),
                     derivativeSpecTokenType.getLinearId(),

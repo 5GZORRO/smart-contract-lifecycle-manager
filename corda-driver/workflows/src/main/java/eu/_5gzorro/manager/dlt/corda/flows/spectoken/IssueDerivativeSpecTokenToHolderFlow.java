@@ -43,6 +43,8 @@ public class IssueDerivativeSpecTokenToHolderFlow extends ExtendedFlowLogic<Sign
             derivativeSpecTokenType = stateAndRef.getState().getData();
             if (derivativeSpecTokenType.getOfferDid().equals(offerDid) && derivativeSpecTokenType.isValid()) {
                 break;
+            } else {
+                derivativeSpecTokenType = null;
             }
         }
         if (derivativeSpecTokenType == null) {

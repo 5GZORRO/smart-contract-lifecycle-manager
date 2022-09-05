@@ -29,19 +29,21 @@ public class InvalidatePrimitiveSpectokenFlow extends ExtendedFlowLogic<SignedTr
     public SignedTransaction call() throws FlowException {
         List<StateAndRef<PrimitiveSpecTokenType>> states = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class).getStates();
         if (states.isEmpty()) {
-            throw new FlowException("Primitive Spectoken not found.");
+            throw new FlowException("Any Primitive Spectoken found.");
         }
         PrimitiveSpecTokenType primitiveSpecTokenType = null;
         StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenStateAndRef = null;
         for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : states) {
-            if (licenseId.equals(primitiveSpecTokenTypeStateAndRef.getState().getData().getLicense())) {
-                primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
+            primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
+            if (licenseId.equals(primitiveSpecTokenType.getLicense()) && primitiveSpecTokenType.isValid()) {
                 primitiveSpecTokenStateAndRef = primitiveSpecTokenTypeStateAndRef;
                 break;
+            } else {
+                primitiveSpecTokenType = null;
             }
         }
         if (primitiveSpecTokenType == null) {
-            throw new FlowException("Incorrect license DID.");
+            throw new FlowException("Valid Primitive Spectoken not found for license " + licenseId);
         }
         PrimitiveSpecTokenType newPrimitiveSpectoken = new PrimitiveSpecTokenType(
             primitiveSpecTokenType.getMaintainers(),
