@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
 import eu._5gzorro.config.CustomInstantDeserializer;
 import eu._5gzorro.config.CustomOffsetDateTimeSerializer;
+import eu._5gzorro.elicense.models.LicenseTerm;
 import eu._5gzorro.manager.dlt.corda.flows.product_order.*;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.models.types.OrderState;
@@ -23,6 +24,7 @@ import eu._5gzorro.manager.utils.ZipUtils;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
+import kotlin.Pair;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.crypto.SecureHash;
@@ -245,11 +247,12 @@ public class CordaProductOrderDriver
 
   @Override
   public void publishProductOrder(
-      ProductOrderDetails orderDetails,
-      Map<String, Invitation> invitations,
-      Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential,
-      List<ServiceLevelAgreement> serviceLevelAgreements) {
+          ProductOrderDetails orderDetails,
+          Map<String, Invitation> invitations,
+          Collection<VerifiableCredential> verifiableCredentials,
+          VerifiableCredential identityCredential,
+          List<ServiceLevelAgreement> serviceLevelAgreements,
+          List<Pair<LicenseTerm, String>> licenseTerms) {
 
     log.info("Publishing Product Order.");
 
@@ -259,7 +262,7 @@ public class CordaProductOrderDriver
     log.info("Ledger Identity retrieved.");
 
     Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
-    log.info("supplier: {}", supplier.toString());
+    log.info("supplier: {}", supplier != null ? supplier.toString() : null);
 
     ObjectMapper objectMapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
@@ -293,7 +296,7 @@ public class CordaProductOrderDriver
     log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
 
     rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
-        productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements);
+        productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements, licenseTerms);
   }
 
   @Override

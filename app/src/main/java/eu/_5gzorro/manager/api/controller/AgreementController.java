@@ -6,6 +6,7 @@ import eu._5gzorro.manager.api.dto.responses.ApiErrorResponse;
 import eu._5gzorro.manager.api.dto.responses.PagedAgreementResponse;
 import eu._5gzorro.manager.api.model.PageableOperation;
 import eu._5gzorro.tm_forum.models.agreement.Agreement;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@Hidden
 @Tag(name = "Agreement")
 @RequestMapping("/api/v1/agreement")
 public interface AgreementController {

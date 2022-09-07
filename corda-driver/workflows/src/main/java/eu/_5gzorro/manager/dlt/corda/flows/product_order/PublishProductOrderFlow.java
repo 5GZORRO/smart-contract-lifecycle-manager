@@ -1,14 +1,19 @@
 package eu._5gzorro.manager.dlt.corda.flows.product_order;
 
 import co.paralleluniverse.fibers.Suspendable;
+import eu._5gzorro.elicense.models.LicenseTerm;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOrderContract;
+import eu._5gzorro.manager.dlt.corda.flows.license.PublishLicenseTermFlow;
 import eu._5gzorro.manager.dlt.corda.flows.sla.PublishServiceLevelAgreementFlow;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
+import eu._5gzorro.manager.dlt.corda.models.types.LTState;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.models.types.SLAState;
+import eu._5gzorro.manager.dlt.corda.states.LicenseTermState;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
 import eu._5gzorro.manager.dlt.corda.states.ServiceLevelAgreementState;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
+import kotlin.Pair;
 import kotlin.collections.SetsKt;
 import net.corda.core.contracts.Command;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -29,15 +34,18 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
   private final String productOrderDID;
   private final Set<FlowSession> sessions;
   private final List<ServiceLevelAgreement> serviceLevelAgreements;
+  private final List<Pair<LicenseTerm, String>> licenseTerms;
 
   public PublishProductOrderFlow(ProductOrder productOrder,
                                  String productOrderDID,
                                  Set<FlowSession> sessions,
-                                 List<ServiceLevelAgreement> serviceLevelAgreements) {
+                                 List<ServiceLevelAgreement> serviceLevelAgreements,
+                                 List<Pair<LicenseTerm, String>> licenseTerms) {
     this.productOrder = productOrder;
     this.productOrderDID = productOrderDID;
     this.sessions = sessions;
     this.serviceLevelAgreements = serviceLevelAgreements;
+    this.licenseTerms = licenseTerms;
   }
 
   @Suspendable
@@ -74,6 +82,21 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
       subFlow(new PublishServiceLevelAgreementFlow.PublishServiceLevelAgreementFlowInitiator(serviceLevelAgreementState));
     }
 
+    for(Pair<LicenseTerm, String> licenseTerm : licenseTerms) {
+      LicenseTermState licenseTermState =
+              new LicenseTermState(
+                      new UniqueIdentifier(),
+                      licenseTerm.component1(),
+                      LTState.IN_PLACE,
+                      productOrderDID,
+                      licenseTerm.component2(),
+                      productOrder.getBuyer(),
+                      productOrder.getSeller(),
+                      productOrder.getGovernanceParty()
+              );
+
+      subFlow(new PublishLicenseTermFlow.PublishLicenseTermFlowInitiator(licenseTermState));
+    }
 
     return productOrder.getLinearId();
   }
@@ -85,13 +108,16 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     private final ProductOrder productOrder;
     private final String productOrderDID;
     private final List<ServiceLevelAgreement> serviceLevelAgreements;
+    private final List<Pair<LicenseTerm, String>> licenseTerms;
 
     public PublishProductOrderInitiator(ProductOrder productOrder,
                                         String productOrderDID,
-                                        List<ServiceLevelAgreement> serviceLevelAgreements) {
+                                        List<ServiceLevelAgreement> serviceLevelAgreements,
+                                        List<Pair<LicenseTerm, String>> licenseTerms) {
       this.productOrder = productOrder;
       this.productOrderDID = productOrderDID;
       this.serviceLevelAgreements = serviceLevelAgreements;
+      this.licenseTerms = licenseTerms;
     }
 
     @Suspendable
@@ -104,7 +130,8 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
         sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
       }
 
-      return subFlow(new PublishProductOrderFlow(productOrder, productOrderDID, sessions, serviceLevelAgreements));
+      return subFlow(new PublishProductOrderFlow(productOrder, productOrderDID,
+              sessions, serviceLevelAgreements, licenseTerms));
     }
   }
 

@@ -1,5 +1,8 @@
 package eu._5gzorro.manager.dlt.corda.whitelist;
 
+import eu._5gzorro.elicense.models.LicenseTerm;
+import eu._5gzorro.elicense.models.LicenseType;
+import eu._5gzorro.elicense.models.TimePeriod;
 import eu._5gzorro.manager.domain.*;
 import net.corda.core.serialization.SerializationWhitelist;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +31,9 @@ public class ExtendedSerializationWhitelist implements SerializationWhitelist {
       whitelist.add(ProductOfferDetails.class);
       whitelist.add(VerifiableCredential.class);
       whitelist.add(ProductOrderDetails.class);
+      whitelist.add(LicenseTerm.class);
+      whitelist.add(TimePeriod.class);
+      whitelist.add(LicenseType.class);
 
       whitelist.addAll(tmForumWhitelist());
       log.info("Corda Serialisation class whitelist: {}", whitelist);

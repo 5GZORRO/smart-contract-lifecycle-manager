@@ -88,4 +88,9 @@ public class ServiceLevelAgreementControllerImpl implements ServiceLevelAgreemen
 
         return ResponseEntity.noContent().build();
     }
+
+    @Override
+    public ResponseEntity<?> getServiceLevelAgreementStates() {
+        return ResponseEntity.ok(serviceLevelAgreementDriver.getServiceLevelAgreementStates());
+    }
 }
