@@ -15,9 +15,10 @@
 }
 
 run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType
-run vaultQuery contractStateType: com.r3.corda.lib.tokens.contracts.states.NonFungibleToken
 run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType
-
+run vaultQuery contractStateType: com.r3.corda.lib.tokens.contracts.states.NonFungibleToken
+run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOffering
+run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOrder
 
 {
   "startDl": 750,

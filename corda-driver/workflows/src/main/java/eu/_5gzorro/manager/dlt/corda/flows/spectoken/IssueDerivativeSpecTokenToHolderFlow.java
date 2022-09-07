@@ -41,12 +41,14 @@ public class IssueDerivativeSpecTokenToHolderFlow extends ExtendedFlowLogic<Sign
         DerivativeSpecTokenType derivativeSpecTokenType = null;
         for (StateAndRef<DerivativeSpecTokenType> stateAndRef : states) {
             derivativeSpecTokenType = stateAndRef.getState().getData();
-            if (derivativeSpecTokenType.getOfferDid().equals(offerDid)) {
+            if (derivativeSpecTokenType.getOfferDid().equals(offerDid) && derivativeSpecTokenType.isValid()) {
                 break;
+            } else {
+                derivativeSpecTokenType = null;
             }
         }
         if (derivativeSpecTokenType == null) {
-            throw new FlowException("DerivativeSpectokenType not found.");
+            throw new FlowException("Valid DerivativeSpectokenType not found for offerDid " + offerDid);
         }
         final TokenPointer<DerivativeSpecTokenType> derivativeSpecTokenTypeTokenPointer = derivativeSpecTokenType.toPointer(DerivativeSpecTokenType.class);
         final IssuedTokenType issuedDerivativeSpectoken = new IssuedTokenType(issuer, derivativeSpecTokenTypeTokenPointer);

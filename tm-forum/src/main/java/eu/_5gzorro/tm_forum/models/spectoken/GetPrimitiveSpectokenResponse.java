@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class GetPrimitiveSpectokenResponse {
 
+    private final String id;
+
     private final Double startDl;
 
     private final Double endDl;
@@ -28,7 +30,8 @@ public class GetPrimitiveSpectokenResponse {
 
     private final String license;
 
-    public GetPrimitiveSpectokenResponse(Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, String ownerDid, String license) {
+    public GetPrimitiveSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, String ownerDid, String license) {
+        this.id = id;
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -41,6 +44,10 @@ public class GetPrimitiveSpectokenResponse {
         this.country = country;
         this.ownerDid = ownerDid;
         this.license = license;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Double getStartDl() {

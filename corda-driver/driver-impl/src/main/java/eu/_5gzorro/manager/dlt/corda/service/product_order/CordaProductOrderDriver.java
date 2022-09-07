@@ -56,15 +56,18 @@ public class CordaProductOrderDriver
       ReplaySubject.create();
 
   private final List<String> governanceNodeNames;
+  private final List<String> regulatorNodeNames;
 
   public CordaProductOrderDriver(
       DIDToDLTIdentityService didToDLTIdentityService,
       NodeRPC nodeRPC,
-      List<String> governanceNodeNames) {
+      List<String> governanceNodeNames,
+      List<String> regulatorNodeNames) {
     super(nodeRPC, eu._5gzorro.manager.dlt.corda.states.ProductOrder.class);
     this.didToDLTIdentityService = didToDLTIdentityService;
     this.rpcClient = nodeRPC.getClient();
     this.governanceNodeNames = governanceNodeNames;
+    this.regulatorNodeNames = regulatorNodeNames;
     setup();
   }
 
@@ -213,6 +216,14 @@ public class CordaProductOrderDriver
         .orElseThrow(() -> new RuntimeException("No governance node was found"));
   }
 
+  private Party findRegulatorNode() {
+    return regulatorNodeNames.stream()
+        .map(CordaX500Name::parse)
+        .map(rpcClient::wellKnownPartyFromX500Name)
+        .findAny()
+        .orElseThrow(() -> new RuntimeException("No regulator node was found"));
+  }
+
   @Override
   public Observable<ProductOrderUpdateEvent> productOrderObservable() {
     return subject.map(
@@ -223,14 +234,12 @@ public class CordaProductOrderDriver
           ThreeTenModule module = new ThreeTenModule();
           module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
           objectMapper.registerModule(module);
-          ProductOrderDetails order = objectMapper.convertValue(ZipUtils.unzipObject(
-                  rpcClient.openAttachment(productOrder.getModel()), objectMapper), ProductOrderDetails.class);
 
           return new ProductOrderUpdateEvent()
               .setUpdateType(updateWrapper.getUpdateType())
               .setDeduplicationId(updateWrapper.getDeduplicationId())
-              .setProductOrder(order.getProductOrder())
-              .setDid(order.getSupplierDid())
+              .setProductOrder(productOrder.getProductOrder())
+              .setDid(productOrder.getSupplierDid())
               .setInvitations(productOrder.getDidInvitations())
               .setIdentifier(productOrder.getLinearId().getId().toString());
         });
@@ -260,29 +269,34 @@ public class CordaProductOrderDriver
     module.addSerializer(OffsetDateTime.class, new CustomOffsetDateTimeSerializer());
     objectMapper.registerModule(module);
 
-    try {
-      ProductOrder productOrderState =
-          new ProductOrder(
-              new UniqueIdentifier(),
-              rpcClient.nodeInfo().getLegalIdentities().get(0),
-              supplier,
-              findGovernanceNode(),
-              null, // spectrumRegulator
-              null, // TODO
-              rpcClient.uploadAttachment(ZipUtils.zipObject(orderDetails, objectMapper)),
-              null,
-              OrderState.PROPOSED,
-              OfferType.GENERAL, // TODO
-              orderDetails.getValidFor(),
-              invitations);
-
-      log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
-
-      rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
-              productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements, licenseTerms);
-    } catch (IOException e) {
-      e.printStackTrace();
+    OfferType offerType;
+    if ("Spectrum".equals(orderDetails.getProductOrder().getCategory())) {
+      offerType = OfferType.SPECTRUM;
+    } else {
+      offerType = OfferType.GENERAL;
     }
+
+    ProductOrder productOrderState =
+        new ProductOrder(
+            new UniqueIdentifier(),
+            rpcClient.nodeInfo().getLegalIdentities().get(0),
+            supplier,
+            findGovernanceNode(),
+            findRegulatorNode(),
+            null, // TODO
+            null,
+            OrderState.PROPOSED,
+            offerType,
+            orderDetails.getValidFor(),
+            invitations,
+            orderDetails.getProductOrder(),
+            orderDetails.getSupplierDid(),
+            orderDetails.getOfferDid());
+
+    log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
+
+    rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
+        productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements, licenseTerms);
   }
 
   @Override

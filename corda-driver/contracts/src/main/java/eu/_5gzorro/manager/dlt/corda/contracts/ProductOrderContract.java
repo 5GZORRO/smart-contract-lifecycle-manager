@@ -120,8 +120,6 @@ public class ProductOrderContract implements Contract {
               "Output state is APPROVED", outputOrder.getState() == OrderState.APPROVED);
 
           requirements.using(
-              "Model has changed to proposal", inputOrder.getProposedModel().equals(outputOrder.getModel()));
-          requirements.using(
               "Proposal model removed", outputOrder.getProposedModel() == null);
 
           requirements.using(
@@ -146,8 +144,6 @@ public class ProductOrderContract implements Contract {
           requirements.using(
               "Output state is ACTIVE", outputOrder.getState() == OrderState.ACTIVE);
 
-          requirements.using(
-              "Model hasn't changed", inputOrder.getModel().equals(outputOrder.getModel()));
           requirements.using(
               "Proposal model removed", outputOrder.getProposedModel() == null);
 
@@ -198,8 +194,6 @@ public class ProductOrderContract implements Contract {
 
           requirements.using("Output state is ACTIVE", outputOrder.getState() == OrderState.ACTIVE);
 
-          requirements.using(
-              "Active model hasn't changed", inputOrder.getModel().equals(outputOrder.getModel()));
           requirements.using("Proposed model is present", outputOrder.getProposedModel() != null);
 
           requirements.using(
@@ -226,9 +220,6 @@ public class ProductOrderContract implements Contract {
               "Output state is APPROVED", outputOrder.getState() == OrderState.APPROVED);
 
           requirements.using(
-              "Model hasn't changed", inputOrder.getModel().equals(outputOrder.getModel()));
-
-          requirements.using(
               "All required signers must sign",
               signers.containsAll(outputOrder.getRequiredSigners()));
           return null;
@@ -246,9 +237,6 @@ public class ProductOrderContract implements Contract {
           requirements.using("Input state is APPROVED", inputOrder.getState() == OrderState.ACTIVE);
 
           requirements.using("Output state is ACTIVE", outputOrder.getState() == OrderState.ACTIVE);
-
-          requirements.using(
-              "Model hasn't changed", inputOrder.getModel().equals(outputOrder.getModel()));
 
           requirements.using(
               "All required signers must sign",

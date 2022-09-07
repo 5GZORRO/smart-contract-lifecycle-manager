@@ -6,6 +6,8 @@ import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,7 +35,11 @@ public class SpectokenController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Retrieved Derivative Spectokens"
+            description = "Retrieved Derivative Spectokens",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = GetDerivativeSpectokenResponse.class)
+            )
         )
     })
     @GetMapping("/derivative")
@@ -106,6 +112,18 @@ public class SpectokenController {
             request.getOfferDid(),
             request.getOwnerDid()
         );
+        return ResponseEntity.ok().body(true);
+    }
+
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Redeem primitive Spectoken"
+        )
+    })
+    @PutMapping("primitive/redeem/{licenseDid}")
+    public ResponseEntity<Boolean> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseDid") @NotNull String licenseDid) {
+        primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
         return ResponseEntity.ok().body(true);
     }
 

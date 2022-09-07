@@ -1,8 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreatePrimitiveSpecTokenTypeFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.GetPrimitiveSpecTokensFlow;
-import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssuePrimitiveSpecTokenToHolderFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.*;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.PrimitiveSpecTokenType;
@@ -101,10 +99,10 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                 band,
                 technology,
                 country,
-                ownerDid,
-                license
+                true,
+                license,
+                ownerDid
             );
-
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreatePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType).getReturnValue().toCompletableFuture();
         try {
             PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
@@ -134,8 +132,20 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         return primitiveSpectokens;
     }
 
+    @Override
+    public void invalidatePrimitiveSpectoken(String licenseId) {
+        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
+        try {
+            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+            rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString());
+        } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
+        }
+    }
+
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
         return new GetPrimitiveSpectokenResponse(
+            primitiveSpecTokenType.getLinearId().toString(),
             primitiveSpecTokenType.getStartDl(),
             primitiveSpecTokenType.getEndDl(),
             primitiveSpecTokenType.getStartUl(),

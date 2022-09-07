@@ -27,6 +27,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
 
     private final ProductOfferDetails productOfferDetails;
     private final String offerDid;
+    private final Party regulatorNode;
 
     private static final String START_DL = "startFreqDl";
     private static final String END_DL = "endFreqDl";
@@ -35,6 +36,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
     private static final String TECHNOLOGY = "technology";
     private static final String DUPLEX_MODE = "duplexMode";
     private static final String BAND = "operationBand";
+    private static final String LICENSE_DID = "licenseDid";
 
     private static final List<String> CHARACTERISTIC_NAMES = Collections.unmodifiableList(new ArrayList<String>() {
         {
@@ -45,39 +47,19 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             add(TECHNOLOGY);
             add(DUPLEX_MODE);
             add(BAND);
+            add(LICENSE_DID);
         }
     });
 
-    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails, String offerDid) {
+    public CreateDerivativeSpecTokenTypeFromOfferFlow(ProductOfferDetails productOfferDetails, String offerDid, Party regulatorNode) {
         this.productOfferDetails = productOfferDetails;
         this.offerDid = offerDid;
+        this.regulatorNode = regulatorNode;
     }
 
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        List<StateAndRef<PrimitiveSpecTokenType>> states = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class).getStates();
-        if (states.isEmpty()) {
-            throw new FlowException("Primitive Spectoken not found.");
-        }
-        PrimitiveSpecTokenType primitiveSpecTokenType = states.get(states.size() - 1).getState().getData();
-        DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString());
-        if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
-            throw new FlowException("Derivative's data does not match with Primitive's.");
-        }
-
-        List<Party> allOtherParties = getServiceHub()
-            .getNetworkMapCache()
-            .getAllNodes()
-            .stream()
-            .flatMap(c -> c.getLegalIdentities().stream())
-            .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
-            .collect(Collectors.toList());
-        TransactionState<DerivativeSpecTokenType> transactionState = new TransactionState<>(derivativeSpecTokenType, firstNotary());
-        return subFlow(new CreateEvolvableTokens(transactionState, allOtherParties));
-    }
-
-    private DerivativeSpecTokenType derivativeSpectokenBuild(String primitiveLinearId) throws FlowException {
         ResourceSpecification resourceSpecification = productOfferDetails.getResourceSpecifications().get(0);
         Map<String, ResourceSpecCharacteristic> resourceSpecCharacteristicMap = new HashMap<>();
 
@@ -90,10 +72,45 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             throw new FlowException("Product Offer is missing some Resource Specification Characteristic.");
         }
 
+        List<StateAndRef<PrimitiveSpecTokenType>> states = getServiceHub().getVaultService().queryBy(PrimitiveSpecTokenType.class).getStates();
+        if (states.isEmpty()) {
+            throw new FlowException("Any Primitive Spectoken found.");
+        }
+        PrimitiveSpecTokenType primitiveSpecTokenType = null;
+        String offerLicense = resourceSpecCharacteristicMap.get(LICENSE_DID).getResourceSpecCharacteristicValue().get(0).getValue().getValue();
+        for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : states) {
+            primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
+            if (offerLicense.equals(primitiveSpecTokenType.getLicense()) && primitiveSpecTokenType.isValid()) {
+                break;
+            } else {
+                primitiveSpecTokenType = null;
+            }
+        }
+        if (primitiveSpecTokenType == null) {
+            throw new FlowException("Valid Primitive Spectoken not found for license " + offerLicense);
+        }
+        DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString(), resourceSpecCharacteristicMap);
+        if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
+            throw new FlowException("Derivative's data does not match with Primitive's.");
+        }
+
+        List<Party> allOtherParties = getServiceHub()
+            .getNetworkMapCache()
+            .getAllNodes()
+            .stream()
+            .flatMap(c -> c.getLegalIdentities().stream())
+            .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
+            .collect(Collectors.toList());
+
+        TransactionState<DerivativeSpecTokenType> transactionState = new TransactionState<>(derivativeSpecTokenType, firstNotary());
+        return subFlow(new CreateEvolvableTokens(transactionState, allOtherParties));
+    }
+
+    private DerivativeSpecTokenType derivativeSpectokenBuild(String primitiveLinearId, Map<String, ResourceSpecCharacteristic> resourceSpecCharacteristicMap) {
         Date offerStartDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getStartDateTime()).toInstant().toEpochMilli());
         Date offerEndDate = new Date(OffsetDateTime.parse(productOfferDetails.getProductOffering().getValidFor().getEndDateTime()).toInstant().toEpochMilli());
         return new DerivativeSpecTokenType(
-            Collections.singletonList(getOurIdentity()),
+            Arrays.asList(getOurIdentity(), regulatorNode),
             new UniqueIdentifier(),
             Double.valueOf(resourceSpecCharacteristicMap.get(START_DL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             Double.valueOf(resourceSpecCharacteristicMap.get(END_DL).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
@@ -105,7 +122,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             Integer.valueOf(resourceSpecCharacteristicMap.get(BAND).getResourceSpecCharacteristicValue().get(0).getValue().getValue()),
             resourceSpecCharacteristicMap.get(TECHNOLOGY).getResourceSpecCharacteristicValue().get(0).getValue().getValue(),
             productOfferDetails.getGeographicAddresses().get(0).getCountry(),
-            null,
+            true,
             primitiveLinearId,
             productOfferDetails.getProductOfferingPrices().get(0).getPrice().getValue(),
             offerDid
