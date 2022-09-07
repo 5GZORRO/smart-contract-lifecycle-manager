@@ -37,7 +37,6 @@ public class AcceptChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdenti
     ProductOrder outputOrder =
         new ProductOrder(inputOrder)
             .setState(OrderState.APPROVED)
-            .setModel(inputOrder.getProposedModel())
             .setProposedModel(null);
 
     List<PublicKey> requiredSigners = outputOrder.getRequiredSigners();

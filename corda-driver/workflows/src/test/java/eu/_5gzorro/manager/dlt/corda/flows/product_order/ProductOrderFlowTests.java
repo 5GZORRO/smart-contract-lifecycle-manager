@@ -79,7 +79,6 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
     ProposeChangeProductOrderFlow.ProposeChangeProductOrderInitiator changeFlow
         = new ProposeChangeProductOrderFlow.ProposeChangeProductOrderInitiator(
             productOrder.getLinearId(),
-            productOrder.getModel(),
             productOrder.getSpectrumRegulator(),
             productOrder.getOfferType(),
             productOrder.getValidFor().endDateTime(newEndDateTime),

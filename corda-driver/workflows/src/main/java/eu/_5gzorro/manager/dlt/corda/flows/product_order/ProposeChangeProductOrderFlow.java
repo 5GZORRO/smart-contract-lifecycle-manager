@@ -28,7 +28,6 @@ import static net.corda.core.contracts.ContractsDSL.requireThat;
 @InitiatingFlow
 public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> {
   private final StateAndRef<ProductOrder> stateAndRef;
-  private final SecureHash modelData;
   private final Set<FlowSession> sessions;
 
   private final Party spectrumRegulator;
@@ -38,14 +37,12 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
 
   public ProposeChangeProductOrderFlow(
       StateAndRef<ProductOrder> stateAndRef,
-      SecureHash modelData,
       Set<FlowSession> sessions,
       Party spectrumRegulator,
       OfferType offerType,
       TimePeriod validFor,
       Map<String, Invitation> didInvitations) {
     this.stateAndRef = stateAndRef;
-    this.modelData = modelData;
     this.sessions = sessions;
     this.spectrumRegulator = spectrumRegulator;
     this.offerType = offerType;
@@ -61,7 +58,6 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
     // Apply any modifications
     ProductOrder outputOrder =
         new ProductOrder(inputOrder)
-            .setProposedModel(modelData)
             .setState(OrderState.CHANGE_ACTIVE)
             .setSpectrumRegulator(spectrumRegulator)
             .setDidInvitations(didInvitations)
@@ -102,7 +98,6 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
   public static class ProposeChangeProductOrderInitiator
       extends ExtendedFlowLogic<UniqueIdentifier> {
     private final UniqueIdentifier productOrderId;
-    private final SecureHash modelData;
     private final Party spectrumRegulator;
     private final OfferType offerType;
     private final TimePeriod validFor;
@@ -110,13 +105,11 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
 
     public ProposeChangeProductOrderInitiator(
         UniqueIdentifier productOrderId,
-        SecureHash modelData,
         Party spectrumRegulator,
         OfferType offerType,
         TimePeriod validFor,
         Map<String, Invitation> didInvitations) {
       this.productOrderId = productOrderId;
-      this.modelData = modelData;
       this.spectrumRegulator = spectrumRegulator;
       this.offerType = offerType;
       this.validFor = validFor;
@@ -138,7 +131,6 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
       return subFlow(
           new ProposeChangeProductOrderFlow(
               prevStateAndRef,
-              modelData,
               sessions,
               spectrumRegulator,
               offerType,

@@ -28,12 +28,14 @@ public class PublishedProductOrderTestCase extends TwoOperatorTestCase {
         governanceParty,
         null,
         null,
-        SecureHash.zeroHash,
         null,
         OrderState.PROPOSED,
         OfferType.GENERAL,
         new TimePeriod(),
-        mapOf(new Pair<>("something", new Invitation()))
+        mapOf(new Pair<>("something", new Invitation())),
+        null,
+        null,
+        null
     );
 
     network.runNetwork();

@@ -30,7 +30,6 @@ public class ProductOrder implements ContractState, LinearState {
 
   private StaticPointer<ProductOffering> offerRef;
 
-  private SecureHash model;
   private SecureHash proposedModel;
 
   private OrderState state;
@@ -38,20 +37,26 @@ public class ProductOrder implements ContractState, LinearState {
   private TimePeriod validFor;
   private Map<String, Invitation> didInvitations;
 
+  private eu._5gzorro.tm_forum.models.product_order.ProductOrder productOrder;
+  private String supplierDid;
+  private String offerDid; // Offer order is based off did
+
   @ConstructorForDeserialization
-  public ProductOrder(UniqueIdentifier identifier, Party buyer, Party seller, Party governanceParty, Party spectrumRegulator, StaticPointer<ProductOffering> offerRef, SecureHash model, SecureHash proposedModel, OrderState state, OfferType offerType, TimePeriod validFor, Map<String, Invitation> didInvitations) {
+  public ProductOrder(UniqueIdentifier identifier, Party buyer, Party seller, Party governanceParty, Party spectrumRegulator, StaticPointer<ProductOffering> offerRef, SecureHash proposedModel, OrderState state, OfferType offerType, TimePeriod validFor, Map<String, Invitation> didInvitations, eu._5gzorro.tm_forum.models.product_order.ProductOrder productOrder, String supplierDid, String offerDid) {
     this.identifier = identifier;
     this.buyer = buyer;
     this.seller = seller;
     this.governanceParty = governanceParty;
     this.spectrumRegulator = spectrumRegulator;
     this.offerRef = offerRef;
-    this.model = model;
     this.proposedModel = proposedModel;
     this.state = state;
     this.offerType = offerType;
     this.validFor = validFor;
     this.didInvitations = didInvitations;
+    this.productOrder = productOrder;
+    this.supplierDid = supplierDid;
+    this.offerDid = offerDid;
   }
 
   public ProductOrder(ProductOrder other) {
@@ -61,7 +66,6 @@ public class ProductOrder implements ContractState, LinearState {
     this.governanceParty = other.governanceParty;
     this.spectrumRegulator = other.spectrumRegulator;
     this.offerRef = other.offerRef;
-    this.model = other.model;
     this.proposedModel = other.proposedModel;
     this.offerType = other.offerType;
     this.validFor = other.validFor;
@@ -160,10 +164,6 @@ public class ProductOrder implements ContractState, LinearState {
     return offerRef;
   }
 
-  public SecureHash getModel() {
-    return model;
-  }
-
   public SecureHash getProposedModel() {
     return proposedModel;
   }
@@ -195,11 +195,6 @@ public class ProductOrder implements ContractState, LinearState {
     return this;
   }
 
-  public ProductOrder setModel(SecureHash model) {
-    this.model = model;
-    return this;
-  }
-
   public ProductOrder setProposedModel(SecureHash proposedModel) {
     this.proposedModel = proposedModel;
     return this;
@@ -223,6 +218,30 @@ public class ProductOrder implements ContractState, LinearState {
   public ProductOrder setState(OrderState state) {
     this.state = state;
     return this;
+  }
+
+  public eu._5gzorro.tm_forum.models.product_order.ProductOrder getProductOrder() {
+    return productOrder;
+  }
+
+  public void setProductOrder(eu._5gzorro.tm_forum.models.product_order.ProductOrder productOrder) {
+    this.productOrder = productOrder;
+  }
+
+  public String getSupplierDid() {
+    return supplierDid;
+  }
+
+  public void setSupplierDid(String supplierDid) {
+    this.supplierDid = supplierDid;
+  }
+
+  public String getOfferDid() {
+    return offerDid;
+  }
+
+  public void setOfferDid(String offerDid) {
+    this.offerDid = offerDid;
   }
 
   /**

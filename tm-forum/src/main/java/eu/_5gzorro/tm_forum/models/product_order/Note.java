@@ -7,7 +7,7 @@ import java.util.Objects;
 /** Extra information about a given entity */
 public class Note {
   private String text;
-  private OffsetDateTime date;
+  private String date;
   private String author;
 
   public Note text(String text) {
@@ -28,7 +28,7 @@ public class Note {
     this.text = text;
   }
 
-  public Note date(OffsetDateTime date) {
+  public Note date(String date) {
     this.date = date;
     return this;
   }
@@ -38,11 +38,11 @@ public class Note {
    *
    * @return date
    */
-  public OffsetDateTime getDate() {
+  public String getDate() {
     return date;
   }
 
-  public void setDate(OffsetDateTime date) {
+  public void setDate(String date) {
     this.date = date;
   }
 

@@ -232,14 +232,12 @@ public class CordaProductOrderDriver
           ThreeTenModule module = new ThreeTenModule();
           module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
           objectMapper.registerModule(module);
-          ProductOrderDetails order = objectMapper.convertValue(ZipUtils.unzipObject(
-                  rpcClient.openAttachment(productOrder.getModel()), objectMapper), ProductOrderDetails.class);
 
           return new ProductOrderUpdateEvent()
               .setUpdateType(updateWrapper.getUpdateType())
               .setDeduplicationId(updateWrapper.getDeduplicationId())
-              .setProductOrder(order.getProductOrder())
-              .setDid(order.getSupplierDid())
+              .setProductOrder(productOrder.getProductOrder())
+              .setDid(productOrder.getSupplierDid())
               .setInvitations(productOrder.getDidInvitations())
               .setIdentifier(productOrder.getLinearId().getId().toString());
         });
@@ -275,29 +273,27 @@ public class CordaProductOrderDriver
       offerType = OfferType.GENERAL;
     }
 
-    try {
-      ProductOrder productOrderState =
-          new ProductOrder(
-              new UniqueIdentifier(),
-              rpcClient.nodeInfo().getLegalIdentities().get(0),
-              supplier,
-              findGovernanceNode(),
-              findRegulatorNode(),
-              null, // TODO
-              rpcClient.uploadAttachment(ZipUtils.zipObject(orderDetails, objectMapper)),
-              null,
-              OrderState.PROPOSED,
-              offerType,
-              orderDetails.getValidFor(),
-              invitations);
+    ProductOrder productOrderState =
+        new ProductOrder(
+            new UniqueIdentifier(),
+            rpcClient.nodeInfo().getLegalIdentities().get(0),
+            supplier,
+            findGovernanceNode(),
+            findRegulatorNode(),
+            null, // TODO
+            null,
+            OrderState.PROPOSED,
+            offerType,
+            orderDetails.getValidFor(),
+            invitations,
+            orderDetails.getProductOrder(),
+            orderDetails.getSupplierDid(),
+            orderDetails.getOfferDid());
 
-      log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
+    log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
 
-      rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
-              productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
+        productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements);
   }
 
   @Override
