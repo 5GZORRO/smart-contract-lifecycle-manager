@@ -97,14 +97,14 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
   @StartableByRPC
   public static class ProposeChangeProductOrderInitiator
       extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final UniqueIdentifier productOrderId;
+    private final String productOrderId;
     private final Party spectrumRegulator;
     private final OfferType offerType;
     private final TimePeriod validFor;
     private final Map<String, Invitation> didInvitations;
 
     public ProposeChangeProductOrderInitiator(
-        UniqueIdentifier productOrderId,
+        String productOrderId,
         Party spectrumRegulator,
         OfferType offerType,
         TimePeriod validFor,
@@ -120,7 +120,7 @@ public class ProposeChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdent
     @Override
     public UniqueIdentifier call() throws FlowException {
       StateAndRef<ProductOrder> prevStateAndRef =
-          findStateWithLinearId(ProductOrder.class, productOrderId);
+          findOrderWithLinearId(ProductOrder.class, productOrderId);
 
       Set<FlowSession> sessions =
           initiateFlows(

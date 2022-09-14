@@ -36,4 +36,12 @@ public class PublicState implements ContractState, LinearState {
   public Party getOwner() {
     return owner;
   }
+
+  public void setLinearId(UniqueIdentifier id) {
+    this.id = id;
+  }
+
+  public void setOwner(Party owner) {
+    this.owner = owner;
+  }
 }

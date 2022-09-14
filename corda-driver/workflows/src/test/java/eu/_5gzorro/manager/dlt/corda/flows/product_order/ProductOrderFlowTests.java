@@ -31,7 +31,7 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
     verifyOrder(productOrder, OrderState.PROPOSED);
 
     ApproveProductOrderFlow.ApproveProductOrderInitiator flow
-        = new ApproveProductOrderFlow.ApproveProductOrderInitiator(productOrder.getLinearId());
+        = new ApproveProductOrderFlow.ApproveProductOrderInitiator(productOrder.getProductOrder().getId());
     ProductOrderTestUtils.startFlow(operator2, network, flow);
 
     productOrder = operator1.getServices().getVaultService()
@@ -58,12 +58,12 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
     verifyOrder(productOrder, OrderState.PROPOSED);
 
     ApproveProductOrderFlow.ApproveProductOrderInitiator approveFlow
-        = new ApproveProductOrderFlow.ApproveProductOrderInitiator(productOrder.getLinearId());
+        = new ApproveProductOrderFlow.ApproveProductOrderInitiator(productOrder.getProductOrder().getId());
     ProductOrderTestUtils.startFlow(operator2, network, approveFlow);
 
 
     ProvisionProductOrderFlow.ProvisionProductOrderInitiator provisionFLow =
-        new ProvisionProductOrderFlow.ProvisionProductOrderInitiator(productOrder.getLinearId());
+        new ProvisionProductOrderFlow.ProvisionProductOrderInitiator(productOrder.getProductOrder().getId());
     ProductOrderTestUtils.startFlow(operator2, network, provisionFLow);
     productOrder = operator1.getServices().getVaultService()
         .queryBy(ProductOrder.class)
@@ -78,7 +78,7 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
     String newEndDateTime = now().plusDays(10).toString();
     ProposeChangeProductOrderFlow.ProposeChangeProductOrderInitiator changeFlow
         = new ProposeChangeProductOrderFlow.ProposeChangeProductOrderInitiator(
-            productOrder.getLinearId(),
+            productOrder.getProductOrder().getId(),
             productOrder.getSpectrumRegulator(),
             productOrder.getOfferType(),
             productOrder.getValidFor().endDateTime(newEndDateTime),
@@ -99,7 +99,7 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
 
 
     AcceptChangeProductOrderFlow.AcceptChangeProductOrderInitiator acceptChangeFlow =
-        new AcceptChangeProductOrderFlow.AcceptChangeProductOrderInitiator(productOrder.getLinearId());
+        new AcceptChangeProductOrderFlow.AcceptChangeProductOrderInitiator(productOrder.getProductOrder().getId());
     ProductOrderTestUtils.startFlow(operator2, network, changeFlow);
     productOrder = operator1.getServices().getVaultService()
         .queryBy(ProductOrder.class)
@@ -112,7 +112,7 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
     verifyOrder(productOrder, OrderState.APPROVED);
 
     EndProductOrderFlow.EndProductOrderInitiator endFlow =
-        new EndProductOrderFlow.EndProductOrderInitiator(productOrder.getLinearId());
+        new EndProductOrderFlow.EndProductOrderInitiator(productOrder.getProductOrder().getId());
     ProductOrderTestUtils.startFlow(operator2, network, changeFlow);
   }
 
@@ -130,7 +130,7 @@ public class ProductOrderFlowTests extends PublishedProductOrderTestCase {
 
     String rejectionString = "Test";
     RejectProductOrderFlow.RejectProductOrderInitiator flow
-        = new RejectProductOrderFlow.RejectProductOrderInitiator(productOrder.getLinearId(), rejectionString);
+        = new RejectProductOrderFlow.RejectProductOrderInitiator(productOrder.getProductOrder().getId(), rejectionString);
     ProductOrderTestUtils.startFlow(operator2, network, flow);
 
     StateAndRef<RejectionReason> stateAndRefRejection = operator1.getServices().getVaultService()

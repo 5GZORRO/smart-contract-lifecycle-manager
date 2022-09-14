@@ -317,7 +317,7 @@ public class CordaProductOrderDriver
   public void endProductOrder(String orderId) {
     rpcClient.startFlowDynamic(
         EndProductOrderFlow.EndProductOrderInitiator.class,
-        UniqueIdentifier.Companion.fromString(orderId));
+        orderId);
   }
 
   @Override

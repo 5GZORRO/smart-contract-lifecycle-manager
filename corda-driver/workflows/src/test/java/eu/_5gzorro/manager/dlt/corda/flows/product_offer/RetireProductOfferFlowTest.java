@@ -15,7 +15,7 @@ public class RetireProductOfferFlowTest extends PublishedProductOfferTestCase {
 
   @Test
   public void retire_existing_offer() throws ExecutionException, InterruptedException {
-    ProductOfferingTestUtils.retireProductOffering(operator1, network, offering.getLinearId());
+    ProductOfferingTestUtils.retireProductOffering(operator1, network, offering.getOfferDetails().getDid());
     network.runNetwork();
 
     QueryCriteria consumedAndLinearIdCriteria = new QueryCriteria.LinearStateQueryCriteria(
