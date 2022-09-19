@@ -72,9 +72,9 @@ public class AcceptChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdenti
   @StartableByRPC
   public static class AcceptChangeProductOrderInitiator
       extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final UniqueIdentifier productOrderId;
+    private final String productOrderId;
 
-    public AcceptChangeProductOrderInitiator(UniqueIdentifier productOrderId) {
+    public AcceptChangeProductOrderInitiator(String productOrderId) {
       this.productOrderId = productOrderId;
     }
 
@@ -82,7 +82,7 @@ public class AcceptChangeProductOrderFlow extends ExtendedFlowLogic<UniqueIdenti
     @Override
     public UniqueIdentifier call() throws FlowException {
       StateAndRef<ProductOrder> prevStateAndRef =
-          findStateWithLinearId(ProductOrder.class, productOrderId);
+          findOrderWithLinearId(ProductOrder.class, productOrderId);
       Set<FlowSession> sessions =
           initiateFlows(
               SetsKt.setOf(

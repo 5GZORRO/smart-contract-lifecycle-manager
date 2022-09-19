@@ -14,6 +14,7 @@ import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 
 import java.security.PublicKey;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,10 +44,7 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
         new TransactionBuilder(firstNotary())
             .addCommand(command)
             .addInputState(prevStateAndRef)
-            .addOutputState(
-                productOffering.setVerifiableCredentials(
-                    prevStateAndRef.getState().getData().getVerifiableCredentials())
-            );
+            .addOutputState(productOffering);
 
     txBuilder.verify(getServiceHub());
 
@@ -54,9 +52,9 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
 
     // TODO consider if governance is the one we want to sign this?
-    SignedTransaction fullySignedTx
-        = subFlow(new GatherGovernanceSignatureFlow(signedTx, productOffering.getGovernanceParty()));
+    SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(signedTx, initiateFlows(productOffering.getParticipants())));
     // TODO gather regulator signature if needed
+//    fullySignedTx = subFlow(new CollectSignaturesFlow(fullySignedTx, Collections.singletonList(initiateFlow(productOffering.getOwner()))));
 
     subFlow(new FinalityFlow(fullySignedTx, otherParties));
 
@@ -82,12 +80,14 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
               .getAllNodes()
               .stream()
               .flatMap(c -> c.getLegalIdentities().stream())
-              .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
+              .filter(p -> !p.equals(getOurIdentity()) || !productOffering.getParticipants().contains(p)) // Filter out own identity
               .collect(Collectors.toList())
       );
 
       StateAndRef<ProductOffering> prevStateAndRef
-          = findStateWithLinearId(ProductOffering.class, productOffering.getLinearId());
+          = findOfferWithLinearId(ProductOffering.class, productOffering.getOfferDetails().getDid());
+      productOffering.setLinearId(prevStateAndRef.getState().getData().getLinearId());
+      productOffering.setOwner(prevStateAndRef.getState().getData().getOwner());
 
       return subFlow(new UpdateProductOfferFlow(productOffering, prevStateAndRef, allOtherParties));
     }

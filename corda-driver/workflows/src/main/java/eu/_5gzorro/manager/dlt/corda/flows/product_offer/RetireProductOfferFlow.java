@@ -54,10 +54,10 @@ public class RetireProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
   @InitiatingFlow
   @StartableByRPC
   public static class RetireProductOfferInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final UniqueIdentifier productOfferingId;
+    private final String offeringDid;
 
-    public RetireProductOfferInitiator(UniqueIdentifier productOfferingId) {
-      this.productOfferingId = productOfferingId;
+    public RetireProductOfferInitiator(String offeringDid) {
+      this.offeringDid = offeringDid;
     }
 
     @Suspendable
@@ -75,7 +75,7 @@ public class RetireProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
       );
 
       StateAndRef<ProductOffering> prevStateAndRef
-          = findStateWithLinearId(ProductOffering.class, productOfferingId);
+          = findOfferWithLinearId(ProductOffering.class, offeringDid);
 
       return subFlow(new RetireProductOfferFlow(prevStateAndRef, allOtherParties));
     }

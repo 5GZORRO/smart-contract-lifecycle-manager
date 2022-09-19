@@ -1,7 +1,11 @@
 package eu._5gzorro.manager.dlt.corda.flows.utils;
 
+import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
+import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
+import eu._5gzorro.manager.dlt.corda.states.PublicState;
 import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.ContractState;
+import net.corda.core.contracts.LinearState;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FlowException;
@@ -55,17 +59,24 @@ public abstract class ExtendedFlowLogic<T> extends FlowLogic<T> {
     return oracle;
   }
 
-  public <R extends ContractState> StateAndRef<R> findStateWithLinearId(Class<R> type, UniqueIdentifier id) {
-    QueryCriteria inputCriteria = new LinearStateQueryCriteria(
-        null,
-        CollectionsKt.listOf(id),
-        StateStatus.UNCONSUMED,
-        null);
+  public <R extends ContractState> StateAndRef<ProductOrder> findOrderWithLinearId(Class<ProductOrder> type, String id) {
+    List<StateAndRef<ProductOrder>> states = getServiceHub().getVaultService().queryBy(type).getStates();
+    for(StateAndRef<ProductOrder> state : states) {
+      if (state.getState().getData().getProductOrder().getId().equals(id)) {
+        return state;
+      }
+    }
+    return null;
+  }
 
-    return getServiceHub()
-        .getVaultService()
-        .queryBy(type, inputCriteria)
-        .getStates().get(0);
+  public <R extends ContractState> StateAndRef<ProductOffering> findOfferWithLinearId(Class<ProductOffering> type, String did) {
+    List<StateAndRef<ProductOffering>> states = getServiceHub().getVaultService().queryBy(type).getStates();
+    for(StateAndRef<ProductOffering> state : states) {
+      if (state.getState().getData().getOfferDetails().getDid().equals(did)) {
+        return state;
+      }
+    }
+    return null;
   }
 
   public AbstractParty findCounterParty(List<AbstractParty> partyList) {

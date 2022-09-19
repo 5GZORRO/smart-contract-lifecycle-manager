@@ -32,9 +32,9 @@ public class ProductOfferingTestUtils {
     return future.get();
   }
 
-  public static UniqueIdentifier retireProductOffering(StartedMockNode proposer, MockNetwork network, UniqueIdentifier offeringId)
+  public static UniqueIdentifier retireProductOffering(StartedMockNode proposer, MockNetwork network, String offeringDid)
       throws ExecutionException, InterruptedException {
-    RetireProductOfferInitiator flow = new RetireProductOfferInitiator(offeringId);
+    RetireProductOfferInitiator flow = new RetireProductOfferInitiator(offeringDid);
     CordaFuture<UniqueIdentifier> future = proposer.startFlow(flow);
 
     network.runNetwork();

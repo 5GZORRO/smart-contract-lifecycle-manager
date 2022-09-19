@@ -157,19 +157,13 @@ public class ProductOrderContract implements Contract {
   private void verifyEndOrder(LedgerTransaction tx, List<PublicKey> signers) {
     requireThat(
         requirements -> {
-          requirements.using("One input state", tx.getInputs().isEmpty());
           requirements.using("Zero output states", tx.getOutputs().isEmpty());
 
           requirements.using(
-              "Input state is a ProductOrder ContractState",
+              "Input state is not a ProductOrder ContractState",
               tx.getInputs().get(0).getState().getData() instanceof ProductOrder);
 
           ProductOrder inputOrder = (ProductOrder) tx.getInputs().get(0).getState().getData();
-
-          requirements.using(
-              "Input state is ACTIVE",
-              inputOrder.getState() == OrderState.ACTIVE
-                  || inputOrder.getState() == OrderState.APPROVED);
 
           requirements.using(
               "Buyer or seller must sign",

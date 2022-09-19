@@ -80,10 +80,10 @@ public class RejectProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> 
   @InitiatingFlow
   @StartableByRPC
   public static class RejectProductOrderInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
-    private final UniqueIdentifier productOrderId;
+    private final String productOrderId;
     private final String rejectionReason;
 
-    public RejectProductOrderInitiator(UniqueIdentifier productOrderId, String rejectionReason) {
+    public RejectProductOrderInitiator(String productOrderId, String rejectionReason) {
       this.productOrderId = productOrderId;
       this.rejectionReason = rejectionReason;
     }
@@ -92,7 +92,7 @@ public class RejectProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> 
     @Override
     public UniqueIdentifier call() throws FlowException {
       StateAndRef<ProductOrder> prevStateAndRef =
-          findStateWithLinearId(ProductOrder.class, productOrderId);
+          findOrderWithLinearId(ProductOrder.class, productOrderId);
 
       Set<FlowSession> sessions =
           initiateFlows(
