@@ -64,10 +64,12 @@ public class ProductOrderController {
       try {
         if(po.getServiceLevelAgreement() != null)
           serviceLevelAgreements.add(sclcmClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
-        if(pop.getPricingLogicAlgorithm().get(0) != null)
-          licenseTerms.add(new Pair<>(sclcmClient.getLicenseTermById(URI.create(pop.getPricingLogicAlgorithm()
-                  .get(0).getHref())), rsocClient.getPoDID(URI.create(po.getHref().replace("productOffering",
-                          "productOfferingStatus"))).getDid()));
+        if(pop.getPricingLogicAlgorithm() != null && !pop.getPricingLogicAlgorithm().isEmpty()) {
+          if (pop.getPricingLogicAlgorithm().get(0) != null)
+            licenseTerms.add(new Pair<>(sclcmClient.getLicenseTermById(URI.create(pop.getPricingLogicAlgorithm()
+                    .get(0).getHref())), rsocClient.getPoDID(URI.create(po.getHref().replace("productOffering",
+                    "productOfferingStatus"))).getDid()));
+        }
       } catch (ServiceLevelAgreementNotFoundException | LicenseTermNotFoundException ignored) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
       }
