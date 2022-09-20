@@ -16,39 +16,39 @@ import javax.annotation.PreDestroy;
 @ConditionalOnProperty("spring.kafka.enabled")
 @Service
 public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdateEvent> {
-  private static final Logger log = LoggerFactory.getLogger(ProductOrderKafkaService.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductOrderKafkaService.class);
 
-  @Value("${spring.kafka.update-topics.product-order}")
-  private String productOrderTopic;
+    @Value("${spring.kafka.update-topics.product-order}")
+    private String productOrderTopic;
 
-  private final ProductOrderDriver driver;
+    private final ProductOrderDriver driver;
 
-  private Disposable kafkaPublishDisposable;
+    private Disposable kafkaPublishDisposable;
 
-  public ProductOrderKafkaService(
-      KafkaTemplate<String, ProductOrderUpdateEvent> kafkaTemplate, ProductOrderDriver driver) {
-    super(kafkaTemplate);
-    this.driver = driver;
-  }
+    public ProductOrderKafkaService(
+        KafkaTemplate<String, ProductOrderUpdateEvent> kafkaTemplate, ProductOrderDriver driver) {
+        super(kafkaTemplate);
+        this.driver = driver;
+    }
 
-  @PostConstruct
-  public void setup() {
-    log.info("Starting kafka updates for product order");
-    kafkaPublishDisposable =
-        driver
-            .productOrderObservable()
-            .subscribe(
-                productOrderUpdateEvent -> {
-                  log.info("ProductOrder Kafka update: {}", productOrderUpdateEvent);
-                  super.send(
-                      productOrderTopic,
-                      productOrderUpdateEvent.getDeduplicationId(),
-                      productOrderUpdateEvent);
-                });
-  }
+    @PostConstruct
+    public void setup() {
+        log.info("Starting kafka updates for product order");
+        kafkaPublishDisposable =
+            driver
+                .productOrderObservable()
+                .subscribe(
+                    productOrderUpdateEvent -> {
+                        log.info("ProductOrder Kafka update: {}", productOrderUpdateEvent);
+                        super.send(
+                            productOrderTopic,
+                            productOrderUpdateEvent.getDeduplicationId(),
+                            productOrderUpdateEvent);
+                    });
+    }
 
-  @PreDestroy
-  public void shutdown() {
-    kafkaPublishDisposable.dispose();
-  }
+    @PreDestroy
+    public void shutdown() {
+        kafkaPublishDisposable.dispose();
+    }
 }

@@ -1,7 +1,6 @@
 package eu._5gzorro.manager.api.controller;
 
 import eu._5gzorro.elicense.models.LicenseTerm;
-import eu._5gzorro.manager.api.controller.dto.requests.ChangeProductOrderRequest;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
 import eu._5gzorro.manager.api.httpClient.RSOCClient;
 import eu._5gzorro.manager.api.httpClient.requests.SCLCMClient;
@@ -32,124 +31,69 @@ import java.util.List;
 @RestController
 @RequestMapping("/product-order")
 public class ProductOrderController {
-  private final ProductOrderDriver driver;
+    private final ProductOrderDriver driver;
 
-  @Autowired
-  private RSOCClient rsocClient;
+    @Autowired
+    private RSOCClient rsocClient;
 
-  @Autowired
-  private SCLCMClient sclcmClient;
+    @Autowired
+    private SCLCMClient sclcmClient;
 
-  @Autowired
-  private ServiceLevelAgreementService serviceLevelAgreementService;
+    @Autowired
+    private ServiceLevelAgreementService serviceLevelAgreementService;
 
-  public ProductOrderController(ProductOrderDriver driver) {
-    this.driver = driver;
-  }
-
-  @ApiResponses(
-      value = {@ApiResponse(responseCode = "200", description = "Published product order")})
-  @PostMapping
-  public ResponseEntity<Boolean> publishProductOrder(
-      @Valid @RequestBody @NotNull PublishProductOrderRequest request) {
-
-    List<OrderItem> orderItems = request.getProductOrder().getOrderItem();
-    List<ServiceLevelAgreement> serviceLevelAgreements = new ArrayList<>();
-    List<Pair<LicenseTerm, String>> licenseTerms = new ArrayList<>();
-
-    for(OrderItem orderItem : orderItems) {
-      ProductOffering po = rsocClient.getPoById(URI.create(orderItem.getProductOffering().getHref()));
-      ProductOfferingPrice pop = rsocClient.getPopById(URI.create(po.getProductOfferingPrice().get(0).getHref()));
-
-      try {
-        if(po.getServiceLevelAgreement() != null)
-          serviceLevelAgreements.add(sclcmClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
-        if(pop.getPricingLogicAlgorithm() != null && !pop.getPricingLogicAlgorithm().isEmpty()) {
-          if (pop.getPricingLogicAlgorithm().get(0) != null)
-            licenseTerms.add(new Pair<>(sclcmClient.getLicenseTermById(URI.create(pop.getPricingLogicAlgorithm()
-                    .get(0).getHref())), rsocClient.getPoDID(URI.create(po.getHref().replace("productOffering",
-                    "productOfferingStatus"))).getDid()));
-        }
-      } catch (ServiceLevelAgreementNotFoundException | LicenseTermNotFoundException ignored) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-      }
+    public ProductOrderController(ProductOrderDriver driver) {
+        this.driver = driver;
     }
 
-    driver.publishProductOrder(
+    @ApiResponses(
+        value = {@ApiResponse(responseCode = "200", description = "Published product order")})
+    @PostMapping
+    public ResponseEntity<Boolean> publishProductOrder(
+        @Valid @RequestBody @NotNull PublishProductOrderRequest request) {
+
+        List<OrderItem> orderItems = request.getProductOrder().getOrderItem();
+        List<ServiceLevelAgreement> serviceLevelAgreements = new ArrayList<>();
+        List<Pair<LicenseTerm, String>> licenseTerms = new ArrayList<>();
+
+        for (OrderItem orderItem : orderItems) {
+            ProductOffering po = rsocClient.getPoById(URI.create(orderItem.getProductOffering().getHref()));
+            ProductOfferingPrice pop = rsocClient.getPopById(URI.create(po.getProductOfferingPrice().get(0).getHref()));
+
+            try {
+                if (po.getServiceLevelAgreement() != null)
+                    serviceLevelAgreements.add(sclcmClient.getSLAById(URI.create(po.getServiceLevelAgreement().getHref())));
+                if (pop.getPricingLogicAlgorithm() != null && !pop.getPricingLogicAlgorithm().isEmpty()) {
+                    if (pop.getPricingLogicAlgorithm().get(0) != null)
+                        licenseTerms.add(new Pair<>(sclcmClient.getLicenseTermById(URI.create(pop.getPricingLogicAlgorithm()
+                            .get(0).getHref())), rsocClient.getPoDID(URI.create(po.getHref().replace("productOffering",
+                            "productOfferingStatus"))).getDid()));
+                }
+            } catch (ServiceLevelAgreementNotFoundException | LicenseTermNotFoundException ignored) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+        }
+
+        driver.publishProductOrder(
             request.toOrderDetails(),
             request.getInvitations(),
             request.getVerifiableCredentials(),
             null,
             serviceLevelAgreements,
             licenseTerms
-    );
+        );
 
-    return ResponseEntity.ok().body(true);
-  }
+        return ResponseEntity.ok().body(true);
+    }
 
-  @ApiResponses(
-      value = {@ApiResponse(responseCode = "200", description = "Propose change product order")})
-  @PutMapping("/{orderId}")
-  public ResponseEntity<Boolean> changeProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId,
-      @Valid @RequestBody @NotNull ChangeProductOrderRequest request) {
-    driver.proposeChangeProductOrder(orderId, request.toOrderDetails(), request.getInvitations());
 
-    return ResponseEntity.ok().body(true);
-  }
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
+    @PutMapping("/{orderId}/end")
+    public ResponseEntity<Boolean> endProductOrder(
+        @Valid @PathVariable("orderId") @NotNull String orderId) {
+        driver.endProductOrder(orderId);
 
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Accept change product order")})
-  @PutMapping("/{orderId}/acceptChange")
-  public ResponseEntity<Boolean> acceptChangeProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId) {
-    driver.acceptChangeProposalProductOrder(orderId);
+        return ResponseEntity.ok().body(true);
+    }
 
-    return ResponseEntity.ok().body(true);
-  }
-
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Reject change product order")})
-  @PutMapping("/{orderId}/rejectChange")
-  public ResponseEntity<Boolean> rejectChangeProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId) {
-    driver.rejectChangeProductOrder(orderId);
-
-    return ResponseEntity.ok().body(true);
-  }
-
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Provision product order")})
-  @PutMapping("/{orderId}/provision")
-  public ResponseEntity<Boolean> provisionProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId) {
-    driver.provisionProductOrder(orderId);
-
-    return ResponseEntity.ok().body(true);
-  }
-
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
-  @PutMapping("/{orderId}/end")
-  public ResponseEntity<Boolean> endProductOrder(
-      @Valid @PathVariable("orderId") @NotNull String orderId) {
-    driver.endProductOrder(orderId);
-
-    return ResponseEntity.ok().body(true);
-  }
-
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Approve product order")})
-  @PutMapping("/{orderId}/approve")
-  public ResponseEntity<Boolean> approveProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId) {
-    driver.approveProductOrder(orderId);
-
-    return ResponseEntity.ok().body(true);
-  }
-
-  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Reject product order")})
-  @PutMapping("/{orderId}/reject")
-  public ResponseEntity<Boolean> rejectProductOrder(
-      @Valid @RequestParam("orderId") @NotNull String orderId,
-      @RequestBody String rejectionReason) {
-    driver.rejectProductOrder(orderId, rejectionReason);
-
-    return ResponseEntity.ok().body(true);
-  }
 }
