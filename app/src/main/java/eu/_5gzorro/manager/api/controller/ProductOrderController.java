@@ -17,12 +17,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +92,8 @@ public class ProductOrderController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
     @PutMapping("/{orderId}/end")
     public ResponseEntity<Boolean> endProductOrder(
-        @Valid @PathVariable("orderId") @NotNull String orderId) {
-        driver.endProductOrder(orderId);
+        @Valid @PathVariable("orderId") @NotNull String orderId, @Param("offerDId") @NotNull String offerDid) {
+        driver.endProductOrder(orderId, offerDid);
 
         return ResponseEntity.ok().body(true);
     }

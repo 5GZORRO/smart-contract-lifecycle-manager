@@ -59,7 +59,7 @@ public abstract class ExtendedFlowLogic<T> extends FlowLogic<T> {
     return oracle;
   }
 
-  public <R extends ContractState> StateAndRef<ProductOrder> findOrderWithLinearId(Class<ProductOrder> type, String id) {
+  public <R extends ContractState> StateAndRef<ProductOrder> findOrderByCatalogId(Class<ProductOrder> type, String id) {
     List<StateAndRef<ProductOrder>> states = getServiceHub().getVaultService().queryBy(type).getStates();
     for(StateAndRef<ProductOrder> state : states) {
       if (state.getState().getData().getProductOrder().getId().equals(id)) {
@@ -69,7 +69,7 @@ public abstract class ExtendedFlowLogic<T> extends FlowLogic<T> {
     return null;
   }
 
-  public <R extends ContractState> StateAndRef<ProductOffering> findOfferWithLinearId(Class<ProductOffering> type, String did) {
+  public <R extends ContractState> StateAndRef<ProductOffering> findOfferByDid(Class<ProductOffering> type, String did) {
     List<StateAndRef<ProductOffering>> states = getServiceHub().getVaultService().queryBy(type).getStates();
     for(StateAndRef<ProductOffering> state : states) {
       if (state.getState().getData().getOfferDetails().getDid().equals(did)) {

@@ -34,7 +34,7 @@ public interface ProductOrderDriver {
         List<ServiceLevelAgreement> serviceLevelAgreements,
         List<Pair<LicenseTerm, String>> licenseTerms);
 
-    void endProductOrder(String orderId);
+    void endProductOrder(String orderId, String offerDid);
 
     Observable<ProductOrderUpdateEvent> productOrderObservable();
 }

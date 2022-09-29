@@ -225,17 +225,17 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
                 orderDetails.getSupplierDid(),
                 orderDetails.getOfferDid());
 
-        log.info("Starting Publish flow for Product Order {}.", orderDetails.getOfferDid());
+        log.info("Starting Publish flow for Product Order {}.", orderDetails.getProductOrder().getId());
 
         rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
             productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements, licenseTerms);
     }
 
     @Override
-    public void endProductOrder(String orderId) {
+    public void endProductOrder(String orderId, String offerDId) {
         rpcClient.startFlowDynamic(
             EndProductOrderFlow.EndProductOrderInitiator.class,
-            orderId);
+            orderId, offerDId);
     }
 
 }
