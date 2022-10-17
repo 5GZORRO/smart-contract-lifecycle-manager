@@ -2,7 +2,6 @@ package eu._5gzorro.manager.dlt.corda.flows.product_offer;
 
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Update;
-import eu._5gzorro.manager.dlt.corda.flows.governance.GatherGovernanceSignatureFlow;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import net.corda.core.contracts.Command;
@@ -14,7 +13,6 @@ import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 
 import java.security.PublicKey;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,10 +49,14 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
     // Signing the transaction.
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
 
-    // TODO consider if governance is the one we want to sign this?
-    SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(signedTx, initiateFlows(productOffering.getParticipants())));
-    // TODO gather regulator signature if needed
-//    fullySignedTx = subFlow(new CollectSignaturesFlow(fullySignedTx, Collections.singletonList(initiateFlow(productOffering.getOwner()))));
+    Set<FlowSession> otherSigners = initiateFlows(
+        productOffering.getParticipants()
+            .stream()
+            .filter(p -> !p.equals(getOurIdentity()) || !productOffering.getParticipants().contains(p)) // Filter out own identity
+            .collect(Collectors.toList())
+    );
+
+    SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(signedTx, otherSigners));
 
     subFlow(new FinalityFlow(fullySignedTx, otherParties));
 
@@ -85,7 +87,7 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
       );
 
       StateAndRef<ProductOffering> prevStateAndRef
-          = findOfferWithLinearId(ProductOffering.class, productOffering.getOfferDetails().getDid());
+          = findOfferByDid(ProductOffering.class, productOffering.getOfferDetails().getDid());
       productOffering.setLinearId(prevStateAndRef.getState().getData().getLinearId());
       productOffering.setOwner(prevStateAndRef.getState().getData().getOwner());
 

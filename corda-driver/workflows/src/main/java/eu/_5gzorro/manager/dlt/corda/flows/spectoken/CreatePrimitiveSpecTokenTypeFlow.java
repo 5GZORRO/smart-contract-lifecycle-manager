@@ -28,12 +28,12 @@ public class CreatePrimitiveSpecTokenTypeFlow extends ExtendedFlowLogic<SignedTr
     @Override
     public SignedTransaction call() throws FlowException {
         List<Party> allOtherParties = getServiceHub()
-                .getNetworkMapCache()
-                .getAllNodes()
-                .stream()
-                .flatMap(c -> c.getLegalIdentities().stream())
-                .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
-                .collect(Collectors.toList());
+            .getNetworkMapCache()
+            .getAllNodes()
+            .stream()
+            .flatMap(c -> c.getLegalIdentities().stream())
+            .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
+            .collect(Collectors.toList());
         TransactionState<PrimitiveSpecTokenType> transactionState = new TransactionState<>(primitiveSpecTokenType, firstNotary());
         return subFlow(new CreateEvolvableTokens(transactionState, allOtherParties));
     }

@@ -2,21 +2,14 @@ package eu._5gzorro.manager.dlt.corda.flows.utils;
 
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
-import eu._5gzorro.manager.dlt.corda.states.PublicState;
-import kotlin.collections.CollectionsKt;
 import net.corda.core.contracts.ContractState;
-import net.corda.core.contracts.LinearState;
 import net.corda.core.contracts.StateAndRef;
-import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.flows.FlowException;
 import net.corda.core.flows.FlowLogic;
 import net.corda.core.flows.FlowSession;
 import net.corda.core.identity.AbstractParty;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
-import net.corda.core.node.services.Vault.StateStatus;
-import net.corda.core.node.services.vault.QueryCriteria;
-import net.corda.core.node.services.vault.QueryCriteria.LinearStateQueryCriteria;
 
 import java.util.HashSet;
 import java.util.List;
@@ -59,17 +52,17 @@ public abstract class ExtendedFlowLogic<T> extends FlowLogic<T> {
     return oracle;
   }
 
-  public <R extends ContractState> StateAndRef<ProductOrder> findOrderWithLinearId(Class<ProductOrder> type, String id) {
+  public <R extends ContractState> StateAndRef<ProductOrder> findOrderByDid(Class<ProductOrder> type, String did) {
     List<StateAndRef<ProductOrder>> states = getServiceHub().getVaultService().queryBy(type).getStates();
     for(StateAndRef<ProductOrder> state : states) {
-      if (state.getState().getData().getProductOrder().getId().equals(id)) {
+      if (state.getState().getData().getOfferDid().equals(did)) {
         return state;
       }
     }
     return null;
   }
 
-  public <R extends ContractState> StateAndRef<ProductOffering> findOfferWithLinearId(Class<ProductOffering> type, String did) {
+  public <R extends ContractState> StateAndRef<ProductOffering> findOfferByDid(Class<ProductOffering> type, String did) {
     List<StateAndRef<ProductOffering>> states = getServiceHub().getVaultService().queryBy(type).getStates();
     for(StateAndRef<ProductOffering> state : states) {
       if (state.getState().getData().getOfferDetails().getDid().equals(did)) {

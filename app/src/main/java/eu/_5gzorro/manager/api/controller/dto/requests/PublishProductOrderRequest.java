@@ -79,6 +79,6 @@ public class PublishProductOrderRequest {
         .setProductOrder(productOrder)
         .setSupplierDid(supplierDid)
         .setValidFor(validFor)
-        .setOfferDid(did);
+        .setOrderDid(did);
   }
 }
