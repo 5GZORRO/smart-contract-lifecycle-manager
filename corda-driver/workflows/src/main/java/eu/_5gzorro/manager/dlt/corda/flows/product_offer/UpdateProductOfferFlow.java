@@ -49,10 +49,14 @@ public class UpdateProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
     // Signing the transaction.
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
 
-    // TODO consider if governance is the one we want to sign this?
-    SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(signedTx, initiateFlows(productOffering.getParticipants())));
-    // TODO gather regulator signature if needed
-//    fullySignedTx = subFlow(new CollectSignaturesFlow(fullySignedTx, Collections.singletonList(initiateFlow(productOffering.getOwner()))));
+    Set<FlowSession> otherSigners = initiateFlows(
+        productOffering.getParticipants()
+            .stream()
+            .filter(p -> !p.equals(getOurIdentity()) || !productOffering.getParticipants().contains(p)) // Filter out own identity
+            .collect(Collectors.toList())
+    );
+
+    SignedTransaction fullySignedTx = subFlow(new CollectSignaturesFlow(signedTx, otherSigners));
 
     subFlow(new FinalityFlow(fullySignedTx, otherParties));
 

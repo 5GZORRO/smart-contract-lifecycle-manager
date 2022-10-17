@@ -16,6 +16,7 @@ public class ProductOrderUpdateEvent {
     private String did;
     private OrderUpdateType updateType;
     private String deduplicationId;
+    private boolean deleted;
 
     public String getIdentifier() {
         return identifier;
@@ -81,9 +82,18 @@ public class ProductOrderUpdateEvent {
         return this;
     }
 
+    public ProductOrderUpdateEvent setDeleted(boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
     @Override
     public String toString() {
-        return "ProductOfferingUpdateEvent{" +
+        return "ProductOrderUpdateEvent{" +
             "identifier='" + identifier + '\'' +
             ", productOrder=" + productOrder +
             ", invitations=" + invitations +
@@ -91,6 +101,7 @@ public class ProductOrderUpdateEvent {
             ", did='" + did + '\'' +
             ", updateType=" + updateType +
             ", deduplicationId='" + deduplicationId + '\'' +
+            ", deleted=" + deleted +
             '}';
     }
 }

@@ -46,8 +46,7 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
 
     private final DIDToDLTIdentityService didToDLTIdentityService;
     private final CordaRPCOps rpcClient;
-    private final ReplaySubject<CordaProductOrderDriver.UpdateWrapper> subject =
-        ReplaySubject.create();
+    private final ReplaySubject<CordaProductOrderDriver.UpdateWrapper> subject = ReplaySubject.create();
 
     private final List<String> governanceNodeNames;
     private final List<String> regulatorNodeNames;
@@ -67,42 +66,69 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
 
     @Override
     public void setup() {
-        QueryCriteria.VaultQueryCriteria criteria =
+        QueryCriteria.VaultQueryCriteria unconsumedCriteria =
             new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.UNCONSUMED);
 
         this.beginTracking(
-            criteria,
+            unconsumedCriteria,
             this::handleUpdate,
             stateAndRef ->
                 subject.onNext(
                     new CordaProductOrderDriver.UpdateWrapper()
                         .setProductOrder(stateAndRef.getState().getData())
                         .setDeduplicationId(stateAndRef.getRef().getTxhash().toString())
-                        .setUpdateType(OrderUpdateType.PUBLISH)));
+                        .setUpdateType(OrderUpdateType.PUBLISH)
+                )
+        );
+
+        QueryCriteria.VaultQueryCriteria consumedCriteria =
+            new QueryCriteria.VaultQueryCriteria(Vault.StateStatus.CONSUMED);
+
+        this.beginTrackingConsumed(
+            consumedCriteria,
+            this::handleDelete,
+            stateAndRef ->
+                subject.onNext(
+                    new CordaProductOrderDriver.UpdateWrapper()
+                        .setProductOrder(stateAndRef.getState().getData())
+                        .setDeduplicationId(stateAndRef.getRef().getTxhash().toString())
+                        .setUpdateType(OrderUpdateType.END)
+                )
+        );
     }
 
     private void handleUpdate(@NotNull final Vault.Update<eu._5gzorro.manager.dlt.corda.states.ProductOrder> update) {
         Optional<StateAndRef<eu._5gzorro.manager.dlt.corda.states.ProductOrder>> optionalConsumed = update.getConsumed().stream().findAny();
-        Optional<StateAndRef<eu._5gzorro.manager.dlt.corda.states.ProductOrder>> optionalProduced = update.getProduced().stream().findAny();
 
-        OrderUpdateType updateType = null;
+        OrderUpdateType updateType;
 
         if (optionalConsumed.isPresent()) {
-            if (!optionalProduced.isPresent()) {
-                updateType = OrderUpdateType.END;
-            }
+            updateType = OrderUpdateType.UPDATE;
+        } else {
+            updateType = OrderUpdateType.PUBLISH;
         }
 
-        OrderUpdateType finalUpdateType = updateType;
-        update
-            .getProduced()
-            .forEach(
-                produced ->
-                    subject.onNext(
-                        new CordaProductOrderDriver.UpdateWrapper()
-                            .setProductOrder(produced.getState().getData())
-                            .setDeduplicationId(produced.getRef().getTxhash().toString())
-                            .setUpdateType(finalUpdateType)));
+        update.getProduced().forEach(
+            order ->
+                subject.onNext(
+                    new CordaProductOrderDriver.UpdateWrapper()
+                        .setProductOrder(order.getState().getData())
+                        .setDeduplicationId(order.getRef().getTxhash().toString())
+                        .setUpdateType(updateType)
+                )
+        );
+    }
+
+    private void handleDelete(@NotNull final Vault.Update<eu._5gzorro.manager.dlt.corda.states.ProductOrder> delete) {
+        delete.getConsumed().forEach(
+            order ->
+                subject.onNext(
+                    new CordaProductOrderDriver.UpdateWrapper()
+                        .setProductOrder(order.getState().getData())
+                        .setDeduplicationId(order.getRef().getTxhash().toString())
+                        .setUpdateType(OrderUpdateType.END)
+                )
+        );
     }
 
     public static class UpdateWrapper {
@@ -161,6 +187,10 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
             updateWrapper -> {
                 ProductOrder productOrder = updateWrapper.getProductOrder();
 
+//                if (updateWrapper.getUpdateType().equals(OrderUpdateType.END)) {
+//                    rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, productOrder.getOfferDid())
+//                }
+
                 ObjectMapper objectMapper = new ObjectMapper();
                 ThreeTenModule module = new ThreeTenModule();
                 module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
@@ -170,9 +200,10 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
                     .setUpdateType(updateWrapper.getUpdateType())
                     .setDeduplicationId(updateWrapper.getDeduplicationId())
                     .setProductOrder(productOrder.getProductOrder())
-                    .setDid(productOrder.getSupplierDid())
+                    .setDid(productOrder.getOfferDid())
                     .setInvitations(productOrder.getDidInvitations())
-                    .setIdentifier(productOrder.getLinearId().getId().toString());
+                    .setIdentifier(productOrder.getLinearId().getId().toString())
+                    .setDeleted(updateWrapper.getUpdateType().equals(OrderUpdateType.END));
             });
     }
 
@@ -194,6 +225,7 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
 
         Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
 //        Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorB,OU=Zurich,L=47.38/8.54/Zurich,C=CH"));
+//        Party supplier = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
         log.info("supplier: {}", supplier != null ? supplier.toString() : null);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -223,19 +255,19 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
                 invitations,
                 orderDetails.getProductOrder(),
                 orderDetails.getSupplierDid(),
-                orderDetails.getOfferDid());
+                orderDetails.getOrderDid());
 
         log.info("Starting Publish flow for Product Order {}.", orderDetails.getProductOrder().getId());
 
         rpcClient.startFlowDynamic(PublishProductOrderFlow.PublishProductOrderInitiator.class,
-            productOrderState, orderDetails.getOfferDid(), serviceLevelAgreements, licenseTerms);
+            productOrderState, orderDetails.getOrderDid(), serviceLevelAgreements, licenseTerms);
     }
 
     @Override
-    public void endProductOrder(String orderId, String offerDId) {
+    public void endProductOrder(String orderDid, String offerDid) {
         rpcClient.startFlowDynamic(
             EndProductOrderFlow.EndProductOrderInitiator.class,
-            orderId, offerDId);
+            orderDid, offerDid);
     }
 
 }

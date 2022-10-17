@@ -6,7 +6,6 @@ import eu._5gzorro.manager.dlt.corda.flows.spectoken.RedeemDerivativeSpecTokenFl
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.states.ProductOrder;
-import kotlin.collections.SetsKt;
 import net.corda.core.contracts.Command;
 import net.corda.core.contracts.StateAndRef;
 import net.corda.core.contracts.UniqueIdentifier;
@@ -17,6 +16,7 @@ import net.corda.core.transactions.TransactionBuilder;
 import java.security.PublicKey;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
@@ -63,28 +63,29 @@ public class EndProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> {
     @InitiatingFlow
     @StartableByRPC
     public static class EndProductOrderInitiator extends ExtendedFlowLogic<UniqueIdentifier> {
-        private final String productOrderId;
+        private final String orderDid;
         private final String offerDid;
 
-        public EndProductOrderInitiator(String productOrderId, String offerDid) {
-            this.productOrderId = productOrderId;
+        public EndProductOrderInitiator(String orderDid, String offerDid) {
+            this.orderDid = orderDid;
             this.offerDid = offerDid;
         }
 
         @Suspendable
         @Override
         public UniqueIdentifier call() throws FlowException {
-            StateAndRef<ProductOrder> prevStateAndRef = findOrderByCatalogId(ProductOrder.class, productOrderId);
+            StateAndRef<ProductOrder> prevStateAndRef = findOrderByDid(ProductOrder.class, orderDid);
 
             ProductOrder productOrder = prevStateAndRef.getState().getData();
-            Set<FlowSession> sessions;
-            if (OfferType.SPECTRUM.equals(productOrder.getOfferType())) {
-                sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty(), productOrder.getSpectrumRegulator()));
-            } else {
-                sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
-            }
 
-            return subFlow(new EndProductOrderFlow(prevStateAndRef, sessions, offerDid));
+            Set<FlowSession> otherSigners = initiateFlows(
+                productOrder.getParticipants()
+                    .stream()
+                    .filter(p -> !p.equals(getOurIdentity()))
+                    .collect(Collectors.toList())
+            );
+
+            return subFlow(new EndProductOrderFlow(prevStateAndRef, otherSigners, offerDid));
         }
     }
 

@@ -6,7 +6,7 @@ import eu._5gzorro.tm_forum.models.product_order.ProductOrder;
 public class ProductOrderDetails {
   private ProductOrder productOrder;
   private String supplierDid;
-  private String offerDid; // Offer order is based off did
+  private String orderDid;
   private TimePeriod validFor;
 
   public ProductOrder getProductOrder() {
@@ -27,21 +27,21 @@ public class ProductOrderDetails {
     return this;
   }
 
-  public String getOfferDid() {
-    return offerDid;
-  }
-
-  public ProductOrderDetails setOfferDid(String offerDid) {
-    this.offerDid = offerDid;
-    return this;
-  }
-
   public TimePeriod getValidFor() {
     return validFor;
   }
 
   public ProductOrderDetails setValidFor(TimePeriod validFor) {
     this.validFor = validFor;
+    return this;
+  }
+
+  public String getOrderDid() {
+    return orderDid;
+  }
+
+  public ProductOrderDetails setOrderDid(String orderDid) {
+    this.orderDid = orderDid;
     return this;
   }
 }
