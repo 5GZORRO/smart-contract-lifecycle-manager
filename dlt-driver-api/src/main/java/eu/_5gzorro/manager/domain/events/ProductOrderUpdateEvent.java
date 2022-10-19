@@ -17,6 +17,8 @@ public class ProductOrderUpdateEvent {
     private OrderUpdateType updateType;
     private String deduplicationId;
     private boolean deleted;
+    private boolean spectrum;
+    private String sellerName;
 
     public String getIdentifier() {
         return identifier;
@@ -91,6 +93,24 @@ public class ProductOrderUpdateEvent {
         return deleted;
     }
 
+    public boolean isSpectrum() {
+        return spectrum;
+    }
+
+    public ProductOrderUpdateEvent setSpectrum(boolean spectrum) {
+        this.spectrum = spectrum;
+        return this;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public ProductOrderUpdateEvent setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ProductOrderUpdateEvent{" +
@@ -102,6 +122,8 @@ public class ProductOrderUpdateEvent {
             ", updateType=" + updateType +
             ", deduplicationId='" + deduplicationId + '\'' +
             ", deleted=" + deleted +
+            ", spectrum=" + spectrum +
+            ", seller=" + sellerName +
             '}';
     }
 }

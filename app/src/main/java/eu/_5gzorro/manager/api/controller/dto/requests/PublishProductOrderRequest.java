@@ -15,7 +15,8 @@ public class PublishProductOrderRequest {
   @NotNull private ProductOrder productOrder;
   private Map<String, Invitation> invitations;
   private Collection<VerifiableCredential> verifiableCredentials;
-  @NotBlank private String did;
+  @NotBlank private String orderDid;
+  @NotBlank private String offerDid;
   private String supplierDid;
   private TimePeriod validFor;
 
@@ -47,13 +48,21 @@ public class PublishProductOrderRequest {
     return this;
   }
 
-  public String getDid() {
-    return did;
+  public String getOrderDid() {
+    return orderDid;
   }
 
-  public PublishProductOrderRequest setDid(String did) {
-    this.did = did;
+  public PublishProductOrderRequest setOrderDid(String orderDid) {
+    this.orderDid = orderDid;
     return this;
+  }
+
+  public String getOfferDid() {
+    return offerDid;
+  }
+
+  public void setOfferDid(String offerDid) {
+    this.offerDid = offerDid;
   }
 
   public String getSupplierDid() {
@@ -79,6 +88,6 @@ public class PublishProductOrderRequest {
         .setProductOrder(productOrder)
         .setSupplierDid(supplierDid)
         .setValidFor(validFor)
-        .setOrderDid(did);
+        .setOrderDid(orderDid);
   }
 }

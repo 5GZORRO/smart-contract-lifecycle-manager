@@ -1,6 +1,9 @@
 package eu._5gzorro.manager.api.service.kafka;
 
+import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
+import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
+import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Optional;
 
 @ConditionalOnProperty("spring.kafka.enabled")
 @Service
@@ -22,13 +26,18 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
     private String productOrderTopic;
 
     private final ProductOrderDriver driver;
+    private final DerivativeSpectokenDriver derivativeSpectokenDriver;
 
     private Disposable kafkaPublishDisposable;
 
+    private final OrderOfferMappingRepository orderOfferMappingRepository;
+
     public ProductOrderKafkaService(
-        KafkaTemplate<String, ProductOrderUpdateEvent> kafkaTemplate, ProductOrderDriver driver) {
+        KafkaTemplate<String, ProductOrderUpdateEvent> kafkaTemplate, ProductOrderDriver driver, DerivativeSpectokenDriver derivativeSpectokenDriver, OrderOfferMappingRepository orderOfferMappingRepository) {
         super(kafkaTemplate);
         this.driver = driver;
+        this.derivativeSpectokenDriver = derivativeSpectokenDriver;
+        this.orderOfferMappingRepository = orderOfferMappingRepository;
     }
 
     @PostConstruct
@@ -44,6 +53,11 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
                             productOrderTopic,
                             productOrderUpdateEvent.getDeduplicationId(),
                             productOrderUpdateEvent);
+
+                        if (productOrderUpdateEvent.isDeleted() && productOrderUpdateEvent.isSpectrum()) {
+                            Optional<OrderOfferMapping> optionalOrderOfferMapping = orderOfferMappingRepository.findByOrderDid(productOrderUpdateEvent.getDid());
+                            optionalOrderOfferMapping.ifPresent(orderOfferMapping -> derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName()));
+                        }
                     });
     }
 

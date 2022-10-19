@@ -2,7 +2,9 @@ package eu._5gzorro.manager.service;
 
 
 import eu._5gzorro.manager.domain.ProductOfferDetails;
+import eu._5gzorro.manager.domain.events.enums.OrderUpdateType;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
+import net.corda.core.identity.Party;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -19,4 +21,5 @@ public interface DerivativeSpectokenDriver {
 
     List<GetDerivativeSpectokenResponse> getDerivativeSpectokens() throws ExecutionException, InterruptedException;
 
+    void redeemDerivativeSpectoken(String offerDid, String sellerName);
 }
