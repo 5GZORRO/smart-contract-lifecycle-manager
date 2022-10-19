@@ -187,10 +187,6 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
             updateWrapper -> {
                 ProductOrder productOrder = updateWrapper.getProductOrder();
 
-//                if (updateWrapper.getUpdateType().equals(OrderUpdateType.END)) {
-//                    rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, productOrder.getOfferDid())
-//                }
-
                 ObjectMapper objectMapper = new ObjectMapper();
                 ThreeTenModule module = new ThreeTenModule();
                 module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
@@ -203,7 +199,9 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
                     .setDid(productOrder.getOfferDid())
                     .setInvitations(productOrder.getDidInvitations())
                     .setIdentifier(productOrder.getLinearId().getId().toString())
-                    .setDeleted(updateWrapper.getUpdateType().equals(OrderUpdateType.END));
+                    .setDeleted(updateWrapper.getUpdateType().equals(OrderUpdateType.END))
+                    .setSpectrum(OfferType.SPECTRUM.equals(productOrder.getOfferType()))
+                    .setSellerName(productOrder.getSeller().getName().toString());
             });
     }
 

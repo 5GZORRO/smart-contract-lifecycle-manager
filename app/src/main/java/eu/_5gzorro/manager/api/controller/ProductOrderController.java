@@ -85,6 +85,9 @@ public class ProductOrderController {
             licenseTerms
         );
 
+        OrderOfferMapping orderOfferMapping = new OrderOfferMapping(request.getOfferDid(), request.getOrderDid());
+        orderOfferMappingRepository.save(orderOfferMapping);
+
         return ResponseEntity.ok().body(true);
     }
 

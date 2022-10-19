@@ -3,10 +3,13 @@ package eu._5gzorro.manager.dlt.corda.service.spectoken;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.CreateDerivativeSpecTokenTypeFromOfferFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.GetDerivativeSpecTokensFlow;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.IssueDerivativeSpecTokenToHolderFlow;
+import eu._5gzorro.manager.dlt.corda.flows.spectoken.RedeemDerivativeSpecTokenFlow;
+import eu._5gzorro.manager.dlt.corda.models.types.OfferType;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
 import eu._5gzorro.manager.dlt.corda.states.DerivativeSpecTokenType;
 import eu._5gzorro.manager.domain.ProductOfferDetails;
+import eu._5gzorro.manager.domain.events.enums.OrderUpdateType;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
@@ -93,6 +96,12 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             derivativeSpectokens.add(convertToResponse(stateAndRef.getState().getData()));
         }
         return derivativeSpectokens;
+    }
+
+    @Override
+    public void redeemDerivativeSpectoken(String offerDid, String sellerName) {
+        Party seller = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(sellerName));
+        rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller);
     }
 
     private Party findRegulatorNode() {
