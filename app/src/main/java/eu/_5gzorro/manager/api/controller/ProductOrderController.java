@@ -4,8 +4,10 @@ import eu._5gzorro.elicense.models.LicenseTerm;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
 import eu._5gzorro.manager.api.httpClient.RSOCClient;
 import eu._5gzorro.manager.api.httpClient.requests.SCLCMClient;
+import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.model.exception.LicenseTermNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
+import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
@@ -24,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,9 @@ public class ProductOrderController {
 
     @Autowired
     private ServiceLevelAgreementService serviceLevelAgreementService;
+
+    @Autowired
+    private OrderOfferMappingRepository orderOfferMappingRepository;
 
     public ProductOrderController(ProductOrderDriver driver) {
         this.driver = driver;
