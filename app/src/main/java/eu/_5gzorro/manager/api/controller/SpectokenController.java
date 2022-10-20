@@ -6,6 +6,7 @@ import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -68,6 +69,18 @@ public class SpectokenController {
             ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(primitiveSpectokens);
+    }
+
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Retrieved Spectoken NFTs"
+        )
+    })
+    @GetMapping("/nfts")
+    public ResponseEntity<?> getNfts() {
+        List<NftResponse> nftResponses = primitiveSpectokenDriver.getNfts();
+        return ResponseEntity.ok().body(nftResponses);
     }
 
     @ApiResponses(value = {

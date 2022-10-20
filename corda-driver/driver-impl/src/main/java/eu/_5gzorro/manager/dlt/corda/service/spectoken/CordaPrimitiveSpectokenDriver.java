@@ -1,5 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
+import com.r3.corda.lib.tokens.contracts.states.NonFungibleToken;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.*;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
@@ -8,6 +9,7 @@ import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
@@ -144,6 +146,16 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         }
     }
 
+    @Override
+    public List<NftResponse> getNfts() {
+        Vault.Page<NonFungibleToken> nonFungibleTokenPage = rpcClient.vaultQuery(NonFungibleToken.class);
+        List<NftResponse> nfts = new ArrayList<>();
+        for (StateAndRef<NonFungibleToken> nonFungibleToken : nonFungibleTokenPage.getStates()) {
+            nfts.add(convertToNftResponse(nonFungibleToken.getState().getData()));
+        }
+        return nfts;
+    }
+
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
         return new GetPrimitiveSpectokenResponse(
             primitiveSpecTokenType.getLinearId().toString(),
@@ -159,6 +171,15 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             primitiveSpecTokenType.getCountry(),
             primitiveSpecTokenType.getOwnerDid(),
             primitiveSpecTokenType.getLicense()
+        );
+    }
+
+    private NftResponse convertToNftResponse(NonFungibleToken nonFungibleToken) {
+        return new NftResponse(
+            nonFungibleToken.getLinearId().toString(),
+            nonFungibleToken.getIssuer().getName().toString(),
+            nonFungibleToken.getHolder().toString(),
+            nonFungibleToken.getToken().getTokenType().toString()
         );
     }
 
