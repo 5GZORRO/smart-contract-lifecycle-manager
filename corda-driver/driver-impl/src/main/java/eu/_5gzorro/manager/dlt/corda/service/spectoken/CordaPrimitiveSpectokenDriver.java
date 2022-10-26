@@ -136,14 +136,16 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public void invalidatePrimitiveSpectoken(String licenseId) {
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
+    public List<String> invalidatePrimitiveSpectoken(String licenseId) {
+        CompletableFuture<SignedTransaction> primitiveCompletableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
         try {
-            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
-            rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString());
+            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = primitiveCompletableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+            CompletableFuture<List<String>> derivativeCompletableFuture = rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString()).getReturnValue().toCompletableFuture();
+            return derivativeCompletableFuture.get();
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }
+        return null;
     }
 
     @Override
@@ -177,9 +179,9 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     private NftResponse convertToNftResponse(NonFungibleToken nonFungibleToken) {
         return new NftResponse(
             nonFungibleToken.getLinearId().toString(),
-            nonFungibleToken.getIssuer().getName().toString(),
-            nonFungibleToken.getHolder().toString(),
-            nonFungibleToken.getToken().getTokenType().toString()
+            nonFungibleToken.getIssuer().getName().getOrganisation(),
+            nonFungibleToken.getHolder().nameOrNull().getOrganisation(),
+            nonFungibleToken.getToken().getTokenType().getTokenClass().getSimpleName() + " - " + nonFungibleToken.getToken().getTokenIdentifier()
         );
     }
 

@@ -30,7 +30,7 @@ public interface PrimitiveSpectokenDriver {
 
     List<GetPrimitiveSpectokenResponse> getPrimitiveSpectokens() throws ExecutionException, InterruptedException;
 
-    void invalidatePrimitiveSpectoken(String licenseId);
+    List<String> invalidatePrimitiveSpectoken(String licenseId);
 
     List<NftResponse> getNfts();
 }
