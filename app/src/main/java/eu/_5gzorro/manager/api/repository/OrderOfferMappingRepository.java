@@ -17,6 +17,9 @@ public interface OrderOfferMappingRepository extends JpaRepository<OrderOfferMap
     @Query("SELECT oom FROM OrderOfferMapping oom WHERE oom.orderDid = ?1")
     Optional<OrderOfferMapping> findByOrderDid(String orderDid);
 
+    @Query("SELECT oom FROM OrderOfferMapping oom WHERE oom.offerDid = ?1")
+    List<OrderOfferMapping> findByOfferDid(String offerDid);
+
     @NotNull
     List<OrderOfferMapping> findAll();
 }

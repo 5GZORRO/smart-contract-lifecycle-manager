@@ -114,6 +114,7 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
 
     private GetDerivativeSpectokenResponse convertToResponse(DerivativeSpecTokenType derivativeSpecTokenType) {
         return new GetDerivativeSpectokenResponse(
+            derivativeSpecTokenType.getLinearId().toString(),
             derivativeSpecTokenType.getStartDl(),
             derivativeSpecTokenType.getEndDl(),
             derivativeSpecTokenType.getStartUl(),

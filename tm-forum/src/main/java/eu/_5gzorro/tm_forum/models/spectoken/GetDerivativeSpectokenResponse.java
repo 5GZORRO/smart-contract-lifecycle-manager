@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class GetDerivativeSpectokenResponse {
 
+    private final String id;
+
     private final Double startDl;
 
     private final Double endDl;
@@ -30,7 +32,8 @@ public class GetDerivativeSpectokenResponse {
 
     private final String offerDid;
 
-    public GetDerivativeSpectokenResponse(Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, Float price, String primitiveId, String offerDid) {
+    public GetDerivativeSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, Float price, String primitiveId, String offerDid) {
+        this.id = id;
         this.startDl = startDl;
         this.endDl = endDl;
         this.startUl = startUl;
@@ -44,6 +47,10 @@ public class GetDerivativeSpectokenResponse {
         this.price = price;
         this.primitiveId = primitiveId;
         this.offerDid = offerDid;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Double getStartDl() {
@@ -61,7 +68,6 @@ public class GetDerivativeSpectokenResponse {
     public Double getEndUl() {
         return endUl;
     }
-
 
     public Date getStartDate() {
         return startDate;
@@ -98,4 +104,5 @@ public class GetDerivativeSpectokenResponse {
     public String getOfferDid() {
         return offerDid;
     }
+
 }
