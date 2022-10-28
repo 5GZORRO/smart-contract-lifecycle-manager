@@ -110,9 +110,17 @@ public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
             offerDetails
         );
 
-    if ("Spectrum".equals(offerDetails.getProductOffering().getCategory().get(0).getName())) {
+    String category = offerDetails.getProductOffering().getCategory().get(0).getName();
+
+    if ("Spectrum".equals(category)) {
       boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
       if (isDerivativeSpectokenCreated) {
+        rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+      }
+    } else if ("Slice".equals(category)) {
+      boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
+      boolean isDerivativeSpectokenIssued = derivativeSpectokenDriver.issueDerivativeSpectoken(offerDetails.getDid());
+      if (isDerivativeSpectokenCreated & isDerivativeSpectokenIssued) {
         rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
       }
     } else {
