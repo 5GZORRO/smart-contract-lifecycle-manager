@@ -2,15 +2,20 @@ package eu._5gzorro.manager.api.controller;
 
 import eu._5gzorro.manager.api.dto.requests.CreatePrimitiveSpectokenRequest;
 import eu._5gzorro.manager.api.dto.requests.IssueDerivativeSpectokenRequest;
+import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
+import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
+import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +31,15 @@ import java.util.concurrent.ExecutionException;
 public class SpectokenController {
     private final PrimitiveSpectokenDriver primitiveSpectokenDriver;
     private final DerivativeSpectokenDriver derivativeSpectokenDriver;
+    private final ProductOrderDriver productOrderDriver;
 
-    public SpectokenController(PrimitiveSpectokenDriver primitiveSpectokenDriver, DerivativeSpectokenDriver derivativeSpectokenDriver) {
+    @Autowired
+    private OrderOfferMappingRepository orderOfferMappingRepository;
+
+    public SpectokenController(PrimitiveSpectokenDriver primitiveSpectokenDriver, DerivativeSpectokenDriver derivativeSpectokenDriver, ProductOrderDriver productOrderDriver) {
         this.primitiveSpectokenDriver = primitiveSpectokenDriver;
         this.derivativeSpectokenDriver = derivativeSpectokenDriver;
+        this.productOrderDriver = productOrderDriver;
     }
 
     @ApiResponses(value = {
@@ -68,6 +78,18 @@ public class SpectokenController {
             ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(primitiveSpectokens);
+    }
+
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Retrieved Spectoken NFTs"
+        )
+    })
+    @GetMapping("/nfts")
+    public ResponseEntity<?> getNfts() {
+        List<NftResponse> nftResponses = primitiveSpectokenDriver.getNfts();
+        return ResponseEntity.ok().body(nftResponses);
     }
 
     @ApiResponses(value = {
@@ -123,7 +145,13 @@ public class SpectokenController {
     })
     @PutMapping("primitive/redeem/{licenseDid}")
     public ResponseEntity<Boolean> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseDid") @NotNull String licenseDid) {
-        primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
+        List<String> offerDids = primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
+        for (String offerDId : offerDids) {
+            List<OrderOfferMapping> orderOfferMappings = orderOfferMappingRepository.findByOfferDid(offerDId);
+            for (OrderOfferMapping orderOfferMapping : orderOfferMappings) {
+                productOrderDriver.endProductOrder(orderOfferMapping.getOrderDid(), offerDId);
+            }
+        }
         return ResponseEntity.ok().body(true);
     }
 

@@ -9,14 +9,14 @@ import net.corda.core.flows.FlowException;
 import net.corda.core.flows.InitiatingFlow;
 import net.corda.core.flows.StartableByRPC;
 import net.corda.core.identity.Party;
-import net.corda.core.transactions.SignedTransaction;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @InitiatingFlow
 @StartableByRPC
-public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<SignedTransaction> {
+public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<String>> {
 
     private final String primitiveId;
 
@@ -26,7 +26,7 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<Signed
 
     @Suspendable
     @Override
-    public SignedTransaction call() throws FlowException {
+    public List<String> call() throws FlowException {
         List<StateAndRef<DerivativeSpecTokenType>> states = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
         if (states.isEmpty()) {
             throw new FlowException("Any Derivative Spectoken found.");
@@ -39,6 +39,8 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<Signed
             .flatMap(c -> c.getLegalIdentities().stream())
             .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
             .collect(Collectors.toList());
+
+        List<String> offerDids = new ArrayList<>();
 
         for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenStateAndRef : states) {
             derivativeSpecTokenType = derivativeSpecTokenStateAndRef.getState().getData();
@@ -62,8 +64,9 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<Signed
                     derivativeSpecTokenType.getOfferDid()
                 );
                 subFlow(new UpdateEvolvableToken(derivativeSpecTokenStateAndRef, newDerivativeSpecTokenType, allOtherParties));
+                offerDids.add(derivativeSpecTokenType.getOfferDid());
             }
         }
-        return null;
+        return offerDids;
     }
 }

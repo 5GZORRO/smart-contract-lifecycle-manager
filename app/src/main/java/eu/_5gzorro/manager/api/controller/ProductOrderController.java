@@ -4,8 +4,10 @@ import eu._5gzorro.elicense.models.LicenseTerm;
 import eu._5gzorro.manager.api.controller.dto.requests.PublishProductOrderRequest;
 import eu._5gzorro.manager.api.httpClient.RSOCClient;
 import eu._5gzorro.manager.api.httpClient.requests.SCLCMClient;
+import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.model.exception.LicenseTermNotFoundException;
 import eu._5gzorro.manager.api.model.exception.ServiceLevelAgreementNotFoundException;
+import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.api.service.ServiceLevelAgreementService;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.tm_forum.models.product.ProductOffering;
@@ -17,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +44,9 @@ public class ProductOrderController {
 
     @Autowired
     private ServiceLevelAgreementService serviceLevelAgreementService;
+
+    @Autowired
+    private OrderOfferMappingRepository orderOfferMappingRepository;
 
     public ProductOrderController(ProductOrderDriver driver) {
         this.driver = driver;
@@ -83,6 +89,9 @@ public class ProductOrderController {
             licenseTerms
         );
 
+        OrderOfferMapping orderOfferMapping = new OrderOfferMapping(request.getOfferDid(), request.getOrderDid());
+        orderOfferMappingRepository.save(orderOfferMapping);
+
         return ResponseEntity.ok().body(true);
     }
 
@@ -90,8 +99,8 @@ public class ProductOrderController {
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
     @PutMapping("/{orderId}/end")
     public ResponseEntity<Boolean> endProductOrder(
-        @Valid @PathVariable("orderId") @NotNull String orderId) {
-        driver.endProductOrder(orderId);
+        @Valid @PathVariable("orderId") @NotNull String orderId, @Param("offerDId") @NotNull String offerDid) {
+        driver.endProductOrder(orderId, offerDid);
 
         return ResponseEntity.ok().body(true);
     }

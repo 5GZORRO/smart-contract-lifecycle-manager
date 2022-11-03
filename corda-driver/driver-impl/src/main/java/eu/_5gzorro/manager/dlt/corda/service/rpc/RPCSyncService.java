@@ -8,11 +8,14 @@ import net.corda.core.node.services.Vault.Page;
 import net.corda.core.node.services.Vault.Update;
 import net.corda.core.node.services.vault.PageSpecification;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
+import net.corda.core.node.services.vault.Sort;
+import net.corda.core.node.services.vault.SortAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.functions.Action1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -60,6 +63,32 @@ public abstract class RPCSyncService<T extends ContractState> {
             updateFunction,
             error -> log.error("Error in {} tracking", typeParameterClass.getName(), error),
             () -> {}
+        );
+  }
+
+  protected void beginTrackingConsumed(
+      VaultQueryCriteria criteria,
+      Action1<Update<T>> updateFunction,
+      Consumer<StateAndRef<T>> forEachRecordOnStartup
+  ) {
+    List<StateAndRef<T>> states = new ArrayList<>();
+    Sort.SortColumn sortByUid = new Sort.SortColumn(new SortAttribute.Standard(Sort.LinearStateAttribute.UUID), Sort.Direction.DESC);
+    Vault.Page<T> results = client.getClient().vaultQueryByWithSorting(typeParameterClass, criteria, new Sort(Collections.singletonList(sortByUid)));
+    if (!results.getStates().isEmpty()) {
+      states.add(results.getStates().get(0));
+    }
+
+    states.forEach(forEachRecordOnStartup);
+
+    DataFeed<Page<T>, Update<T>> dataFeed
+        = client.startTracking(typeParameterClass, criteria);
+
+    dataFeed.getUpdates()
+        .subscribe(
+            updateFunction,
+            error -> log.error("Error in {} tracking", typeParameterClass.getName(), error),
+            () -> {
+            }
         );
   }
 }

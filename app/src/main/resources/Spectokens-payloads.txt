@@ -19,18 +19,51 @@ run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.Derivativ
 run vaultQuery contractStateType: com.r3.corda.lib.tokens.contracts.states.NonFungibleToken
 run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOffering
 run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOrder
+run vaultQueryByCriteria criteria: { status: net.corda.core.node.services.Vault.StateStatus.ALL }, contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOrder
 
 {
-  "startDl": 750,
-  "endDl": 800,
-  "startUl": 700,
-  "endUl": 750,
-  "startDate": "2021-05-17T09:00:00.007Z",
-  "endDate": "2036-05-16T09:00:00.007Z",
+  "startDl": 2140,
+  "endDl": 2145,
+  "startUl": 1935,
+  "endUl": 1940,
+  "startDate": "2036-05-16T09:00:00.007Z",
+  "endDate": "2036-05-26T09:00:00.007Z",
   "duplexMode": "FDD",
-  "band": 28,
+  "band": 1,
   "technology": "5G",
-  "country": "Japan",
+  "country": "Germany",
   "ownerDid": "M10KauVlQwdMu7Ho9Wk5mp",
-  "license": "3yLdYwrZyxX3NoYtCAgtfNJAnVk4X98X9KtwMQDtiXMS"
+  "license": "licencia1"
+}
+
+{
+   "description":"Product Order weit test 6",
+   "requestedCompletionDate":"2036-05-26T09:00:00.007Z",
+   "requestedStartDate":"2036-05-16T09:00:00.007Z",
+   "productOrderItem":[
+      {
+         "quantity":1,
+         "action":"add",
+         "productOffering":{
+            "id":"4a04f57f-0122-409d-901c-3d1d94402a1b"
+         }
+      }
+   ],
+   "relatedParty":[
+      {
+         "extendedInfo": "operatorB",
+         "name":"Operator-b",
+         "role":"Seller"
+      },
+      {
+         "extendedInfo": "operatorC",
+         "name":"Operator-c",
+         "role":"Buyer"
+      }
+   ]
+}
+{
+    "credentialSubject": {
+        "id": "CK1S2QBVVozjCVRQe87DTm"
+    }
 }

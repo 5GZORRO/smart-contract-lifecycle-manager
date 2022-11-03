@@ -15,8 +15,11 @@ public interface DerivativeSpectokenDriver {
      */
     void issueDerivativeSpectoken(String offerDid, String ownerDid);
 
+    boolean issueDerivativeSpectoken(String offerDid) throws ExecutionException, InterruptedException;
+
     boolean createDerivativeSpectokenFromOffer(@NotNull final ProductOfferDetails productOfferDetails, @NotNull String offerDid) throws ExecutionException, InterruptedException;
 
     List<GetDerivativeSpectokenResponse> getDerivativeSpectokens() throws ExecutionException, InterruptedException;
 
+    void redeemDerivativeSpectoken(String offerDid, String sellerName);
 }

@@ -16,6 +16,9 @@ public class ProductOrderUpdateEvent {
     private String did;
     private OrderUpdateType updateType;
     private String deduplicationId;
+    private boolean deleted;
+    private boolean spectrum;
+    private String sellerName;
 
     public String getIdentifier() {
         return identifier;
@@ -81,9 +84,36 @@ public class ProductOrderUpdateEvent {
         return this;
     }
 
+    public ProductOrderUpdateEvent setDeleted(boolean deleted) {
+        this.deleted = deleted;
+        return this;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public boolean isSpectrum() {
+        return spectrum;
+    }
+
+    public ProductOrderUpdateEvent setSpectrum(boolean spectrum) {
+        this.spectrum = spectrum;
+        return this;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public ProductOrderUpdateEvent setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "ProductOfferingUpdateEvent{" +
+        return "ProductOrderUpdateEvent{" +
             "identifier='" + identifier + '\'' +
             ", productOrder=" + productOrder +
             ", invitations=" + invitations +
@@ -91,6 +121,9 @@ public class ProductOrderUpdateEvent {
             ", did='" + did + '\'' +
             ", updateType=" + updateType +
             ", deduplicationId='" + deduplicationId + '\'' +
+            ", deleted=" + deleted +
+            ", spectrum=" + spectrum +
+            ", seller=" + sellerName +
             '}';
     }
 }

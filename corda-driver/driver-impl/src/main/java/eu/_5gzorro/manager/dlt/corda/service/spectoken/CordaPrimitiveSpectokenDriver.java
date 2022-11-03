@@ -1,5 +1,6 @@
 package eu._5gzorro.manager.dlt.corda.service.spectoken;
 
+import com.r3.corda.lib.tokens.contracts.states.NonFungibleToken;
 import eu._5gzorro.manager.dlt.corda.flows.spectoken.*;
 import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.rpc.RPCSyncService;
@@ -8,6 +9,7 @@ import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
@@ -85,6 +87,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
 //        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorB,OU=Zurich,L=47.38/8.54/Zurich,C=CH"));
+//        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
         PrimitiveSpecTokenType primitiveSpecTokenType =
             new PrimitiveSpecTokenType(
                 Collections.singletonList(ourIdentity),
@@ -133,14 +136,26 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public void invalidatePrimitiveSpectoken(String licenseId) {
-        CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
+    public List<String> invalidatePrimitiveSpectoken(String licenseId) {
+        CompletableFuture<SignedTransaction> primitiveCompletableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
         try {
-            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
-            rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString());
+            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = primitiveCompletableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+            CompletableFuture<List<String>> derivativeCompletableFuture = rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString()).getReturnValue().toCompletableFuture();
+            return derivativeCompletableFuture.get();
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
         }
+        return null;
+    }
+
+    @Override
+    public List<NftResponse> getNfts() {
+        Vault.Page<NonFungibleToken> nonFungibleTokenPage = rpcClient.vaultQuery(NonFungibleToken.class);
+        List<NftResponse> nfts = new ArrayList<>();
+        for (StateAndRef<NonFungibleToken> nonFungibleToken : nonFungibleTokenPage.getStates()) {
+            nfts.add(convertToNftResponse(nonFungibleToken.getState().getData()));
+        }
+        return nfts;
     }
 
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
@@ -158,6 +173,15 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             primitiveSpecTokenType.getCountry(),
             primitiveSpecTokenType.getOwnerDid(),
             primitiveSpecTokenType.getLicense()
+        );
+    }
+
+    private NftResponse convertToNftResponse(NonFungibleToken nonFungibleToken) {
+        return new NftResponse(
+            nonFungibleToken.getLinearId().toString(),
+            nonFungibleToken.getIssuer().getName().getOrganisation(),
+            nonFungibleToken.getHolder().nameOrNull().getOrganisation(),
+            nonFungibleToken.getToken().getTokenType().getTokenClass().getSimpleName() + " - " + nonFungibleToken.getToken().getTokenIdentifier()
         );
     }
 

@@ -24,6 +24,7 @@ import net.corda.core.transactions.TransactionBuilder;
 import java.security.PublicKey;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
@@ -123,15 +124,15 @@ public class PublishProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier>
     @Suspendable
     @Override
     public UniqueIdentifier call() throws FlowException {
-      Set<FlowSession> sessions;
-      if (OfferType.SPECTRUM.equals(productOrder.getOfferType())) {
-        sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty(), productOrder.getSpectrumRegulator()));
-      } else {
-        sessions = initiateFlows(SetsKt.setOf(productOrder.getSeller(), productOrder.getGovernanceParty()));
-      }
+      Set<FlowSession> otherSigners = initiateFlows(
+          productOrder.getParticipants()
+              .stream()
+              .filter(p -> !p.equals(getOurIdentity()))
+              .collect(Collectors.toList())
+      );
 
       return subFlow(new PublishProductOrderFlow(productOrder, productOrderDID,
-              sessions, serviceLevelAgreements, licenseTerms));
+          otherSigners, serviceLevelAgreements, licenseTerms));
     }
   }
 

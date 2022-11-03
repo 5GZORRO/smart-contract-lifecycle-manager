@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.service;
 
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -29,5 +30,7 @@ public interface PrimitiveSpectokenDriver {
 
     List<GetPrimitiveSpectokenResponse> getPrimitiveSpectokens() throws ExecutionException, InterruptedException;
 
-    void invalidatePrimitiveSpectoken(String licenseId);
+    List<String> invalidatePrimitiveSpectoken(String licenseId);
+
+    List<NftResponse> getNfts();
 }
