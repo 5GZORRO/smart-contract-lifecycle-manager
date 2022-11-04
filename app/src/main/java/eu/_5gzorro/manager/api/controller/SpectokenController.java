@@ -58,7 +58,7 @@ public class SpectokenController {
         try {
             derivativeSpectokens = derivativeSpectokenDriver.getDerivativeSpectokens();
         } catch (ExecutionException | InterruptedException e) {
-            ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(derivativeSpectokens);
     }
@@ -75,7 +75,7 @@ public class SpectokenController {
         try {
             primitiveSpectokens = primitiveSpectokenDriver.getPrimitiveSpectokens();
         } catch (ExecutionException | InterruptedException e) {
-            ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(primitiveSpectokens);
     }
@@ -88,7 +88,12 @@ public class SpectokenController {
     })
     @GetMapping("/nfts")
     public ResponseEntity<?> getNfts() {
-        List<NftResponse> nftResponses = primitiveSpectokenDriver.getNfts();
+        List<NftResponse> nftResponses = new ArrayList<>();
+        try {
+            nftResponses = primitiveSpectokenDriver.getNfts();
+        } catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
         return ResponseEntity.ok().body(nftResponses);
     }
 
@@ -99,7 +104,7 @@ public class SpectokenController {
         )
     })
     @PostMapping("/primitive")
-    public ResponseEntity<Boolean> createPrimitiveSpectoken(
+    public ResponseEntity<?> createPrimitiveSpectoken(
         @Valid @RequestBody @NotNull CreatePrimitiveSpectokenRequest request) {
         try {
             primitiveSpectokenDriver.createPrimitiveSpectoken(
@@ -117,7 +122,7 @@ public class SpectokenController {
                 request.getLicense()
             );
         } catch (ExecutionException | InterruptedException e) {
-            ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(true);
     }
@@ -129,11 +134,15 @@ public class SpectokenController {
         )
     })
     @PostMapping("derivative/issue")
-    public ResponseEntity<Boolean> issueDerivativeSpectoken(@Valid @RequestBody @NotNull IssueDerivativeSpectokenRequest request) {
-        derivativeSpectokenDriver.issueDerivativeSpectoken(
-            request.getOfferDid(),
-            request.getOwnerDid()
-        );
+    public ResponseEntity<?> issueDerivativeSpectoken(@Valid @RequestBody @NotNull IssueDerivativeSpectokenRequest request) {
+        try{
+            derivativeSpectokenDriver.issueDerivativeSpectoken(
+                request.getOfferDid(),
+                request.getOwnerDid()
+            );
+        } catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
         return ResponseEntity.ok().body(true);
     }
 
@@ -144,13 +153,18 @@ public class SpectokenController {
         )
     })
     @PutMapping("primitive/redeem/{licenseDid}")
-    public ResponseEntity<Boolean> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseDid") @NotNull String licenseDid) {
-        List<String> offerDids = primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
-        for (String offerDId : offerDids) {
-            List<OrderOfferMapping> orderOfferMappings = orderOfferMappingRepository.findByOfferDid(offerDId);
-            for (OrderOfferMapping orderOfferMapping : orderOfferMappings) {
-                productOrderDriver.endProductOrder(orderOfferMapping.getOrderDid(), offerDId);
+    public ResponseEntity<?> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseDid") @NotNull String licenseDid) {
+        List<String> offerDids = new ArrayList<>();
+        try{
+            offerDids = primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
+            for (String offerDId : offerDids) {
+                List<OrderOfferMapping> orderOfferMappings = orderOfferMappingRepository.findByOfferDid(offerDId);
+                for (OrderOfferMapping orderOfferMapping : orderOfferMappings) {
+                    productOrderDriver.endProductOrder(orderOfferMapping.getOrderDid(), offerDId);
+                }
             }
+        } catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(500).body(e.getMessage());
         }
         return ResponseEntity.ok().body(true);
     }

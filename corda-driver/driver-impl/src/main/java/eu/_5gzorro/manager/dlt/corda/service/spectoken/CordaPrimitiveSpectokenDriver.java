@@ -70,7 +70,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public void createPrimitiveSpectoken(
+    public void createPrimitiveSpectoken (
         @NotNull final Double startDl,
         @NotNull final Double endDl,
         @NotNull final Double startUl,
@@ -83,7 +83,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         @NotNull final String country,
         final String ownerDid,
         @NotNull final String license
-    ) {
+    ) throws ExecutionException, InterruptedException {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
 //        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorB,OU=Zurich,L=47.38/8.54/Zurich,C=CH"));
@@ -107,12 +107,10 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
                 ownerDid
             );
         CompletableFuture<SignedTransaction> completableFuture = rpcClient.startFlowDynamic(CreatePrimitiveSpecTokenTypeFlow.class, primitiveSpecTokenType).getReturnValue().toCompletableFuture();
-        try {
-            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
-            rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, resolvedPrimitiveSpecTokenType, ourIdentity, provider);
-        } catch (InterruptedException | ExecutionException e) {
-            log.error(e.getMessage());
-        }
+
+        PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = completableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+        rpcClient.startFlowDynamic(IssuePrimitiveSpecTokenToHolderFlow.class, resolvedPrimitiveSpecTokenType, ourIdentity, provider);
+
     }
 
     public Observable<PrimitiveSpecTokenType> primitiveSpecTokenTypeObservable() {
@@ -136,16 +134,13 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public List<String> invalidatePrimitiveSpectoken(String licenseId) {
+    public List<String> invalidatePrimitiveSpectoken(String licenseId) throws ExecutionException, InterruptedException {
         CompletableFuture<SignedTransaction> primitiveCompletableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
-        try {
-            PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = primitiveCompletableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
-            CompletableFuture<List<String>> derivativeCompletableFuture = rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString()).getReturnValue().toCompletableFuture();
-            return derivativeCompletableFuture.get();
-        } catch (InterruptedException | ExecutionException e) {
-            log.error(e.getMessage());
-        }
-        return null;
+
+        PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = primitiveCompletableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
+        CompletableFuture<List<String>> derivativeCompletableFuture = rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString()).getReturnValue().toCompletableFuture();
+        return derivativeCompletableFuture.get();
+
     }
 
     @Override

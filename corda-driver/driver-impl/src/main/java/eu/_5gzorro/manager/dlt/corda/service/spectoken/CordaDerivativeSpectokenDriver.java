@@ -69,12 +69,13 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public void issueDerivativeSpectoken(String offerDid, String ownerDid) {
+    public boolean issueDerivativeSpectoken(String offerDid, String ownerDid) throws ExecutionException, InterruptedException {
         String x500Name = didToDLTIdentityService.resolveIdentity(ownerDid);
         Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
 //        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorB,OU=Zurich,L=47.38/8.54/Zurich,C=CH"));
 //        Party consumer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
-        rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, offerDid, ourIdentity, consumer);
+        FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(IssueDerivativeSpecTokenToHolderFlow.class, offerDid, ourIdentity, consumer);
+        return signedTransactionFlowHandle.getReturnValue().toCompletableFuture().get().getTx().outputsOfType(NonFungibleToken.class).get(0) != null;
     }
 
     @Override
@@ -105,9 +106,10 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public void redeemDerivativeSpectoken(String offerDid, String sellerName) {
+    public boolean redeemDerivativeSpectoken(String offerDid, String sellerName) throws ExecutionException, InterruptedException {
         Party seller = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(sellerName));
-        rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller);
+        FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller);
+        return signedTransactionFlowHandle.getReturnValue().toCompletableFuture().get().getTx().outputsOfType(NonFungibleToken.class).get(0) != null;
     }
 
     private Party findRegulatorNode() {
