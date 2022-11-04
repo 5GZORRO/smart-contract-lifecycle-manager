@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @ConditionalOnProperty("spring.kafka.enabled")
 @Service
@@ -56,7 +57,17 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
 
                         if (productOrderUpdateEvent.isDeleted() && productOrderUpdateEvent.isSpectrum()) {
                             Optional<OrderOfferMapping> optionalOrderOfferMapping = orderOfferMappingRepository.findByOrderDid(productOrderUpdateEvent.getDid());
-                            optionalOrderOfferMapping.ifPresent(orderOfferMapping -> derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName()));
+                            optionalOrderOfferMapping.ifPresent(orderOfferMapping -> {
+                                try {
+                                    derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName());
+                                } catch (ExecutionException e) {
+                                    log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
+                                            + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
+                                } catch (InterruptedException e) {
+                                    log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
+                                            + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
+                                }
+                            });
                         }
                     });
     }
