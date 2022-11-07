@@ -61,8 +61,8 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<S
                     false,
                     derivativeSpecTokenType.getPrimitiveId(),
                     derivativeSpecTokenType.getPrice(),
-                    derivativeSpecTokenType.getOfferDid()
-                );
+                    derivativeSpecTokenType.getOfferDid(),
+                    derivativeSpecTokenType.isIssued());
                 subFlow(new UpdateEvolvableToken(derivativeSpecTokenStateAndRef, newDerivativeSpecTokenType, allOtherParties));
                 offerDids.add(derivativeSpecTokenType.getOfferDid());
             }
