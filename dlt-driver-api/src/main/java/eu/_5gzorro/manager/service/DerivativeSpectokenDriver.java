@@ -13,7 +13,7 @@ public interface DerivativeSpectokenDriver {
     /**
      * API Endpoint for a provider to create a new Spectoken to the DLT
      */
-    boolean issueDerivativeSpectoken(String offerDid, String ownerDid)  throws ExecutionException, InterruptedException;;
+    boolean issueDerivativeSpectoken(String offerDid, String ownerDid) throws ExecutionException, InterruptedException;
 
     boolean issueDerivativeSpectoken(String offerDid) throws ExecutionException, InterruptedException;
 
@@ -22,4 +22,5 @@ public interface DerivativeSpectokenDriver {
     List<GetDerivativeSpectokenResponse> getDerivativeSpectokens() throws ExecutionException, InterruptedException;
 
     boolean redeemDerivativeSpectoken(String offerDid, String sellerName) throws ExecutionException, InterruptedException;
+
 }

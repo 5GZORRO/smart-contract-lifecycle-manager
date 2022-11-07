@@ -88,6 +88,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(x500Name));
 //        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorB,OU=Zurich,L=47.38/8.54/Zurich,C=CH"));
 //        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("O=OperatorC,OU=Barcelona,L=41.39/2.15/Barcelona,C=ES"));
+//        Party provider = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse("CN=OperatorA,OU=DLT,O=OperatorA,L=51.50/-0.11/London,C=GB"));
         PrimitiveSpecTokenType primitiveSpecTokenType =
             new PrimitiveSpecTokenType(
                 Collections.singletonList(ourIdentity),

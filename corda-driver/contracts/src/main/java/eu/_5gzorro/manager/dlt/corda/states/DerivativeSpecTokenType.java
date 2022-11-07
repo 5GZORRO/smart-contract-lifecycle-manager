@@ -21,11 +21,14 @@ public class DerivativeSpecTokenType extends SpecTokenType {
     @NotNull
     private final String offerDid;
 
-    public DerivativeSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, Date startDate, Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, boolean valid, @NotNull String primitiveId, Float price, @NotNull String offerDid) {
+    private final boolean issued;
+
+    public DerivativeSpecTokenType(@NotNull List<Party> maintainers, @NotNull UniqueIdentifier uniqueIdentifier, @NotNull Double startDl, @NotNull Double endDl, @NotNull Double startUl, @NotNull Double endUl, Date startDate, Date endDate, @NotNull String duplexMode, @NotNull Integer band, @NotNull String technology, @NotNull String country, boolean valid, @NotNull String primitiveId, Float price, @NotNull String offerDid, boolean issued) {
         super(maintainers, uniqueIdentifier, startDl, endDl, startUl, endUl, startDate, endDate, duplexMode, band, technology, country, valid);
         this.primitiveId = primitiveId;
         this.price = price;
         this.offerDid = offerDid;
+        this.issued = issued;
     }
 
     @NotNull
@@ -40,6 +43,10 @@ public class DerivativeSpecTokenType extends SpecTokenType {
     @NotNull
     public String getOfferDid() {
         return offerDid;
+    }
+
+    public boolean isIssued() {
+        return issued;
     }
 
     @Override

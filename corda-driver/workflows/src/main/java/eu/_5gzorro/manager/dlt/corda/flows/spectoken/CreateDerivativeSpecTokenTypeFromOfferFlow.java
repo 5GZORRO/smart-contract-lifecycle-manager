@@ -89,9 +89,20 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         if (primitiveSpecTokenType == null) {
             throw new FlowException("Valid Primitive Spectoken not found for license " + offerLicense);
         }
+
         DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpectokenBuild(primitiveSpecTokenType.getLinearId().toString(), resourceSpecCharacteristicMap);
         if (!doesDerivativeMatchPrimitive(primitiveSpecTokenType, derivativeSpecTokenType)) {
             throw new FlowException("Derivative's data does not match with Primitive's.");
+        }
+
+        List<StateAndRef<DerivativeSpecTokenType>> derivativeStateAndRefs = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
+        for (StateAndRef<DerivativeSpecTokenType> existingDerivativeSpecTokenTypeStateAndRef : derivativeStateAndRefs) {
+            DerivativeSpecTokenType existingDerivativeSpecTokenType = existingDerivativeSpecTokenTypeStateAndRef.getState().getData();
+            if (existingDerivativeSpecTokenType.isValid()) {
+                if (newDerivativeOverlapsExisting(derivativeSpecTokenType, existingDerivativeSpecTokenType)) {
+                    throw new FlowException("Derivative Spectoken data overlaps existing Derivative Spectoken");
+                }
+            }
         }
 
         List<Party> allOtherParties = getServiceHub()
@@ -125,8 +136,8 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             true,
             primitiveLinearId,
             productOfferDetails.getProductOfferingPrices().get(0).getPrice().getValue(),
-            offerDid
-        );
+            offerDid,
+            false);
     }
 
     private boolean doesDerivativeMatchPrimitive(PrimitiveSpecTokenType primitiveSpecTokenType, DerivativeSpecTokenType derivativeSpecTokenType) {
@@ -137,6 +148,49 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
             && derivativeSpecTokenType.getCountry().equals(primitiveSpecTokenType.getCountry())
             && (derivativeSpecTokenType.getStartDate().equals(primitiveSpecTokenType.getStartDate()) || derivativeSpecTokenType.getStartDate().after(primitiveSpecTokenType.getStartDate()))
             && (derivativeSpecTokenType.getEndDate().equals(primitiveSpecTokenType.getEndDate()) || derivativeSpecTokenType.getEndDate().before(primitiveSpecTokenType.getEndDate()));
+    }
+
+    private boolean newDerivativeOverlapsExisting(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
+        if (thereIsFrequencyOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType)) {
+            return thereIsTimeOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType);
+        } else {
+            return false;
+        }
+    }
+
+    private boolean thereIsFrequencyOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
+        boolean dlOverlap;
+        if (newDerivativeSpecTokenType.getEndDl() < existingDerivativeSpecTokenType.getStartDl()) {
+            dlOverlap = false;
+        } else if (newDerivativeSpecTokenType.getEndDl().equals(existingDerivativeSpecTokenType.getStartDl())) {
+            dlOverlap = true;
+        } else {
+            dlOverlap = newDerivativeSpecTokenType.getStartDl() <= newDerivativeSpecTokenType.getEndDl();
+        }
+
+        boolean ulOverlap;
+        if (newDerivativeSpecTokenType.getEndUl() < existingDerivativeSpecTokenType.getStartUl()) {
+            ulOverlap = false;
+        } else if (newDerivativeSpecTokenType.getEndUl().equals(existingDerivativeSpecTokenType.getStartUl())) {
+            ulOverlap = true;
+        } else {
+            ulOverlap = newDerivativeSpecTokenType.getStartUl() <= newDerivativeSpecTokenType.getEndUl();
+        }
+
+        return dlOverlap || ulOverlap;
+
+    }
+
+    private boolean thereIsTimeOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
+        boolean timeOverlap;
+        if (newDerivativeSpecTokenType.getEndDate().before(existingDerivativeSpecTokenType.getStartDate())) {
+            timeOverlap = false;
+        } else if (newDerivativeSpecTokenType.getEndDate().equals(existingDerivativeSpecTokenType.getStartDate())) {
+            timeOverlap = true;
+        } else {
+            timeOverlap = newDerivativeSpecTokenType.getStartDate().before(newDerivativeSpecTokenType.getEndDate()) || newDerivativeSpecTokenType.getStartDate().equals(newDerivativeSpecTokenType.getEndDate());
+        }
+        return timeOverlap;
     }
 
 }
