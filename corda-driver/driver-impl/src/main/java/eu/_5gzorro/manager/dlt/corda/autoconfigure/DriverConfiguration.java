@@ -7,10 +7,8 @@ import eu._5gzorro.manager.dlt.corda.service.rpc.NodeRPC;
 import eu._5gzorro.manager.dlt.corda.service.sla.CordaServiceLevelAgreementDriver;
 import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaDerivativeSpectokenDriver;
 import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaPrimitiveSpectokenDriver;
-import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
-import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
-import eu._5gzorro.manager.service.ProductOfferingDriver;
-import eu._5gzorro.manager.service.ProductOrderDriver;
+import eu._5gzorro.manager.dlt.corda.service.spectoken.CordaSpectokenNftDriver;
+import eu._5gzorro.manager.service.*;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.service.DIDToCordaDLTIdentityService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -84,6 +82,13 @@ public class DriverConfiguration {
         didToDLTIdentityService(),
         rpc,
         cordaProps.getGovernanceNodeNames());
+  }
+
+  @Primary
+  @Bean
+  @ConditionalOnMissingBean
+  public SpectokenNftDriver spectokenNftDriver(NodeRPC rpc) {
+    return new CordaSpectokenNftDriver(rpc);
   }
 
   @Primary

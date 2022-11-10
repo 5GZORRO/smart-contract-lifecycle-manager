@@ -59,7 +59,7 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
                             Optional<OrderOfferMapping> optionalOrderOfferMapping = orderOfferMappingRepository.findByOrderDid(productOrderUpdateEvent.getDid());
                             optionalOrderOfferMapping.ifPresent(orderOfferMapping -> {
                                 try {
-                                    derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName());
+                                    derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName(), true);
                                 } catch (ExecutionException e) {
                                     log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
                                             + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());

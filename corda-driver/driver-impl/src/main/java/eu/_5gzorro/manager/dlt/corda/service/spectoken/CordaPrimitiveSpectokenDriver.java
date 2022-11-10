@@ -9,7 +9,6 @@ import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
-import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
@@ -17,6 +16,7 @@ import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.messaging.CordaRPCOps;
+import net.corda.core.messaging.FlowHandle;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
@@ -70,7 +70,7 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     }
 
     @Override
-    public void createPrimitiveSpectoken (
+    public void createPrimitiveSpectoken(
         @NotNull final Double startDl,
         @NotNull final Double endDl,
         @NotNull final Double startUl,
@@ -137,21 +137,27 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     @Override
     public List<String> invalidatePrimitiveSpectoken(String licenseId) throws ExecutionException, InterruptedException {
         CompletableFuture<SignedTransaction> primitiveCompletableFuture = rpcClient.startFlowDynamic(InvalidatePrimitiveSpectokenFlow.class, licenseId).getReturnValue().toCompletableFuture();
-
         PrimitiveSpecTokenType resolvedPrimitiveSpecTokenType = primitiveCompletableFuture.get().getTx().outputsOfType(PrimitiveSpecTokenType.class).get(0);
         CompletableFuture<List<String>> derivativeCompletableFuture = rpcClient.startFlowDynamic(InvalidateDerivativeSpectokensFlow.class, resolvedPrimitiveSpecTokenType.getLinearId().toString()).getReturnValue().toCompletableFuture();
         return derivativeCompletableFuture.get();
-
     }
 
     @Override
-    public List<NftResponse> getNfts() {
-        Vault.Page<NonFungibleToken> nonFungibleTokenPage = rpcClient.vaultQuery(NonFungibleToken.class);
-        List<NftResponse> nfts = new ArrayList<>();
-        for (StateAndRef<NonFungibleToken> nonFungibleToken : nonFungibleTokenPage.getStates()) {
-            nfts.add(convertToNftResponse(nonFungibleToken.getState().getData()));
+    public boolean redeemPrimitiveSpectoken(String id, String issuerName) throws ExecutionException, InterruptedException {
+        Party issuer = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(issuerName));
+        FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(RedeemPrimitiveSpecTokenFlow.class, id, issuer);
+        return signedTransactionFlowHandle.getReturnValue().toCompletableFuture().get().getTx().outputsOfType(NonFungibleToken.class).isEmpty();
+    }
+
+    @Override
+    public boolean isPrimitiveSpectokenValid(String tokenTypeId) {
+        Vault.Page<PrimitiveSpecTokenType> primitiveSpecTokenTypePage = rpcClient.vaultQuery(PrimitiveSpecTokenType.class);
+        for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : primitiveSpecTokenTypePage.getStates()) {
+            if (tokenTypeId.equals(primitiveSpecTokenTypeStateAndRef.getState().getData().getLinearId().toString())) {
+                return primitiveSpecTokenTypeStateAndRef.getState().getData().isValid();
+            }
         }
-        return nfts;
+        return false;
     }
 
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
@@ -168,16 +174,8 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             primitiveSpecTokenType.getTechnology(),
             primitiveSpecTokenType.getCountry(),
             primitiveSpecTokenType.getOwnerDid(),
-            primitiveSpecTokenType.getLicense()
-        );
-    }
-
-    private NftResponse convertToNftResponse(NonFungibleToken nonFungibleToken) {
-        return new NftResponse(
-            nonFungibleToken.getLinearId().toString(),
-            nonFungibleToken.getIssuer().getName().getOrganisation(),
-            nonFungibleToken.getHolder().nameOrNull().getOrganisation(),
-            nonFungibleToken.getToken().getTokenType().getTokenClass().getSimpleName() + " - " + nonFungibleToken.getToken().getTokenIdentifier()
+            primitiveSpecTokenType.getLicense(),
+            primitiveSpecTokenType.isValid()
         );
     }
 

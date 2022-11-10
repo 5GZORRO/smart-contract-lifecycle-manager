@@ -9,11 +9,10 @@ import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
+import eu._5gzorro.tm_forum.models.spectoken.DerivativeSpectokenDto;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
-import net.corda.core.contracts.ContractState;
 import net.corda.core.contracts.StateAndRef;
-import net.corda.core.contracts.TransactionState;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.messaging.CordaRPCOps;
@@ -22,7 +21,6 @@ import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.Vault.StateStatus;
 import net.corda.core.node.services.vault.QueryCriteria.VaultQueryCriteria;
 import net.corda.core.transactions.SignedTransaction;
-import net.corda.core.transactions.WireTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,12 +133,28 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public boolean redeemDerivativeSpectoken(String offerDid, String sellerName) throws ExecutionException, InterruptedException {
+    public boolean redeemDerivativeSpectoken(String offerDid, String sellerName, boolean needInvalidation) throws ExecutionException, InterruptedException {
         Party seller = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(sellerName));
         FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller);
-        StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef = getDerivativeStateAndRef(offerDid);
-        rpcClient.startFlowDynamic(UpdateIssuedDerivativeSpectokensFlow.class, derivativeSpecTokenTypeStateAndRef, false);
-        return signedTransactionFlowHandle.getReturnValue().toCompletableFuture().get().getTx().outputsOfType(NonFungibleToken.class).get(0) != null;
+        if (needInvalidation) {
+            StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef = getDerivativeStateAndRef(offerDid);
+            rpcClient.startFlowDynamic(UpdateIssuedDerivativeSpectokensFlow.class, derivativeSpecTokenTypeStateAndRef, false);
+        }
+        return signedTransactionFlowHandle.getReturnValue().toCompletableFuture().get().getTx().outputsOfType(NonFungibleToken.class).isEmpty();
+    }
+
+    @Override
+    public DerivativeSpectokenDto getDerivativeSpectokenDto(String id) {
+        Vault.Page<DerivativeSpecTokenType> derivativeSpecTokenTypePage = rpcClient.vaultQuery(DerivativeSpecTokenType.class);
+        DerivativeSpectokenDto derivativeSpectokenDto = null;
+        for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef : derivativeSpecTokenTypePage.getStates()) {
+            DerivativeSpecTokenType derivativeSpecTokenType = derivativeSpecTokenTypeStateAndRef.getState().getData();
+            if (derivativeSpecTokenType.getLinearId().toString().equals(id)) {
+                derivativeSpectokenDto = convertToDto(derivativeSpecTokenType);
+                break;
+            }
+        }
+        return derivativeSpectokenDto;
     }
 
     private Party findRegulatorNode() {
@@ -166,8 +180,12 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
             derivativeSpecTokenType.getCountry(),
             derivativeSpecTokenType.getPrice(),
             derivativeSpecTokenType.getPrimitiveId(),
-            derivativeSpecTokenType.getOfferDid()
-        );
+            derivativeSpecTokenType.getOfferDid(),
+            derivativeSpecTokenType.isValid());
+    }
+
+    private DerivativeSpectokenDto convertToDto(DerivativeSpecTokenType derivativeSpecTokenType) {
+        return new DerivativeSpectokenDto(derivativeSpecTokenType.isValid(), derivativeSpecTokenType.getOfferDid());
     }
 
     private StateAndRef<DerivativeSpecTokenType> getDerivativeStateAndRef(String offerDid) {
