@@ -1,5 +1,6 @@
 package eu._5gzorro.manager.api.scheduled;
 
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.SpectokenNftDriver;
@@ -30,7 +31,7 @@ public class RedeemInvalidSpectokenNftsTask {
         this.spectokenNftDriver = spectokenNftDriver;
     }
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "${cron.schedule.nfts}")
     public void execute() {
 
         try {
@@ -52,11 +53,9 @@ public class RedeemInvalidSpectokenNftsTask {
                 }
                 if (redeemed) {
                     log.info("NFT with id: " + nftDto.getId() + " redeemed.");
-                } else {
-                    log.info("NFT with id: " + nftDto.getId() + " not redeemed.");
                 }
             }
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | SpectokenException e) {
             log.error(e.getMessage());
         }
 

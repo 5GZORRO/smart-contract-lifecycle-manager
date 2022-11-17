@@ -12,6 +12,7 @@ import eu._5gzorro.manager.domain.ProductOfferDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOfferingUpdateEvent;
 import eu._5gzorro.manager.domain.events.enums.UpdateType;
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.reactivex.rxjava3.core.Observable;
@@ -34,178 +35,178 @@ import java.util.concurrent.ExecutionException;
 
 public class CordaProductOfferingDriver extends RPCSyncService<ProductOffering>
     implements ProductOfferingDriver {
-  private final CordaRPCOps rpcClient;
-  private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
+    private final CordaRPCOps rpcClient;
+    private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
-  private final List<String> governanceNodeNames;
-  private final DerivativeSpectokenDriver derivativeSpectokenDriver;
+    private final List<String> governanceNodeNames;
+    private final DerivativeSpectokenDriver derivativeSpectokenDriver;
 
-  public CordaProductOfferingDriver(NodeRPC nodeRPC, List<String> governanceNodeNames, DerivativeSpectokenDriver derivativeSpectokenDriver) {
-    super(nodeRPC, ProductOffering.class);
-    this.rpcClient = nodeRPC.getClient();
-    this.governanceNodeNames = governanceNodeNames;
-    this.derivativeSpectokenDriver = derivativeSpectokenDriver;
-    setup();
-  }
-
-  @Override
-  public void setup() {
-    VaultQueryCriteria criteria = new VaultQueryCriteria(StateStatus.UNCONSUMED);
-
-    this.beginTracking(
-        criteria,
-        this::handleUpdate,
-        stateAndRef ->
-            subject.onNext(
-                new UpdateWrapper()
-                    .setProductOfferingStateAndRef(stateAndRef)
-                    .setUpdateType(UpdateType.CREATE_UPDATE)));
-  }
-
-  private void handleUpdate(@NotNull final Vault.Update<ProductOffering> update) {
-    // Agreement updates should only ever have one input and one output at most
-    Optional<StateAndRef<ProductOffering>> optionalConsumed =
-        update.getConsumed().stream().findAny();
-    Optional<StateAndRef<ProductOffering>> optionalProduced =
-        update.getProduced().stream().findAny();
-
-    UpdateType updateType;
-    if (optionalConsumed.isPresent()) { // Delete
-      updateType = UpdateType.RETIRE;
-    } else if (optionalProduced.isPresent()) { // Create/Update
-      updateType = UpdateType.CREATE_UPDATE;
-    } else {
-      throw new RuntimeException("Invalid product offer update");
+    public CordaProductOfferingDriver(NodeRPC nodeRPC, List<String> governanceNodeNames, DerivativeSpectokenDriver derivativeSpectokenDriver) {
+        super(nodeRPC, ProductOffering.class);
+        this.rpcClient = nodeRPC.getClient();
+        this.governanceNodeNames = governanceNodeNames;
+        this.derivativeSpectokenDriver = derivativeSpectokenDriver;
+        setup();
     }
 
-    update
-        .getProduced()
-        .forEach(
-            produced ->
+    @Override
+    public void setup() {
+        VaultQueryCriteria criteria = new VaultQueryCriteria(StateStatus.UNCONSUMED);
+
+        this.beginTracking(
+            criteria,
+            this::handleUpdate,
+            stateAndRef ->
                 subject.onNext(
                     new UpdateWrapper()
-                        .setProductOfferingStateAndRef(produced)
-                        .setUpdateType(updateType)));
-  }
-
-  @Override
-  public void publishProductOffering(
-      ProductOfferDetails offerDetails,
-      Map<String, Invitation> invitations,
-      Collection<VerifiableCredential> verifiableCredentials,
-      VerifiableCredential identityCredential,
-      String did) throws ExecutionException, InterruptedException {
-    Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
-
-    ProductOffering productOfferingState =
-        new ProductOffering(
-            new UniqueIdentifier(),
-            OfferType.GENERAL,
-            offerDetails.getProductOffering().getName(),
-            ourIdentity,
-            invitations,
-            verifiableCredentials,
-            findGovernanceNode(),
-            null,
-            offerDetails
-        );
-
-    String category = offerDetails.getProductOffering().getCategory().get(0).getName();
-
-    if ("Spectrum".equals(category)) {
-      boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
-      if (isDerivativeSpectokenCreated) {
-        rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
-      }
-    } else if ("Slice".equals(category)) {
-      boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
-      boolean isDerivativeSpectokenIssued = derivativeSpectokenDriver.issueDerivativeSpectoken(offerDetails.getDid());
-      if (isDerivativeSpectokenCreated & isDerivativeSpectokenIssued) {
-        rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
-      }
-    } else {
-      rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
-    }
-  }
-
-  @Override
-  public void updateProductOffer(
-      ProductOfferDetails offerDetails, VerifiableCredential identityCredential) {
-    Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
-
-    ProductOffering productOfferingState =
-        new ProductOffering(
-            new UniqueIdentifier(),
-            OfferType.GENERAL,
-            offerDetails.getProductOffering().getName(),
-            ourIdentity,
-            null, // TODO how will we update these?
-            null,
-            findGovernanceNode(),
-            null,
-            offerDetails
-        );
-
-    rpcClient.startFlowDynamic(UpdateProductOfferInitiator.class, productOfferingState);
-  }
-
-  @Override
-  public void removeProductOffer(String offerId, VerifiableCredential identityCredential) {
-    rpcClient.startFlowDynamic(RetireProductOfferInitiator.class, new UniqueIdentifier(offerId));
-  }
-
-  @Override
-  public Observable<ProductOfferingUpdateEvent> productOfferObservable() {
-    return subject.map(
-        updateWrapper -> {
-          StateAndRef<ProductOffering> stateAndRef = updateWrapper.getProductOfferingStateAndRef();
-          ProductOffering productOffering = stateAndRef.getState().getData();
-          ProductOfferDetails offerDetails = productOffering.getOfferDetails();
-          return new ProductOfferingUpdateEvent()
-              .setUpdateType(updateWrapper.getUpdateType())
-              .setDeduplicationId(stateAndRef.getRef().getTxhash().toString())
-              .setProductOffering(offerDetails.getProductOffering())
-              .setVerifiableCredentials(productOffering.getVerifiableCredentials())
-              .setDid(offerDetails.getDid())
-              .setProductSpecification(offerDetails.getProductSpecification())
-              .setProductOfferingPrices(offerDetails.getProductOfferingPrices())
-              .setResourceSpecifications(offerDetails.getResourceSpecifications())
-              .setServiceSpecifications(offerDetails.getServiceSpecifications())
-              .setGeographicAddresses(offerDetails.getGeographicAddresses())
-              .setInvitations(productOffering.getDidInvitations())
-              .setIdentifier(productOffering.getLinearId().getId().toString());
-        });
-  }
-
-  private Party findGovernanceNode() {
-    return governanceNodeNames.stream()
-        .map(CordaX500Name::parse)
-        .map(rpcClient::wellKnownPartyFromX500Name)
-        .findAny()
-        .orElseThrow(() -> new RuntimeException("No governance node was found"));
-  }
-
-  public static class UpdateWrapper {
-    private StateAndRef<ProductOffering> productOfferingStateAndRef;
-    private UpdateType updateType;
-
-    public StateAndRef<ProductOffering> getProductOfferingStateAndRef() {
-      return productOfferingStateAndRef;
+                        .setProductOfferingStateAndRef(stateAndRef)
+                        .setUpdateType(UpdateType.CREATE_UPDATE)));
     }
 
-    public UpdateWrapper setProductOfferingStateAndRef(
-        StateAndRef<ProductOffering> productOfferingStateAndRef) {
-      this.productOfferingStateAndRef = productOfferingStateAndRef;
-      return this;
+    private void handleUpdate(@NotNull final Vault.Update<ProductOffering> update) {
+        // Agreement updates should only ever have one input and one output at most
+        Optional<StateAndRef<ProductOffering>> optionalConsumed =
+            update.getConsumed().stream().findAny();
+        Optional<StateAndRef<ProductOffering>> optionalProduced =
+            update.getProduced().stream().findAny();
+
+        UpdateType updateType;
+        if (optionalConsumed.isPresent()) { // Delete
+            updateType = UpdateType.RETIRE;
+        } else if (optionalProduced.isPresent()) { // Create/Update
+            updateType = UpdateType.CREATE_UPDATE;
+        } else {
+            throw new RuntimeException("Invalid product offer update");
+        }
+
+        update
+            .getProduced()
+            .forEach(
+                produced ->
+                    subject.onNext(
+                        new UpdateWrapper()
+                            .setProductOfferingStateAndRef(produced)
+                            .setUpdateType(updateType)));
     }
 
-    public UpdateType getUpdateType() {
-      return updateType;
+    @Override
+    public void publishProductOffering(
+        ProductOfferDetails offerDetails,
+        Map<String, Invitation> invitations,
+        Collection<VerifiableCredential> verifiableCredentials,
+        VerifiableCredential identityCredential,
+        String did) throws ExecutionException, InterruptedException, SpectokenException {
+        Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
+
+        ProductOffering productOfferingState =
+            new ProductOffering(
+                new UniqueIdentifier(),
+                OfferType.GENERAL,
+                offerDetails.getProductOffering().getName(),
+                ourIdentity,
+                invitations,
+                verifiableCredentials,
+                findGovernanceNode(),
+                null,
+                offerDetails
+            );
+
+        String category = offerDetails.getProductOffering().getCategory().get(0).getName();
+
+        if ("Spectrum".equals(category)) {
+            boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
+            if (isDerivativeSpectokenCreated) {
+                rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+            }
+        } else if ("Slice".equals(category)) {
+            boolean isDerivativeSpectokenCreated = derivativeSpectokenDriver.createDerivativeSpectokenFromOffer(offerDetails, did);
+            boolean isDerivativeSpectokenIssued = derivativeSpectokenDriver.issueDerivativeSpectoken(offerDetails.getDid());
+            if (isDerivativeSpectokenCreated & isDerivativeSpectokenIssued) {
+                rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+            }
+        } else {
+            rpcClient.startFlowDynamic(PublishProductOfferInitiator.class, productOfferingState);
+        }
     }
 
-    public UpdateWrapper setUpdateType(UpdateType updateType) {
-      this.updateType = updateType;
-      return this;
+    @Override
+    public void updateProductOffer(
+        ProductOfferDetails offerDetails, VerifiableCredential identityCredential) {
+        Party ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
+
+        ProductOffering productOfferingState =
+            new ProductOffering(
+                new UniqueIdentifier(),
+                OfferType.GENERAL,
+                offerDetails.getProductOffering().getName(),
+                ourIdentity,
+                null, // TODO how will we update these?
+                null,
+                findGovernanceNode(),
+                null,
+                offerDetails
+            );
+
+        rpcClient.startFlowDynamic(UpdateProductOfferInitiator.class, productOfferingState);
     }
-  }
+
+    @Override
+    public void removeProductOffer(String offerId, VerifiableCredential identityCredential) {
+        rpcClient.startFlowDynamic(RetireProductOfferInitiator.class, new UniqueIdentifier(offerId));
+    }
+
+    @Override
+    public Observable<ProductOfferingUpdateEvent> productOfferObservable() {
+        return subject.map(
+            updateWrapper -> {
+                StateAndRef<ProductOffering> stateAndRef = updateWrapper.getProductOfferingStateAndRef();
+                ProductOffering productOffering = stateAndRef.getState().getData();
+                ProductOfferDetails offerDetails = productOffering.getOfferDetails();
+                return new ProductOfferingUpdateEvent()
+                    .setUpdateType(updateWrapper.getUpdateType())
+                    .setDeduplicationId(stateAndRef.getRef().getTxhash().toString())
+                    .setProductOffering(offerDetails.getProductOffering())
+                    .setVerifiableCredentials(productOffering.getVerifiableCredentials())
+                    .setDid(offerDetails.getDid())
+                    .setProductSpecification(offerDetails.getProductSpecification())
+                    .setProductOfferingPrices(offerDetails.getProductOfferingPrices())
+                    .setResourceSpecifications(offerDetails.getResourceSpecifications())
+                    .setServiceSpecifications(offerDetails.getServiceSpecifications())
+                    .setGeographicAddresses(offerDetails.getGeographicAddresses())
+                    .setInvitations(productOffering.getDidInvitations())
+                    .setIdentifier(productOffering.getLinearId().getId().toString());
+            });
+    }
+
+    private Party findGovernanceNode() {
+        return governanceNodeNames.stream()
+            .map(CordaX500Name::parse)
+            .map(rpcClient::wellKnownPartyFromX500Name)
+            .findAny()
+            .orElseThrow(() -> new RuntimeException("No governance node was found"));
+    }
+
+    public static class UpdateWrapper {
+        private StateAndRef<ProductOffering> productOfferingStateAndRef;
+        private UpdateType updateType;
+
+        public StateAndRef<ProductOffering> getProductOfferingStateAndRef() {
+            return productOfferingStateAndRef;
+        }
+
+        public UpdateWrapper setProductOfferingStateAndRef(
+            StateAndRef<ProductOffering> productOfferingStateAndRef) {
+            this.productOfferingStateAndRef = productOfferingStateAndRef;
+            return this;
+        }
+
+        public UpdateType getUpdateType() {
+            return updateType;
+        }
+
+        public UpdateWrapper setUpdateType(UpdateType updateType) {
+            this.updateType = updateType;
+            return this;
+        }
+    }
 }

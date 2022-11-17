@@ -9,6 +9,7 @@ import eu._5gzorro.manager.domain.events.enums.UpdateType;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.PrimitiveSpectokenDto;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
 import net.corda.core.contracts.StateAndRef;
@@ -37,17 +38,14 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
     private final CordaRPCOps rpcClient;
     private final ReplaySubject<UpdateWrapper> subject = ReplaySubject.create();
 
-    private final List<String> governanceNodeNames;
-
     private final Party ourIdentity;
 
     private static final Logger log = LoggerFactory.getLogger(CordaPrimitiveSpectokenDriver.class);
 
-    public CordaPrimitiveSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC, List<String> governanceNodeNames) {
+    public CordaPrimitiveSpectokenDriver(DIDToDLTIdentityService didToDLTIdentityService, NodeRPC nodeRPC) {
         super(nodeRPC, PrimitiveSpecTokenType.class);
         this.didToDLTIdentityService = didToDLTIdentityService;
         this.rpcClient = nodeRPC.getClient();
-        this.governanceNodeNames = governanceNodeNames;
         this.ourIdentity = rpcClient.nodeInfo().getLegalIdentities().get(0);
         setup();
     }
@@ -160,6 +158,18 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
         return false;
     }
 
+    @Override
+    public List<PrimitiveSpectokenDto> getOwnValidPrimitiveSpectokens() {
+        Vault.Page<PrimitiveSpecTokenType> primitiveSpecTokenTypePage = rpcClient.vaultQuery(PrimitiveSpecTokenType.class);
+        List<PrimitiveSpectokenDto> primitiveSpectokens = new ArrayList<>();
+        for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : primitiveSpecTokenTypePage.getStates()) {
+            if (primitiveSpecTokenTypeStateAndRef.getState().getData().getMaintainers().contains(ourIdentity) && primitiveSpecTokenTypeStateAndRef.getState().getData().isValid()) {
+                primitiveSpectokens.add(convertToDto(primitiveSpecTokenTypeStateAndRef.getState().getData()));
+            }
+        }
+        return primitiveSpectokens;
+    }
+
     private GetPrimitiveSpectokenResponse convertToResponse(PrimitiveSpecTokenType primitiveSpecTokenType) {
         return new GetPrimitiveSpectokenResponse(
             primitiveSpecTokenType.getLinearId().toString(),
@@ -177,6 +187,10 @@ public class CordaPrimitiveSpectokenDriver extends RPCSyncService<PrimitiveSpecT
             primitiveSpecTokenType.getLicense(),
             primitiveSpecTokenType.isValid()
         );
+    }
+
+    private PrimitiveSpectokenDto convertToDto(PrimitiveSpecTokenType primitiveSpecTokenType) {
+        return new PrimitiveSpectokenDto(primitiveSpecTokenType.getEndDate(), primitiveSpecTokenType.getLicense());
     }
 
     public static class UpdateWrapper {

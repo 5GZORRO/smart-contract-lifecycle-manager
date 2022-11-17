@@ -54,3 +54,8 @@ integrations:
 callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8080/api/v1/service-level-agreement/%s/identity}
   updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8080/api/v1/agreement/%s/identity}
+
+cron:
+  schedule:
+    dates: 0 0 1 ? * * *
+    nfts: 0 0 2 ? * * *

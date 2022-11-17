@@ -4,6 +4,7 @@ import eu._5gzorro.manager.api.dto.requests.CreatePrimitiveSpectokenRequest;
 import eu._5gzorro.manager.api.dto.requests.IssueDerivativeSpectokenRequest;
 import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -56,7 +56,7 @@ public class SpectokenController {
     })
     @GetMapping("/derivative")
     public ResponseEntity<?> getDerivativeSpectokens() {
-        List<GetDerivativeSpectokenResponse> derivativeSpectokens = new ArrayList<>();
+        List<GetDerivativeSpectokenResponse> derivativeSpectokens;
         try {
             derivativeSpectokens = derivativeSpectokenDriver.getDerivativeSpectokens();
         } catch (ExecutionException | InterruptedException e) {
@@ -73,7 +73,7 @@ public class SpectokenController {
     })
     @GetMapping("/primitive")
     public ResponseEntity<?> getPrimitiveSpectokens() {
-        List<GetPrimitiveSpectokenResponse> primitiveSpectokens = new ArrayList<>();
+        List<GetPrimitiveSpectokenResponse> primitiveSpectokens;
         try {
             primitiveSpectokens = primitiveSpectokenDriver.getPrimitiveSpectokens();
         } catch (ExecutionException | InterruptedException e) {
@@ -136,7 +136,7 @@ public class SpectokenController {
                 request.getOfferDid(),
                 request.getOwnerDid()
             ));
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | SpectokenException e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
     }

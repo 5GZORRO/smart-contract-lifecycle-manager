@@ -12,75 +12,75 @@ import java.util.List;
 
 @CordaSerializable
 public class ProductOfferDetails {
-  private ProductOffering productOffering;
-  private List<ProductOfferingPrice> productOfferingPrices;
-  private ProductSpecification productSpecification;
-  private List<ResourceSpecification> resourceSpecifications;
-  private List<ServiceSpecification> serviceSpecifications;
-  private List<GeographicAddress> geographicAddresses;
+    private ProductOffering productOffering;
+    private List<ProductOfferingPrice> productOfferingPrices;
+    private ProductSpecification productSpecification;
+    private List<ResourceSpecification> resourceSpecifications;
+    private List<ServiceSpecification> serviceSpecifications;
+    private List<GeographicAddress> geographicAddresses;
 
-  private String did;
+    private String did;
 
-  public ProductOffering getProductOffering() {
-    return productOffering;
-  }
+    public ProductOffering getProductOffering() {
+        return productOffering;
+    }
 
-  public ProductOfferDetails setProductOffering(ProductOffering productOffering) {
-    this.productOffering = productOffering;
-    return this;
-  }
+    public ProductOfferDetails setProductOffering(ProductOffering productOffering) {
+        this.productOffering = productOffering;
+        return this;
+    }
 
-  public List<ProductOfferingPrice> getProductOfferingPrices() {
-    return productOfferingPrices;
-  }
+    public List<ProductOfferingPrice> getProductOfferingPrices() {
+        return productOfferingPrices;
+    }
 
-  public ProductOfferDetails setProductOfferingPrices(List<ProductOfferingPrice> productOfferingPrices) {
-    this.productOfferingPrices = productOfferingPrices;
-    return this;
-  }
+    public ProductOfferDetails setProductOfferingPrices(List<ProductOfferingPrice> productOfferingPrices) {
+        this.productOfferingPrices = productOfferingPrices;
+        return this;
+    }
 
-  public ProductSpecification getProductSpecification() {
-    return productSpecification;
-  }
+    public ProductSpecification getProductSpecification() {
+        return productSpecification;
+    }
 
-  public ProductOfferDetails setProductSpecification(ProductSpecification productSpecification) {
-    this.productSpecification = productSpecification;
-    return this;
-  }
+    public ProductOfferDetails setProductSpecification(ProductSpecification productSpecification) {
+        this.productSpecification = productSpecification;
+        return this;
+    }
 
-  public List<ResourceSpecification> getResourceSpecifications() {
-    return resourceSpecifications;
-  }
+    public List<ResourceSpecification> getResourceSpecifications() {
+        return resourceSpecifications;
+    }
 
-  public ProductOfferDetails setResourceSpecifications(List<ResourceSpecification> resourceSpecifications) {
-    this.resourceSpecifications = resourceSpecifications;
-    return this;
-  }
+    public ProductOfferDetails setResourceSpecifications(List<ResourceSpecification> resourceSpecifications) {
+        this.resourceSpecifications = resourceSpecifications;
+        return this;
+    }
 
-  public List<ServiceSpecification> getServiceSpecifications() {
-    return serviceSpecifications;
-  }
+    public List<ServiceSpecification> getServiceSpecifications() {
+        return serviceSpecifications;
+    }
 
-  public ProductOfferDetails setServiceSpecifications(List<ServiceSpecification> serviceSpecifications) {
-    this.serviceSpecifications = serviceSpecifications;
-    return this;
-  }
+    public ProductOfferDetails setServiceSpecifications(List<ServiceSpecification> serviceSpecifications) {
+        this.serviceSpecifications = serviceSpecifications;
+        return this;
+    }
 
-  public List<GeographicAddress> getGeographicAddresses() {
-    return geographicAddresses;
-  }
+    public List<GeographicAddress> getGeographicAddresses() {
+        return geographicAddresses;
+    }
 
-  public ProductOfferDetails setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
-    this.geographicAddresses = geographicAddresses;
-    return this;
-  }
+    public ProductOfferDetails setGeographicAddresses(List<GeographicAddress> geographicAddresses) {
+        this.geographicAddresses = geographicAddresses;
+        return this;
+    }
 
-  public String getDid() {
-    return did;
-  }
+    public String getDid() {
+        return did;
+    }
 
-  public ProductOfferDetails setDid(String did) {
-    this.did = did;
-    return this;
-  }
+    public ProductOfferDetails setDid(String did) {
+        this.did = did;
+        return this;
+    }
 }

@@ -3,6 +3,7 @@ package eu._5gzorro.manager.api.service.kafka;
 import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -60,12 +61,9 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
                             optionalOrderOfferMapping.ifPresent(orderOfferMapping -> {
                                 try {
                                     derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName(), true);
-                                } catch (ExecutionException e) {
+                                } catch (ExecutionException | InterruptedException | SpectokenException e) {
                                     log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
-                                            + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
-                                } catch (InterruptedException e) {
-                                    log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
-                                            + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
+                                        + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
                                 }
                             });
                         }

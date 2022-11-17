@@ -2,6 +2,7 @@ package eu._5gzorro.manager.api.controller;
 
 import eu._5gzorro.manager.api.dto.requests.PublishProductOfferingRequest;
 import eu._5gzorro.manager.api.dto.requests.UpdateProductOfferingRequest;
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.ProductOfferingDriver;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -43,7 +44,7 @@ public class ProductOfferingController {
                 null,
                 request.getDid()
             );
-        } catch (ExecutionException | InterruptedException e) {
+        } catch (ExecutionException | InterruptedException | SpectokenException e) {
             return ResponseEntity.status(409).body(e.getMessage());
         }
         return ResponseEntity.ok().body(true);

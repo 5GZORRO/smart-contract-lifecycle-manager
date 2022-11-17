@@ -1,6 +1,7 @@
 package eu._5gzorro.manager.service;
 
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
+import eu._5gzorro.tm_forum.models.spectoken.PrimitiveSpectokenDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -31,4 +32,6 @@ public interface PrimitiveSpectokenDriver {
     boolean redeemPrimitiveSpectoken(String id, String issuerName) throws ExecutionException, InterruptedException;
 
     boolean isPrimitiveSpectokenValid(String tokenTypeId);
+
+    List<PrimitiveSpectokenDto> getOwnValidPrimitiveSpectokens();
 }

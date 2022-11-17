@@ -16,37 +16,37 @@ import javax.annotation.PreDestroy;
 @ConditionalOnProperty("spring.kafka.enabled")
 @Service
 public class ProductOfferingKafkaService extends AbstractProducer<ProductOfferingUpdateEvent> {
-  private static final Logger log = LoggerFactory.getLogger(ProductOfferingKafkaService.class);
-  @Value("${spring.kafka.update-topics.product-offering}")
-  private String productOfferTopic;
+    private static final Logger log = LoggerFactory.getLogger(ProductOfferingKafkaService.class);
+    @Value("${spring.kafka.update-topics.product-offering}")
+    private String productOfferTopic;
 
-  private final ProductOfferingDriver driver;
+    private final ProductOfferingDriver driver;
 
-  private Disposable kafkaPublishDisposable;
+    private Disposable kafkaPublishDisposable;
 
-  public ProductOfferingKafkaService(
-      KafkaTemplate<String, ProductOfferingUpdateEvent> kafkaTemplate,
-      ProductOfferingDriver driver) {
-    super(kafkaTemplate);
-    this.driver = driver;
-  }
+    public ProductOfferingKafkaService(
+        KafkaTemplate<String, ProductOfferingUpdateEvent> kafkaTemplate,
+        ProductOfferingDriver driver) {
+        super(kafkaTemplate);
+        this.driver = driver;
+    }
 
-  @PostConstruct
-  public void setup() {
-    log.info("Starting kafka updates for product offerings");
-    kafkaPublishDisposable = driver.productOfferObservable()
-        .subscribe(productOfferingUpdateEvent -> {
+    @PostConstruct
+    public void setup() {
+        log.info("Starting kafka updates for product offerings");
+        kafkaPublishDisposable = driver.productOfferObservable()
+            .subscribe(productOfferingUpdateEvent -> {
                 log.info("ProductOffering Kafka update: {}", productOfferingUpdateEvent);
                 super.send(
-                        productOfferTopic,
-                        productOfferingUpdateEvent.getDeduplicationId(),
-                        productOfferingUpdateEvent
+                    productOfferTopic,
+                    productOfferingUpdateEvent.getDeduplicationId(),
+                    productOfferingUpdateEvent
                 );
-        });
-  }
+            });
+    }
 
-  @PreDestroy
-  public void shutdown() {
-    kafkaPublishDisposable.dispose();
-  }
+    @PreDestroy
+    public void shutdown() {
+        kafkaPublishDisposable.dispose();
+    }
 }

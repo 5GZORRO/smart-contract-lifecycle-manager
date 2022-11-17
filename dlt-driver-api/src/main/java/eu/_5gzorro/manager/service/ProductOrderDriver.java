@@ -5,6 +5,7 @@ import eu._5gzorro.manager.domain.Invitation;
 import eu._5gzorro.manager.domain.ProductOrderDetails;
 import eu._5gzorro.manager.domain.VerifiableCredential;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
+import eu._5gzorro.tm_forum.models.product_order.ProductOrderDto;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 import kotlin.Pair;
@@ -37,4 +38,6 @@ public interface ProductOrderDriver {
     void endProductOrder(String orderId, String offerDid);
 
     Observable<ProductOrderUpdateEvent> productOrderObservable();
+
+    List<ProductOrderDto> getOwnProductOrder();
 }

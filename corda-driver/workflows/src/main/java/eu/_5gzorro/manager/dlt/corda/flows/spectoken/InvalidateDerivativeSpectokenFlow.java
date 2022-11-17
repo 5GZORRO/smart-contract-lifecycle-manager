@@ -10,23 +10,22 @@ import net.corda.core.flows.InitiatingFlow;
 import net.corda.core.flows.StartableByRPC;
 import net.corda.core.identity.Party;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @InitiatingFlow
 @StartableByRPC
-public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<String>> {
+public class InvalidateDerivativeSpectokenFlow extends ExtendedFlowLogic<String> {
 
-    private final String primitiveId;
+    private final String linearId;
 
-    public InvalidateDerivativeSpectokensFlow(String primitiveId) {
-        this.primitiveId = primitiveId;
+    public InvalidateDerivativeSpectokenFlow(String linearId) {
+        this.linearId = linearId;
     }
 
     @Suspendable
     @Override
-    public List<String> call() throws FlowException {
+    public String call() throws FlowException {
         List<StateAndRef<DerivativeSpecTokenType>> states = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
         if (states.isEmpty()) {
             throw new FlowException("Any Derivative Spectoken found.");
@@ -40,11 +39,11 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<S
             .filter(p -> !p.equals(getOurIdentity())) // Filter out own identity
             .collect(Collectors.toList());
 
-        List<String> offerDids = new ArrayList<>();
+        String id = null;
 
         for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenStateAndRef : states) {
             derivativeSpecTokenType = derivativeSpecTokenStateAndRef.getState().getData();
-            if (primitiveId.equals(derivativeSpecTokenType.getPrimitiveId()) && derivativeSpecTokenType.isValid()) {
+            if (linearId.equals(derivativeSpecTokenType.getLinearId().toString()) && derivativeSpecTokenType.isValid()) {
                 DerivativeSpecTokenType newDerivativeSpecTokenType = new DerivativeSpecTokenType(
                     derivativeSpecTokenType.getMaintainers(),
                     derivativeSpecTokenType.getLinearId(),
@@ -64,9 +63,9 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<S
                     derivativeSpecTokenType.getOfferDid(),
                     false);
                 subFlow(new UpdateEvolvableToken(derivativeSpecTokenStateAndRef, newDerivativeSpecTokenType, allOtherParties));
-                offerDids.add(derivativeSpecTokenType.getOfferDid());
+                id = newDerivativeSpecTokenType.getLinearId().toString();
             }
         }
-        return offerDids;
+        return id;
     }
 }

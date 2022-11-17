@@ -20,6 +20,7 @@ import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
 import eu._5gzorro.manager.domain.events.enums.OrderUpdateType;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import eu._5gzorro.manager.service.identity.DIDToDLTIdentityService;
+import eu._5gzorro.tm_forum.models.product_order.ProductOrderDto;
 import eu._5gzorro.tm_forum.models.sla.ServiceLevelAgreement;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.ReplaySubject;
@@ -36,10 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.threeten.bp.OffsetDateTime;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.dlt.corda.states.ProductOrder> implements ProductOrderDriver {
     private static final Logger log = LoggerFactory.getLogger(CordaProductOrderDriver.class);
@@ -266,6 +264,23 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
         rpcClient.startFlowDynamic(
             EndProductOrderFlow.EndProductOrderInitiator.class,
             orderDid, offerDid);
+    }
+
+    @Override
+    public List<ProductOrderDto> getOwnProductOrder() {
+        Vault.Page<ProductOrder> productOrderPage = rpcClient.vaultQuery(ProductOrder.class);
+        List<ProductOrderDto> productOrderDtos = new ArrayList<>();
+        for (StateAndRef<ProductOrder> productOrderStateAndRef : productOrderPage.getStates()) {
+            ProductOrder productOrder = productOrderStateAndRef.getState().getData();
+            if (productOrder.getBuyer().equals(rpcClient.nodeInfo().getLegalIdentities().get(0))) {
+                productOrderDtos.add(convertToDto(productOrder));
+            }
+        }
+        return productOrderDtos;
+    }
+
+    private ProductOrderDto convertToDto(ProductOrder productOrder) {
+        return new ProductOrderDto(productOrder.getSeller().getName().toString(), productOrder.getOfferDid(), new Date(productOrder.getProductOrder().getRequestedCompletionDate()));
     }
 
 }
