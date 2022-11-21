@@ -13,6 +13,7 @@ import kotlin.Pair;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public interface ProductOrderDriver {
 
@@ -35,7 +36,7 @@ public interface ProductOrderDriver {
         List<ServiceLevelAgreement> serviceLevelAgreements,
         List<Pair<LicenseTerm, String>> licenseTerms);
 
-    void endProductOrder(String orderId, String offerDid);
+    void endProductOrder(String orderId, String offerDid) throws ExecutionException, InterruptedException;
 
     Observable<ProductOrderUpdateEvent> productOrderObservable();
 

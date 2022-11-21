@@ -30,6 +30,7 @@ import net.corda.core.contracts.UniqueIdentifier;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import net.corda.core.messaging.CordaRPCOps;
+import net.corda.core.messaging.FlowHandle;
 import net.corda.core.node.services.Vault;
 import net.corda.core.node.services.vault.QueryCriteria;
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import org.threeten.bp.OffsetDateTime;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.dlt.corda.states.ProductOrder> implements ProductOrderDriver {
     private static final Logger log = LoggerFactory.getLogger(CordaProductOrderDriver.class);
@@ -260,10 +262,9 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
     }
 
     @Override
-    public void endProductOrder(String orderDid, String offerDid) {
-        rpcClient.startFlowDynamic(
-            EndProductOrderFlow.EndProductOrderInitiator.class,
-            orderDid, offerDid);
+    public void endProductOrder(String orderDid, String offerDid) throws ExecutionException, InterruptedException {
+        FlowHandle<UniqueIdentifier> uniqueIdentifierFlowHandle = rpcClient.startFlowDynamic(EndProductOrderFlow.EndProductOrderInitiator.class, orderDid, offerDid);
+        uniqueIdentifierFlowHandle.getReturnValue().toCompletableFuture().get();
     }
 
     @Override

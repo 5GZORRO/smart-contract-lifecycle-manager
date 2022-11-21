@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Tag(name = "Product Order")
 @RestController
@@ -97,11 +98,15 @@ public class ProductOrderController {
 
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
     @PutMapping("/{orderDid}/end")
-    public ResponseEntity<Boolean> endProductOrder(
+    public ResponseEntity<?> endProductOrder(
         @Valid @PathVariable("orderDid") @NotNull String orderDid,
         @Valid @RequestParam("offerDid") @NotNull String offerDid
     ) {
-        driver.endProductOrder(orderDid, offerDid);
+        try {
+            driver.endProductOrder(orderDid, offerDid);
+        } catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
         return ResponseEntity.ok().body(true);
     }
 
