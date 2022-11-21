@@ -24,12 +24,12 @@ import java.util.List;
 @StartableByRPC
 public class IssueDerivativeSpecTokenToHolderFlow extends ExtendedFlowLogic<SignedTransaction> {
 
-    private final String offerDid;
+    private final DerivativeSpecTokenType derivativeSpecTokenType;
     private final Party issuer;
     private final AbstractParty holder;
 
-    public IssueDerivativeSpecTokenToHolderFlow(String offerDid, Party issuer, AbstractParty holder) {
-        this.offerDid = offerDid;
+    public IssueDerivativeSpecTokenToHolderFlow(DerivativeSpecTokenType derivativeSpecTokenType, Party issuer, AbstractParty holder) {
+        this.derivativeSpecTokenType = derivativeSpecTokenType;
         this.issuer = issuer;
         this.holder = holder;
     }
@@ -37,19 +37,6 @@ public class IssueDerivativeSpecTokenToHolderFlow extends ExtendedFlowLogic<Sign
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        List<StateAndRef<DerivativeSpecTokenType>> states = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
-        DerivativeSpecTokenType derivativeSpecTokenType = null;
-        for (StateAndRef<DerivativeSpecTokenType> stateAndRef : states) {
-            derivativeSpecTokenType = stateAndRef.getState().getData();
-            if (derivativeSpecTokenType.getOfferDid().equals(offerDid) && derivativeSpecTokenType.isValid()) {
-                break;
-            } else {
-                derivativeSpecTokenType = null;
-            }
-        }
-        if (derivativeSpecTokenType == null) {
-            throw new FlowException("Valid DerivativeSpectokenType not found for offerDid " + offerDid);
-        }
         final TokenPointer<DerivativeSpecTokenType> derivativeSpecTokenTypeTokenPointer = derivativeSpecTokenType.toPointer(DerivativeSpecTokenType.class);
         final IssuedTokenType issuedDerivativeSpectoken = new IssuedTokenType(issuer, derivativeSpecTokenTypeTokenPointer);
         final NonFungibleToken derivativeSpectokenNft = new NonFungibleToken(issuedDerivativeSpectoken, holder, new UniqueIdentifier(), TransactionUtilitiesKt.getAttachmentIdForGenericParam(derivativeSpecTokenTypeTokenPointer));

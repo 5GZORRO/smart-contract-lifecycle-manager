@@ -1,7 +1,7 @@
 package eu._5gzorro.manager.service;
 
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
-import eu._5gzorro.tm_forum.models.spectoken.NftResponse;
+import eu._5gzorro.tm_forum.models.spectoken.PrimitiveSpectokenDto;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -10,9 +10,6 @@ import java.util.concurrent.ExecutionException;
 
 public interface PrimitiveSpectokenDriver {
 
-    /**
-     * API Endpoint for a provider to create a new Spectoken to the DLT
-     */
     void createPrimitiveSpectoken(
         @NotNull final Double startDl,
         @NotNull final Double endDl,
@@ -30,7 +27,11 @@ public interface PrimitiveSpectokenDriver {
 
     List<GetPrimitiveSpectokenResponse> getPrimitiveSpectokens() throws ExecutionException, InterruptedException;
 
-    List<String> invalidatePrimitiveSpectoken(String licenseId);
+    List<String> invalidatePrimitiveSpectoken(String licenseId) throws ExecutionException, InterruptedException;
 
-    List<NftResponse> getNfts();
+    boolean redeemPrimitiveSpectoken(String id, String issuerName) throws ExecutionException, InterruptedException;
+
+    boolean isPrimitiveSpectokenValid(String tokenTypeId);
+
+    List<PrimitiveSpectokenDto> getOwnValidPrimitiveSpectokens();
 }

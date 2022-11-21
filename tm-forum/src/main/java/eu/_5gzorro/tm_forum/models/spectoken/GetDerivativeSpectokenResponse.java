@@ -32,7 +32,9 @@ public class GetDerivativeSpectokenResponse {
 
     private final String offerDid;
 
-    public GetDerivativeSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, Float price, String primitiveId, String offerDid) {
+    private final boolean valid;
+
+    public GetDerivativeSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, Float price, String primitiveId, String offerDid, boolean valid) {
         this.id = id;
         this.startDl = startDl;
         this.endDl = endDl;
@@ -47,6 +49,7 @@ public class GetDerivativeSpectokenResponse {
         this.price = price;
         this.primitiveId = primitiveId;
         this.offerDid = offerDid;
+        this.valid = valid;
     }
 
     public String getId() {
@@ -105,4 +108,7 @@ public class GetDerivativeSpectokenResponse {
         return offerDid;
     }
 
+    public boolean isValid() {
+        return valid;
+    }
 }

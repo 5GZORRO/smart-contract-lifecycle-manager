@@ -3,6 +3,7 @@ package eu._5gzorro.manager.api.service.kafka;
 import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.domain.events.ProductOrderUpdateEvent;
+import eu._5gzorro.manager.exception.SpectokenException;
 import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
 import eu._5gzorro.manager.service.ProductOrderDriver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @ConditionalOnProperty("spring.kafka.enabled")
 @Service
@@ -56,7 +58,14 @@ public class ProductOrderKafkaService extends AbstractProducer<ProductOrderUpdat
 
                         if (productOrderUpdateEvent.isDeleted() && productOrderUpdateEvent.isSpectrum()) {
                             Optional<OrderOfferMapping> optionalOrderOfferMapping = orderOfferMappingRepository.findByOrderDid(productOrderUpdateEvent.getDid());
-                            optionalOrderOfferMapping.ifPresent(orderOfferMapping -> derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName()));
+                            optionalOrderOfferMapping.ifPresent(orderOfferMapping -> {
+                                try {
+                                    derivativeSpectokenDriver.redeemDerivativeSpectoken(orderOfferMapping.getOfferDid(), productOrderUpdateEvent.getSellerName(), true);
+                                } catch (ExecutionException | InterruptedException | SpectokenException e) {
+                                    log.info("RedeemDerivativeSpectoken ERROR: OfferDid " + orderOfferMapping.getOfferDid() + " SellerName "
+                                        + productOrderUpdateEvent.getSellerName() + " Message " + e.getMessage());
+                                }
+                            });
                         }
                     });
     }
