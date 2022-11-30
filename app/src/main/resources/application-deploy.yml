@@ -71,5 +71,5 @@ callbacks:
 
 cron:
   schedule:
-    dates: 0 0 1 ? * * *
-    nfts: 0 0 2 ? * * *
+    dates: 0 0 1 * * *
+    nfts: 0 0 2 * * *
