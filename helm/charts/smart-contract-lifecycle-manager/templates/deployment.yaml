@@ -87,6 +87,10 @@ spec:
           value: "{{ .Values.operatorName }}-{{ .Values.kafkaTopics.productOffer }}"
         - name: PRODUCT_ORDER_TOPIC
           value: "{{ .Values.operatorName }}-{{ .Values.kafkaTopics.productOrder }}"
+        - name: SCHEDULE_DATES_CHECK
+          value: "{{ .Values.cron.schedule.dates }}"
+        - name: SCHEDULE_NFTS_CHECK
+          value: "{{ .Values.cron.schedule.nfts }}"
         livenessProbe:
           httpGet:
             path: {{ .Values.probePath }}
