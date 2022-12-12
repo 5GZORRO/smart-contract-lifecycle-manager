@@ -165,7 +165,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         } else if (newDerivativeSpecTokenType.getEndDl().equals(existingDerivativeSpecTokenType.getStartDl())) {
             dlOverlap = true;
         } else {
-            dlOverlap = newDerivativeSpecTokenType.getStartDl() <= newDerivativeSpecTokenType.getEndDl();
+            dlOverlap = newDerivativeSpecTokenType.getStartDl() <= existingDerivativeSpecTokenType.getEndDl();
         }
 
         boolean ulOverlap;
@@ -174,7 +174,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         } else if (newDerivativeSpecTokenType.getEndUl().equals(existingDerivativeSpecTokenType.getStartUl())) {
             ulOverlap = true;
         } else {
-            ulOverlap = newDerivativeSpecTokenType.getStartUl() <= newDerivativeSpecTokenType.getEndUl();
+            ulOverlap = newDerivativeSpecTokenType.getStartUl() <= existingDerivativeSpecTokenType.getEndUl();
         }
 
         return dlOverlap || ulOverlap;
@@ -188,7 +188,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         } else if (newDerivativeSpecTokenType.getEndDate().equals(existingDerivativeSpecTokenType.getStartDate())) {
             timeOverlap = true;
         } else {
-            timeOverlap = newDerivativeSpecTokenType.getStartDate().before(newDerivativeSpecTokenType.getEndDate()) || newDerivativeSpecTokenType.getStartDate().equals(newDerivativeSpecTokenType.getEndDate());
+            timeOverlap = newDerivativeSpecTokenType.getStartDate().before(existingDerivativeSpecTokenType.getEndDate()) || newDerivativeSpecTokenType.getStartDate().equals(existingDerivativeSpecTokenType.getEndDate());
         }
         return timeOverlap;
     }

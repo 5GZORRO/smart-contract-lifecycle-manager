@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kotlin.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Tag(name = "Product Order")
 @RestController
@@ -97,11 +97,16 @@ public class ProductOrderController {
 
 
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "End product order")})
-    @PutMapping("/{orderId}/end")
-    public ResponseEntity<Boolean> endProductOrder(
-        @Valid @PathVariable("orderId") @NotNull String orderId, @Param("offerDId") @NotNull String offerDid) {
-        driver.endProductOrder(orderId, offerDid);
-
+    @PutMapping("/{orderDid}/end")
+    public ResponseEntity<?> endProductOrder(
+        @Valid @PathVariable("orderDid") @NotNull String orderDid,
+        @Valid @RequestParam("offerDid") @NotNull String offerDid
+    ) {
+        try {
+            driver.endProductOrder(orderDid, offerDid);
+        } catch (ExecutionException | InterruptedException e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
         return ResponseEntity.ok().body(true);
     }
 

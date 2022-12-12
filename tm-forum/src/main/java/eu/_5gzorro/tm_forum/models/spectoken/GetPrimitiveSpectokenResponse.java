@@ -30,7 +30,9 @@ public class GetPrimitiveSpectokenResponse {
 
     private final String license;
 
-    public GetPrimitiveSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, String ownerDid, String license) {
+    private final boolean valid;
+
+    public GetPrimitiveSpectokenResponse(String id, Double startDl, Double endDl, Double startUl, Double endUl, Date startDate, Date endDate, String duplexMode, Integer band, String technology, String country, String ownerDid, String license, boolean valid) {
         this.id = id;
         this.startDl = startDl;
         this.endDl = endDl;
@@ -44,6 +46,7 @@ public class GetPrimitiveSpectokenResponse {
         this.country = country;
         this.ownerDid = ownerDid;
         this.license = license;
+        this.valid = valid;
     }
 
     public String getId() {
@@ -99,4 +102,7 @@ public class GetPrimitiveSpectokenResponse {
         return license;
     }
 
+    public boolean isValid() {
+        return valid;
+    }
 }

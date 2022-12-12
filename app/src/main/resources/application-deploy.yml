@@ -68,3 +68,8 @@ callbacks:
   updateSLAIdentity: ${UPDATE_SLA_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/service-level-agreement/%s/identity}
   updateLicenseTerm: ${UPDATE_LICENSE_TERM_URL:http://localhost:8080/api/v1/license-term/%s/identity}
   updateAgreementIdentity: ${UPDATE_AGREEMENT_CALLBACK_URL:http://localhost:8087/smart-contract-lifecycle-manager/api/v1/agreement/%s/identity}
+
+cron:
+  schedule:
+    dates: ${SCHEDULE_DATES_CHECK:0 0 1 * * *}
+    nfts: ${SCHEDULE_NFTS_CHECK:0 0 2 * * *}

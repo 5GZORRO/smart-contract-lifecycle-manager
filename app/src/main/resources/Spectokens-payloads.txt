@@ -22,18 +22,23 @@ run vaultQuery contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOr
 run vaultQueryByCriteria criteria: { status: net.corda.core.node.services.Vault.StateStatus.ALL }, contractStateType: eu._5gzorro.manager.dlt.corda.states.ProductOrder
 
 {
-  "startDl": 2140,
-  "endDl": 2145,
-  "startUl": 1935,
-  "endUl": 1940,
-  "startDate": "2036-05-16T09:00:00.007Z",
-  "endDate": "2036-05-26T09:00:00.007Z",
-  "duplexMode": "FDD",
-  "band": 1,
+  "startDl": 3700,
+  "endDl": 3800,
+  "startUl": 3700,
+  "endUl": 3800,
+  "startDate": "2021-05-17T00:00:00.000+00:00",
+  "endDate": "2036-05-16T00:00:00.000+00:00",
+  "duplexMode": "TDD",
+  "band": 77,
   "technology": "5G",
-  "country": "Germany",
-  "ownerDid": "M10KauVlQwdMu7Ho9Wk5mp",
-  "license": "licencia1"
+  "country": "Spain",
+  "ownerDid": "V7GMvKbYXujtJhZwiBdxCu",
+  "license": "4vVX5mRvu3NMJNQtbRwLQB"
+}
+
+{
+  "offerDid": "BkS5zLjp38XZicd8ZeoJ1d",
+  "ownerDid": "X4a1JBQh1xYH3vi756N2P3"
 }
 
 {

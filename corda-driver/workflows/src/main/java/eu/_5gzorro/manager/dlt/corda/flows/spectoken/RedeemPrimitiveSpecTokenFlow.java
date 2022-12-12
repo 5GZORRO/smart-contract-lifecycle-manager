@@ -18,11 +18,11 @@ import java.util.List;
 @StartableByRPC
 public class RedeemPrimitiveSpecTokenFlow extends ExtendedFlowLogic<SignedTransaction> {
 
-    private final String licenseId;
+    private final String id;
     private final Party issuer;
 
-    public RedeemPrimitiveSpecTokenFlow(String licenseId, Party issuer) {
-        this.licenseId = licenseId;
+    public RedeemPrimitiveSpecTokenFlow(String id, Party issuer) {
+        this.id = id;
         this.issuer = issuer;
     }
 
@@ -35,13 +35,13 @@ public class RedeemPrimitiveSpecTokenFlow extends ExtendedFlowLogic<SignedTransa
         }
         PrimitiveSpecTokenType primitiveSpecTokenType = null;
         for (StateAndRef<PrimitiveSpecTokenType> primitiveSpecTokenTypeStateAndRef : states) {
-            if (licenseId.equals(primitiveSpecTokenTypeStateAndRef.getState().getData().getLicense())) {
+            if (id.equals(primitiveSpecTokenTypeStateAndRef.getState().getData().getLinearId().toString())) {
                 primitiveSpecTokenType = primitiveSpecTokenTypeStateAndRef.getState().getData();
                 break;
             }
         }
         if (primitiveSpecTokenType == null) {
-            throw new FlowException("Incorrect license DID.");
+            throw new FlowException("Incorrect id.");
         }
         TokenPointer<PrimitiveSpecTokenType> primitiveSpecTokenTypeTokenPointer = primitiveSpecTokenType.toPointer(PrimitiveSpecTokenType.class);
         return subFlow(new RedeemNonFungibleTokens(primitiveSpecTokenTypeTokenPointer, issuer));
