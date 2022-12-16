@@ -69,7 +69,7 @@ public class CheckValidityDatesTask {
                     if (!optionalOrderOfferMapping.isPresent()) {
                         throw new NoSuchElementException("Product Order not found in database (OrderOfferMapping).");
                     }
-                    derivativeSpectokenDriver.redeemDerivativeSpectoken(optionalOrderOfferMapping.get().getOfferDid(), productOrderDto.getSeller(), true);
+                    derivativeSpectokenDriver.redeemDerivativeSpectoken(optionalOrderOfferMapping.get().getOfferDid(), productOrderDto.getSeller(), true, null);
                 }
             }
 

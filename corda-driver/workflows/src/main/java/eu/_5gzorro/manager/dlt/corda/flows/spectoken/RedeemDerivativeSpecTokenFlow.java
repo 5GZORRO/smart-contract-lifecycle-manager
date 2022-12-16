@@ -20,10 +20,12 @@ public class RedeemDerivativeSpecTokenFlow extends ExtendedFlowLogic<SignedTrans
 
     private final String offerDid;
     private final Party issuer;
+    private final String derivativeId;
 
-    public RedeemDerivativeSpecTokenFlow(String offerDid, Party issuer) {
+    public RedeemDerivativeSpecTokenFlow(String offerDid, Party issuer, String derivativeId) {
         this.offerDid = offerDid;
         this.issuer = issuer;
+        this.derivativeId = derivativeId;
     }
 
     @Suspendable
@@ -34,12 +36,22 @@ public class RedeemDerivativeSpecTokenFlow extends ExtendedFlowLogic<SignedTrans
             throw new FlowException("Derivative Spectoken not found.");
         }
         DerivativeSpecTokenType derivativeSpecTokenType = null;
-        for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef : states) {
-            if (offerDid.equals(derivativeSpecTokenTypeStateAndRef.getState().getData().getOfferDid())) {
-                derivativeSpecTokenType = derivativeSpecTokenTypeStateAndRef.getState().getData();
-                break;
+        if (derivativeId == null) {
+            for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef : states) {
+                if (offerDid.equals(derivativeSpecTokenTypeStateAndRef.getState().getData().getOfferDid())) {
+                    derivativeSpecTokenType = derivativeSpecTokenTypeStateAndRef.getState().getData();
+                    break;
+                }
+            }
+        } else {
+            for (StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef : states) {
+                if (derivativeId.equals(derivativeSpecTokenTypeStateAndRef.getState().getData().getLinearId().toString())) {
+                    derivativeSpecTokenType = derivativeSpecTokenTypeStateAndRef.getState().getData();
+                    break;
+                }
             }
         }
+
         if (derivativeSpecTokenType == null) {
             throw new FlowException("Incorrect license DID.");
         }

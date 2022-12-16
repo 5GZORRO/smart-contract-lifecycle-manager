@@ -54,7 +54,7 @@ public class EndProductOrderFlow extends ExtendedFlowLogic<UniqueIdentifier> {
         subFlow(new FinalityFlow(signedTransaction, sessions));
 
         if (productOrder.getOfferType() == OfferType.SPECTRUM && getOurIdentity().equals(productOrder.getBuyer())) {
-            subFlow(new RedeemDerivativeSpecTokenFlow(offerDid, productOrder.getSeller()));
+            subFlow(new RedeemDerivativeSpecTokenFlow(offerDid, productOrder.getSeller(), null));
         }
 
         return prevStateAndRef.getState().getData().getLinearId();
