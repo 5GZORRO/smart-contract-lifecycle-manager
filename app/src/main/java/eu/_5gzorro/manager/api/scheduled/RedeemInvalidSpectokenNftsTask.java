@@ -46,7 +46,7 @@ public class RedeemInvalidSpectokenNftsTask {
                 } else if ("DerivativeSpecTokenType".equals(nftDto.getTokenType())) {
                     DerivativeSpectokenDto derivativeSpectokenDto = derivativeSpectokenDriver.getDerivativeSpectokenDto(nftDto.getTokenTypeId());
                     if (!derivativeSpectokenDto.isValid()) {
-                        redeemed = derivativeSpectokenDriver.redeemDerivativeSpectoken(derivativeSpectokenDto.getOfferDid(), nftDto.getIssuer(), false);
+                        redeemed = derivativeSpectokenDriver.redeemDerivativeSpectoken(derivativeSpectokenDto.getOfferDid(), nftDto.getIssuer(), false, derivativeSpectokenDto.getId());
                     }
                 } else {
                     log.error(nftDto.getTokenType() + " not found.");

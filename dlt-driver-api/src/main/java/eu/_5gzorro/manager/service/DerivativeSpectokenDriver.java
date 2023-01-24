@@ -20,7 +20,7 @@ public interface DerivativeSpectokenDriver {
 
     List<GetDerivativeSpectokenResponse> getDerivativeSpectokens() throws ExecutionException, InterruptedException;
 
-    boolean redeemDerivativeSpectoken(String offerDid, String sellerName, boolean needIssuedUpdate) throws ExecutionException, InterruptedException, SpectokenException;
+    boolean redeemDerivativeSpectoken(String offerDid, String sellerName, boolean needIssuedUpdate, String derivativeId) throws ExecutionException, InterruptedException, SpectokenException;
 
     DerivativeSpectokenDto getDerivativeSpectokenDto(String id);
 

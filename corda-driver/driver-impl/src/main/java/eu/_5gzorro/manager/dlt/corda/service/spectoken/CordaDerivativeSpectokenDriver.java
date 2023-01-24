@@ -142,9 +142,9 @@ public class CordaDerivativeSpectokenDriver extends RPCSyncService<DerivativeSpe
     }
 
     @Override
-    public boolean redeemDerivativeSpectoken(String offerDid, String sellerName, boolean needIssuedUpdate) throws ExecutionException, InterruptedException, SpectokenException {
+    public boolean redeemDerivativeSpectoken(String offerDid, String sellerName, boolean needIssuedUpdate, String derivativeId) throws ExecutionException, InterruptedException, SpectokenException {
         Party seller = rpcClient.wellKnownPartyFromX500Name(CordaX500Name.parse(sellerName));
-        FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller);
+        FlowHandle<SignedTransaction> signedTransactionFlowHandle = rpcClient.startFlowDynamic(RedeemDerivativeSpecTokenFlow.class, offerDid, seller, derivativeId);
         if (needIssuedUpdate) {
             StateAndRef<DerivativeSpecTokenType> derivativeSpecTokenTypeStateAndRef = getDerivativeStateAndRef(offerDid);
             rpcClient.startFlowDynamic(UpdateIssuedDerivativeSpectokensFlow.class, derivativeSpecTokenTypeStateAndRef, false);
