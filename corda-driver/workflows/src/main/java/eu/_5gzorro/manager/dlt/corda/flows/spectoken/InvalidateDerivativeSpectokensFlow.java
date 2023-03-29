@@ -28,9 +28,6 @@ public class InvalidateDerivativeSpectokensFlow extends ExtendedFlowLogic<List<S
     @Override
     public List<String> call() throws FlowException {
         List<StateAndRef<DerivativeSpecTokenType>> states = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
-        if (states.isEmpty()) {
-            throw new FlowException("Any Derivative Spectoken found.");
-        }
         DerivativeSpecTokenType derivativeSpecTokenType;
         List<Party> allOtherParties = getServiceHub()
             .getNetworkMapCache()
