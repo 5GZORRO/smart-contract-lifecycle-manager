@@ -98,10 +98,8 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
         List<StateAndRef<DerivativeSpecTokenType>> derivativeStateAndRefs = getServiceHub().getVaultService().queryBy(DerivativeSpecTokenType.class).getStates();
         for (StateAndRef<DerivativeSpecTokenType> existingDerivativeSpecTokenTypeStateAndRef : derivativeStateAndRefs) {
             DerivativeSpecTokenType existingDerivativeSpecTokenType = existingDerivativeSpecTokenTypeStateAndRef.getState().getData();
-            if (existingDerivativeSpecTokenType.isValid()) {
-                if (newDerivativeOverlapsExisting(derivativeSpecTokenType, existingDerivativeSpecTokenType)) {
-                    throw new FlowException("Derivative Spectoken data overlaps existing Derivative Spectoken");
-                }
+            if (existingDerivativeSpecTokenType.isValid() && newDerivativeOverlapsExisting(derivativeSpecTokenType, existingDerivativeSpecTokenType)) {
+                throw new FlowException("Derivative Spectoken data overlaps existing Derivative Spectoken");
             }
         }
 
@@ -151,14 +149,14 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
     }
 
     private boolean newDerivativeOverlapsExisting(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
-        if (thereIsFrequencyOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType)) {
-            return thereIsTimeOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType);
+        if (isThereFrequencyOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType)) {
+            return isThereTimeOverlap(newDerivativeSpecTokenType, existingDerivativeSpecTokenType);
         } else {
             return false;
         }
     }
 
-    private boolean thereIsFrequencyOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
+    private boolean isThereFrequencyOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
         boolean dlOverlap;
         if (newDerivativeSpecTokenType.getEndDl() < existingDerivativeSpecTokenType.getStartDl()) {
             dlOverlap = false;
@@ -181,7 +179,7 @@ public class CreateDerivativeSpecTokenTypeFromOfferFlow extends ExtendedFlowLogi
 
     }
 
-    private boolean thereIsTimeOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
+    private boolean isThereTimeOverlap(DerivativeSpecTokenType newDerivativeSpecTokenType, DerivativeSpecTokenType existingDerivativeSpecTokenType) {
         boolean timeOverlap;
         if (newDerivativeSpecTokenType.getEndDate().before(existingDerivativeSpecTokenType.getStartDate())) {
             timeOverlap = false;
