@@ -147,7 +147,7 @@ public class SpectokenController {
             description = "Redeem primitive Spectoken"
         )
     })
-    @PutMapping("primitive/redeem")
+    @PutMapping("primitive/redeem/{licenseDid}")
     public ResponseEntity<?> invalidatePrimitiveSpectoken(@Valid @RequestParam("licenseDid") @NotNull String licenseDid) {
         List<String> offerDids;
         try {
