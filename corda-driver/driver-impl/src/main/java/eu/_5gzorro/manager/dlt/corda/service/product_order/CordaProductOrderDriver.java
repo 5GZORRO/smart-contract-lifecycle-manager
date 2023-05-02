@@ -253,7 +253,8 @@ public class CordaProductOrderDriver extends RPCSyncService<eu._5gzorro.manager.
                 invitations,
                 orderDetails.getProductOrder(),
                 orderDetails.getSupplierDid(),
-                orderDetails.getOrderDid());
+                orderDetails.getOrderDid()
+            );
 
         log.info("Starting Publish flow for Product Order {}.", orderDetails.getProductOrder().getId());
 

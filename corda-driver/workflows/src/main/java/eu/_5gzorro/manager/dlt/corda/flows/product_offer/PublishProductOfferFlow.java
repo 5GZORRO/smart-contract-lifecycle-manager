@@ -2,7 +2,7 @@ package eu._5gzorro.manager.dlt.corda.flows.product_offer;
 
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.contracts.ProductOfferingContract.ProductOfferingCommand.Publish;
-import eu._5gzorro.manager.dlt.corda.flows.governance.GatherGovernanceSignatureFlow;
+import eu._5gzorro.manager.dlt.corda.flows.regulator.GatherRegulatorSignatureFlow;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
 import eu._5gzorro.manager.dlt.corda.states.ProductOffering;
 import net.corda.core.contracts.Command;
@@ -43,11 +43,11 @@ public class PublishProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier>
 
     // Signing the transaction.
     SignedTransaction signedTx = getServiceHub().signInitialTransaction(txBuilder);
-    // TODO gather regulator signatures
-    SignedTransaction fullySignedTx
-        = subFlow(new GatherGovernanceSignatureFlow(signedTx, productOffering.getGovernanceParty()));
+    if (productOffering.getSpectrumOracle() != null) {
+      signedTx = subFlow(new GatherRegulatorSignatureFlow(signedTx, productOffering.getSpectrumOracle()));
+    }
 
-    subFlow(new FinalityFlow(fullySignedTx, otherParties));
+    subFlow(new FinalityFlow(signedTx, otherParties));
 
     return productOffering.getLinearId();
   }

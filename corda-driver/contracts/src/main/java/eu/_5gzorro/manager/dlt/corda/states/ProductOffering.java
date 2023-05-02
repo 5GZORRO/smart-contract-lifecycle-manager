@@ -25,8 +25,7 @@ public class ProductOffering extends PublicState {
   private Collection<VerifiableCredential> verifiableCredentials;
   private ProductOfferDetails offerDetails;
 
-  private final Party governanceParty;
-  private final Party spectrumOracle;
+  private Party spectrumOracle;
 
   public ProductOffering(
       @NotNull UniqueIdentifier id,
@@ -35,7 +34,6 @@ public class ProductOffering extends PublicState {
       @NotNull Party owner,
       Map<String, Invitation> didInvitations,
       Collection<VerifiableCredential> verifiableCredentials,
-      @NotNull Party governanceParty,
       Party spectrumOracle,
       @NotNull ProductOfferDetails offerDetails
   ) {
@@ -45,7 +43,6 @@ public class ProductOffering extends PublicState {
     this.verifiableCredentials = verifiableCredentials;
     this.offerDetails = offerDetails;
     this.didInvitations = didInvitations;
-    this.governanceParty = governanceParty;
     this.spectrumOracle = spectrumOracle;
   }
 
@@ -70,8 +67,9 @@ public class ProductOffering extends PublicState {
     return didInvitations;
   }
 
-  public Party getGovernanceParty() {
-    return governanceParty;
+  public ProductOffering setSpectrumOracle(Party spectrumOracle) {
+    this.spectrumOracle = spectrumOracle;
+    return this;
   }
 
   public Party getSpectrumOracle() {
@@ -105,7 +103,7 @@ public class ProductOffering extends PublicState {
   @NotNull
   @Override
   public List<AbstractParty> getParticipants() {
-    List<AbstractParty> parties = Arrays.asList(super.getOwner(), governanceParty);
+    List<AbstractParty> parties = Arrays.asList(super.getOwner());
 
     if(offerType == OfferType.SPECTRUM) {
       parties.add(spectrumOracle);
@@ -133,16 +131,8 @@ public class ProductOffering extends PublicState {
     if (!Objects.equals(getOwner().getOwningKey(), offering.getOwner().getOwningKey())) {
       return false;
     }
-    if (!Objects.equals(governanceParty.getOwningKey(), offering.governanceParty.getOwningKey())) {
-      return false;
-    }
 
-    if(offerType == OfferType.SPECTRUM && //NOSONAR
-        !Objects.equals(spectrumOracle.getOwningKey(), offering.spectrumOracle.getOwningKey())) {
-      return false;
-    }
-
-    return true;
+    return offerType != OfferType.SPECTRUM || Objects.equals(spectrumOracle.getOwningKey(), offering.spectrumOracle.getOwningKey());
   }
 
   public ProductOffering copy() {
@@ -153,7 +143,6 @@ public class ProductOffering extends PublicState {
         getOwner(),
         didInvitations,
         verifiableCredentials,
-        governanceParty,
         spectrumOracle,
         offerDetails
     );

@@ -74,8 +74,7 @@ public class RetireProductOfferFlow extends ExtendedFlowLogic<UniqueIdentifier> 
               .collect(Collectors.toList())
       );
 
-      StateAndRef<ProductOffering> prevStateAndRef
-          = findOfferByDid(ProductOffering.class, offeringDid);
+      StateAndRef<ProductOffering> prevStateAndRef = findOfferByDid(ProductOffering.class, offeringDid);
 
       return subFlow(new RetireProductOfferFlow(prevStateAndRef, allOtherParties));
     }

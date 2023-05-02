@@ -1,4 +1,4 @@
-package eu._5gzorro.manager.dlt.corda.flows.governance;
+package eu._5gzorro.manager.dlt.corda.flows.regulator;
 
 import co.paralleluniverse.fibers.Suspendable;
 import eu._5gzorro.manager.dlt.corda.flows.utils.ExtendedFlowLogic;
@@ -11,15 +11,15 @@ import java.util.Collections;
 import static net.corda.core.contracts.ContractsDSL.requireThat;
 
 @InitiatingFlow
-public class GatherGovernanceSignatureFlow extends ExtendedFlowLogic<SignedTransaction> {
+public class GatherRegulatorSignatureFlow extends ExtendedFlowLogic<SignedTransaction> {
   private final SignedTransaction partiallySignedTx;
-  private final Party governanceParty;
+  private final Party regulatorParty;
 
-  public GatherGovernanceSignatureFlow(
+  public GatherRegulatorSignatureFlow(
       SignedTransaction partiallySignedTx,
-      Party governanceParty) {
+      Party regulatorParty) {
     this.partiallySignedTx = partiallySignedTx;
-    this.governanceParty = governanceParty;
+    this.regulatorParty = regulatorParty;
   }
 
   @Suspendable
@@ -27,16 +27,16 @@ public class GatherGovernanceSignatureFlow extends ExtendedFlowLogic<SignedTrans
   public SignedTransaction call() throws FlowException {
     return subFlow(new CollectSignaturesFlow(
         partiallySignedTx,
-        Collections.singletonList(initiateFlow(governanceParty)))
+        Collections.singletonList(initiateFlow(regulatorParty)))
     );
   }
 
-  @InitiatedBy(GatherGovernanceSignatureFlow.class)
-  public static class GatherGovernanceSignatureResponder extends ExtendedFlowLogic<SignedTransaction> {
+  @InitiatedBy(GatherRegulatorSignatureFlow.class)
+  public static class GatherRegulatorSignatureResponder extends ExtendedFlowLogic<SignedTransaction> {
 
     private final FlowSession counterPartySession;
 
-    public GatherGovernanceSignatureResponder(FlowSession counterPartySession) {
+    public GatherRegulatorSignatureResponder(FlowSession counterPartySession) {
       this.counterPartySession = counterPartySession;
     }
 
@@ -48,7 +48,7 @@ public class GatherGovernanceSignatureFlow extends ExtendedFlowLogic<SignedTrans
         protected void checkTransaction(SignedTransaction stx) throws FlowException {
           requireThat(require -> {
             require.using("Signed everything for now", true);
-            // TODO perform necessary checks by governance node
+            // TODO perform necessary checks by regulator node
             return null;
           });
         }
