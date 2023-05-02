@@ -5,10 +5,7 @@ import eu._5gzorro.manager.api.dto.requests.IssueDerivativeSpectokenRequest;
 import eu._5gzorro.manager.api.model.entity.OrderOfferMapping;
 import eu._5gzorro.manager.api.repository.OrderOfferMappingRepository;
 import eu._5gzorro.manager.exception.SpectokenException;
-import eu._5gzorro.manager.service.DerivativeSpectokenDriver;
-import eu._5gzorro.manager.service.PrimitiveSpectokenDriver;
-import eu._5gzorro.manager.service.ProductOrderDriver;
-import eu._5gzorro.manager.service.SpectokenNftDriver;
+import eu._5gzorro.manager.service.*;
 import eu._5gzorro.tm_forum.models.spectoken.GetDerivativeSpectokenResponse;
 import eu._5gzorro.tm_forum.models.spectoken.GetPrimitiveSpectokenResponse;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,15 +30,17 @@ public class SpectokenController {
     private final DerivativeSpectokenDriver derivativeSpectokenDriver;
     private final SpectokenNftDriver spectokenNftDriver;
     private final ProductOrderDriver productOrderDriver;
+    private final ProductOfferingDriver productOfferingDriver;
 
     @Autowired
     private OrderOfferMappingRepository orderOfferMappingRepository;
 
-    public SpectokenController(PrimitiveSpectokenDriver primitiveSpectokenDriver, DerivativeSpectokenDriver derivativeSpectokenDriver, SpectokenNftDriver spectokenNftDriver, ProductOrderDriver productOrderDriver) {
+    public SpectokenController(PrimitiveSpectokenDriver primitiveSpectokenDriver, DerivativeSpectokenDriver derivativeSpectokenDriver, SpectokenNftDriver spectokenNftDriver, ProductOrderDriver productOrderDriver, ProductOfferingDriver productOfferingDriver) {
         this.primitiveSpectokenDriver = primitiveSpectokenDriver;
         this.derivativeSpectokenDriver = derivativeSpectokenDriver;
         this.spectokenNftDriver = spectokenNftDriver;
         this.productOrderDriver = productOrderDriver;
+        this.productOfferingDriver = productOfferingDriver;
     }
 
     @ApiResponses(value = {
@@ -153,6 +152,7 @@ public class SpectokenController {
         try {
             offerDids = primitiveSpectokenDriver.invalidatePrimitiveSpectoken(licenseDid);
             for (String offerDId : offerDids) {
+                productOfferingDriver.removeProductOffer(offerDId);
                 List<OrderOfferMapping> orderOfferMappings = orderOfferMappingRepository.findByOfferDid(offerDId);
                 for (OrderOfferMapping orderOfferMapping : orderOfferMappings) {
                     productOrderDriver.endProductOrder(orderOfferMapping.getOrderDid(), offerDId);

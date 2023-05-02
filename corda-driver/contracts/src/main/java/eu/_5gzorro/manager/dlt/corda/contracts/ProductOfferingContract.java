@@ -67,10 +67,10 @@ public class ProductOfferingContract implements Contract {
 
       ProductOffering oldOffering = (ProductOffering) tx.getInputs().get(0).getState().getData();
 
-      requirements.using(
-          "Owner has signed",
-          signers.contains(oldOffering.getOwner().getOwningKey())
-      );
+//      requirements.using(
+//          "Owner has signed",
+//          signers.contains(oldOffering.getOwner().getOwningKey())
+//      );
       return null;
     });
   }

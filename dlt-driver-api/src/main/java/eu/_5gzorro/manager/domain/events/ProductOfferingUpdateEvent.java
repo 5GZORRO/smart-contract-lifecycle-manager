@@ -28,6 +28,7 @@ public class ProductOfferingUpdateEvent {
 
   private UpdateType updateType;
   private String deduplicationId;
+  private boolean deleted;
 
   public String getIdentifier() {
     return identifier;
@@ -139,6 +140,15 @@ public class ProductOfferingUpdateEvent {
     return this;
   }
 
+  public ProductOfferingUpdateEvent setDeleted(boolean deleted) {
+    this.deleted = deleted;
+    return this;
+  }
+
+  public boolean isDeleted() {
+    return deleted;
+  }
+
   @Override
   public String toString() {
     return "ProductOfferingUpdateEvent{" +
@@ -154,6 +164,7 @@ public class ProductOfferingUpdateEvent {
         ", geographicAddresses=" + geographicAddresses +
         ", updateType=" + updateType +
         ", deduplicationId='" + deduplicationId + '\'' +
+        ", deleted=" + deleted +
         '}';
   }
 }

@@ -58,10 +58,7 @@ public class ProductOfferingController {
     })
     @DeleteMapping("/{offerId}")
     public ResponseEntity<Boolean> removeProductOffering(@PathVariable("offerId") String offerId) {
-        driver.removeProductOffer(
-            offerId,
-            null
-        );
+        driver.removeProductOffer(offerId);
         return ResponseEntity.ok().body(true);
     }
 

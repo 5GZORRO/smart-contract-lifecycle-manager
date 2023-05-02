@@ -53,10 +53,7 @@ public interface ProductOfferingDriver {
      * @param identityCredential is required for each call to identify the calling parties identity and
      *                           ensure they have permission to perform action
      */
-    void removeProductOffer(
-        String offerId,
-        VerifiableCredential identityCredential
-    );
+    void removeProductOffer(String offerId);
 
     Observable<ProductOfferingUpdateEvent> productOfferObservable();
 }
