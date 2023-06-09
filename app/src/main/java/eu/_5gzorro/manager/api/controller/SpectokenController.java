@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -159,7 +160,7 @@ public class SpectokenController {
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
-            return ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
         }
         return ResponseEntity.ok().body(true);
     }
